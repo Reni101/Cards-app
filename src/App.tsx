@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Navigate, Route, Routes} from "react-router-dom";
+import {LoginPage} from "./pages/LoginPage";
+import {NotFoundPage} from "./pages/NotFoundPage";
+import {EnteringNewPassword} from "./pages/EnteringNewPassword";
+import {PasswordRecoveryPage} from "./pages/PasswordRecoveryPage";
+import {ProfilePage} from "./pages/ProfilePage";
+import {RegistrationPage} from "./pages/RegistrationPage";
+import {TestPage} from "./pages/TestPage";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <Routes>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/notFound' element={<NotFoundPage/>}/>
+                <Route path='/newPassword' element={<EnteringNewPassword/>}/>
+                <Route path='/PasswordRecovery' element={<PasswordRecoveryPage/>}/>
+                <Route path='/profile' element={<ProfilePage/>}/>
+                <Route path='/registration' element={<RegistrationPage/>}/>
+                <Route path='/test' element={<TestPage/>}/>
+                <Route path="*" element={<Navigate to='/notFound'/>}/>
+
+            </Routes>
+        </>
+    );
 }
 
 export default App;
