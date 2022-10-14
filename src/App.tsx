@@ -8,12 +8,15 @@ import {PasswordRecoveryPage} from "./pages/PasswordRecoveryPage";
 import {ProfilePage} from "./pages/ProfilePage";
 import {RegistrationPage} from "./pages/RegistrationPage";
 import {TestPage} from "./pages/TestPage";
+import {Headers} from "./pages/Headers";
 
 
 function App() {
     return (
         <>
+            <Headers/>
             <Routes>
+
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/notFound' element={<NotFoundPage/>}/>
                 <Route path='/newPassword' element={<EnteringNewPassword/>}/>
@@ -21,7 +24,7 @@ function App() {
                 <Route path='/profile' element={<ProfilePage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/test' element={<TestPage/>}/>
-                <Route path="*" element={<Navigate to='/notFound'/>}/>
+                 <Route path="*" element={<Navigate to='/notFound'/>}/>
 
             </Routes>
         </>
