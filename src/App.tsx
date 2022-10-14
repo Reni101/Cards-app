@@ -16,7 +16,6 @@ function App() {
         <>
             <Headers/>
             <Routes>
-
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/notFound' element={<NotFoundPage/>}/>
                 <Route path='/newPassword' element={<EnteringNewPassword/>}/>
@@ -24,7 +23,7 @@ function App() {
                 <Route path='/profile' element={<ProfilePage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/test' element={<TestPage/>}/>
-                 <Route path="*" element={<Navigate to='/notFound'/>}/>
+                <Route path="*" element={<Navigate to='/notFound'/>}/>
 
             </Routes>
         </>
