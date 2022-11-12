@@ -8,7 +8,7 @@ export const ProfilePage = () => {
             <div className={styleProfile.wrapper}>
                 <h2 className={styleProfile.title}>Personal Information</h2>
 
-                <img src="" alt=""/>
+                <img src="" alt="avatar"/>
                 <div>Name</div>
                 <div>email</div>
 

@@ -17,10 +17,14 @@ div .back_link {
 .wrapper {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
     width: 413px;
     height: 408px;
     border: 1px solid #3D3D3D;
     margin: 60px auto;
 
+}
+.wrapper button{
+    width:127px ;
+    height:36px ;
 }
