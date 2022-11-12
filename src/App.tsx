@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {LoginPage} from "./pages/LoginPage";
-import {NotFoundPage} from "./pages/NotFoundPage";
-import {EnteringNewPassword} from "./pages/EnteringNewPassword";
-import {PasswordRecoveryPage} from "./pages/PasswordRecoveryPage";
-import {ProfilePage} from "./pages/ProfilePage";
-import {RegistrationPage} from "./pages/RegistrationPage";
-import {TestPage} from "./pages/TestPage";
-import {Headers} from "./pages/Headers";
+import {LoginPage} from "./pages/login/LoginPage";
+import {NotFoundPage} from "./pages/notFoudPage/NotFoundPage";
+import {EnteringNewPassword} from "./pages/enteringNewPassword/EnteringNewPassword";
+import {PasswordRecoveryPage} from "./pages/passwordRecoveryPage/PasswordRecoveryPage";
+import {ProfilePage} from "./pages/profilePage/ProfilePage";
+import {RegistrationPage} from "./pages/registrationPage/RegistrationPage";
+import {TestPage} from "./pages/testPage/TestPage";
+import {Headers} from "./pages/headers/Headers";
 
 
 function App() {
