@@ -1,0 +1,10 @@
+div .back_link {
+    margin-top: 24px;
+    margin-left: 168px;
+}
+
+.back_link {
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none
+}
