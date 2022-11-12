@@ -1,3 +1,9 @@
+.ProfilePage {
+    height: 100vh;
+    background-color: #F9F9FA;
+
+}
+
 div .back_link {
     margin-top: 24px;
     margin-left: 168px;
@@ -7,4 +13,14 @@ div .back_link {
     color: #000000;
     font-size: 14px;
     text-decoration: none
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 413px;
+    height: 408px;
+    border: 1px solid #3D3D3D;
+    margin: 60px auto;
+
 }
