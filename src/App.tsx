@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {LoginPage} from "./pages/login/LoginPage";
@@ -12,6 +12,19 @@ import {Headers} from "./pages/headers/Headers";
 
 
 function App() {
+    useEffect(() => {
+        //dispatch(initializeAppTC()) написать санку, которая
+        // будет проверять инициализацию и если да => сетать что придет из респонса(профаил)
+    }, [])
+
+    if (false) {//!isInitialized пока не прошла инициализация показывать крутилку
+        return <div
+          >
+
+        </div>
+    }
+    // если инициализация провалилась => редирект на логин
+
     return (
         <>
             <Headers/>
