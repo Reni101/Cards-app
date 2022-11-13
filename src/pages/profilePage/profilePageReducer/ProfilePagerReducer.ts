@@ -4,7 +4,7 @@ import axios, {AxiosError} from "axios";
 
 
 const initialState = {
-    profileName: "Maxim"
+    name: "Maxim"
 }
 
 type InitialStateType = typeof initialState
@@ -12,7 +12,7 @@ type InitialStateType = typeof initialState
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
     switch (action.type) {
         case 'SET_PROFILE_NAME':
-            return {...state, profileName: action.name}
+            return {...state, name: action.name}
         default:
             return state
     }
@@ -49,3 +49,18 @@ export const editProfileNameTC = (newName: string): AppThunk => async dispatch =
 export type ActionsProfileType =
     | ReturnType<typeof editProfileNameAC>
 
+export type ProfileType = {
+    _id: string,
+    email: string,
+    rememberMe: boolean,
+    isAdmin: boolean,
+    name: string,
+    verified: boolean,
+    publicCardPacksCount: number,
+    created: string,
+    updated: string,
+    __v: number,
+    token: string,
+    tokenDeathTime: number,
+    avatar: null | string
+}

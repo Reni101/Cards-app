@@ -10,7 +10,7 @@ type PropsType = {
     NickName: string
 }
 export const EditProfileName: FC<PropsType> = ({NickName}) => {
-    const [Name, setName] = useState<string  >(NickName)// приходит из пропсов
+    const [Name, setName] = useState<string>(NickName)// приходит из пропсов
     const [editMode, setEditMode] = useState(false)
     const dispatch = useAppDispatch()
 
@@ -20,6 +20,7 @@ export const EditProfileName: FC<PropsType> = ({NickName}) => {
     }
     const Handler = () => {
         dispatch(editProfileNameTC(Name))
+
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)
@@ -30,7 +31,7 @@ export const EditProfileName: FC<PropsType> = ({NickName}) => {
         <div>
             {editMode ? <div className={styleEditProfile.EditNickName}>
                     <TextField label="Nickname"
-                               style={{margin: "30px", width: "300px"}}
+                               style={{marginTop: "30.5px", width: "300px"}}
                                variant="standard"
                                autoFocus
                                onChange={onChangeHandler}
@@ -40,7 +41,7 @@ export const EditProfileName: FC<PropsType> = ({NickName}) => {
                     <Button size="small" onMouseDown={Handler} variant="contained">SAVE</Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{NickName} <EditIcon onClick={setEditModeHandler}/></div>}
+                : <div className={styleEditProfile.Name}>{NickName} <EditIcon onClick={setEditModeHandler} /></div>}
         </div>
     );
 };
