@@ -26,10 +26,11 @@ export const editProfileNameAC = (name: string) => ({
 
 //==============================TC============================
 
-export const editProfileNameTC = (newName: string): AppThunk => async dispatch => {
+export const editProfileNameTC = (newName: string):AppThunk => async dispatch => {
     try {
         const res = await profilePageAPI.editProfileName(newName)
         dispatch(editProfileNameAC(res.data.updatedUser.name))
+
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
