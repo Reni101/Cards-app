@@ -3,17 +3,17 @@
     background-color: #F9F9FA;
 
 }
+.Link_block{
+    padding-top: 24px;
+}
 
-div .back_link {
-    margin-top: 24px;
+.Link_block a {
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
     margin-left: 168px;
 }
 
-.back_link {
-    color: #000000;
-    font-size: 14px;
-    text-decoration: none
-}
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -21,10 +21,16 @@ div .back_link {
     width: 413px;
     height: 408px;
     border: 1px solid #3D3D3D;
-    margin: 60px auto;
+    margin: 36px auto;
 
 }
-.wrapper button{
-    width:127px ;
-    height:36px ;
+.wrapper img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #61dafb;
+}
+.wrapper .LogOut {
+    width: 127px;
+    height: 36px;
 }

@@ -5,6 +5,8 @@ import {Navigate} from "react-router-dom";
 import {EditProfileName} from "./EditProfileName/editProfileName";
 
 export const ProfilePage = () => {
+
+
     const dispatch = useAppDispatch()
     useEffect(() => {
         if (false) { //!loggedIn
@@ -18,15 +20,14 @@ export const ProfilePage = () => {
     }
     return (
         <div className={styleProfile.ProfilePage}>
-            <div><a href="/" className={styleProfile.back_link}> Back to Packs List</a></div>
+            <div className={styleProfile.Link_block}><a href="/"> Back to Packs List</a></div>
             <div className={styleProfile.wrapper}>
                 <h2 className={styleProfile.title}>Personal Information</h2>
-
-                <img src="" alt="avatar"/>
+                <img src="" alt=""/>
                 <EditProfileName/>
                 <div>email</div>
 
-                <button>Log out</button>
+                <button className={styleProfile.LogOut}>Log out</button>
 
 
             </div>

@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 export const Headers = () => {
     return (
         <div>
-            <div className={"HeaderBox"}>
+            <div className={"HeaderBox"} style={{height:"60px"}}>
                 <NavLink to={"/login"}> login</NavLink>
                 <NavLink to={"/notFound"}> notFound</NavLink>
                 <NavLink to={"/newPassword"}> newPassword</NavLink>
