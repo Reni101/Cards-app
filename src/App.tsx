@@ -37,8 +37,8 @@ function App() {
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/test' element={<TestPage/>}/>
                 <Route path="*" element={<Navigate to='/notFound'/>}/>
-
             </Routes>
+
         </>
     );
 }

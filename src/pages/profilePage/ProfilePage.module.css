@@ -14,6 +14,7 @@ div .back_link {
     font-size: 14px;
     text-decoration: none
 }
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -24,7 +25,8 @@ div .back_link {
     margin: 60px auto;
 
 }
-.wrapper button{
-    width:127px ;
-    height:36px ;
+
+.wrapper button {
+    width: 127px;
+    height: 36px;
 }
