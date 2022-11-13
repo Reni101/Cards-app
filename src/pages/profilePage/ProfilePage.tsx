@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import styleProfile from './ProfilePage.module.css'
 import {useAppDispatch} from "../../hooks/hooks";
 import {Navigate} from "react-router-dom";
+import {EditProfileName} from "./EditProfileName/editProfileName";
 
 export const ProfilePage = () => {
     const dispatch = useAppDispatch()
@@ -22,7 +23,7 @@ export const ProfilePage = () => {
                 <h2 className={styleProfile.title}>Personal Information</h2>
 
                 <img src="" alt="avatar"/>
-                <div>Name</div>
+                <EditProfileName/>
                 <div>email</div>
 
                 <button>Log out</button>

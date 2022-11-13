@@ -1,7 +1,9 @@
 import {AppThunk} from "../../../Redux/Store";
 
 
-const initialState = {}
+const initialState = {
+    profileName: ""
+}
 
 type InitialStateType = typeof initialState
 
@@ -22,7 +24,7 @@ export const AC = () => ({
 
 //==============================TC============================
 
-export const TC = (): AppThunk => async dispatch => {
+export const editProfileNameTC = (): AppThunk => async dispatch => {
 
 }
 
