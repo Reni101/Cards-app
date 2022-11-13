@@ -4,7 +4,7 @@ import axios, {AxiosError} from "axios";
 
 
 const initialState = {
-    profileName: null as null | string
+    profileName: "Maxim"
 }
 
 type InitialStateType = typeof initialState

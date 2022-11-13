@@ -28,7 +28,7 @@ export type updatedUserResponse = {
 }
 
 export const profilePageAPI = {
-    editProfileName(name: string) {//потом исправить
+    editProfileName(name: string | null) {//потом исправить
         return instance.put<ResponseType>("/auth/me", {name})
     }
 }

@@ -1,6 +1,6 @@
 .Name {
     font-size: 20px;
-    margin: 35px 10px 44px;
+    margin: 35px 10px 43px;
 }
 
 .EditNickName {
@@ -8,7 +8,10 @@
 }
 
 .EditNickName button {
+    position: absolute;
+    top: 50px;
+    right: 30px;
     width: 52px;
     height: 24px;
-    top: 50px;
+
 }
