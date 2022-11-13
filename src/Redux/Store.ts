@@ -1,6 +1,7 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsType, Reducer} from "./EmptyReducer";
+import {ActionsProfileType} from "../pages/profilePage/profilePageReducer/ProfilePagerRedicer";
 
 
 const rootReducer = combineReducers({
@@ -11,7 +12,7 @@ export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-export type AllAppActionsType = ActionsType
+export type AllAppActionsType = ActionsType | ActionsProfileType
 
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>
