@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useAppDispatch} from "../../../hooks/hooks";
-import {editProfileNameTC} from "../profilePageReducer/ProfilePagerRedicer";
+import {editProfileNameTC} from "../profilePageReducer/ProfilePagerReducer";
 
 export const EditProfileName = () => {
     const [Name, setName] = useState<string>("props name" )// приходит из пропсов

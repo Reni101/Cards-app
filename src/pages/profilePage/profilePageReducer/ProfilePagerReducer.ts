@@ -26,7 +26,7 @@ export const editProfileNameAC = (name: string) => ({
 
 //==============================TC============================
 
-export const editProfileNameTC = (newName: string):AppThunk => async dispatch => {
+export const editProfileNameTC = (newName: string): AppThunk => async dispatch => {
     try {
         const res = await profilePageAPI.editProfileName(newName)
         dispatch(editProfileNameAC(res.data.updatedUser.name))
@@ -35,11 +35,12 @@ export const editProfileNameTC = (newName: string):AppThunk => async dispatch =>
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-           // dispatch(setAppErrorAC(error)) диспатчим ошибку
+            // dispatch(setAppErrorAC(error)) диспатчим ошибку
         } else {
             //dispatch(setAppErrorAC(`Native error ${err.message}`))
         }
     }
+
 }
 
 
