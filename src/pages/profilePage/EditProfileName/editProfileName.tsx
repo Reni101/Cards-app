@@ -7,10 +7,10 @@ import {Button, TextField} from "@mui/material";
 
 
 type PropsType = {
-    NickName: string
+    profileName: string
 }
-export const EditProfileName: FC<PropsType> = ({NickName}) => {
-    const [Name, setName] = useState<string>(NickName)// приходит из пропсов
+export const EditProfileName: FC<PropsType> = ({profileName}) => {
+    const [Name, setName] = useState<string>(profileName)// приходит из пропсов
     const [editMode, setEditMode] = useState(false)
     const dispatch = useAppDispatch()
 
@@ -41,7 +41,7 @@ export const EditProfileName: FC<PropsType> = ({NickName}) => {
                     <Button size="small" onMouseDown={Handler} variant="contained">SAVE</Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{NickName} <EditIcon onClick={setEditModeHandler} /></div>}
+                : <div className={styleEditProfile.Name}>{profileName} <EditIcon onClick={setEditModeHandler} /></div>}
         </div>
     );
 };

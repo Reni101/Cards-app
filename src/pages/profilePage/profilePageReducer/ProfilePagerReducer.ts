@@ -23,7 +23,7 @@ type InitialStateType = typeof initialState
 
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
     switch (action.type) {
-        case 'SET_PROFILE_NAME':
+        case 'PROFILE_PAGE_CHANGE_PROFILE_NAME':
             return {...state, name: action.name,}
         default:
             return state
@@ -31,7 +31,7 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
 }
 //=============================AC======================================
 export const editProfileNameAC = (name: string) => ({
-    type: 'SET_PROFILE_NAME',
+    type: 'PROFILE_PAGE_CHANGE_PROFILE_NAME',
     name
 } as const)
 

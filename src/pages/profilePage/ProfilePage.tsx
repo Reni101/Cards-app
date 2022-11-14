@@ -30,7 +30,7 @@ export const ProfilePage = () => {
             <div className={styleProfile.wrapper}>
                 <h2 className={styleProfile.title}>Personal Information</h2>
                 <img src={avatar ? avatar : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>
-                <EditProfileName NickName={profileName}/>
+                <EditProfileName profileName={profileName}/>
                 <div className={styleProfile.Email}>{email}</div>
 
                 <button className={styleProfile.LogOut}><LogoutIcon/> Log out</button>
