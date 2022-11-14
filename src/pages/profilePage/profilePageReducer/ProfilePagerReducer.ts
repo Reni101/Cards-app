@@ -4,7 +4,19 @@ import axios, {AxiosError} from "axios";
 
 
 const initialState = {
-    name: "Maxim"
+    _id: "6370a0a88059f7000461631d",
+    email: "maximor-2008@tut.by",
+    rememberMe: true,
+    isAdmin: false,
+    name: "Maxim",
+    verified: false,
+    publicCardPacksCount: 0,
+    created: "2022-11-13T07:45:44.474Z",
+    updated: "2022-11-13T07:45:44.474Z",
+    __v: 0,
+    token: "ded51a60-63e2-11ed-8d2b-6d5137eb3e0c",
+    tokenDeathTime: 1669010957062,
+    avatar: null
 }
 
 type InitialStateType = typeof initialState
@@ -12,7 +24,7 @@ type InitialStateType = typeof initialState
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
     switch (action.type) {
         case 'SET_PROFILE_NAME':
-            return {...state, name: action.name}
+            return {...state, name: action.name,}
         default:
             return state
     }

@@ -9,6 +9,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 export const ProfilePage = () => {
 
     const profileName = useAppSelector<string>(state => state.ProfilePage.name)
+    const email = useAppSelector<string>(state => state.ProfilePage.email)
+    const avatar = useAppSelector(state => state.ProfilePage.avatar)
     const dispatch = useAppDispatch()
     useEffect(() => {
         if (false) { //!loggedIn
@@ -27,9 +29,9 @@ export const ProfilePage = () => {
             </div>
             <div className={styleProfile.wrapper}>
                 <h2 className={styleProfile.title}>Personal Information</h2>
-                <img src={false ? undefined : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>
+                <img src={avatar ? avatar : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>
                 <EditProfileName NickName={profileName}/>
-                <div className={styleProfile.Email}>Blablabla@tut.by</div>
+                <div className={styleProfile.Email}>{email}</div>
 
                 <button className={styleProfile.LogOut}><LogoutIcon/> Log out</button>
 
