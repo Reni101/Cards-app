@@ -1,7 +1,7 @@
 import {AppThunk} from "../../../Redux/Store";
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
 import {Dispatch} from 'redux';
-import {AxiosError} from 'axios';
+import axios, {AxiosError} from 'axios';
 
 
 export type initialStateType = LoginType & forLoginUserInfo
@@ -48,5 +48,12 @@ export const SingInTC = (data:LoginType):AppThunk =>
         }
         catch (e) {
             const err = e as Error | AxiosError
+            if (axios.isAxiosError(err)) {
+                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+                console.log(error)
+                // dispatch(setAppErrorAC(error)) диспатчим ошибку
+            } else {
+                //dispatch(setAppErrorAC(`Native error ${err.message}`))
+            }
         }
     }
