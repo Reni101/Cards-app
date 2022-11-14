@@ -2,6 +2,7 @@ import {AppThunk} from "../../../Redux/Store";
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
 import {Dispatch} from 'redux';
 import axios, {AxiosError} from 'axios';
+import {setErrorApp, setStatusApp} from '../../../AppReducer';
 
 
 export type initialStateType = LoginType & forLoginUserInfo
@@ -41,19 +42,22 @@ export const LoginAC = (data:LoginType,id:string,isAuth:boolean) => {
 
 export const SingInTC = (data:LoginType):AppThunk =>
     async(dispatch:Dispatch) => {
-        //dispatch(setStatusApp({status:'loading'}))
+        dispatch(setStatusApp('loading'))
         try{
             const res = await loginApi.login(data)
             dispatch(LoginAC(data,res.data._id,true))
+            dispatch(setStatusApp('succeeded'))
         }
         catch (e) {
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {
                 const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
                 console.log(error)
-                // dispatch(setAppErrorAC(error)) диспатчим ошибку
+                 dispatch(setErrorApp(error))
             } else {
-                //dispatch(setAppErrorAC(`Native error ${err.message}`))
+                dispatch(setErrorApp(`Native error ${err.message}`))
+
             }
+            dispatch(setStatusApp('failed'))
         }
     }

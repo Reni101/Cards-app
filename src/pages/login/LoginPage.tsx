@@ -15,12 +15,11 @@ import {
 } from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {useDispatch, useSelector} from 'react-redux';
-//import {AppDispatch, AppStateType} from '../../reducers/store';
-//import {requestStatusType} from '../../reducers/App-reducer';
 import {Navigate, NavLink} from 'react-router-dom';
 import {AppDispatch, AppRootStateType} from '../../Redux/Store';
 import {ErrorSnackbar} from '../../common/errorSnackbar/ErrorSnackbar';
-import {initialStateType, SingInTC} from './loginReducer/LoginReducer';
+import {SingInTC} from './loginReducer/LoginReducer';
+import {requestStatusType} from '../../AppReducer';
 
 interface State {
     amount: string;
@@ -40,7 +39,7 @@ export const LoginPage = React.memo(() => {
 
     const dispatch:AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.Login.isAuth)
-    //const status = useSelector()  прокинуть сюда статус из AppReducer
+    const status = useSelector<AppRootStateType,requestStatusType>(state => state.App.status)
 
 
 
@@ -85,15 +84,13 @@ export const LoginPage = React.memo(() => {
     })
 
     if (isAuth) {
-        // если isAuth = true то сразу кидаем на profile, усли мы не авторизованы то проходим логинизацию
         return <Navigate to={"/profile"}/>
     }
 
     return (
         <div className={style.wrapper_login}>
             <ErrorSnackbar/>
-            {false && <div className='loading'><LinearProgress color="secondary"/></div>}
-             {/*вместо false нужно подставить статус из AppReducer*/}
+            {status === 'loading' && <div className='loading'><LinearProgress color="secondary"/></div>}
             <div>
             </div>
             <div className={style.sing_in}>Sing in</div>
