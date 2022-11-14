@@ -3,6 +3,9 @@
     background-color: #F9F9FA;
 
 }
+.title{
+    padding-top: 27px;
+}
 
 .Link_block a {
     position: relative;
