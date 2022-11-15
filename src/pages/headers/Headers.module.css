@@ -13,6 +13,27 @@
 .header_wrapper{
     margin: 0 25px;
 }
+.user_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.user_name{
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.user_info>img{
+    width: 40px;
+    border: .5px solid rgba(0, 0, 0, 0);
+    border-radius: 50px;
+    transition: all .5s;
+}
+.user_info>img:hover{
+    transform: scale(1.2);
+    transition: all .5s;
+}
 .website_logo{
     margin: 0 25px;
 }

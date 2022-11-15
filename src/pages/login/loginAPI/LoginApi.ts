@@ -1,4 +1,4 @@
-import {instance} from '../../profilePage/ProfileAPI/profileAPI';
+import {instance} from "../../../common/API/api";
 
 
 export type LoginType = {
@@ -29,8 +29,13 @@ export const loginApi = {
             return response
         })
     },
+    authUser() {
+        return instance.post<ResponseDataLoginType>('/auth/me', {}).then(response => {
+                return response
+    })
+    },
     logout() {
-        return instance.delete('/auth/login').then(response => {
+        return instance.delete('/auth/me',{}).then(response => {
             return response
         })
     }

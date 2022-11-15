@@ -9,20 +9,23 @@ import {ProfilePage} from "./pages/profilePage/ProfilePage";
 import {RegistrationPage} from "./pages/registrationPage/RegistrationPage";
 import {TestPage} from "./pages/testPage/TestPage";
 import {Headers} from "./pages/headers/Headers";
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
+import {initializedAppTC} from './AppReducer';
 
 
 function App() {
+    const dispatch = useAppDispatch()
+    const initialized = useAppSelector(state => state.App.initialized)
+
     useEffect(() => {
-        //dispatch(initializeAppTC()) написать санку, которая
+        dispatch(initializedAppTC())
         // будет проверять инициализацию и если да => сетать что придет из респонса(профаил)
     }, [])
 
-    if (false) {//!isInitialized пока не прошла инициализация показывать крутилку
-        return <div
-          >
-
-        </div>
+    if (!initialized) {//!isInitialized пока не прошла инициализация показывать крутилку
+        return <div></div>
     }
+
     // если инициализация провалилась => редирект на логин
 
     return (
