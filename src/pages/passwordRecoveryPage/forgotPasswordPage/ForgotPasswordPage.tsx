@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from "./ForgotPasswordPage.module.css"
 import {Button, TextField} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {forgotPasswordTC} from "../RecoveryPasswordReducer";
 import {useFormik} from "formik";
-
+import * as Yup from 'yup';
 
 export const ForgotPasswordPage = () => {
 
@@ -16,6 +16,11 @@ export const ForgotPasswordPage = () => {
             email: '',
 
         },
+        validationSchema: Yup.object().shape({
+            email: Yup.string().email('invalid email address').required('required'),
+        }),
+
+
         onSubmit: values => {
             dispatch(forgotPasswordTC(values.email))
             // formik.resetForm()
@@ -36,6 +41,9 @@ export const ForgotPasswordPage = () => {
                                    margin="normal"
                                    {...formik.getFieldProps('email')}
                         />
+                        {formik.touched.email && formik.errors.email ? (
+                            <div>{formik.errors.email}</div>
+                        ) : null}
                         <div className={style.Text}>Enter your email address and we will send you further instructions
                         </div>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
