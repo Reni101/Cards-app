@@ -36,6 +36,17 @@ export const forgotPasswordTC = (email: string): AppThunk => async dispatch => {
     }
 }
 
+export const setNewPasswordTC = (password: string, token: string): AppThunk => async dispatch => {
+
+    try {
+//включить крутилку
+        const res = await RecoveryPasswordApi.setNewPassword(password, token)
+
+    } catch (e) {
+
+    }
+}
+
 
 //
 

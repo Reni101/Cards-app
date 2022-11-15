@@ -1,4 +1,4 @@
-import {instance} from "../../common/API/api";
+
 import axios from "axios";
 
 
@@ -18,5 +18,15 @@ export const RecoveryPasswordApi = {
             , {
                 withCredentials: true
             })
-    }
+    },
+    setNewPassword(password: string, token: string) {
+
+
+        return axios.post("https://neko-back.herokuapp.com/2.0/auth/set-new-password", {password,
+            resetPasswordToken: token}
+            , {
+                withCredentials: true
+            })
+    },
+
 }
