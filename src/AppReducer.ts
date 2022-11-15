@@ -13,7 +13,7 @@ export type appInitialStateType = {
 const InitialState: appInitialStateType = {
     status: 'idle',
     error: null,
-    initialized: false
+    initialized: true
 }
 export const AppReducer = (state: appInitialStateType = InitialState, action: appReducersType): appInitialStateType => {
 
@@ -25,7 +25,7 @@ export const AppReducer = (state: appInitialStateType = InitialState, action: ap
             return {...state, status: action.status}
         }
         case 'APP/INITIALIZED' : {
-            return {...state,initialized:true}
+            return {...state,initialized:false}
         }
         default:
             return {...state}
@@ -65,7 +65,6 @@ export const initializedAppTC = (): AppThunk =>
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {
                 const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                console.log(err)
                 dispatch(setErrorApp(error))
             } else {
                 dispatch(setErrorApp(`Native error ${err.message}`))

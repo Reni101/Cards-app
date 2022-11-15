@@ -2,7 +2,7 @@ import {AppThunk} from '../../../Redux/Store';
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
 import {Dispatch} from 'redux';
 import axios, {AxiosError} from 'axios';
-import {setErrorApp, setStatusApp} from '../../../AppReducer';
+import {initializedAppAC, setErrorApp, setStatusApp} from '../../../AppReducer';
 
 
 export type initialStateType = LoginType & forLoginUserInfo
@@ -78,7 +78,6 @@ export const getAuthTC = (): AppThunk =>
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {
                 const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                console.log(e)
                 dispatch(setErrorApp(error))
             } else {
                 dispatch(setErrorApp(`Native error ${err.message}`))

@@ -12,9 +12,10 @@ import {Headers} from "./pages/headers/Headers";
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 import {initializedAppTC, requestStatusType} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
-import {LinearProgress} from '@mui/material';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from './Redux/Store';
+import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
+
 
 
 function App() {
@@ -22,21 +23,22 @@ function App() {
     const initialized = useAppSelector(state => state.App.initialized)
     const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
 
+
     useEffect(() => {
         dispatch(initializedAppTC())
         // будет проверять инициализацию и если да => сетать что придет из респонса(профаил)
     }, [])
 
-    if (!initialized) {//!isInitialized пока не прошла инициализация показывать крутилку
-        return <div></div>
-    }
+
+
 
     // если инициализация провалилась => редирект на логин
-
+    if (initialized) {//!isInitialized пока не прошла инициализация показывать крутилку
+        return <div className='flex_for_lottie'><div className='app_lottie_animation_wrapper'><ExampleAnimation/></div></div>
+    }
     return (
         <>
             <ErrorSnackbar/>
-            {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
             <Headers/>
             <Routes>
                 <Route path='/' element={<LoginPage/>}/>

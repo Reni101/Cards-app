@@ -6,7 +6,7 @@ import {
     Button,
     FormControl,
     FormControlLabel, IconButton, InputAdornment,
-    InputLabel,
+    InputLabel, LinearProgress,
     OutlinedInput,
     styled,
     Switch,
@@ -19,6 +19,7 @@ import {Navigate, NavLink} from 'react-router-dom';
 import {AppDispatch, AppRootStateType} from '../../Redux/Store';
 import {SingInTC} from './loginReducer/LoginReducer';
 import {Slide} from 'react-awesome-reveal';
+import {requestStatusType} from '../../AppReducer';
 
 
 interface State {
@@ -39,6 +40,7 @@ export const LoginPage = React.memo(() => {
 
     const dispatch: AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
+    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
 
 
     const [values, setValues] = React.useState<State>({
@@ -87,6 +89,7 @@ export const LoginPage = React.memo(() => {
     return (
         <Slide direction={'up'} >
             <div className={style.wrapper_login}>
+                {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
                 <div className={style.sing_in}>Sing in</div>
                 <div className={style.form_container}>
                     <form className={style.form}>

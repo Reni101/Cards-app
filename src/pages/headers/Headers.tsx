@@ -8,12 +8,14 @@ import {AppRootStateType} from '../../Redux/Store';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {SingOutTC} from '../login/loginReducer/LoginReducer';
 
+
 export const Headers = () => {
 
     const dispatch = useAppDispatch()
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
     const userLogo = useAppSelector(state => state.Profile.avatar)
     const userName = useAppSelector(state => state.Profile.name)
+
 
     const navigate = useNavigate();
     const goSignUp = () => {
