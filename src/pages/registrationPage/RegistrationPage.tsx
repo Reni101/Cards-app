@@ -6,6 +6,7 @@ import {useFormik} from "formik";
 import {registrationTC} from "../../Redux/RegistrationReducer";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {Navigate, useNavigate} from "react-router-dom";
+import {FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 
 export const RegistrationPage = () => {
     const dispatch = useAppDispatch()
@@ -38,6 +39,35 @@ export const RegistrationPage = () => {
 
     return (
         <div className={style.registrationPageBlock}>
+            <div>
+                <FormControl  variant="outlined" fullWidth={true}>
+                    <InputLabel htmlFor="outlined-adornment-password"
+                                color={formik.touched.password && formik.errors.password ? "error" : "success"}
+                    >Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={'password'}
+                        // type={values.showPassword ? 'text' : 'password'}
+                        value={formik.values.password}
+                        name="password"
+                        onChange={formik.handleChange}
+                        label="Password"
+                        color={formik.touched.password && formik.errors.password ? "error" : "success"}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    // onClick={handleClickShowPassword}
+                                    // onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                    {/*{values.showPassword ? <VisibilityOff/> : <Visibility/>}*/}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+            </div>
             <div className={style.registrationPageContent}>
                 <div className={style.registrationPageTitle}>
                     Sign Up
