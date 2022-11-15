@@ -1,10 +1,8 @@
-.ForgotPasswordPage {
+.CheckEmailPage{
     height: calc(100vh - 60px);
     background-color: #F9F9FA;
 }
-
-
-.MainBlock {
+.MainBlock{
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -12,14 +10,9 @@
     height: 456px;
     width: 413px;
     border: 1px solid #3D3D3D;
-    margin: 0px auto;
+    margin: 0 auto;
     position: relative;
     top: 60px;
-
-
-}
-.FormStyle{
-   text-align: center;
 }
 
 .Title {
@@ -28,10 +21,9 @@
 
 }
 .Text{
-    margin: 20px 33px;
+    padding: 33px;
     font-size: 14px;
     opacity: 50%;
-}
-.FormStyle button{
-    margin: 30px auto;
+    margin-top: 31px;
+    margin-bottom: 40px;
 }
