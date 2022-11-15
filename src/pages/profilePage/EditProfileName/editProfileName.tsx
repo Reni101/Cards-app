@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {useAppDispatch} from "../../../hooks/hooks";
-import {editProfileNameTC} from "../profilePageReducer/ProfilePagerReducer";
+import {editProfileNameTC} from "../ProfilePagerReducer";
 import styleEditProfile from './editProfileName.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, TextField} from "@mui/material";

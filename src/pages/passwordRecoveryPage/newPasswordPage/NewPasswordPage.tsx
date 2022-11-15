@@ -1,9 +1,14 @@
 import React from 'react';
 
-export const PasswordRecoveryPage = () => {
+export const NewPasswordPage = () => {
     return (
         <div>
-            Password Recovery Page
+            <div>
+
+
+
+            </div>
         </div>
     );
 };
+

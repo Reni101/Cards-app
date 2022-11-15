@@ -1,16 +1,12 @@
-import {AppThunk} from "../../../Redux/Store";
-import {profilePageAPI, updatedUser} from "../ProfileAPI/profileAPI";
+import {AppThunk} from "../../Redux/Store";
+import {profilePageAPI, updatedUser} from "./profileAPI";
 import axios, {AxiosError} from "axios";
 
 
 const initialState = {
-    _id: null as string | null,
     email: null as string | null,
-    rememberMe: null as boolean | null,
     name: null as string | null,
     publicCardPacksCount: null as number | null,
-    created: null as string | null,
-    updated: null as string | null,
     avatar: null as string | null
 }
 
