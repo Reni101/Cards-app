@@ -7,10 +7,10 @@ import {Button, TextField} from "@mui/material";
 
 
 type PropsType = {
-    profileName: string
+    profileName: string | null
 }
 export const EditProfileName: FC<PropsType> = ({profileName}) => {
-    const [Name, setName] = useState<string>(profileName)// приходит из пропсов
+    const [Name, setName] = useState(profileName)// приходит из пропсов
     const [editMode, setEditMode] = useState(false)
     const dispatch = useAppDispatch()
 

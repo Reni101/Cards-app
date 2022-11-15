@@ -8,8 +8,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export const ProfilePage = () => {
 
-    const profileName = useAppSelector<string>(state => state.ProfilePage.name)
-    const email = useAppSelector<string>(state => state.ProfilePage.email)
+    const profileName = useAppSelector(state => state.ProfilePage.name)
+    const email = useAppSelector(state => state.ProfilePage.email)
     const avatar = useAppSelector(state => state.ProfilePage.avatar)
     const dispatch = useAppDispatch()
     useEffect(() => {
@@ -27,7 +27,7 @@ export const ProfilePage = () => {
             <div className={styleProfile.Link_block}>
                 <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>
             </div>
-            <div className={styleProfile.wrapper}>
+            <div className={styleProfile.MainBlock}>
                 <h2 className={styleProfile.title}>Personal Information</h2>
                 <img src={avatar ? avatar : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>
                 <EditProfileName profileName={profileName}/>

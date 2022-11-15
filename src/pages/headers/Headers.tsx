@@ -10,9 +10,9 @@ export const Headers = () => {
                 <NavLink to={"/newPassword"}> newPassword</NavLink>
                 <NavLink to={"/PasswordRecovery"}> PasswordRecovery</NavLink>
                 <NavLink to={"/profile"}> profile</NavLink>
-                <NavLink to={"/registration"}> registration</NavLink>
                 <NavLink to={"/test"}> test</NavLink>
                 <NavLink to={"/registration"}> registration</NavLink>
+                <NavLink to={"/forgot-password"}> forgot-password</NavLink>
             </div>
         </div>
     );

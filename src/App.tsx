@@ -9,6 +9,7 @@ import {ProfilePage} from "./pages/profilePage/ProfilePage";
 import {RegistrationPage} from "./pages/registrationPage/RegistrationPage";
 import {TestPage} from "./pages/testPage/TestPage";
 import {Headers} from "./pages/headers/Headers";
+import {ForgotPasswordPage} from "./pages/forgotPasswordPage/ForgotPasswordPage";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/profile' element={<ProfilePage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/test' element={<TestPage/>}/>
+                <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
                 <Route path="*" element={<Navigate to='/notFound'/>}/>
 
             </Routes>
