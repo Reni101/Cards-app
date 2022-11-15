@@ -10,12 +10,17 @@ import {RegistrationPage} from "./pages/registrationPage/RegistrationPage";
 import {TestPage} from "./pages/testPage/TestPage";
 import {Headers} from "./pages/headers/Headers";
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
-import {initializedAppTC} from './AppReducer';
+import {initializedAppTC, requestStatusType} from './AppReducer';
+import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
+import {LinearProgress} from '@mui/material';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from './Redux/Store';
 
 
 function App() {
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.App.initialized)
+    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
 
     useEffect(() => {
         dispatch(initializedAppTC())
@@ -30,6 +35,8 @@ function App() {
 
     return (
         <>
+            <ErrorSnackbar/>
+            {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
             <Headers/>
             <Routes>
                 <Route path='/' element={<LoginPage/>}/>

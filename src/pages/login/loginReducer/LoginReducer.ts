@@ -110,7 +110,6 @@ export const SingInTC = (data: LoginType): AppThunk =>
 
 export const SingOutTC = (): AppThunk =>
     async (dispatch: Dispatch) => {
-    debugger
         dispatch(setStatusApp('loading'))
         try {
             await loginApi.logout()
