@@ -15,7 +15,7 @@ select:-webkit-autofill:focus {
 .wrapper_login{
     width: 400px;
     border: .5px solid rgba(84, 84, 84, 0.5);
-    margin: 30px auto;
+    margin:90px auto;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
 }

@@ -29,7 +29,7 @@ function App() {
         <>
             <Headers/>
             <Routes>
-                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/' element={<LoginPage/>}/>
                 <Route path='/notFound' element={<NotFoundPage/>}/>
                 <Route path='/newPassword' element={<EnteringNewPassword/>}/>
                 <Route path='/PasswordRecovery' element={<PasswordRecoveryPage/>}/>
