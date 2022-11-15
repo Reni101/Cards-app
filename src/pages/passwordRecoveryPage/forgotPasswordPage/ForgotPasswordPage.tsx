@@ -12,7 +12,7 @@ export const ForgotPasswordPage = () => {
     const email = useAppSelector(store => store.ForgotPassword.email)
 
     if (!!email){
-        <Navigate to="/check-email-page"/>
+        <Navigate to={"/check-email-page"}/>
     }
 
     const dispatch = useAppDispatch()
@@ -23,10 +23,14 @@ export const ForgotPasswordPage = () => {
         },
         onSubmit: values => {
             dispatch(forgotPasswordTC(values.email))
-            formik.resetForm()
+           // formik.resetForm()
 
         },
     });
+
+    if(!!email){
+        return <Navigate to='/check-email-page'/>
+    }
     return (
         <div className={style.ForgotPasswordPage}>
             <div className={style.MainBlock}>
@@ -46,7 +50,7 @@ export const ForgotPasswordPage = () => {
 
 
                 <div className={style.Text}>Did you remember your password?</div>
-                <NavLink to={"/login"}> Try logging in </NavLink>
+                <NavLink to={"/login"} className={style.Link}> Try logging in </NavLink>
             </div>
         </div>
     );
