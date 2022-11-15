@@ -11,7 +11,7 @@ export const registrationApi = {
     }
 }
 
-type ResponseRegistrationType = {
+export type ResponseRegistrationType = {
     created: string
     email: string
     isAdmin: boolean

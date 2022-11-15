@@ -3,14 +3,14 @@ import style from './RegistrationPage.module.css'
 import SuperInputText from "../../common/SuperInputText/SuperInputText";
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
 import {registrationTC} from "../../Redux/RegistrationReducer";
-import {useAppDispatch} from "../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {Navigate, useNavigate} from "react-router-dom";
 
 export const RegistrationPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const isSuccessful = useAppSelector (state => state.Registration.isSuccessfulRegistration)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -30,6 +30,10 @@ export const RegistrationPage = () => {
 
     const signInClick = () => {
         navigate('/login')
+    }
+
+    if (isSuccessful) {
+        return <Navigate to={'/login'}/>
     }
 
     return (
