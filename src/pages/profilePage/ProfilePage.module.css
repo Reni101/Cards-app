@@ -4,27 +4,54 @@
 
 }
 
-div .back_link {
-    margin-top: 24px;
-    margin-left: 168px;
-}
-
-.back_link {
+.Link_block a {
+    position: relative;
+    top: 20px;
     color: #000000;
     font-size: 14px;
-    text-decoration: none
+    text-decoration: none;
+    margin-left: 168px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
 }
+
 .wrapper {
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 413px;
     height: 408px;
     border: 1px solid #3D3D3D;
-    margin: 60px auto;
+    margin: 36px auto;
 
 }
-.wrapper button{
-    width:127px ;
-    height:36px ;
+
+.wrapper img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
 }
+
+
+
+.Email {
+    font-size: 14px;
+    margin: 19px;
+    opacity: 0.5;
+}
+
+.wrapper .LogOut {
+    Opacity: 80%;
+    width: 127px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 0 ;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+

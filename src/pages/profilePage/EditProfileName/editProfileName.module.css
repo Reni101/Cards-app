@@ -1,0 +1,19 @@
+.Name {
+    display: flex;
+    justify-content: center;
+    margin: 36.5px auto 18px;
+    font-size: 20px;
+}
+
+.EditNickName {
+    position: relative;
+}
+
+.EditNickName button {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    width: 52px;
+    height: 24px;
+
+}
