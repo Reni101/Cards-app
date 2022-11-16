@@ -7,21 +7,28 @@ import {ActionsForgotType, forgotPasswordReducer} from "../pages/passwordRecover
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 
+import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
+
 
 
 const rootReducer = combineReducers({
     Reducer: Reducer,
-    ProfilePage:ProfilePageReducer,
-    ForgotPassword:forgotPasswordReducer,
-    Login:LoginReducer,
-    App:AppReducer
+    ProfilePage: ProfilePageReducer,
+    ForgotPassword: forgotPasswordReducer,
+    Login: LoginReducer,
+    App: AppReducer,
+    Registration: RegistrationReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AllAppActionsType =  ActionsProfileType | ActionsLoginType | ActionsForgotType |appReducersType
-
+export type AllAppActionsType =
+    | ActionsProfileType
+    | ActionsLoginType
+    | ActionsForgotType
+    | appReducersType
+    | RegistrationActionType
 
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>
