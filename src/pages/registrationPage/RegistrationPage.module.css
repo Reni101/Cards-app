@@ -1,5 +1,5 @@
 .registrationPageBlock {
-    height: calc(100vh - 80px);
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,11 +29,10 @@
 
 
 .emailBlock {
-  margin-bottom: 20px;
 }
 
 .passwordBlock {
-    margin-bottom: 30px;
+
 }
 
 .confirmPasswordBlock {

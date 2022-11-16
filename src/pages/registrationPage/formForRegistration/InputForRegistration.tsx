@@ -8,6 +8,7 @@ type InputForRegistrationProps = {
     name: string
     type?: string
     label?: string
+    onBlur?: (e: React.FocusEvent<any>) => void
 
 }
 const InputForRegistration = (props: InputForRegistrationProps) => {
@@ -32,6 +33,7 @@ const InputForRegistration = (props: InputForRegistrationProps) => {
                 name={props.name}
                 onChange={props.onChange}
                 label={props.label}
+                onBlur={props.onBlur}
                 // color={formik.touched.password && formik.errors.password ? "error" : "success"}
                 endAdornment={
                     <InputAdornment position="end">
