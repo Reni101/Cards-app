@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.13",
     "@testing-library/jest-dom": "^5.14.1",
@@ -18,7 +19,9 @@
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "gh-pages": "^4.0.0",
+    "lottie-react": "^2.3.1",
     "react": "^18.2.0",
+    "react-awesome-reveal": "^4.1.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",

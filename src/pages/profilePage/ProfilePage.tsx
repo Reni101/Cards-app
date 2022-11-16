@@ -8,8 +8,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export const ProfilePage = () => {
 
-    const profileName = useAppSelector(state => state.ProfilePage.name)
-    const email = useAppSelector(state => state.ProfilePage.email)
+    const profileName = useAppSelector<string>(state => state.ProfilePage.name)
+    const email = useAppSelector<string>(state => state.ProfilePage.email)
     const avatar = useAppSelector(state => state.ProfilePage.avatar)
     const dispatch = useAppDispatch()
     useEffect(() => {

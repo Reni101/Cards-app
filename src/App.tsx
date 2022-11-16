@@ -12,27 +12,38 @@ import {Headers} from "./pages/headers/Headers";
 import {ForgotPasswordPage} from "./pages/passwordRecoveryPage/forgotPasswordPage/ForgotPasswordPage";
 import {CheckEmailPage} from "./pages/passwordRecoveryPage/checkEmailPage/checkEmailPage";
 import {NewPasswordPage} from "./pages/passwordRecoveryPage/newPasswordPage/NewPasswordPage";
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
+import {initializedAppTC, requestStatusType} from './AppReducer';
+import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from './Redux/Store';
+import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
+
 
 
 function App() {
+    const dispatch = useAppDispatch()
+    const initialized = useAppSelector(state => state.App.initialized)
+    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
+
+
     useEffect(() => {
-        //dispatch(initializeAppTC()) написать санку, которая
-        // будет проверять инициализацию и если да => сетать что придет из респонса(профаил)
+        dispatch(initializedAppTC())
     }, [])
 
-    if (false) {//!isInitialized пока не прошла инициализация показывать крутилку
-        return <div
-          >
 
-        </div>
-    }
+
+
     // если инициализация провалилась => редирект на логин
-
+    if (initialized) {//!isInitialized пока не прошла инициализация показывать крутилку
+        return <div className='flex_for_lottie'><div className='app_lottie_animation_wrapper'><ExampleAnimation/></div></div>
+    }
     return (
         <>
+            <ErrorSnackbar/>
             <Headers/>
             <Routes>
-                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/' element={<LoginPage/>}/>
                 <Route path='/notFound' element={<NotFoundPage/>}/>
 
                 <Route path='/profile' element={<ProfilePage/>}/>
