@@ -1,9 +1,11 @@
 import React from 'react';
 
+import {NavLink} from "react-router-dom";
+
 export const NotFoundPage = () => {
     return (
         <div>
-            Not Found Page 404
+            {/*<NavLink to={"/"}  style={{margin:"50px auto"}}> Return to login </NavLink>*/}
         </div>
     );
 };

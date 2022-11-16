@@ -36,13 +36,17 @@ export const EditProfileName: FC<PropsType> = ({profileName}) => {
                                autoFocus
                                onChange={onChangeHandler}
                                onBlur={setEditModeHandler}
-
+color={"success"}
 
                     />
-                    <Button size="small" onMouseDown={Handler} variant="contained">SAVE</Button>
+                    <Button size="small"
+                            onMouseDown={Handler}
+                            variant="contained"
+                            color={"success"}
+                    >SAVE</Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{profileName} <EditIcon onClick={setEditModeHandler} /></div>}
+                : <div className={styleEditProfile.Name}>{profileName} <EditIcon onClick={setEditModeHandler} style={{cursor: "pointer"}} /></div>}
         </div>
     );
 };

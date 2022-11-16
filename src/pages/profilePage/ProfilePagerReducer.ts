@@ -37,10 +37,11 @@ export const setProfileDataAC = (data: updatedUser) => ({
 //==============================TC============================
 
 export const editProfileNameTC = (newName: string | null): AppThunk => async dispatch => {
+    dispatch(setStatusApp('loading'))
     try {
         const res = await profilePageAPI.editProfileName(newName)
         dispatch(editProfileNameAC(res.data.updatedUser.name))
-
+        dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
