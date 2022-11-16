@@ -1,11 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink} from "react-router-dom";
-import {useAppSelector} from "../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import style from './checkEmailPage.module.css'
 import CheckEmail from "../../../assets/chekEmail.svg"
 import {Slide} from 'react-awesome-reveal';
+import {setRecoverEmailAC} from "../RecoveryPasswordReducer";
 
 export const CheckEmailPage = () => {
+
+
+    const dispatch = useAppDispatch()
+    useEffect(()=>{
+        return ()=>{
+            dispatch(setRecoverEmailAC(null))
+        }
+    },[])
+
+
 
     const email = useAppSelector(store => store.ForgotPassword.email)
     return (

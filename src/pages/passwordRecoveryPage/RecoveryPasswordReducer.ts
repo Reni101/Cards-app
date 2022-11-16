@@ -22,7 +22,7 @@ export const forgotPasswordReducer = (state: InitialStateType = initialState, ac
     }
 }
 //=============================AC======================================
-export const setRecoverEmailAC = (email: string) => ({
+export const setRecoverEmailAC = (email: string | null) => ({
     type: 'FORGOT/SET_RECOVER_EMAIL',
     email
 
