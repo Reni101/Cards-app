@@ -37,6 +37,7 @@ export const EditProfileName: FC<PropsType> = ({profileName}) => {
                                onChange={onChangeHandler}
                                onBlur={setEditModeHandler}
 
+
                     />
                     <Button size="small" onMouseDown={Handler} variant="contained">SAVE</Button>
                 </div>

@@ -13,8 +13,8 @@ export const Headers = () => {
 
     const dispatch = useAppDispatch()
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
-    const userLogo = useAppSelector(state => state.Profile.avatar)
-    const userName = useAppSelector(state => state.Profile.name)
+    const userLogo = useAppSelector(state => state.ProfilePage.avatar)
+    const userName = useAppSelector(state => state.ProfilePage.name)
 
 
     const navigate = useNavigate();

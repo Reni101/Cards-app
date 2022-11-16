@@ -92,7 +92,7 @@ export const LoginPage = React.memo(() => {
                 {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
                 <div className={style.sing_in}>Sing in</div>
                 <div className={style.form_container}>
-                    <form className={style.form}>
+                    <form className={style.gm}>
                         <div className={style.item_box}>
                             <TextField
                                 id="outlined-basic"
@@ -152,7 +152,7 @@ export const LoginPage = React.memo(() => {
                         </div>
                     </form>
                     <div className={style.fagot_pass}>
-                        <NavLink to="/">
+                        <NavLink to="/forgot-password">
                             Fagot Password ?
                         </NavLink>
                         {/* нужен компонент fagotPassword*/}

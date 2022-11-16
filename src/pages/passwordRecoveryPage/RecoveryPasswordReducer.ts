@@ -1,6 +1,7 @@
 import {AppThunk} from "../../Redux/Store";
 import {RecoveryPasswordApi} from "./RecoveryPasswordApi";
 import axios, {AxiosError} from "axios";
+import {setErrorApp, setStatusApp} from "../../AppReducer";
 
 
 const initialState = {
@@ -44,10 +45,12 @@ export const forgotPasswordTC = (email: string): AppThunk => async dispatch => {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            // dispatch(setAppErrorAC(error)) диспатчим ошибку
+            dispatch(setErrorApp(error))
         } else {
-            //dispatch(setAppErrorAC(`Native error ${err.message}`))
+            dispatch(setErrorApp(`Native error ${err.message}`))
+
         }
+        dispatch(setStatusApp('failed'))
     }
 }
 
@@ -62,10 +65,12 @@ export const setNewPasswordTC = (password: string, token: string): AppThunk => a
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            // dispatch(setAppErrorAC(error)) диспатчим ошибку
+            dispatch(setErrorApp(error))
         } else {
-            //dispatch(setAppErrorAC(`Native error ${err.message}`))
+            dispatch(setErrorApp(`Native error ${err.message}`))
+
         }
+        dispatch(setStatusApp('failed'))
     }
 }
 

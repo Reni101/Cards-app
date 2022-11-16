@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     margin: 36.5px auto 18px;
-    font-size: 20px;
+    font-size: 26px;
+    font-weight: 600;
 }
 
 .EditNickName {

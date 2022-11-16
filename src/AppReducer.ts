@@ -2,6 +2,7 @@ import {AppThunk} from './Redux/Store';
 import {Dispatch} from 'redux';
 import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
 import axios, {AxiosError} from 'axios';
+import {setProfileDataAC} from "./pages/profilePage/ProfilePagerReducer";
 
 
 export type requestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
