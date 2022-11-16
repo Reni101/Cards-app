@@ -26,29 +26,18 @@
     margin-bottom: 31px;
 }
 
-.RegistrationPageForm span {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: #000000;
-    opacity: 0.5;
-}
 
 
 .emailBlock {
-    display: flex;
-    flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .passwordBlock {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 30px;
 }
 
 .confirmPasswordBlock {
-    display: flex;
-    flex-direction: column;
+
     margin-bottom: 60px;
 }
 
