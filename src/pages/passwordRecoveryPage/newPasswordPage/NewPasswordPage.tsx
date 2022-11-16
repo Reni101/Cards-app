@@ -1,6 +1,6 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
-import {useAppDispatch} from "../../../hooks/hooks";
+import {Navigate, useParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useFormik} from "formik";
 import {setNewPasswordTC} from "../RecoveryPasswordReducer";
 import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
@@ -10,6 +10,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 export const NewPasswordPage = () => {
     let {token} = useParams();
     const dispatch = useAppDispatch()
+    const isRedirectToLogin = useAppSelector(state => state.ForgotPassword.isRedirectToLogin)
 
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -32,6 +33,10 @@ export const NewPasswordPage = () => {
 
         },
     });
+
+    if (isRedirectToLogin) {
+        return <Navigate to={"/login"}/>
+    }
     return (
         <div className={style.NewPasswordPage}>
             <div className={style.MainBlock}>

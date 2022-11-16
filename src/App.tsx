@@ -42,7 +42,7 @@ function App() {
 
                 <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
                 <Route path='/check-email-page' element={<CheckEmailPage/>}/>
-                <Route path='/new-password/:token' element={<NewPasswordPage/>}/>
+                <Route path='/set-new-password/:token' element={<NewPasswordPage/>}/>
 
 
 
