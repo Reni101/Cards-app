@@ -9,8 +9,8 @@ import {Button, TextField} from "@mui/material";
 type PropsType = {
     profileName: string | null
 }
-export const EditProfileName: FC<PropsType> = ({profileName}) => {
-    const [Name, setName] = useState(profileName)// приходит из пропсов
+export const EditProfileName: FC<PropsType> = (props:PropsType)=> {
+    const [Name, setName] = useState(props.profileName)// приходит из пропсов
     const [editMode, setEditMode] = useState(false)
     const dispatch = useAppDispatch()
 
@@ -36,6 +36,7 @@ export const EditProfileName: FC<PropsType> = ({profileName}) => {
                                autoFocus
                                onChange={onChangeHandler}
                                onBlur={setEditModeHandler}
+                               defaultValue={props.profileName}
 color={"success"}
 
                     />
@@ -46,7 +47,7 @@ color={"success"}
                     >SAVE</Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{profileName} <EditIcon onClick={setEditModeHandler} style={{cursor: "pointer"}} /></div>}
+                : <div className={styleEditProfile.Name}>{props.profileName} <EditIcon onClick={setEditModeHandler} style={{cursor: "pointer"}} /></div>}
         </div>
     );
 };
