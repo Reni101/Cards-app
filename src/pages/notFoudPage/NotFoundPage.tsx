@@ -3,12 +3,11 @@ import style from './NotFoundPage.module.css'
 import {NavLink} from 'react-router-dom';
 import {Animation404} from '../../common/lottieAnimation/LottieAnimationFor404';
 import {Zoom} from 'react-awesome-reveal';
-import bgNoch from '../../assets/backgroundImgs/noch.jpeg'
+import bgNight from '../../assets/backgroundImgs/noch.jpeg'
 
 export const NotFoundPage = () => {
-
     return (
-        <div style={{backgroundImage: `url(${bgNoch})`}} className={style.not_found_wrapper}>
+        <div style={{backgroundImage: `url(${bgNight})`}} className={style.not_found_wrapper}>
             <div className={style.info_for_back}>
                 <h1 className={style.title_404}>
                     <Zoom direction={'down'} duration={1000}>404 not found </Zoom>
