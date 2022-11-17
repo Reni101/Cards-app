@@ -5,8 +5,8 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {EditProfileName} from "./EditProfileName/editProfileName";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Slide} from "react-awesome-reveal";
-import {Button,LinearProgress } from "@mui/material";
-
+import {Button, LinearProgress} from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {requestStatusType} from "../../AppReducer";
 
 import {SingOutTC} from "../login/loginReducer/LoginReducer";
@@ -34,11 +34,13 @@ export const ProfilePage = () => {
     return (
         <Slide direction={'up'}>
 
-            {/*<div className={styleProfile.Link_block}>*/}
-            {/*    <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>*/}
-            {/*</div>*/}
+
             <div className={styleProfile.wrapper_profile}>
-                {status ==="loading" && <div> <LinearProgress color="secondary" /></div>}
+                <div className={styleProfile.Link_block}>
+                    <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>
+                </div>
+
+                {status === "loading" && <div><LinearProgress color="secondary"/></div>}
 
 
                 <h2 className={styleProfile.title}>Personal Information</h2>

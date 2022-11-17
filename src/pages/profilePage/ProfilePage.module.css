@@ -1,10 +1,17 @@
 .wrapper_profile {
+    position: relative;
     width: 400px;
     border: .5px solid rgba(84, 84, 84, 0.5);
     margin: 90px auto;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     text-align: center;
+
+}
+
+.Link_block {
+    left: -600px;
+    position: absolute;
 
 }
 
