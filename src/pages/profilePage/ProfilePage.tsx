@@ -38,8 +38,8 @@ export const ProfilePage = () => {
             {/*    <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>*/}
             {/*</div>*/}
             <div className={styleProfile.wrapper_profile}>
-                {status ==="loading" && <div>loading</div>}
-                <LinearProgress color="secondary" />
+                {status ==="loading" && <div> <LinearProgress color="secondary" /></div>}
+
 
                 <h2 className={styleProfile.title}>Personal Information</h2>
                 <img src={avatar ? avatar : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>

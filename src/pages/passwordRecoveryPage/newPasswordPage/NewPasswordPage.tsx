@@ -3,16 +3,18 @@ import {Navigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useFormik} from "formik";
 import {setNewPasswordTC} from "../RecoveryPasswordReducer";
-import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
+import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,LinearProgress} from "@mui/material";
 import style from './NewPasswordPage.module.css'
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Slide} from 'react-awesome-reveal';
 import * as Yup from "yup";
+import {requestStatusType} from "../../../AppReducer";
 
 export const NewPasswordPage = () => {
     let {token} = useParams();
     const dispatch = useAppDispatch()
     const isRedirectToLogin = useAppSelector(state => state.ForgotPassword.isRedirectToLogin)
+    const status = useAppSelector<requestStatusType>(state => state.App.status)
 
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -45,6 +47,7 @@ export const NewPasswordPage = () => {
     return (
         <Slide direction={'up'}>
             <div className={style.wrapper_newPassword}>
+                {status ==="loading" && <div> <LinearProgress color="secondary" /></div>}
                 <h2 className={style.Title}>Create new password</h2>
                 <div className={style.FormStyle}>
                     <form onSubmit={formik.handleSubmit}>
@@ -79,7 +82,7 @@ export const NewPasswordPage = () => {
                         <div className={style.Text}>Create new password and we will send you further instructions to
                             email
                         </div>
-                        <Button type={'submit'} variant={'outlined'} color={'primary'}>
+                        <Button className={style.button} type={'submit'} variant={'outlined'} color={'primary'}>
                             Create new password
                         </Button>
                     </form>

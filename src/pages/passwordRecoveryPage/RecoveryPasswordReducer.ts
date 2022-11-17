@@ -37,10 +37,11 @@ export const setRedirectToLoginAC = (value: boolean) => ({
 //==============================TC============================
 
 export const forgotPasswordTC = (email: string): AppThunk => async dispatch => {
+    dispatch(setStatusApp('loading'))
     try {
-//включить крутилку
         await RecoveryPasswordApi.recoveryForgotPassword(email)
         dispatch(setRecoverEmailAC(email))
+        dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
@@ -55,11 +56,11 @@ export const forgotPasswordTC = (email: string): AppThunk => async dispatch => {
 }
 
 export const setNewPasswordTC = (password: string, token: string): AppThunk => async dispatch => {
-
+    dispatch(setStatusApp('loading'))
     try {
         await RecoveryPasswordApi.setNewPassword(password, token)
         dispatch(setRedirectToLoginAC(true))
-
+        dispatch(setStatusApp('succeeded'))
 
     } catch (e) {
         const err = e as Error | AxiosError

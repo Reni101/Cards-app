@@ -27,7 +27,7 @@ export const CheckEmailPage = () => {
                 <img src={CheckEmail} alt=""/>
 
                 <div className={style.Text}>We’ve sent an Email with instructions to {email}</div>
-                <NavLink to={"/"} className={style.Link}> Back to login </NavLink>
+               <div  className={style.Link}> <NavLink to={"/"}> Back to login </NavLink></div>
             </div>
 
         </Slide>

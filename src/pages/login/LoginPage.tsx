@@ -168,6 +168,7 @@ export const LoginPage = React.memo(() => {
                     </div>
                 </div>
             </div>
+
         </Slide>
     );
 })
