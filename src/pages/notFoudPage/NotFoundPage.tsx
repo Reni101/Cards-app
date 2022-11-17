@@ -17,7 +17,7 @@ export const NotFoundPage = () => {
                         <div className={style.block_wrapper}>
                             <div className={style.text_wrapper}>
                                 Something went wrong. Let's go back to the
-                                <NavLink to={'/'} className={style.go_to_login}> Profile page </NavLink>
+                                <NavLink to={'/profile'} className={style.go_to_login}> Profile page </NavLink>
                             </div>
                         </div>
                     </Zoom>
