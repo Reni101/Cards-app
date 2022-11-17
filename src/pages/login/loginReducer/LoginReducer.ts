@@ -10,14 +10,14 @@ export type initialStateType = LoginType & forLoginUserInfo
 type forLoginUserInfo = {
     id: string
     isAuth: boolean
-    name:string
-    token:string
+    name: string
+    token: string
 }
 
 const initialState: initialStateType = {
     id: '',
-    name:'',
-    token:'',
+    name: '',
+    token: '',
     isAuth: false,
     email: '',
     password: '',
@@ -26,16 +26,17 @@ const initialState: initialStateType = {
 
 export const LoginReducer = (state: initialStateType = initialState, action: ActionsLoginType): initialStateType => {
     switch (action.type) {
-        case 'LOGIN_USER':{
+        case 'LOGIN_USER': {
             return {...state, ...action.payload.data, id: action.payload.id, isAuth: action.payload.isAuth}
         }
-        case 'AUTH_USER':{
-            return {...state,
-                id:action.payload.id,
-                isAuth:action.payload.isAuth,
-                name:action.payload.name,
-                email:action.payload.email,
-                token:action.payload.token
+        case 'AUTH_USER': {
+            return {
+                ...state,
+                id: action.payload.id,
+                isAuth: action.payload.isAuth,
+                name: action.payload.name,
+                email: action.payload.email,
+                token: action.payload.token
             }
         }
         default:
@@ -55,7 +56,7 @@ export const setLoginAC = (data: LoginType, id: string, isAuth: boolean) => {
     } as const
 }
 export type getAuthACType = ReturnType<typeof getAuthAC>
-export const getAuthAC = (id: string, name: string, email: string,isAuth:boolean,token:string) => {
+export const getAuthAC = (id: string, name: string, email: string, isAuth: boolean, token: string) => {
     return {
         type: 'AUTH_USER',
         payload: {
@@ -70,13 +71,12 @@ export const getAuthAC = (id: string, name: string, email: string,isAuth:boolean
 
 export const getAuthTC = (): AppThunk =>
     async (dispatch: Dispatch) => {
-        try{
+        try {
             let res = await loginApi.authUser();
-            let {_id, email, name,token} = res.data
-            dispatch(getAuthAC(_id,name,email,true,token))
+            let {_id, email, name, token} = res.data
+            dispatch(getAuthAC(_id, name, email, true, token))
             dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar
-        }
-        catch (e) {
+        } catch (e) {
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {
                 const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
@@ -115,7 +115,7 @@ export const SingOutTC = (): AppThunk =>
         dispatch(setStatusApp('loading'))
         try {
             await loginApi.logout()
-            dispatch(getAuthAC('','','',false,''))
+            dispatch(getAuthAC('', '', '', false, ''))
             dispatch(setStatusApp('succeeded'))
         } catch (e) {
             const err = e as Error | AxiosError

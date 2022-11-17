@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import {useAppSelector} from "../../../hooks/hooks";
 import style from './checkEmailPage.module.css'
-import CheckEmail from "../../../assets/chekEmail.svg"
+import CheckEmail from "./../../../assets/webLogo/pink_punk_black.svg"
 
 
 export const CheckEmailPage = () => {
