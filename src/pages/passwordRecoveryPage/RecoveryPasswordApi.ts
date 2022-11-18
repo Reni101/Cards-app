@@ -8,7 +8,8 @@ export type ForgotResponseType = {
     "html": boolean
 }
 
-
+//http://localhost:3000/
+//https://reni101.github.io/FridayProject
 export const RecoveryPasswordApi = {
 
     recoveryForgotPassword(email: string) {
@@ -17,7 +18,7 @@ export const RecoveryPasswordApi = {
             from: "test-front-admin <Renigano@gmail.com>",
             message: `<div>
                       password recovery link: 
-                      <a href='https://reni101.github.io/FridayProject/#/set-new-password/$token$'>
+                      <a href='http://localhost:3000//#/set-new-password/$token$'>
                       link</a></div>`,
         }
 
