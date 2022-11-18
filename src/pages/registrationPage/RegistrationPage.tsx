@@ -12,7 +12,7 @@ export const RegistrationPage = () => {
 
 
     const signInClick = () => {
-        navigate('/login')
+        navigate('/')
     }
 
     if (isSuccessful) {
