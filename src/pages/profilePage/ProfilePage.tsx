@@ -32,14 +32,13 @@ export const ProfilePage = () => {
 
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'up'} className={styleProfile.all_wrapper_profile}>
 
+            <div className={styleProfile.Link_block}>
+                <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>
+            </div>
 
             <div className={styleProfile.wrapper_profile}>
-                <div className={styleProfile.Link_block}>
-                    <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>
-                </div>
-
                 {status === "loading" && <div><LinearProgress color="secondary"/></div>}
 
 

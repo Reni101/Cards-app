@@ -1,3 +1,6 @@
+.all_wrapper_profile{
+    position: relative;
+}
 .wrapper_profile {
     position: relative;
     width: 400px;
@@ -10,7 +13,7 @@
 }
 
 .Link_block {
-    left: -600px;
+    left: 20px;
     position: absolute;
 
 }
