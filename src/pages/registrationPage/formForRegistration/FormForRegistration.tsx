@@ -5,6 +5,8 @@ import {useFormik} from "formik";
 import {registrationTC} from "../../../Redux/RegistrationReducer";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import InputForRegistration from "./InputForRegistration";
+import {useNavigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 
 type FormForRegistrationProps = {}
@@ -17,6 +19,7 @@ type FormikErrorType = {
 const FormForRegistration = (props: FormForRegistrationProps) => {
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const errorApi = useAppSelector(state => state.Registration.error)
 
@@ -51,7 +54,6 @@ const FormForRegistration = (props: FormForRegistrationProps) => {
                 email: values.email,
                 password: String(values.password)
             }
-            console.log(formik.errors)
             dispatch(registrationTC(data))
         },
     });
@@ -65,6 +67,8 @@ const FormForRegistration = (props: FormForRegistrationProps) => {
                     name={'email'}
                     label={'Email'}
                     onBlur={formik.handleBlur}
+                    error={formik.errors.email}
+                    touched={formik.touched}
                 />
                 <div style={{height: '30px'}}>
                     {formik.touched.email && <span style={{color: 'red'}}>{formik.errors.email}</span>}
@@ -77,6 +81,8 @@ const FormForRegistration = (props: FormForRegistrationProps) => {
                     name={'password'}
                     label={'Password'}
                     onBlur={formik.handleBlur}
+                    error={formik.errors.password}
+                    touched={formik.touched}
                 />
                 <div style={{height: '30px'}}>
                     {formik.touched.password && <span style={{color: 'red'}}>{formik.errors.password}</span>}
@@ -89,6 +95,8 @@ const FormForRegistration = (props: FormForRegistrationProps) => {
                     name={'confirmPassword'}
                     label={'Confirm password'}
                     onBlur={formik.handleBlur}
+                    error={formik.errors.confirmPassword}
+                    touched={formik.touched}
                 />
                 <div style={{height: '30px'}}>
                     {formik.touched.confirmPassword &&
@@ -97,7 +105,7 @@ const FormForRegistration = (props: FormForRegistrationProps) => {
                 </div>
             </div>
             <div className={style.signUpBlockBtn}>
-                <SuperButton style={{width: '347px'}}>Sign up</SuperButton>
+                <Button className={style.button} variant="outlined" type="submit">SIGN IN</Button>
             </div>
         </form>
     )

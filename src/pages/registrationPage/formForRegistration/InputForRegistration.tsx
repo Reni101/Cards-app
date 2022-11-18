@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from '@mui/material';
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {FormikTouched} from "formik/dist/types";
 
 type InputForRegistrationProps = {
     value: string | number
@@ -9,6 +10,8 @@ type InputForRegistrationProps = {
     type?: string
     label?: string
     onBlur?: (e: React.FocusEvent<any>) => void
+    error?: string
+    touched?: FormikTouched<any>
 
 }
 const InputForRegistration = (props: InputForRegistrationProps) => {
@@ -17,24 +20,23 @@ const InputForRegistration = (props: InputForRegistrationProps) => {
         setIsVisiblePassword(!isVisiblePassword)
     }
     let typeInput = 'password'
-   if (props.name === 'email') {
-      typeInput = 'text'
-   }
+    if (props.name === 'email') {
+        typeInput = 'text'
+    }
     return (
-        <FormControl variant="outlined" fullWidth={true}>
+        <FormControl style={{width: '250px'}} variant="outlined" fullWidth={true}>
             <InputLabel htmlFor="outlined-adornment-password"
-                // color={formik.touched.password && formik.errors.password ? "error" : "success"}
+                color={props.touched && props.error ? "error" : "success"}
             >{props.label}</InputLabel>
             <OutlinedInput
                 id="outlined-adornment-password"
-                // type={props.type}
                 type={isVisiblePassword ? 'text' : typeInput}
                 value={props.value}
                 name={props.name}
                 onChange={props.onChange}
                 label={props.label}
                 onBlur={props.onBlur}
-                // color={formik.touched.password && formik.errors.password ? "error" : "success"}
+                color={props.touched && props.error ? "error" : "success"}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
