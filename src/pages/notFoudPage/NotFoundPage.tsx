@@ -3,6 +3,7 @@ import style from './NotFoundPage.module.css'
 import {NavLink} from 'react-router-dom';
 import {Animation404} from '../../common/lottieAnimation/LottieAnimationFor404';
 import {Zoom} from 'react-awesome-reveal';
+import {Fade} from 'react-awesome-reveal';
 import bgNight from '../../assets/backgroundImgs/noch.jpeg'
 
 export const NotFoundPage = () => {
@@ -17,7 +18,9 @@ export const NotFoundPage = () => {
                         <div className={style.block_wrapper}>
                             <div className={style.text_wrapper}>
                                 Something went wrong. Let's go back to the
-                                <NavLink to={'/profile'} className={style.go_to_login}> Profile page </NavLink>
+                                <NavLink to={'/profile'} className={style.go_to_login}>
+                                    <Fade cascade delay={500} duration={200}> Profile page </Fade>
+                                </NavLink>
                             </div>
                         </div>
                     </Zoom>
