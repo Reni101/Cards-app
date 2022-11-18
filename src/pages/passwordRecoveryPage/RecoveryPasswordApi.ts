@@ -18,7 +18,7 @@ export const RecoveryPasswordApi = {
             from: "test-front-admin <Renigano@gmail.com>",
             message: `<div>
                       password recovery link: 
-                      <a href='http://localhost:3000//#/set-new-password/$token$'>
+                      <a href='http://localhost:3000/#/set-new-password/$token$'>
                       link</a></div>`,
         }
 
