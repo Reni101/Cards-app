@@ -36,7 +36,7 @@ interface InitialValuesType {
     rememberMe: boolean
 }
 
-export const LoginPage = React.memo(() => {
+export const LoginPage = () => {
 
     const dispatch: AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
@@ -171,7 +171,7 @@ export const LoginPage = React.memo(() => {
 
         </Slide>
     );
-})
+}
 
 
 const IOSSwitch = styled((props: SwitchProps) => (
