@@ -70,7 +70,7 @@ export const getAuthAC = (id: string, name: string, email: string, isAuth: boole
 }
 
 export const getAuthTC = (): AppThunk =>
-    async (dispatch: Dispatch) => {
+    async (dispatch) => {
         try {
             let res = await loginApi.authUser();
             let {_id, email, name, token} = res.data
@@ -90,7 +90,7 @@ export const getAuthTC = (): AppThunk =>
     }
 
 export const SingInTC = (data: LoginType): AppThunk =>
-    async (dispatch: Dispatch) => {
+    async (dispatch) => {
         dispatch(setStatusApp('loading'))
         try {
             const res = await loginApi.login(data)
@@ -111,7 +111,7 @@ export const SingInTC = (data: LoginType): AppThunk =>
     }
 
 export const SingOutTC = (): AppThunk =>
-    async (dispatch: Dispatch) => {
+    async (dispatch) => {
         dispatch(setStatusApp('loading'))
         try {
             await loginApi.logout()
