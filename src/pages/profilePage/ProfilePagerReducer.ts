@@ -5,6 +5,7 @@ import {setErrorApp, setStatusApp} from "../../AppReducer";
 
 
 const initialState = {
+    user_id:null as string | null,
     email: null as string | null,
     name: null as string | null,
     publicCardPacksCount: null as number | null,
@@ -16,7 +17,7 @@ type InitialStateType = typeof initialState
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
     switch (action.type) {
         case "PROFILE_PAGE_SET_PROFILE_DATA":
-            return {...state,name:action.data.name,email: action.data.email,avatar: action.data.avatar}
+            return {...state,name:action.data.name,email: action.data.email,avatar: action.data.avatar,user_id: action.data._id}
         case 'PROFILE_PAGE_CHANGE_PROFILE_NAME':
             return {...state, name: action.name}
         default:
