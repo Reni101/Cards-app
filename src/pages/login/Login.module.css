@@ -33,7 +33,7 @@ select:-webkit-autofill:focus {
     margin-top: 20px;
 }
 .form{
-    width: 350px;
+    width: 231px;
 }
 .item_box{
     position: relative;
@@ -50,7 +50,7 @@ select:-webkit-autofill:focus {
     font-size: 14px;
     margin-bottom: 20px;
     margin-right: 10px;
-    width: 350px;
+    width: 231px;
     text-align: end;
 }
 .fagot_pass>a{
