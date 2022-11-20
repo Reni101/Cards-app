@@ -89,7 +89,7 @@ export const LoginPage = React.memo(() => {
     return (
         <Slide direction={'up'} >
             <div className={style.wrapper_login}>
-                {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
+                {status === 'loading' && <div className="loading"><LinearProgress color="primary"/></div>}
                 <div className={style.sing_in}>Sing in</div>
                 <div className={style.form_container}>
                     <form className={style.gm}>
@@ -168,6 +168,7 @@ export const LoginPage = React.memo(() => {
                     </div>
                 </div>
             </div>
+
         </Slide>
     );
 })

@@ -13,18 +13,16 @@ import {ForgotPasswordPage} from "./pages/passwordRecoveryPage/forgotPasswordPag
 import {CheckEmailPage} from "./pages/passwordRecoveryPage/checkEmailPage/checkEmailPage";
 import {NewPasswordPage} from "./pages/passwordRecoveryPage/newPasswordPage/NewPasswordPage";
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
-import {initializedAppTC, requestStatusType} from './AppReducer';
+import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
-import {useSelector} from 'react-redux';
-import {AppRootStateType} from './Redux/Store';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
+
 
 
 
 function App() {
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.App.initialized)
-    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
 
 
     useEffect(() => {

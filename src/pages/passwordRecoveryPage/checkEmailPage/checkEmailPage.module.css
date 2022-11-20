@@ -1,18 +1,17 @@
-.CheckEmailPage{
-    height: calc(100vh - 60px);
+.CheckEmailPage {
+    height: calc(100vh - 90px);
     background-color: #F9F9FA;
 }
-.MainBlock{
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 456px;
-    width: 413px;
-    border: 1px solid #3D3D3D;
-    margin: 0 auto;
+
+.wrapper_checkEmail {
     position: relative;
-    top: 60px;
+    background-color: #ffffff;
+    text-align: center;
+    width: 400px;
+    border: .5px solid rgba(84, 84, 84, 0.5);
+    margin: 90px auto;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
 }
 
 .Title {
@@ -20,10 +19,26 @@
     font-size: 26px;
 
 }
-.Text{
-    padding: 33px;
-    font-size: 14px;
+
+.wrapper_checkEmail img {
+    margin-top: 30px;
+}
+
+.Text {
+    text-align: center;
+    font-size: 16px;
     opacity: 50%;
-    margin-top: 31px;
-    margin-bottom: 40px;
+    margin: 40px 33px 40px;
+}
+
+.Link {
+    margin-bottom: 30px;
+}
+.Link>a{
+    color: #366EFF;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration-line: underline;
 }

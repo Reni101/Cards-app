@@ -1,13 +1,20 @@
+.all_wrapper_profile{
+    position: relative;
+}
 .wrapper_profile {
+    position: relative;
     width: 400px;
     border: .5px solid rgba(84, 84, 84, 0.5);
     margin: 90px auto;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+
+}
+
+.Link_block {
+    left: 20px;
+    position: absolute;
 
 }
 
@@ -15,10 +22,11 @@
     text-align: center;
     margin: 20px 0;
     font-size: 26px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .wrapper_profile img {
+    margin-top: 20px;
     width: 96px;
     height: 96px;
     border-radius: 50%;
@@ -26,14 +34,14 @@
 
 .email {
     font-weight: 500;
-    font-size: 14px;
-    margin-top: 30px;
+    font-size: 16px;
+    margin-top: 31px;
     margin-bottom: 20px;
     opacity: 50%;
 }
 
-.logOut  button{
-    margin-bottom: 30px;
+.logOut {
+
 }
 
 /*
