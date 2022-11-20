@@ -10,14 +10,21 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 
 type PropsType = {
     currentPage: number // текущщая страница с сервака
-    packsCount: number // количество колод на транице 5 / 10
+    //  packsCount: number // количество колод на транице 5 / 10
     cardPacksTotalCount: number // сумарное количество коллод с сревака
+    name: string
+    onChangePage: (page: number) => void
+    onChangeRows: (rows: number) => void
+
+
 }
 
 
 export const Paginator = (props: PropsType) => {
+    // const dispatch =useAppDispatch()
     const [page, setPage] = React.useState(props.currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
 
     //   let pagesCount = Math.ceil(props.cardPacksTotalCount / props.packsCount)
 // количество страниц при макс колод, MU  сам расчитывает
@@ -27,6 +34,7 @@ export const Paginator = (props: PropsType) => {
         newPage: number,
     ) => {
         // изменяет страницу сетает номер новой страницу
+        props.onChangePage(newPage + 1)
         setPage(newPage);
     };
 
@@ -34,13 +42,17 @@ export const Paginator = (props: PropsType) => {
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         //меняет число сколько колод на странице
+        //dispatch(setPacksCountTC(event.target.value)) меняет отображение колличества колод/карт на странице
+        props.onChangeRows(parseInt(event.target.value, 10))
         setRowsPerPage(parseInt(event.target.value, 10));
         //после смены сетает первую страницу
+        // props.onChangePage(1)
         setPage(0);
     };
 
     return (<>
             <TablePagination
+                labelRowsPerPage={`Колличество ${props.name} на странице`}
                 rowsPerPageOptions={[5, 10]}
                 count={props.cardPacksTotalCount}
                 rowsPerPage={rowsPerPage}
@@ -48,14 +60,16 @@ export const Paginator = (props: PropsType) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
+
             />
         </>
 
 
     );
 }
-
 type TablePaginationActionsProps = {
+
+
     count: number;
     page: number;
     rowsPerPage: number;
@@ -66,6 +80,8 @@ type TablePaginationActionsProps = {
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
+
+
     const theme = useTheme();
     const {count, page, rowsPerPage, onPageChange} = props;
 
@@ -74,21 +90,25 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     ) => {
 
         //перекидывает на самую первую страницу
+
         onPageChange(event, 0);
     };
 
     const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         // перекидывает на предыдущую страницу
+        // dispatch(changePageTC(page -1))
         onPageChange(event, page - 1);
     };
 
     const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         // перекидывает на след страницу
+        // dispatch(changePageTC(page +1))
         onPageChange(event, page + 1);
     };
 
     const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         // перекидывает на последнюю страницу
+        // dispatch(changePageTC(Math.ceil(count / rowsPerPage) - 1)))
         onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
     };
 

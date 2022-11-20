@@ -54,7 +54,15 @@ export const ProfilePage = () => {
                 </Button>
 
             </div>
-            <Paginator cardPacksTotalCount={199} packsCount={10} currentPage={1} />
+            <Paginator cardPacksTotalCount={199}
+                       currentPage={1}
+                       name={"карт"}
+                       onChangePage={(page) => {
+                           alert(page)
+                       }}
+                       onChangeRows={(rows) => {
+                           alert(rows)
+                       }}/>
         </Slide>
     );
 };
