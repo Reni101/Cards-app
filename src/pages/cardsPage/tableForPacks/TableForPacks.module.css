@@ -1,0 +1,17 @@
+
+.flex_icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.icons>svg{
+    margin:0 5px;
+}
+
+.icons>svg:hover{
+    transition: all .2s;
+}
+.icons>svg:active{
+    color: rgba(0, 0, 0, 0.2);
+    transition: all .2s;
+}

@@ -8,27 +8,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
     label: string;
     minWidth?: number;
-    align?: 'center'| 'left' | 'right';
+    align?: 'center' | 'left' | 'right';
     format?: (value: string) => string;
 }
 
 const columns: readonly Column[] = [
-    {id: 'pack_name', label: 'Name', minWidth: 170,align:'left'},
-    {id: 'cards_count', label: 'Cards', minWidth: 80,align:'center'},
-    {id: 'create_by', label: 'Created by', minWidth: 170,align:'center'},
+    {id: 'pack_name', label: 'Name', minWidth: 170, align: 'left'},
+    {id: 'cards_count', label: 'Cards', minWidth: 80, align: 'center'},
+    {id: 'create_by', label: 'Created by', minWidth: 170, align: 'center'},
     {
         id: 'last_updated',
         label: 'Last updated',
         minWidth: 170,
         format: (value: string) => moment(value).utc().format('DD.MM.YYYY'),
-        align:'center'},
-    {id: 'actions', label: 'Actions', minWidth: 170,align:'right'},
+        align: 'center'
+    },
+    {id: 'actions', label: 'Actions', minWidth: 170, align: 'right'},
 ];
 
 interface RowsData {
@@ -37,7 +41,7 @@ interface RowsData {
     cards_count: number;
     create_by: string;
     last_updated: string;
-    actions?: number;
+    actions?: any;
 }
 
 function createData(
@@ -99,10 +103,23 @@ export const TableForPacks = () => {
                                             {columns.map((column) => {
                                                 const value = row[column.id];
                                                 return (
-                                                    <TableCell key={column.id} align={column.align}>
+                                                    <TableCell key={column.id}
+                                                               align={column.align}>
                                                         {column.format && typeof value === 'string'
                                                             ? column.format(value)
                                                             : value}
+                                                        {column.id === 'actions' &&
+                                                            <div className={style.flex_icons}>
+                                                                <div className={style.icons}>
+                                                                    <SchoolOutlinedIcon color={'primary'}/>
+                                                                </div>
+                                                                <div className={style.icons}>
+                                                                    <DriveFileRenameOutlineOutlinedIcon color={'primary'}/>
+                                                                </div>
+                                                                <div className={style.icons}>
+                                                                    <DeleteForeverOutlinedIcon color={'primary'}/>
+                                                                </div>
+                                                            </div>}
                                                     </TableCell>
                                                 );
                                             })}
@@ -125,4 +142,3 @@ export const TableForPacks = () => {
         </div>
     );
 };
-

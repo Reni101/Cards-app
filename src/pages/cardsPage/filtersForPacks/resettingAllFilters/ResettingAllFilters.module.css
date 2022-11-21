@@ -16,6 +16,8 @@
 }
 .icon_wrapper>svg{
     font-size: 40px;
+    cursor:pointer;
+    stroke-width: 2;
     transition: all .5s;
 }
 .icon_wrapper>svg:hover{
