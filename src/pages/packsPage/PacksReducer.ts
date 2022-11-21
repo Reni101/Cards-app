@@ -1,4 +1,5 @@
 import {AppThunk} from "../../Redux/Store";
+import {packsAPI, queryModelType} from "./packsAPI";
 
 
 type CardPacksType = {
@@ -21,36 +22,43 @@ type CardPacksType = {
 }
 type InitialStateType = {
     cardPacks: Array<CardPacksType>
-    page: number | null //текущая страница
-    pageCount: 5 | 10 //колличество колод на странице
     cardPacksTotalCount: number | null //всего колод
     minCardsCount: number | null //мин количество карт в колоде
     maxCardsCount: number | null // макс
-    sort: string | null// по какому параметру сортировать
+
+
+    min: number | null,
+    max: number | null,
+    page: number | null //текущая страница
+    pageCount: 5 | 10 //колличество колод на странице
+    sortPacks: string | null// по какому параметру сортировать
     packName: string | null
     user_id: string | null
+
 }
 
 
 const initialState: InitialStateType = {
     cardPacks: [],
-
     cardPacksTotalCount: null,
     minCardsCount: null,
     maxCardsCount: null,
 
+
+    min: null,
+    max: null,
     page: null, // текущая страница
     pageCount: 10, // количество колод в на странице
-    sort: null, // сортировка по возрастанию / убыванию
+    sortPacks: null, // сортировка по возрастанию / убыванию
     packName: null, //сортировка по имени
     user_id: null // сортировка мои/чужие колоды
 }
 
 
-export const PacksReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const PacksReducer = (state: InitialStateType = initialState, action: ActionsPacksType): InitialStateType => {
     switch (action.type) {
         case 'SET_PACKS':
-            return {...state,cardPacks : action.payload.packs}
+            return {...state, cardPacks: action.payload.packs}
         default:
             return state
     }
@@ -67,18 +75,24 @@ export const setPacksAC = (packs: Array<CardPacksType>) => ({
 
 //==============================TC============================
 
-export const setCardsPackTC = (): AppThunk => async dispatch => {
-    try {
-       // const res = packsAPI.getPacks({page,pageCount,sort,packName,user_id})
-       // dispatch(setPacksAC(res.packs))
-    } catch (e) {
+export const setCardsPackTC = (): AppThunk =>
+    async (dispatch, getState) => {
+        try {
+            const {min, max, page, pageCount, sortPacks, packName, user_id} = getState().Packs
+            const queryParams: queryModelType = {
+                min, max, page, pageCount, sortPacks, packName, user_id
+            }
+            const res = await packsAPI.getPacks(queryParams)
+            dispatch(setPacksAC(res.data.cardPacks))
+        } catch
+            (e) {
 
+        }
     }
-}
 
 
 //
 
-export type ActionsType =
+export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
 
