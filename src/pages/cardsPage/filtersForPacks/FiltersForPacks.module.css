@@ -1,0 +1,6 @@
+.all_wrapper_for_filters_for_packs{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

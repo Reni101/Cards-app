@@ -1,0 +1,18 @@
+.all_wrapper_filter_my_or_all{
+    width: 165px;
+}
+.title_show_packs_cards{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+}
+.buttons_wrapper{
+    display: flex;
+    flex-direction: row;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.item_box{
+}

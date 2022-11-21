@@ -155,7 +155,6 @@ export const LoginPage = () => {
                         <NavLink to="/forgot-password">
                             Fagot Password ?
                         </NavLink>
-                        {/* нужен компонент fagotPassword*/}
                     </div>
                     <form onSubmit={formik.handleSubmit} className={style.form}>
                         <div className={style.item_box}>

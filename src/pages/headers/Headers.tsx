@@ -28,7 +28,6 @@ export const Headers = () => {
             scrollPosition > 10 && !scrollDirection ? setNav && setNav(true) : setNav && setNav(false)
         }
     }, [scrollPosition])
-    console.log(scrollPosition)
 
     const navigate = useNavigate();
     const goSignUp = () => {
