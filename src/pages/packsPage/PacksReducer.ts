@@ -26,10 +26,11 @@ type InitialStateType = {
     minCardsCount: number | null //мин количество карт в колоде
     maxCardsCount: number | null // макс
 
+    page: number | null //текущая страница
 
     min: number | null,
     max: number | null,
-    page: number | null //текущая страница
+
     pageCount: 5 | 10 //колличество колод на странице
     sortPacks: string | null// по какому параметру сортировать
     packName: string | null
@@ -44,10 +45,12 @@ const initialState: InitialStateType = {
     minCardsCount: null,
     maxCardsCount: null,
 
+    page: null, // текущая страница
 
+//query params
     min: null,
     max: null,
-    page: null, // текущая страница
+
     pageCount: 10, // количество колод в на странице
     sortPacks: null, // сортировка по возрастанию / убыванию
     packName: null, //сортировка по имени
