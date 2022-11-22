@@ -12,6 +12,10 @@ export type ActionsQueryPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
+
+export type sortType = "name" | "updated" | "cardsCount" | "created"
+export type sortOrder = "0" | "1"
+
 type InitialStateType = {
     page: number | null
     min: number | null,
