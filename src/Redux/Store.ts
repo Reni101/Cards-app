@@ -8,8 +8,8 @@ import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginR
 import {AppReducer, appReducersType} from '../AppReducer';
 
 import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
-import {ActionsPacksType, PacksReducer} from "../pages/packsPage/packsReducer";
-import {ActionsQueryPacksType, QueryParamsPacksReducer} from "../pages/packsPage/queryParamsPacksReducer";
+import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
+import {ActionsQueryPacksType, QueryParamsPacksReducer} from "../pages/packsPage/QueryParamsPacksReducer";
 
 
 const rootReducer = combineReducers({

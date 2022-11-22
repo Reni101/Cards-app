@@ -1,5 +1,5 @@
 import {AppThunk} from "../../Redux/Store";
-import {packsAPI, ResponseCardsType} from "./packsAPI";
+import {packsAPI, ResponseCardsType} from "./PacksAPI";
 
 
 type CardPacksType = {

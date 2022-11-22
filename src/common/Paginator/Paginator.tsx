@@ -52,7 +52,7 @@ export const Paginator = (props: PropsType) => {
 
     return (<>
             <TablePagination
-                labelRowsPerPage={`Колличество ${props.name} на странице`}
+                labelRowsPerPage={props.name}
                 rowsPerPageOptions={[5, 10]}
                 count={props.cardPacksTotalCount}
                 rowsPerPage={rowsPerPage}

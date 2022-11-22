@@ -1,5 +1,5 @@
 import {AppThunk} from "../../Redux/Store";
-import {setCardsPackTC} from "./packsReducer";
+import {setCardsPackTC} from "./PacksReducer";
 
 
 export type ActionsQueryPacksType =
