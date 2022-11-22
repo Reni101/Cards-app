@@ -34,7 +34,7 @@ export type queryModelType = {
 }
 
 export const packsAPI = {
-    getPacks(model:queryModelType) {
+    getPacks(model?:queryModelType) {
         return instance.get<ResponseCardsType>("cards/pack", {
             params: model
         })

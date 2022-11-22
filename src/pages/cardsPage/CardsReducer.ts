@@ -25,7 +25,7 @@ type InitialStateType = {
     packCreated: string | null
     packUpdated: string | null
     currentPage: number | null
-    pageCount: 5 | 10 //количество карточек на странице
+   // pageCount: 5 | 10 //количество карточек на странице
     cardsTotalCount: number | null // всего карточек
 }
 
@@ -39,7 +39,7 @@ const initialState: InitialStateType = {
     packUpdated: null,
     cardsTotalCount: null,
     currentPage: null,
-    pageCount: 10
+  //  pageCount: 10
 }
 
 
@@ -47,7 +47,7 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'SET_CARDS':
             return {
-                ...state,cards:action.payload.resObj.cards,
+                ...state,...action.payload.resObj
             }
         default:
             return state
@@ -64,11 +64,11 @@ export const setCardsAC = (resObj: ResponseCardsType) => ({
 
 //==============================TC============================
 
-export const setCardsPackTC = (): AppThunk =>
+export const setCardsPackTC = (cardsPack_id:string): AppThunk =>
     async (dispatch, getState) => {
         try {
             const {
-                cardsPack_id, cardAnswer, cardQuestion,
+                 cardAnswer, cardQuestion,
                 min, max, sortCards, page, pageCount
             } = getState().QueryParamsCards
             const res = await cardsAPI.getCards({

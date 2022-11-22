@@ -36,8 +36,9 @@ export type queryCardsModelType = {
 }
 
 export const cardsAPI = {
-    getCards(model:queryCardsModelType) {
+    getCards(model?:queryCardsModelType) {
         return instance.get<ResponseCardsType>("cards/card", {
+			params:model
         })
     }
 }

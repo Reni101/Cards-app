@@ -9,7 +9,6 @@ import {AppReducer, appReducersType} from '../AppReducer';
 
 import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
-import {ActionsQueryPacksType, QueryParamsPacksReducer} from "../pages/packsPage/QueryParamsPacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {ActionsQueryCardsType, QueryParamsCardsReducer} from "../pages/cardsPage/QueryParamsCardsReducer";
 
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
     App: AppReducer,
     Registration: RegistrationReducer,
     Packs: PacksReducer,
-    QueryParamsPacks: QueryParamsPacksReducer,
     Cards: CardsReducer,
     QueryParamsCards: QueryParamsCardsReducer,
 
@@ -38,7 +36,7 @@ export type AllAppActionsType =
     | appReducersType
     | RegistrationActionType
     | ActionsPacksType
-    | ActionsQueryPacksType
+
     | ActionsCardsType
     | ActionsQueryCardsType
 
