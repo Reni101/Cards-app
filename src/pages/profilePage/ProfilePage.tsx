@@ -8,7 +8,8 @@ import {Slide} from "react-awesome-reveal";
 import {Button, LinearProgress} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {requestStatusType} from "../../AppReducer";
-import {setCardsPackTC} from "../packsPage/packsReducer";
+
+import {SingOutTC} from "../login/loginReducer/LoginReducer";
 
 
 export const ProfilePage = () => {
@@ -24,7 +25,7 @@ export const ProfilePage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const logOutHandler = async () => {
-        await dispatch(setCardsPackTC())
+        await dispatch(SingOutTC())
          navigate('/')
     }
     if (!isAuth) {

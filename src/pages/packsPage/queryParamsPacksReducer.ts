@@ -172,7 +172,21 @@ export const changeShowMyPacksTC = (user_id: string | null): AppThunk =>
             (e) {
         }
     }
-
+export const ResetAllQueryParamsTC = (): AppThunk =>
+    async (dispatch) => {
+        try {
+            dispatch(changePageAC(null))
+            dispatch(changeMinAC(null))
+            dispatch(changeMaxAC(null))
+            dispatch(changePageCountAC(10))
+            dispatch(changeSortPacksAC(null))
+            dispatch(sortPacksNameAC(null))
+            dispatch(changeShowMyPacksAC(null))
+            await dispatch(setCardsPackTC())
+        } catch
+            (e) {
+        }
+    }
 
 
 
