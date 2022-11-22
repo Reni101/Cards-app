@@ -8,7 +8,8 @@ import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginR
 import {AppReducer, appReducersType} from '../AppReducer';
 
 import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
-import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
+import {ActionsPacksType, PacksReducer} from "../pages/packsPage/packsReducer";
+import {ActionsQueryPacksType, QueryParamsPacksReducer} from "../pages/packsPage/queryParamsPacksReducer";
 
 
 const rootReducer = combineReducers({
@@ -19,6 +20,8 @@ const rootReducer = combineReducers({
     App: AppReducer,
     Registration: RegistrationReducer,
     Packs: PacksReducer,
+    QueryParamsPacks: QueryParamsPacksReducer,
+
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -31,6 +34,7 @@ export type AllAppActionsType =
     | appReducersType
     | RegistrationActionType
     | ActionsPacksType
+    | ActionsQueryPacksType
 
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>
