@@ -8,12 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import TablePagination from '@mui/material/TablePagination';
 import moment from 'moment/moment';
-import {Rating, Typography} from '@mui/material';
+import {Rating} from '@mui/material';
 
 
 interface CardsColumn {
