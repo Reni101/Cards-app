@@ -1,0 +1,16 @@
+.all_wrapper_filter_range{
+}
+
+.title_filter_range{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+}
+.slider_wrapper{
+    position: relative;
+    min-height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+

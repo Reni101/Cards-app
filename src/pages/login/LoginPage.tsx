@@ -36,7 +36,7 @@ interface InitialValuesType {
     rememberMe: boolean
 }
 
-export const LoginPage = React.memo(() => {
+export const LoginPage = () => {
 
     const dispatch: AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
@@ -155,7 +155,6 @@ export const LoginPage = React.memo(() => {
                         <NavLink to="/forgot-password">
                             Fagot Password ?
                         </NavLink>
-                        {/* нужен компонент fagotPassword*/}
                     </div>
                     <form onSubmit={formik.handleSubmit} className={style.form}>
                         <div className={style.item_box}>
@@ -171,7 +170,7 @@ export const LoginPage = React.memo(() => {
 
         </Slide>
     );
-})
+}
 
 
 const IOSSwitch = styled((props: SwitchProps) => (

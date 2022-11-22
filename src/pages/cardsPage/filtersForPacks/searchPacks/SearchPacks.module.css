@@ -1,0 +1,9 @@
+.all_wrapper_search_packs{
+    width: 250px;
+}
+.title_search_pack{
+    font-size: 20px;
+    font-weight: 500;
+    margin-left:24px;
+    color: rgba(0, 0, 0, 0.5);
+}

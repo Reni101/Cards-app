@@ -1,0 +1,6 @@
+.all_wrapper_add_new_pack{
+    margin-top: 90px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
