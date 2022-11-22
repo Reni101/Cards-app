@@ -9,12 +9,6 @@ import {Button, LinearProgress} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {requestStatusType} from "../../AppReducer";
 import {setCardsPackTC} from "../packsPage/packsReducer";
-import {
-    changeMaxCardsInPackTC,
-    changeMinCardsInPackTC,
-    changePageCountPackTC,
-    changePageTC, changeShowMyPacksTC, sortPacksNameTC
-} from "../packsPage/queryParamsPacksReducer";
 
 
 export const ProfilePage = () => {
@@ -31,7 +25,7 @@ export const ProfilePage = () => {
     const dispatch = useAppDispatch()
     const logOutHandler = async () => {
         await dispatch(setCardsPackTC())
-        // navigate('/')
+         navigate('/')
     }
     if (!isAuth) {
         return <Navigate to={"/"}/>
@@ -58,12 +52,6 @@ export const ProfilePage = () => {
                 <Button style={{marginBottom: "30px"}} variant="outlined" onClick={logOutHandler} type="submit">
                     <LogoutIcon/> Log out
                 </Button>
-                <button onClick={()=>{dispatch(changePageTC(2))}}>page 2</button>
-                <button onClick={()=>{dispatch(changeMinCardsInPackTC(5))}}>min 5</button>
-                <button onClick={()=>{dispatch(changeMaxCardsInPackTC(10))}}>max 10</button>
-                <button onClick={()=>{dispatch(changePageCountPackTC(5))}}>pageCount 5</button>
-                <button onClick={()=>{dispatch(sortPacksNameTC("eng"))}}>sort "eng"</button>
-                <button onClick={()=>{dispatch(changeShowMyPacksTC(user_id))}}>Show my packs</button>
 
             </div>
         </Slide>
