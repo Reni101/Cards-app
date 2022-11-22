@@ -18,7 +18,7 @@ export const Headers = () => {
     const userName = useAppSelector(state => state.ProfilePage.name)
 
 
-    const [nav,setNav] = useState(false)
+    const [nav, setNav] = useState(false)
     // this hook tracking scrolling yor window and return scrollY value
     const scrollPosition = useScrollPosition();
     // if scrollY value > 10px header style = opacity:0
@@ -32,6 +32,9 @@ export const Headers = () => {
     const navigate = useNavigate();
     const goSignUp = () => {
         navigate('/registration')
+    }
+    const goToProfile = () => {
+        navigate('/profile')
     }
 
     const changeSignOut = async () => {
@@ -52,7 +55,8 @@ export const Headers = () => {
                             sign out
                         </Button>
                         <div className={style.user_name}>{userName}</div>
-                        <img src={userLogo ? userLogo : 'https://my-engine.ru/modules/users/avatar.png'} alt="logo"/>
+                        <img onClick={goToProfile}
+                             src={userLogo ? userLogo : 'https://my-engine.ru/modules/users/avatar.png'} alt="logo"/>
                     </div>
                     :
                     <Button className={style.button} variant="outlined" onClick={goSignUp} type="submit">

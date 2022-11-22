@@ -1,15 +1,16 @@
 import React from 'react';
 import styleProfile from './ProfilePage.module.css'
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {Navigate, useNavigate} from "react-router-dom";
-import {EditProfileName} from "./EditProfileName/editProfileName";
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {Navigate, NavLink, useNavigate} from 'react-router-dom';
+import {EditProfileName} from './EditProfileName/editProfileName';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {Slide} from "react-awesome-reveal";
-import {Button, LinearProgress} from "@mui/material";
+import {Slide} from 'react-awesome-reveal';
+import {Button, LinearProgress} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {requestStatusType} from "../../AppReducer";
+import {requestStatusType} from '../../AppReducer';
 
-import {SingOutTC} from "../login/loginReducer/LoginReducer";
+import {SingOutTC} from '../login/loginReducer/LoginReducer';
+import {packsRoute} from '../../common/paths/Paths';
 
 export const ProfilePage = () => {
 
@@ -26,32 +27,39 @@ export const ProfilePage = () => {
         await dispatch(SingOutTC())
         navigate('/')
     }
+    const goToPacks = () => {
+        navigate(packsRoute)
+    }
     if (!isAuth) {
-        return <Navigate to={"/"}/>
+        return <Navigate to={'/'}/>
     }
 
 
     return (
-        <Slide direction={'up'} className={styleProfile.all_wrapper_profile}>
+        <Slide direction={'up'} >
+            <div className={styleProfile.all_wrapper_profile}>
+                <Slide  direction={'left'}>
+                    <div className={styleProfile.Link_block} onClick={goToPacks}>
+                        <ArrowBackIcon style={{height: '15px'}}/>
+                        Back to Packs List
+                    </div>
+                </Slide>
 
-            <div className={styleProfile.Link_block}>
-                <a href="/"> <ArrowBackIcon style={{height: "15px"}}/> Back to Packs List </a>
-            </div>
-
-            <div className={styleProfile.wrapper_profile}>
-                {status === "loading" && <div><LinearProgress color="secondary"/></div>}
-
-
-                <h2 className={styleProfile.title}>Personal Information</h2>
-                <img src={avatar ? avatar : "https://my-engine.ru/modules/users/avatar.png"} alt=""/>
-                <EditProfileName profileName={profileName}/>
-                <div className={styleProfile.email}>{email}</div>
+                <div className={styleProfile.wrapper_profile}>
+                    {status === 'loading' && <div><LinearProgress color="secondary"/></div>}
 
 
-                <Button style={{marginBottom: "30px"}} variant="outlined" onClick={logOutHandler} type="submit">
-                    <LogoutIcon/> Log out
-                </Button>
+                    <h2 className={styleProfile.title}>Personal Information</h2>
+                    <img src={avatar ? avatar : 'https://my-engine.ru/modules/users/avatar.png'} alt=""/>
+                    <EditProfileName profileName={profileName}/>
+                    <div className={styleProfile.email}>{email}</div>
 
+
+                    <Button style={{marginBottom: '30px'}} variant="outlined" onClick={logOutHandler} type="submit">
+                        <LogoutIcon/> Log out
+                    </Button>
+
+                </div>
             </div>
         </Slide>
     );

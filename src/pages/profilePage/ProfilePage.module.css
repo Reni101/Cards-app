@@ -1,5 +1,7 @@
 .all_wrapper_profile{
     position: relative;
+    width: 100vw;
+    height: 100%;
 }
 .wrapper_profile {
     position: relative;
@@ -15,6 +17,8 @@
 .Link_block {
     left: 20px;
     position: absolute;
+    cursor: pointer;
+    z-index: 20;
 
 }
 

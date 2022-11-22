@@ -1,11 +1,7 @@
-import React from 'react';
-import style from './SearchPacks.module.css'
-import {styled, alpha} from '@mui/material/styles';
+import {alpha, styled} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import {Toolbar} from '@mui/material';
 
-const Search = styled('div')(({theme}) => ({
+export const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.black, 0.15),
@@ -19,7 +15,7 @@ const Search = styled('div')(({theme}) => ({
         width: 'auto',
     },
 }));
-const SearchIconWrapper = styled('div')(({theme}) => ({
+export const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     color: 'rgba(0,0,0,0.5)',
     height: '100%',
@@ -29,7 +25,7 @@ const SearchIconWrapper = styled('div')(({theme}) => ({
     alignItems: 'center',
     justifyContent: 'center',
 }));
-const StyledInputBase = styled(InputBase)(({theme}) => ({
+export const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'rgba(0,0,0,0.5)',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -45,25 +41,3 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
         },
     },
 }));
-
-export const SearchPacks = () => {
-    return (
-        <div className={style.all_wrapper_search_packs}>
-            <div className={style.title_search_pack}>
-                Search
-            </div>
-            <Toolbar sx={{pl: '0'}}>
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon/>
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Go search"
-                        inputProps={{'aria-label': 'search'}}
-                    />
-                </Search>
-            </Toolbar>
-        </div>
-    );
-};
-
