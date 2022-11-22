@@ -2,7 +2,7 @@ import {AppThunk} from "../../Redux/Store";
 import {packsAPI, ResponseCardsType} from "./PacksAPI";
 
 
-type CardPacksType = {
+type PacksType = {
     _id: string // id колоды
     user_id: string
     user_name: string
@@ -25,7 +25,7 @@ export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
 
 type InitialStateType = {
-    cardPacks: Array<CardPacksType>
+    cardPacks: Array<PacksType>
     cardPacksTotalCount: number | null //всего колод
     minCardsCount: number | null //мин количество карт в колоде
     maxCardsCount: number | null // макс

@@ -10,6 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {requestStatusType} from "../../AppReducer";
 
 import {SingOutTC} from "../login/loginReducer/LoginReducer";
+import {packsRoute} from "../../common/paths/Paths";
 
 
 export const ProfilePage = () => {
@@ -26,7 +27,7 @@ export const ProfilePage = () => {
     const dispatch = useAppDispatch()
     const logOutHandler = async () => {
         await dispatch(SingOutTC())
-         navigate('/')
+         navigate(packsRoute)
     }
     if (!isAuth) {
         return <Navigate to={"/"}/>
