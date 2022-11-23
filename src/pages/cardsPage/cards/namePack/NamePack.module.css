@@ -1,0 +1,15 @@
+.name_pack_all_wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 30px;
+    cursor: pointer;
+}
+
+.popper{
+    z-index: 100 !important;
+}
+.name_icon{
+    font-size: 15px;
+    margin: 0 10px;
+}

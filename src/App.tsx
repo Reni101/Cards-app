@@ -16,6 +16,7 @@ import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
 import {
+    addNewCardPage,
     cardsRoute,
     checkEmailRoute,
     forgotPassRoute,
@@ -27,6 +28,7 @@ import {
 } from './common/paths/Paths';
 import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
+import {AddNewPackPage} from './pages/packsPage/addNewPack/addNewPackPage/AddNewPackPage';
 
 
 function App() {
@@ -59,6 +61,7 @@ function App() {
                 <Route path={setNewPassRoute} element={<NewPasswordPage/>}/>
                 <Route path={packsRoute} element={<PacksPage/>}/>
                 <Route path={cardsRoute} element={<CardsPage/>}/>
+                <Route path={addNewCardPage} element={<AddNewPackPage/>}/>
 
                 <Route path="*" element={<Navigate to={notFoundRoute}/>}/>
             </Routes>

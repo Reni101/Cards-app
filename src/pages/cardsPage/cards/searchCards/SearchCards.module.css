@@ -1,0 +1,12 @@
+.all_wrapper_search_cards{
+    margin: 30px 0 0 0;
+}
+.title_search_cards{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+}
+.toolbar{
+    padding: 0 !important;
+}
+
