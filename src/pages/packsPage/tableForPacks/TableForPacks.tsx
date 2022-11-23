@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -13,6 +13,8 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {setCardsPackTC} from "../PacksReducer";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -64,6 +66,14 @@ const rows: RowsData[] = [
 
 
 export const TableForPacks = () => {
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(setCardsPackTC())
+    }, [])
+
+    const rows1 = useAppSelector(state => state.Packs.cardPacks)
+
+
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
