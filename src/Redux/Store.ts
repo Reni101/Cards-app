@@ -8,7 +8,7 @@ import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginR
 import {AppReducer, appReducersType} from '../AppReducer';
 
 import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
-
+import {PacksActionsType} from "../pages/registrationPage/Pack/PacksReducer";
 
 
 const rootReducer = combineReducers({
@@ -29,6 +29,7 @@ export type AllAppActionsType =
     | ActionsForgotType
     | appReducersType
     | RegistrationActionType
+    | PacksActionsType
 
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>
