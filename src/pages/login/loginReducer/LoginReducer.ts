@@ -75,7 +75,7 @@ export const getAuthTC = (): AppThunk =>
             let res = await loginApi.authUser();
             let {_id, email, name, token} = res.data
             dispatch(getAuthAC(_id, name, email, true, token))
-            dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar
+            dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar id
         } catch (e) {
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {
@@ -96,7 +96,7 @@ export const SingInTC = (data: LoginType): AppThunk =>
             const res = await loginApi.login(data)
             dispatch(setLoginAC(data, res.data._id, true))
             dispatch(setStatusApp('succeeded'))
-            dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar
+            dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar, id
         } catch (e) {
             const err = e as Error | AxiosError
             if (axios.isAxiosError(err)) {

@@ -14,7 +14,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {setCardsPackTC} from "../PacksReducer";
+import {SetCardsPackTC} from "../PacksReducer";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -66,13 +66,13 @@ const rows: RowsData[] = [
 
 
 export const TableForPacks = () => {
+
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(setCardsPackTC())
+        dispatch(SetCardsPackTC())
     }, [])
 
     const rows1 = useAppSelector(state => state.Packs.cardPacks)
-
 
 
     const [page, setPage] = React.useState(0);
@@ -157,6 +157,7 @@ export const TableForPacks = () => {
                     />
                 </Paper>
             </div>
+
         </Slide>
     );
 };

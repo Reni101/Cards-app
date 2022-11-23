@@ -2,6 +2,24 @@ import {instance} from "../../common/API/api";
 import {AxiosResponse} from "axios";
 
 
+
+export const cardsAPI = {
+    getCards(model?: queryCardsModelType) {
+        return instance.get<ResponseCardsType>("cards/card", {
+            params: model
+        })
+    },
+    addCard(card: RequestAddCardType) {
+        instance.post<{ card: RequestAddCardType }, AxiosResponse>('cards/pack', {card: card})
+    },
+    updateCard(card: RequestUpdateCardType) {
+        instance.put('cards/pack', {card: card})
+    },
+    deleteCard(idCard: string) {
+        instance.delete(`cards/pack?id=${idCard}`)
+    }
+}
+
 export type ResponseCardsType = {
     cards: CardType[];
     packUserId: string;
@@ -49,21 +67,4 @@ export type queryCardsModelType = {
     //min: number | null
     //max: number | null
     //cardAnswer: string | null // поиск по ответам?
-}
-
-export const cardsAPI = {
-    getCards(model?: queryCardsModelType) {
-        return instance.get<ResponseCardsType>("cards/card", {
-            params: model
-        })
-    },
-    addCard(card: RequestAddCardType) {
-        instance.post<{ card: RequestAddCardType }, AxiosResponse>('cards/pack', {card: card})
-    },
-    updateCard(card: RequestUpdateCardType) {
-        instance.put('cards/pack', {card: card})
-    },
-    deleteCard(idCard: string) {
-        instance.delete(`cards/pack?id=${idCard}`)
-    }
 }

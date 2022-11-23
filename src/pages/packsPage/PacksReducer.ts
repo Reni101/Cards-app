@@ -57,7 +57,7 @@ const initialState: InitialStateType = {
         sortPacks: null, // сортировка по возрастанию / убыванию
         packName: null, //сортировка по имени
         user_id: null,// сортировка мои/чужие колоды
-        page: null,
+        page: 1,
     },
     cardPacksTotalCount: null,
     minCardsCount: null,
@@ -69,9 +69,8 @@ const initialState: InitialStateType = {
 export const PacksReducer = (state: InitialStateType = initialState, action: ActionsPacksType): InitialStateType => {
     switch (action.type) {
         case 'PACKS/SET_PACKS':
-            return {...state, ...action.payload.resObj}
 
-
+            return {...state, ...action.payload}
         case "PACKS/CHANGE_PAGE":
             return {...state, query: {...state.query, page: action.payload.page}}
         case "PACKS/CHANGE_MIN":
@@ -93,9 +92,8 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
 //=============================AC======================================
 export const setPacksAC = (resObj: ResponseCardsType) => ({
     type: "PACKS/SET_PACKS",
-    payload: {
-        resObj
-    }
+    payload: resObj
+
 } as const)
 
 export const changePageAC = (page: number | null) => ({
@@ -136,7 +134,7 @@ export const changeShowMyPacksAC = (user_id: string | null) => ({
 
 //==============================TC============================
 
-export const setCardsPackTC = (): AppThunk =>
+export const SetCardsPackTC = (): AppThunk =>
     async (dispatch, getState) => {
         try {
             const {min, max, page, pageCount, sortPacks, packName, user_id} = getState().Packs.query
@@ -148,82 +146,13 @@ export const setCardsPackTC = (): AppThunk =>
         }
     }
 
-export const changePageTC = (page: number | null): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(changePageAC(page))
-
-        } catch
-            (e) {
-        }
-    }
-
-export const changeMinCardsInPackTC = (min: number | null): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(changeMinAC(min))
-
-        } catch
-            (e) {
-        }
-    }
-export const changeMaxCardsInPackTC = (max: number | null): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(changeMaxAC(max))
-
-        } catch
-            (e) {
-        }
-    }
-
-export const changePageCountPackTC = (pageCount: 5 | 10): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(changePageCountAC(pageCount))
-
-        } catch
-            (e) {
-        }
-    }
-
-export const changeSortPacksTC = (sortPacks: string | null): AppThunk => // ДОПИЛИТЬ!!!!
-    async (dispatch) => {
-        try {
-            dispatch(changeSortPacksAC(sortPacks))
-
-        } catch
-            (e) {
-        }
-    }
-
-export const sortPacksNameTC = (packName: string | null): AppThunk =>
-    async (dispatch) => {
-
-        try {
-            dispatch(sortPacksNameAC(packName))
-
-        } catch
-            (e) {
-        }
-    }
-
-export const changeShowMyPacksTC = (user_id: string | null): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(changeShowMyPacksAC(user_id))
-
-        } catch
-            (e) {
-        }
-    }
 export const ResetAllQueryParamsTC = (): AppThunk =>
     async (dispatch) => {
         try {
-            dispatch(changePageAC(null))
+            dispatch(changePageAC(1))
             dispatch(changeMinAC(null))
             dispatch(changeMaxAC(null))
-            dispatch(changePageCountAC(10))
+            dispatch(changePageCountAC(5))
             dispatch(changeSortPacksAC(null))
             dispatch(sortPacksNameAC(null))
             dispatch(changeShowMyPacksAC(null))
@@ -236,7 +165,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        dispatch(setCardsPackTC())
+        dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
@@ -255,7 +184,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
-        dispatch(setCardsPackTC())
+        dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
@@ -274,7 +203,7 @@ export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.deletePack(idPack)
-        dispatch(setCardsPackTC())
+        dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
