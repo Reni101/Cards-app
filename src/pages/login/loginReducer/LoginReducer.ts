@@ -1,9 +1,10 @@
 import {AppThunk} from '../../../Redux/Store';
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
-import {Dispatch} from 'redux';
-import axios, {AxiosError} from 'axios';
-import {initializedAppAC, setErrorApp, setStatusApp} from '../../../AppReducer';
+
+import  {AxiosError} from 'axios';
+import { setStatusApp} from '../../../AppReducer';
 import {setProfileDataAC} from "../../profilePage/ProfilePagerReducer";
+import {handleError} from "../../../common/ErrorUtils/errorFunck";
 
 
 export type initialStateType = LoginType & forLoginUserInfo
@@ -78,13 +79,7 @@ export const getAuthTC = (): AppThunk =>
             dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar id
         } catch (e) {
             const err = e as Error | AxiosError
-            if (axios.isAxiosError(err)) {
-                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                dispatch(setErrorApp(error))
-            } else {
-                dispatch(setErrorApp(`Native error ${err.message}`))
-            }
-            dispatch(setStatusApp('failed'))
+            handleError(err,dispatch)
         }
 
     }
@@ -99,14 +94,7 @@ export const SingInTC = (data: LoginType): AppThunk =>
             dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar, id
         } catch (e) {
             const err = e as Error | AxiosError
-            if (axios.isAxiosError(err)) {
-                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                dispatch(setErrorApp(error))
-            } else {
-                dispatch(setErrorApp(`Native error ${err.message}`))
-
-            }
-            dispatch(setStatusApp('failed'))
+            handleError(err,dispatch)
         }
     }
 
@@ -119,12 +107,6 @@ export const SingOutTC = (): AppThunk =>
             dispatch(setStatusApp('succeeded'))
         } catch (e) {
             const err = e as Error | AxiosError
-            if (axios.isAxiosError(err)) {
-                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                dispatch(setErrorApp(error))
-            } else {
-                dispatch(setErrorApp(`Native error ${err.message}`))
-            }
-            dispatch(setStatusApp('failed'))
+            handleError(err,dispatch)
         }
     }

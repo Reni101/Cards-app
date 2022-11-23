@@ -1,7 +1,8 @@
 import {AppThunk} from "../../Redux/Store";
-import {setErrorApp, setStatusApp} from "../../AppReducer";
-import axios, {AxiosError} from "axios";
+import { setStatusApp} from "../../AppReducer";
+import  {AxiosError} from "axios";
 import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
+import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
@@ -168,12 +169,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
         dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApp(error))
-        } else {
-            dispatch(setErrorApp(`Native error ${err.message}`))
-        }
+        handleError(err,dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }
@@ -187,12 +183,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
         dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApp(error))
-        } else {
-            dispatch(setErrorApp(`Native error ${err.message}`))
-        }
+        handleError(err,dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }
@@ -206,12 +197,7 @@ export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
         dispatch(SetCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApp(error))
-        } else {
-            dispatch(setErrorApp(`Native error ${err.message}`))
-        }
+        handleError(err,dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }

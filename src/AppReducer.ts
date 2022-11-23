@@ -1,7 +1,8 @@
 import {AppThunk} from './Redux/Store';
 import {Dispatch} from 'redux';
 import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
-import axios, {AxiosError} from 'axios';
+import  {AxiosError} from 'axios';
+import {handleError} from "./common/ErrorUtils/errorFunck";
 
 
 export type requestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -63,13 +64,7 @@ export const initializedAppTC = (): AppThunk =>
         }
         catch(e){
             const err = e as Error | AxiosError
-            if (axios.isAxiosError(err)) {
-                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                dispatch(setErrorApp(error))
-            } else {
-                dispatch(setErrorApp(`Native error ${err.message}`))
-
-            }
+            handleError(err,dispatch)
         }
 
     }
