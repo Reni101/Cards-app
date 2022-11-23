@@ -1,5 +1,7 @@
 import {AppThunk} from "../../Redux/Store";
-import {packsAPI, ResponseCardsType} from "./PacksAPI";
+import {setErrorApp, setStatusApp} from "../../AppReducer";
+import axios, {AxiosError} from "axios";
+import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
 
 export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
@@ -230,5 +232,59 @@ export const ResetAllQueryParamsTC = (): AppThunk =>
             (e) {
         }
     }
+export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dispatch) => {
+    dispatch(setStatusApp('loading'))
+    try {
+        await packsAPI.addPack(cardsPack)
+        dispatch(setCardsPackTC())
+    } catch (e) {
+        const err = e as Error | AxiosError
+        if (axios.isAxiosError(err)) {
+            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+            dispatch(setErrorApp(error))
+        } else {
+            dispatch(setErrorApp(`Native error ${err.message}`))
+        }
+    } finally {
+        dispatch(setStatusApp('idle'))
+    }
+}
 
+
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => async (dispatch) => {
+    dispatch(setStatusApp('loading'))
+    try {
+        await packsAPI.updatePack(cardsPack)
+        dispatch(setCardsPackTC())
+    } catch (e) {
+        const err = e as Error | AxiosError
+        if (axios.isAxiosError(err)) {
+            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+            dispatch(setErrorApp(error))
+        } else {
+            dispatch(setErrorApp(`Native error ${err.message}`))
+        }
+    } finally {
+        dispatch(setStatusApp('idle'))
+    }
+}
+
+
+export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
+    dispatch(setStatusApp('loading'))
+    try {
+        await packsAPI.deletePack(idPack)
+        dispatch(setCardsPackTC())
+    } catch (e) {
+        const err = e as Error | AxiosError
+        if (axios.isAxiosError(err)) {
+            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+            dispatch(setErrorApp(error))
+        } else {
+            dispatch(setErrorApp(`Native error ${err.message}`))
+        }
+    } finally {
+        dispatch(setStatusApp('idle'))
+    }
+}
 

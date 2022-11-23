@@ -1,4 +1,6 @@
 import {instance} from "../../common/API/api";
+import {AxiosResponse} from "axios";
+
 
 export type ResponseCardsType = {
     cards: CardType[];
@@ -24,6 +26,20 @@ export type CardType = {
     created: string;
     updated: string;
 }
+
+export type RequestAddCardType = {
+    cardsPack_id: string
+    question: string
+    answer: string
+}
+
+export type RequestUpdateCardType = {
+    _id: string
+    question: string
+}
+
+
+
 export type queryCardsModelType = {
     cardsPack_id: string | null // айдишка пака
     cardQuestion: string | null // по вопросами
@@ -40,5 +56,14 @@ export const cardsAPI = {
         return instance.get<ResponseCardsType>("cards/card", {
             params: model
         })
+    },
+    addCard(card: RequestAddCardType) {
+        instance.post<{ card: RequestAddCardType }, AxiosResponse>('cards/pack', {card: card})
+    },
+    updateCard(card: RequestUpdateCardType) {
+        instance.put('cards/pack', {card: card})
+    },
+    deleteCard(idCard: string) {
+        instance.delete(`cards/pack?id=${idCard}`)
     }
 }
