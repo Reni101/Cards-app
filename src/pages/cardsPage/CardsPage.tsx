@@ -3,8 +3,7 @@ import style from './CardsPage.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {packsRoute} from '../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
-import {MyCards} from './myCards/MyCards';
-import {OtherCards} from './otherCards/OtherCards';
+import {Cards} from './cards/Cards';
 
 export const CardsPage = () => {
 
@@ -21,8 +20,7 @@ export const CardsPage = () => {
                 Back to Packs List
             </div>
             <div>
-                <MyCards/>
-                <OtherCards/>
+                <Cards/>
             </div>
         </div>
     );

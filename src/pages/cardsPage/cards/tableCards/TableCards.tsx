@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Slide} from 'react-awesome-reveal';
-import style from '../../../packsPage/tableForPacks/TableForPacks.module.css';
+import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -11,6 +11,9 @@ import TableBody from '@mui/material/TableBody';
 import TablePagination from '@mui/material/TablePagination';
 import moment from 'moment/moment';
 import {Rating} from '@mui/material';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 
 interface CardsColumn {
@@ -19,6 +22,14 @@ interface CardsColumn {
     minWidth?: number;
     align?: 'center' | 'left' | 'right';
     format?: (value: string) => string;
+}
+
+interface RowsData {
+    packUserId: string;
+    answer: string;
+    question: string;
+    last_updated: string;
+    grade?: number;
 }
 
 const columns: readonly CardsColumn[] = [
@@ -31,33 +42,26 @@ const columns: readonly CardsColumn[] = [
         format: (value: string) => moment(value).utc().format('DD.MM.YYYY'),
         align: 'center'
     },
-    {id: 'grade', label: 'Grade', minWidth: 170, align: 'right'},
+    {id: 'grade', label: 'Grade', minWidth: 170, align: 'left'},
+];
+const rows: RowsData[] = [
+    createData('123', 'Whats working JS', 'I dont now', '2022-11-21T17:39:44.915Z', 2),
+    createData('321', 'React - what is it?', 'This is not my problem', '2022-11-21T17:39:44.915Z', 3),
+    createData('231', 'How many count have HTML', 'I dont understand you', '2022-11-21T17:39:44,.915Z', 5)
 ];
 
-interface RowsData {
-    packUserId: string;
-    answer: string;
-    question: string;
-    last_updated: string;
-    grade?: number;
-}
 
 function createData(
     packUserId: string,
     answer: string,
     question: string,
     last_updated: string,
-    grade:number
+    grade: number
 ): RowsData {
 
-    return {packUserId, answer, question, last_updated,grade};
+    return {packUserId, answer, question, last_updated, grade};
 }
 
-const rows: RowsData[] = [
-    createData('123', 'Whats working JS',  'I dont now' , '2022-11-21T17:39:44.915Z',2),
-    createData('321', 'React - what is it?',  'This is not my problem', '2022-11-21T17:39:44.915Z',3),
-    createData('231', 'How many count have HTML',  'I dont understand you', '2022-11-21T17:39:44,.915Z',5)
-];
 
 export const TableCards = () => {
 
@@ -109,14 +113,26 @@ export const TableCards = () => {
                                                                 ? column.format(value)
                                                                 : value}
                                                             {column.id === 'grade' &&
-                                                                <Rating
-                                                                name="simple-controlled"
-                                                                value={row.grade}
-                                                                onChange={(event, newValue) => {
-                                                                setGrade(newValue);
-                                                            }}
-                                                                />
-                                                                }
+                                                                <div className={style.flex_icons}>
+                                                                    <Rating
+                                                                        name="simple-controlled"
+                                                                        value={row.grade}
+                                                                        onChange={(event, newValue) => {
+                                                                            setGrade(newValue);
+                                                                        }}
+                                                                    />
+                                                                    <div className={style.flex_icons} >
+                                                                        <div className={style.icons}>
+                                                                            <DriveFileRenameOutlineOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </div>
+                                                                        <div className={style.icons}>
+                                                                            <DeleteForeverOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
                                                         </TableCell>
                                                     );
                                                 })}
