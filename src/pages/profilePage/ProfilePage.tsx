@@ -10,6 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {requestStatusType} from "../../AppReducer";
 
 import {SingOutTC} from "../login/loginReducer/LoginReducer";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 export const ProfilePage = () => {
 
@@ -52,6 +53,7 @@ export const ProfilePage = () => {
                 </Button>
 
             </div>
+            <Paginator cardPacksTotalCount={199} packsCount={10} currentPage={1} />
         </Slide>
     );
 };
