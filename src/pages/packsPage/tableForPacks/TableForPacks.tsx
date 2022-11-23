@@ -14,7 +14,8 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {SetCardsPackTC} from "../PacksReducer";
+import {changePageAC, ResetAllQueryParamsTC, SetCardsPackTC} from "../PacksReducer";
+import {useSearchParams} from "react-router-dom";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -66,13 +67,17 @@ const rows: RowsData[] = [
 
 
 export const TableForPacks = () => {
+    // const rows1 = useAppSelector(state => state.Packs.cardPacks)
+    // const page1 = useAppSelector(state => state.Packs.query.page)
+    // let [searchParams, setSearchParams] = useSearchParams();
+    // const pageQuery = searchParams.get('page') || 1
 
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(SetCardsPackTC())
-    }, [])
 
-    const rows1 = useAppSelector(state => state.Packs.cardPacks)
+
+    // useEffect(() => {
+    //     dispatch(SetCardsPackTC())
+    // }, [page1])
 
 
     const [page, setPage] = React.useState(0);
@@ -112,7 +117,6 @@ export const TableForPacks = () => {
                                 {rows // rows =[[colum.id]:{},{},{}]
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
-                                        console.log(row)
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                                 {columns.map((column) => {
@@ -158,6 +162,24 @@ export const TableForPacks = () => {
                 </Paper>
             </div>
 
+            {/*{rows1.map(el => {*/}
+            {/*    return <div>{el.name}</div>*/}
+            {/*})}*/}
+            {/*<button onClick={() => {*/}
+            {/*    dispatch(changePageAC(2))*/}
+            {/*    setSearchParams({page: "2"})*/}
+            {/*}}> set page 2*/}
+            {/*</button>*/}
+            {/*<button onClick={() => {*/}
+            {/*    dispatch(changePageAC(1))*/}
+            {/*    setSearchParams({page: "1"})*/}
+            {/*}}> set page 1*/}
+            {/*</button>*/}
+            {/*<button onClick={() => {*/}
+            {/*    dispatch(ResetAllQueryParamsTC())*/}
+            {/*    setSearchParams(undefined)*/}
+            {/*}}> reset*/}
+            {/*</button>*/}
         </Slide>
     );
 };

@@ -1,7 +1,7 @@
 import {AppThunk} from "../../Redux/Store";
 import { setStatusApp} from "../../AppReducer";
 import  {AxiosError} from "axios";
-import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
+import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 export type ActionsPacksType =
