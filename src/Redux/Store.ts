@@ -10,7 +10,7 @@ import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
-import {ActionsQueryCardsType, QueryParamsCardsReducer} from "../pages/cardsPage/QueryParamsCardsReducer";
+
 
 
 const rootReducer = combineReducers({
@@ -22,7 +22,6 @@ const rootReducer = combineReducers({
     Registration: RegistrationReducer,
     Packs: PacksReducer,
     Cards: CardsReducer,
-    QueryParamsCards: QueryParamsCardsReducer,
 
 })
 
@@ -36,9 +35,7 @@ export type AllAppActionsType =
     | appReducersType
     | RegistrationActionType
     | ActionsPacksType
-
     | ActionsCardsType
-    | ActionsQueryCardsType
 
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>

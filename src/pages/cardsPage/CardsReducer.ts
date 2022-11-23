@@ -3,6 +3,10 @@ import {cardsAPI, ResponseCardsType} from "./CardsAPI";
 
 export type ActionsCardsType =
     | ReturnType<typeof setCardsAC>
+    | ReturnType<typeof changePageCardsAC>
+    | ReturnType<typeof changePageCountAC>
+    | ReturnType<typeof findCardsQuestionAC>
+    | ReturnType<typeof sortCardsAC>
 
 type CardType = {
     _id: string;
@@ -19,63 +23,120 @@ type CardType = {
 
 type InitialStateType = {
     cards: CardType[];
-    packUserId: string | null;
+    query: {
+        page: number | null // страница
+        pageCount: 5 | 10
+        cardQuestion: string | null // по вопросами
+        sortCards: string | null // сортировка по вопросам/ответам/грейду/обновлению
+        cardsPack_id: string | null //айдишка пака обязательно
+        // cardAnswer: string | null // поиск по ответам?
+        // min: number | null
+        // max: number | null
+    }
+    packUserId: string | null; // айдишка пака, всегда идёт в квери
     packName: string | null // название колоды
     packPrivate: boolean | null
     packCreated: string | null
     packUpdated: string | null
-    currentPage: number | null
-   // pageCount: 5 | 10 //количество карточек на странице
+    page: number | null
+    // pageCount: 5 | 10 //количество карточек на странице
     cardsTotalCount: number | null // всего карточек
 }
 
 
 const initialState: InitialStateType = {
     cards: [],
-    packUserId: null,
+    query: {
+        page: 1,
+        pageCount: 10,
+        cardQuestion: null,
+        sortCards: null,
+        cardsPack_id: null, //айди колоды
+        // cardAnswer: null,
+        // min: null,
+        //max: null,
+
+    },
+    packUserId: null, // айди юзера
     packName: null,
     packPrivate: null,
     packCreated: null,
     packUpdated: null,
     cardsTotalCount: null,
-    currentPage: null,
-  //  pageCount: 10
+    page: null,
+    //  pageCount: 10
 }
 
 
 export const CardsReducer = (state: InitialStateType = initialState, action: ActionsCardsType): InitialStateType => {
     switch (action.type) {
-        case 'SET_CARDS':
+        case 'CARDS/SET_CARDS':
             return {
-                ...state,...action.payload.resObj
+                ...state, ...action.payload.resObj
             }
+        case "CARDS/CHANGE_PAGE ":
+            return {...state, query: {...state.query, page: action.payload.page}}
+        case "CARDS/CHANGE_PAGE_COUNT":
+            return {...state, query: {...state.query, pageCount: action.payload.pageCount}}
+        case "CARDS/FIND_CARDS_QUESTION_AC":
+            return {...state, query: {...state.query, cardQuestion: action.payload.cardQuestion}}
+        case "CARDS/SORT_CARDS":
+            return {...state, query: {...state.query, sortCards: action.payload.sortCards}}
         default:
             return state
     }
 }
 //=============================AC======================================
 export const setCardsAC = (resObj: ResponseCardsType) => ({
-    type: "SET_CARDS",
+    type: "CARDS/SET_CARDS",
     payload: {
         resObj
     }
 } as const)
 
+export const changePageCardsAC = (page: number | null) => ({
+    type: 'CARDS/CHANGE_PAGE ',
+    payload: {page}
+} as const)
+
+export const changePageCountAC = (pageCount: 5 | 10) => ({
+    type: 'CARDS/CHANGE_PAGE_COUNT',
+    payload: {pageCount}
+} as const)
+
+export const findCardsQuestionAC = (cardQuestion: string) => ({
+    type: 'CARDS/FIND_CARDS_QUESTION_AC',
+    payload: {cardQuestion}
+} as const)
+
+export const sortCardsAC = (sortCards: string) => ({
+    type: 'CARDS/SORT_CARDS',
+    payload: {sortCards}
+} as const)
+
 
 //==============================TC============================
 
-export const setCardsPackTC = (cardsPack_id:string): AppThunk =>
+export const setCardsTC = (cardsPack_id: string | null): AppThunk =>
     async (dispatch, getState) => {
         try {
-            const {
-                 cardAnswer, cardQuestion,
-                min, max, sortCards, page, pageCount
-            } = getState().QueryParamsCards
+            const {cardQuestion, sortCards, page, pageCount} = getState().Cards.query
             const res = await cardsAPI.getCards({
-                cardsPack_id, cardAnswer, cardQuestion,
-                min, max, sortCards, page, pageCount
+                cardsPack_id, cardQuestion, sortCards, page, pageCount
             })
             dispatch(setCardsAC(res.data))
+        } catch
+            (e) {
+
+        }
+    }
+export const changeCardsPageTC = (page:number | null): AppThunk =>
+    async (dispatch,getState) => {
+        try {
+          dispatch(changePageCardsAC(page))
+           const {cardsPack_id} = getState().Cards.cards[0]
+            dispatch(setCardsTC(cardsPack_id))
+
         } catch
             (e) {
 

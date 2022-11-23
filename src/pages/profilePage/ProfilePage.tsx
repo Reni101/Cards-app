@@ -12,6 +12,7 @@ import {requestStatusType} from "../../AppReducer";
 import {SingOutTC} from "../login/loginReducer/LoginReducer";
 import {packsRoute} from "../../common/paths/Paths";
 import {changePageTC, setCardsPackTC} from "../packsPage/PacksReducer";
+import {changeCardsPageTC, setCardsTC} from "../cardsPage/CardsReducer";
 
 
 export const ProfilePage = () => {
@@ -55,6 +56,10 @@ export const ProfilePage = () => {
                 <Button style={{marginBottom: "30px"}} variant="outlined" onClick={logOutHandler} type="submit">
                     <LogoutIcon/> Log out
                 </Button>
+
+                <button onClick={()=>{dispatch(setCardsTC("63319bd2ef99210257c3d013"))}} > getCards </button>
+                <button onClick={()=>{dispatch(changeCardsPageTC(2))}} > change page </button>
+
             </div>
         </Slide>
     );

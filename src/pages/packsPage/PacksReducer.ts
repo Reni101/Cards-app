@@ -1,9 +1,18 @@
 import {AppThunk} from "../../Redux/Store";
 import {packsAPI, ResponseCardsType} from "./PacksAPI";
 
+export type ActionsPacksType =
+    | ReturnType<typeof setPacksAC>
+    | ReturnType<typeof changePageAC>
+    | ReturnType<typeof changeMinAC>
+    | ReturnType<typeof changeMaxAC>
+    | ReturnType<typeof changePageCountAC>
+    | ReturnType<typeof changeSortPacksAC>
+    | ReturnType<typeof sortPacksNameAC>
+    | ReturnType<typeof changeShowMyPacksAC>
 
 type PacksType = {
-    _id: string // id колоды
+    _id: string // id колоды!!!
     user_id: string
     user_name: string
     private: boolean
@@ -16,15 +25,7 @@ type PacksType = {
     updated: string,//Date
 }
 
-export type ActionsPacksType =
-    | ReturnType<typeof setPacksAC>
-    | ReturnType<typeof changePageAC>
-    | ReturnType<typeof changeMinAC>
-    | ReturnType<typeof changeMaxAC>
-    | ReturnType<typeof changePageCountAC>
-    | ReturnType<typeof changeSortPacksAC>
-    | ReturnType<typeof sortPacksNameAC>
-    | ReturnType<typeof changeShowMyPacksAC>
+
 
 type InitialStateType = {
     cardPacks: Array<PacksType>
@@ -150,7 +151,7 @@ export const changePageTC = (page: number | null): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(changePageAC(page))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -160,7 +161,7 @@ export const changeMinCardsInPackTC = (min: number | null): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(changeMinAC(min))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -169,7 +170,7 @@ export const changeMaxCardsInPackTC = (max: number | null): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(changeMaxAC(max))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -179,7 +180,7 @@ export const changePageCountPackTC = (pageCount: 5 | 10): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(changePageCountAC(pageCount))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -189,7 +190,7 @@ export const changeSortPacksTC = (sortPacks: string | null): AppThunk => // ДО
     async (dispatch) => {
         try {
             dispatch(changeSortPacksAC(sortPacks))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -199,7 +200,7 @@ export const sortPacksNameTC = (packName: string | null): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(sortPacksNameAC(packName))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -209,7 +210,7 @@ export const changeShowMyPacksTC = (user_id: string | null): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(changeShowMyPacksAC(user_id))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
@@ -224,7 +225,7 @@ export const ResetAllQueryParamsTC = (): AppThunk =>
             dispatch(changeSortPacksAC(null))
             dispatch(sortPacksNameAC(null))
             dispatch(changeShowMyPacksAC(null))
-            await dispatch(setCardsPackTC())
+
         } catch
             (e) {
         }
