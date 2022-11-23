@@ -7,6 +7,8 @@ export type ActionsCardsType =
     | ReturnType<typeof changePageCountAC>
     | ReturnType<typeof findCardsQuestionAC>
     | ReturnType<typeof sortCardsAC>
+    | ReturnType<typeof setPacksIdAC>
+
 
 type CardType = {
     _id: string;
@@ -113,6 +115,12 @@ export const sortCardsAC = (sortCards: string) => ({
     type: 'CARDS/SORT_CARDS',
     payload: {sortCards}
 } as const)
+export const setPacksIdAC = (packsId: string) => ({
+    type: 'CARDS/SET_PACKS_ID',
+    payload: {packsId}
+} as const)
+
+
 
 
 //==============================TC============================
@@ -125,6 +133,7 @@ export const setCardsTC = (cardsPack_id: string | null): AppThunk =>
                 cardsPack_id, cardQuestion, sortCards, page, pageCount
             })
             dispatch(setCardsAC(res.data))
+
         } catch
             (e) {
 
