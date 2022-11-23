@@ -41,7 +41,7 @@ export const registrationTC = (data: { email: string, password: string }): AppTh
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApiRegistration(error))
+            dispatch(setErrorApp(error))
         } else {
             dispatch(setErrorApp(`Native error ${err.message}`))
         }
