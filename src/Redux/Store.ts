@@ -7,7 +7,7 @@ import {ActionsForgotType, forgotPasswordReducer} from "../pages/passwordRecover
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 
-import {RegistrationActionType, RegistrationReducer} from "./RegistrationReducer";
+import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 

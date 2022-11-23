@@ -28,7 +28,6 @@ type PacksType = {
 }
 
 
-
 type InitialStateType = {
     cardPacks: Array<PacksType>
     query: {
@@ -200,6 +199,7 @@ export const changeSortPacksTC = (sortPacks: string | null): AppThunk => // ДО
 
 export const sortPacksNameTC = (packName: string | null): AppThunk =>
     async (dispatch) => {
+
         try {
             dispatch(sortPacksNameAC(packName))
 

@@ -8,7 +8,7 @@ import {LinearProgress} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/Store";
 import {requestStatusType} from "../../AppReducer";
-import {setRegisrationAC} from "../../Redux/RegistrationReducer";
+import {setRegisrationAC} from "./RegistrationReducer";
 
 export const RegistrationPage = () => {
 

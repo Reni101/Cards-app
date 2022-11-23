@@ -109,14 +109,15 @@ export const TableForPacks = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows
+                                {rows // rows =[[colum.id]:{},{},{}]
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
+                                        console.log(row)
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                                 {columns.map((column) => {
-                                                    const value = row[column.id];
-                                                    console.log(row[column.id])
+                                                    const value = row[column.id]; //column.id ===
+
                                                     return (
                                                         <TableCell key={column.id}
                                                                    align={column.align}>

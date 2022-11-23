@@ -1,8 +1,8 @@
-import {registrationApi} from "../pages/registrationPage/apiRegistration";
+import {registrationApi} from "./apiRegistration";
 import {Dispatch} from "redux";
-import {AppThunk} from "./Store";
+import {AppThunk} from "../../Redux/Store";
 import axios, {AxiosError} from "axios";
-import {setErrorApp, setStatusApp} from "../AppReducer";
+import {setErrorApp, setStatusApp} from "../../AppReducer";
 
 const initialState = {
     isSuccessfulRegistration: false,
