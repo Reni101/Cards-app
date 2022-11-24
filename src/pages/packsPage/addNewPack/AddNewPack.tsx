@@ -1,17 +1,16 @@
-import React,{useEffect}  from 'react';
+import React  from 'react';
 import style from './AddNewPack.module.css'
 import {Button} from '@mui/material';
 import {useAppDispatch} from '../../../hooks/hooks';
-import {AddPackTC, setCardsPackTC} from '../PacksReducer';
+import {AddPackTC} from '../PacksReducer';
 
 
 export const AddNewPack = () => {
     const dispatch = useAppDispatch()
 
 
-
-    const AddNewPack =()=> {
-            dispatch(AddPackTC({name:"Hello"}))
+    const AddNewPack = async () => {
+            await dispatch(AddPackTC({name:"Sanya Luchshaya TC"}))
     }
 
     return (

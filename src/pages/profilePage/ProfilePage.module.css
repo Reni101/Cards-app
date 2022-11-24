@@ -4,7 +4,6 @@
     height: 100%;
 }
 .wrapper_profile {
-    position: relative;
     width: 400px;
     border: .5px solid rgba(84, 84, 84, 0.5);
     margin: 90px auto;
@@ -15,11 +14,9 @@
 }
 
 .Link_block {
-    left: 20px;
     position: absolute;
+    left: 20px;
     cursor: pointer;
-    z-index: 20;
-
 }
 
 .title {
@@ -47,6 +44,7 @@
 .logOut {
 
 }
+
 
 /*
 

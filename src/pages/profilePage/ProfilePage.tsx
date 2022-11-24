@@ -1,7 +1,7 @@
 import React from 'react';
 import styleProfile from './ProfilePage.module.css'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {Navigate, NavLink, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {EditProfileName} from './EditProfileName/editProfileName';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Slide} from 'react-awesome-reveal';
@@ -38,12 +38,10 @@ export const ProfilePage = () => {
     return (
         <Slide direction={'up'} >
             <div className={styleProfile.all_wrapper_profile}>
-                <Slide  direction={'left'}>
                     <div className={styleProfile.Link_block} onClick={goToPacks}>
                         <ArrowBackIcon style={{height: '15px'}}/>
                         Back to Packs List
                     </div>
-                </Slide>
 
                 <div className={styleProfile.wrapper_profile}>
                     {status === 'loading' && <div><LinearProgress color="secondary"/></div>}
