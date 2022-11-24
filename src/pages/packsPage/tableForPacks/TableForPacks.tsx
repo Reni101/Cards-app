@@ -18,6 +18,14 @@ import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
 
+import {useTheme} from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -57,6 +65,7 @@ function createData(
     create_by: string,
     last_updated: string,
 ): RowsData {
+
     return {id, pack_name, cards_count, create_by, last_updated};
 }
 
@@ -81,7 +90,9 @@ export const TableForPacks = () => {
 
 
 
+
     const rowsArray =  useAppSelector(state => state.Packs.cardPacks)
+
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
 
 
@@ -102,7 +113,7 @@ export const TableForPacks = () => {
     };
     useEffect(() => {
         dispatch(SetCardsPackTC())
-    }, [packNameQuery, user_idQuery, minQuery, maxQuery,
+    }, [dispatch, packNameQuery, user_idQuery, minQuery, maxQuery,
         pageCountQuery, sortPacksQuery, currentPage]) // если изменилось название, делает запрос с новыми квери параметрами
 
 
@@ -136,7 +147,7 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
 
                                     return (
@@ -180,13 +191,14 @@ export const TableForPacks = () => {
                 </TableContainer>
                 <TablePagination
                     labelRowsPerPage={"колличество колод"}
-                    rowsPerPageOptions={[5, 10]}
+                    rowsPerPageOptions={[5, 10,20]}
                     component="div"
                     count={cardPacksTotalCount}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
                 />
 
 
@@ -204,3 +216,81 @@ export const TableForPacks = () => {
         </div>
     );
 };
+type TablePaginationActionsProps = {
+
+
+    count: number;
+    page: number;
+    rowsPerPage: number;
+    onPageChange: (
+        event: React.MouseEvent<HTMLButtonElement>,
+        newPage: number,
+    ) => void;
+}
+
+function TablePaginationActions(props: TablePaginationActionsProps) {
+
+
+    const theme = useTheme();
+    const {count, page, rowsPerPage, onPageChange} = props;
+
+    const handleFirstPageButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+
+        //перекидывает на самую первую страницу
+
+        onPageChange(event, 0);
+    };
+
+    const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // перекидывает на предыдущую страницу
+        // dispatch(changePageTC(page -1))
+        onPageChange(event, page - 1);
+    };
+
+    const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // перекидывает на след страницу
+        // dispatch(changePageTC(page +1))
+        onPageChange(event, page + 1);
+    };
+
+    const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // перекидывает на последнюю страницу
+        // dispatch(changePageTC(Math.ceil(count / rowsPerPage) - 1)))
+        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+    };
+
+    return (
+        <Box sx={{flexShrink: 0, ml: 2.5}}>
+            <IconButton
+                onClick={handleFirstPageButtonClick}
+                disabled={page === 0}
+                aria-label="first page"
+            >
+                {theme.direction === 'rtl' ? <LastPageIcon/> : <FirstPageIcon/>}
+            </IconButton>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 0}
+                aria-label="previous page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowRight/> : <KeyboardArrowLeft/>}
+            </IconButton>
+            <IconButton
+                onClick={handleNextButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="next page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft/> : <KeyboardArrowRight/>}
+            </IconButton>
+            <IconButton
+                onClick={handleLastPageButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="last page"
+            >
+                {theme.direction === 'rtl' ? <FirstPageIcon/> : <LastPageIcon/>}
+            </IconButton>
+        </Box>
+    );
+}
