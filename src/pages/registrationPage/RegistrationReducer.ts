@@ -1,8 +1,8 @@
 import {registrationApi} from "./apiRegistration";
-import {Dispatch} from "redux";
 import {AppThunk} from "../../Redux/Store";
-import axios, {AxiosError} from "axios";
-import {setErrorApp, setStatusApp} from "../../AppReducer";
+import  {AxiosError} from "axios";
+import { setStatusApp} from "../../AppReducer";
+import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 const initialState = {
     isSuccessfulRegistration: false,
@@ -39,12 +39,7 @@ export const registrationTC = (data: { email: string, password: string }): AppTh
         dispatch(setRegisrationAC(response.data.addedUser))
     } catch (e) {
         const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApp(error))
-        } else {
-            dispatch(setErrorApp(`Native error ${err.message}`))
-        }
+        handleError(err,dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }

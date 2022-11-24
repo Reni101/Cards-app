@@ -23,7 +23,7 @@ export const EditProfileName: FC<PropsType> = (props:PropsType)=> {
 
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.currentTarget.value)
+        setName(e.currentTarget.value.trim())
     }
 
 
