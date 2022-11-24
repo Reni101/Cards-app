@@ -26,6 +26,8 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
+import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
+import {RequestUpdatePackType} from '../PacksAPI';
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -50,7 +52,8 @@ const columns: readonly Column[] = [
 ];
 
 interface RowsData {
-    id: string;
+    pack_id: string;
+    user_id: string;
     pack_name: string;
     cards_count: number;
     create_by: string;
@@ -59,21 +62,20 @@ interface RowsData {
 }
 
 function createData(
-    id: string,
+    pack_id: string,
+    user_id: string,
     pack_name: string,
     cards_count: number,
     create_by: string,
     last_updated: string,
 ): RowsData {
-
-    return {id, pack_name, cards_count, create_by, last_updated};
+    return {pack_id, user_id, pack_name, cards_count, create_by, last_updated};
 }
 
 
 export const TableForPacks = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
 
+    const dispatch = useAppDispatch()
     const packNameQuery = useAppSelector(state => state.Packs.query.packName)
     const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
     const minQuery = useAppSelector(state => state.Packs.query.min)
@@ -85,15 +87,15 @@ export const TableForPacks = () => {
 
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
 
+    const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
+
+
+    const navigate = useNavigate()
 
 
 
-
-
-
-    const rowsArray =  useAppSelector(state => state.Packs.cardPacks)
-
-    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
+    const rowsArray = useAppSelector(state => state.Packs.cardPacks)
+    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
 
 
@@ -121,9 +123,12 @@ export const TableForPacks = () => {
         await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
     }
-
-
-
+    const deletePackClick = (pack_id: string) => {
+        dispatch(DeletePackTC(pack_id))
+    }
+    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+        dispatch(UpdatePackTC(cards_pack))
+    }
 
     return (
         <div className={style.table_all_wrapper}>
@@ -147,13 +152,11 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                               // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
-
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
                                             {columns.map((column) => {
-
                                                 const value = row[column.id];
 
                                                 return (
@@ -161,7 +164,7 @@ export const TableForPacks = () => {
                                                                align={column.align}
                                                                className={column.id === 'pack_name' ? style.pack_name : ''}
                                                                onClick={column.id === 'pack_name' ? () => {
-                                                                   goToCardsClick(row.id)
+                                                                   goToCardsClick(row.pack_id)
                                                                } : () => {
                                                                }}>
                                                         {column.format && typeof value === 'string'
@@ -169,17 +172,28 @@ export const TableForPacks = () => {
                                                             : value}
                                                         {column.id === 'actions' &&
                                                             <div className={style.flex_icons}>
-                                                                <div className={style.icons}>
+                                                                <div className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <SchoolOutlinedIcon color={'primary'}/>
                                                                 </div>
-                                                                <div className={style.icons}>
+                                                                <div className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DriveFileRenameOutlineOutlinedIcon
-                                                                        color={'primary'}/>
+                                                                        color={'primary'}
+                                                                        onClick={()=>updatePackClick({
+                                                                            _id:row.pack_id,
+                                                                            name:'Update name'
+                                                                        })}/>
                                                                 </div>
                                                                 <div className={style.icons}>
-                                                                    <DeleteForeverOutlinedIcon color={'primary'}/>
+                                                                    <DeleteForeverOutlinedIcon
+                                                                        color={'primary'}
+                                                                        onClick={()=>deletePackClick(row.pack_id)}/>
                                                                 </div>
-                                                            </div>}
+                                                            </div>
+                                                        }
                                                     </TableCell>
                                                 );
                                             })}
@@ -190,29 +204,16 @@ export const TableForPacks = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    labelRowsPerPage={"колличество колод"}
-                    rowsPerPageOptions={[5, 10,20]}
+                    rowsPerPageOptions={[5, 10, 20]}
                     component="div"
-                    count={cardPacksTotalCount}
+                    count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     ActionsComponent={TablePaginationActions}
                 />
-
-
             </Paper>
-            {/*<Paginator name={"колличество карт"}*/}
-            {/*           cardPacksTotalCount={cardPacksTotalCount}*/}
-            {/*           onChangePage={(page) => {*/}
-            {/*               dispatch(changePageAC(page))*/}
-            {/*           }}*/}
-            {/*           onChangeRows={(rows) => {*/}
-            {/*               dispatch(changePageCountAC(rows))*/}
-            {/*           }}*/}
-            {/*           currentPage={currentPage}*/}
-            {/*/>*/}
         </div>
     );
 };

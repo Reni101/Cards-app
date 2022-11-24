@@ -9,9 +9,8 @@ export const AddNewPack = () => {
     const dispatch = useAppDispatch()
 
 
-
-    const AddNewPack =()=> {
-            dispatch(AddPackTC({name:"Hello"}))
+    const AddNewPack = async () => {
+            await dispatch(AddPackTC({name:"Sanya Luchshaya TC"}))
     }
 
     return (

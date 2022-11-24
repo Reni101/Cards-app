@@ -20,6 +20,7 @@ export const ProfilePage = () => {
     const isAuth = useAppSelector(state => state.Login.isAuth)
     const status = useAppSelector<requestStatusType>(state => state.App.status)
 
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const logOutHandler = async () => {
@@ -35,14 +36,12 @@ export const ProfilePage = () => {
 
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'up'} >
             <div className={styleProfile.all_wrapper_profile}>
-                <Slide direction={'left'}>
                     <div className={styleProfile.Link_block} onClick={goToPacks}>
                         <ArrowBackIcon style={{height: '15px'}}/>
                         Back to Packs List
                     </div>
-                </Slide>
 
                 <div className={styleProfile.wrapper_profile}>
                     {status === 'loading' && <div><LinearProgress color="secondary"/></div>}
@@ -59,7 +58,6 @@ export const ProfilePage = () => {
                     </Button>
 
                 </div>
-
             </div>
         </Slide>
     );
