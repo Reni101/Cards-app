@@ -91,7 +91,13 @@ export const TableForPacks = () => {
 
 
     const navigate = useNavigate()
-
+// const changeSortHandler = (sortPacksQuery: any) => {
+//
+//
+//       const newSort
+//     if(sortPacksQuery === "1name" ? "0name" : "1name")
+//     dispatch(changeSortPacksAC(newSort))
+// }
 
 
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
@@ -206,7 +212,7 @@ export const TableForPacks = () => {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20]}
                     component="div"
-                    count={rows.length}
+                    count={cardPacksTotalCount}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
