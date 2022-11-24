@@ -41,8 +41,8 @@ type InitialStateType = {
         page: number | null
     }
     cardPacksTotalCount: number | null //всего колод
-    minCardsCount: number | null //мин количество карт в колоде
-    maxCardsCount: number | null // макс
+    minCardsCount: number   //мин количество карт в колоде
+    maxCardsCount: number  // макс
     //текущая страница
     // pageCount:number | null
 
@@ -61,8 +61,8 @@ const initialState: InitialStateType = {
         page: 1,
     },
     cardPacksTotalCount: null,
-    minCardsCount: null,
-    maxCardsCount: null,
+    minCardsCount: 0,
+    maxCardsCount: 0,
     // текущая страница
 }
 

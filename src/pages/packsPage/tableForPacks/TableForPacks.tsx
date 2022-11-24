@@ -14,10 +14,10 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {setCardsPackTC} from '../PacksReducer';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
+import {SetCardsPackTC} from "../PacksReducer";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -64,10 +64,18 @@ function createData(
 export const TableForPacks = () => {
 
     const dispatch = useAppDispatch()
+    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
+    const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
+    const minQuery = useAppSelector(state => state.Packs.query.min)
+    const maxQuery = useAppSelector(state => state.Packs.query.max)
+
+
     const navigate = useNavigate()
+
+
     useEffect(() => {
-        dispatch(setCardsPackTC())
-    }, [])
+        dispatch(SetCardsPackTC())
+    }, [packNameQuery,user_idQuery,minQuery,maxQuery]) // если изменилось название, делает запрос с новыми квери параметрами
 
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
