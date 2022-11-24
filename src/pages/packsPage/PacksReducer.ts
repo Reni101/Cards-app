@@ -1,6 +1,6 @@
 import {AppThunk} from "../../Redux/Store";
-import { setStatusApp} from "../../AppReducer";
-import  {AxiosError} from "axios";
+import {setStatusApp} from "../../AppReducer";
+import {AxiosError} from "axios";
 import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 
@@ -137,18 +137,22 @@ export const changeShowMyPacksAC = (user_id: string | null) => ({
 
 export const SetCardsPackTC = (): AppThunk =>
     async (dispatch, getState) => {
+        dispatch(setStatusApp('loading'))
         try {
             const {min, max, page, pageCount, sortPacks, packName, user_id} = getState().Packs.query
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC(res.data))
+            dispatch(setStatusApp('succeeded'))
         } catch
             (e) {
-
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
         }
     }
 
 export const ResetAllQueryParamsTC = (): AppThunk =>
     async (dispatch) => {
+        dispatch(setStatusApp('loading'))
         try {
             dispatch(changePageAC(1))
             dispatch(changeMinAC(null))
@@ -157,9 +161,10 @@ export const ResetAllQueryParamsTC = (): AppThunk =>
             dispatch(changeSortPacksAC(null))
             dispatch(sortPacksNameAC(null))
             dispatch(changeShowMyPacksAC(null))
-
-        } catch
-            (e) {
+            dispatch(setStatusApp('succeeded'))
+        } catch (e) {
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
         }
     }
 export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dispatch) => {
@@ -167,9 +172,10 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
     try {
         await packsAPI.addPack(cardsPack)
         dispatch(SetCardsPackTC())
+        dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }
@@ -181,9 +187,10 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
     try {
         await packsAPI.updatePack(cardsPack)
         dispatch(SetCardsPackTC())
+        dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }
@@ -195,9 +202,10 @@ export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
     try {
         await packsAPI.deletePack(idPack)
         dispatch(SetCardsPackTC())
+        dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     } finally {
         dispatch(setStatusApp('idle'))
     }
