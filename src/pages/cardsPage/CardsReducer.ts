@@ -137,7 +137,7 @@ export const setCardsTC = (cardsPack_id: string | null): AppThunk =>
                 cardsPack_id, cardQuestion, sortCards, page, pageCount
             })
             dispatch(setCardsAC(res.data))
-            dispatch(setPacksIdAC(cardsPack_id))
+           // dispatch(setPacksIdAC(cardsPack_id))
 
         } catch
             (e) {
