@@ -15,9 +15,6 @@ import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {setCardsPackTC} from '../PacksReducer';
-import {useNavigate} from 'react-router-dom';
-import {cardsRoute} from '../../../common/paths/Paths';
-import {setCardsTC} from '../../cardsPage/CardsReducer';
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -57,20 +54,27 @@ function createData(
     create_by: string,
     last_updated: string,
 ): RowsData {
+
     return {id, pack_name, cards_count, create_by, last_updated};
 }
+
+const rows: RowsData[] = [
+    createData(1, 'first pack', 20, 'Misha', '2022-11-21T17:39:44.915Z'),
+    createData(2, 'second pack', 10, 'Masha', '2022-11-21T17:39:44.915Z'),
+    createData(3, ' 3pack', 17, 'Igor', '2022-11-21T17:39:44.915Z')
+];
 
 
 export const TableForPacks = () => {
 
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     useEffect(() => {
         dispatch(setCardsPackTC())
     }, [])
 
-    const rowsArray = useAppSelector(state => state.Packs.cardPacks)
-    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
+    const rows1 = useAppSelector(state => state.Packs.cardPacks)
+
+
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -83,11 +87,6 @@ export const TableForPacks = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    const goToCardsClick = async(card_pack_id: string | null) => {
-        await  dispatch(setCardsTC(card_pack_id))
-        navigate(cardsRoute)
-    }
 
     return (
         <Slide direction={'up'}>
@@ -111,19 +110,18 @@ export const TableForPacks = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows
+                                {rows // rows =[[colum.id]:{},{},{}]
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
+                                        console.log(row)
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                                 {columns.map((column) => {
-                                                    const value = row[column.id];
+                                                    const value = row[column.id]; //column.id ===
 
                                                     return (
                                                         <TableCell key={column.id}
-                                                                   align={column.align}
-                                                                   className={column.id === 'pack_name' ? style.pack_name : ''}
-                                                                    onClick={column.id === 'pack_name' ? ()=>{goToCardsClick(row.id)} : () => {}}>
+                                                                   align={column.align}>
                                                             {column.format && typeof value === 'string'
                                                                 ? column.format(value)
                                                                 : value}
