@@ -35,7 +35,7 @@ export type queryModelType = {
 }
 
 export type RequestAddPackType = {
-    name: "no Name"
+    name: string
 }
 
 export type RequestUpdatePackType = {

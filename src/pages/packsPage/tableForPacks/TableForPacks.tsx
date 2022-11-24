@@ -12,7 +12,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
-import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {setCardsPackTC} from '../PacksReducer';
 import {useNavigate} from 'react-router-dom';
@@ -65,12 +64,15 @@ export const TableForPacks = () => {
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const rowsArray = useAppSelector(state => state.Packs.cardPacks)
+
     useEffect(() => {
         dispatch(setCardsPackTC())
     }, [])
 
-    const rowsArray = useAppSelector(state => state.Packs.cardPacks)
-    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
+
+    const rows: RowsData[] = rowsArray.map((row) => createData(
+        row._id, row.name, row.cardsCount, row.user_name, row.updated))
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -90,7 +92,6 @@ export const TableForPacks = () => {
     }
 
     return (
-        <Slide direction={'up'}>
             <div className={style.table_all_wrapper}>
                 <Paper sx={{width: '100%', overflow: 'hidden'}}>
                     <TableContainer sx={{maxHeight: 440}}>
@@ -160,6 +161,5 @@ export const TableForPacks = () => {
                     />
                 </Paper>
             </div>
-        </Slide>
     );
 };

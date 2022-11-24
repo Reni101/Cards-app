@@ -1,6 +1,5 @@
 import {AppThunk} from '../../../Redux/Store';
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
-import {Dispatch} from 'redux';
 import axios, {AxiosError} from 'axios';
 import {initializedAppAC, setErrorApp, setStatusApp} from '../../../AppReducer';
 import {setProfileDataAC} from "../../profilePage/ProfilePagerReducer";

@@ -236,7 +236,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        dispatch(setCardsPackTC())
+         dispatch(setCardsPackTC())
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {

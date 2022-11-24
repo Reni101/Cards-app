@@ -88,7 +88,6 @@ export const TableCards = () => {
         )
     }
     return (
-        <Slide direction={'up'}>
             <div className={style.table_all_wrapper}>
                 <Paper sx={{width: '100%', overflow: 'hidden'}}>
                     <TableContainer sx={{maxHeight: 440}}>
@@ -162,7 +161,6 @@ export const TableCards = () => {
                     />
                 </Paper>
             </div>
-        </Slide>
     );
 };
 
