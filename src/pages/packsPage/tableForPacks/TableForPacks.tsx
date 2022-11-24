@@ -148,9 +148,7 @@ export const TableForPacks = () => {
                                                             : value}
                                                         {column.id === 'actions' &&
                                                             <div className={style.flex_icons}>
-                                                                <div className={user_idFromProfile === row.user_id
-                                                                    ? style.icons
-                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                <div className={style.icons}>
                                                                     <SchoolOutlinedIcon color={'primary'}/>
                                                                 </div>
                                                                 <div className={user_idFromProfile === row.user_id
@@ -158,15 +156,17 @@ export const TableForPacks = () => {
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DriveFileRenameOutlineOutlinedIcon
                                                                         color={'primary'}
-                                                                        onClick={()=>updatePackClick({
-                                                                            _id:row.pack_id,
-                                                                            name:'Update name'
+                                                                        onClick={() => updatePackClick({
+                                                                            _id: row.pack_id,
+                                                                            name: 'Update name'
                                                                         })}/>
                                                                 </div>
-                                                                <div className={style.icons}>
+                                                                <div  className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DeleteForeverOutlinedIcon
                                                                         color={'primary'}
-                                                                        onClick={()=>deletePackClick(row.pack_id)}/>
+                                                                        onClick={() => deletePackClick(row.pack_id)}/>
                                                                 </div>
                                                             </div>
                                                         }
