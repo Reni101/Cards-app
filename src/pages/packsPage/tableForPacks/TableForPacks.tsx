@@ -13,7 +13,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {setCardsPackTC} from '../PacksReducer';
+import {SetCardsPackTC} from '../PacksReducer';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
@@ -67,7 +67,7 @@ export const TableForPacks = () => {
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
 
     useEffect(() => {
-        dispatch(setCardsPackTC())
+        dispatch(SetCardsPackTC())
     }, [])
 
 
