@@ -20,3 +20,12 @@
     color: rgba(0, 0, 0, 0.2);
     transition: all .2s;
 }
+.pack_name{
+    cursor: pointer;
+    transition: all .5s;
+}
+.pack_name:hover{
+    color: rgb(30, 144, 255);
+    cursor: pointer;
+    transition: all .5s;
+}
