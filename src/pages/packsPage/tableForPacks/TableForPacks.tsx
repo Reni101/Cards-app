@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {MouseEventHandler, useEffect} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -16,7 +16,8 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
-import {SetCardsPackTC} from "../PacksReducer";
+import {DeletePackTC, SetCardsPackTC, UpdatePackTC} from '../PacksReducer';
+import {RequestUpdatePackType} from '../PacksAPI';
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -41,7 +42,8 @@ const columns: readonly Column[] = [
 ];
 
 interface RowsData {
-    id: string;
+    pack_id: string;
+    user_id: string;
     pack_name: string;
     cards_count: number;
     create_by: string;
@@ -50,13 +52,14 @@ interface RowsData {
 }
 
 function createData(
-    id: string,
+    pack_id: string,
+    user_id: string,
     pack_name: string,
     cards_count: number,
     create_by: string,
     last_updated: string,
 ): RowsData {
-    return {id, pack_name, cards_count, create_by, last_updated};
+    return {pack_id, user_id, pack_name, cards_count, create_by, last_updated};
 }
 
 
@@ -67,6 +70,7 @@ export const TableForPacks = () => {
     const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
     const minQuery = useAppSelector(state => state.Packs.query.min)
     const maxQuery = useAppSelector(state => state.Packs.query.max)
+    const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
 
 
     const navigate = useNavigate()
@@ -74,10 +78,10 @@ export const TableForPacks = () => {
 
     useEffect(() => {
         dispatch(SetCardsPackTC())
-    }, [packNameQuery,user_idQuery,minQuery,maxQuery]) // если изменилось название, делает запрос с новыми квери параметрами
+    }, [packNameQuery, user_idQuery, minQuery, maxQuery]) // если изменилось название, делает запрос с новыми квери параметрами
 
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
-    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
+    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -91,80 +95,100 @@ export const TableForPacks = () => {
         setPage(0);
     };
 
-    const goToCardsClick = async(card_pack_id: string | null) => {
-        await  dispatch(setCardsTC(card_pack_id))
+    const goToCardsClick = async (card_pack_id: string | null) => {
+        await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
+    }
+    const deletePackClick = (pack_id: string) => {
+        dispatch(DeletePackTC(pack_id))
+    }
+    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+        dispatch(UpdatePackTC(cards_pack))
     }
 
     return (
-            <div className={style.table_all_wrapper}>
-                <Paper sx={{width: '100%', overflow: 'hidden'}}>
-                    <TableContainer sx={{maxHeight: 440}}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                    {columns.map((column) => (
-                                        <TableCell
-                                            key={column.id}
-                                            align={column.align}
-                                            style={{minWidth: column.minWidth}}
-                                            className={style.table_title_cell}
+        <div className={style.table_all_wrapper}>
+            <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                <TableContainer sx={{maxHeight: 440}}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{minWidth: column.minWidth}}
+                                        className={style.table_title_cell}
 
-                                        >
-                                            {column.label}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                                {columns.map((column) => {
-                                                    const value = row[column.id];
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
 
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}
-                                                                   className={column.id === 'pack_name' ? style.pack_name : ''}
-                                                                    onClick={column.id === 'pack_name' ? ()=>{goToCardsClick(row.id)} : () => {}}>
-                                                            {column.format && typeof value === 'string'
-                                                                ? column.format(value)
-                                                                : value}
-                                                            {column.id === 'actions' &&
-                                                                <div className={style.flex_icons}>
-                                                                    <div className={style.icons}>
-                                                                        <SchoolOutlinedIcon color={'primary'}/>
-                                                                    </div>
-                                                                    <div className={style.icons}>
-                                                                        <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={'primary'}/>
-                                                                    </div>
-                                                                    <div className={style.icons}>
-                                                                        <DeleteForeverOutlinedIcon color={'primary'}/>
-                                                                    </div>
-                                                                </div>}
-                                                        </TableCell>
-                                                    );
-                                                })}
-                                            </TableRow>
-                                        );
-                                    })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 20, 100]}
-                        component="div"
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
-            </div>
+                                                return (
+                                                    <TableCell key={column.id}
+                                                               align={column.align}
+                                                               className={column.id === 'pack_name' ? style.pack_name : ''}
+                                                               onClick={column.id === 'pack_name' ? () => {
+                                                                   goToCardsClick(row.pack_id)
+                                                               } : () => {
+                                                               }}>
+                                                        {column.format && typeof value === 'string'
+                                                            ? column.format(value)
+                                                            : value}
+                                                        {column.id === 'actions' &&
+                                                            <div className={style.flex_icons}>
+                                                                <div className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    <SchoolOutlinedIcon color={'primary'}/>
+                                                                </div>
+                                                                <div className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    <DriveFileRenameOutlineOutlinedIcon
+                                                                        color={'primary'}
+                                                                        onClick={()=>updatePackClick({
+                                                                            _id:row.pack_id,
+                                                                            name:'Update name'
+                                                                        })}/>
+                                                                </div>
+                                                                <div className={style.icons}>
+                                                                    <DeleteForeverOutlinedIcon
+                                                                        color={'primary'}
+                                                                        onClick={()=>deletePackClick(row.pack_id)}/>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    );
+                                })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 20, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Paper>
+        </div>
     );
 };

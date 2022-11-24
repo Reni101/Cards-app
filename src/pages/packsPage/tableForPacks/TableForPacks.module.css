@@ -29,3 +29,6 @@
     cursor: pointer;
     transition: all .5s;
 }
+.no_visible_icons{
+    display: none;
+}
