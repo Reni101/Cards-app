@@ -69,6 +69,7 @@ const initialState: InitialStateType = {
 export const PacksReducer = (state: InitialStateType = initialState, action: ActionsPacksType): InitialStateType => {
     switch (action.type) {
         case 'PACKS/SET_PACKS':
+            return {...state, ...action.payload.resObj}
 
             return {...state, ...action.payload}
         case "PACKS/CHANGE_PAGE":
