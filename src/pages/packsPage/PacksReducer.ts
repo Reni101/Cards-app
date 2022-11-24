@@ -14,7 +14,7 @@ export type ActionsPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
-type PacksType = {
+export type PacksType = {
     _id: string // id колоды!!!
     user_id: string
     user_name: string
@@ -32,18 +32,19 @@ type PacksType = {
 type InitialStateType = {
     cardPacks: Array<PacksType>
     query: {
-        min: number | null,
-        max: number | null,
-        pageCount: 5 | 10
-        sortPacks: string | null
-        packName: string | null
-        user_id: string | null
-        page: number | null
+        min: number ,
+        max: number ,
+        pageCount: number
+        sortPacks: string
+        packName: string
+        user_id: string
+
     }
-    cardPacksTotalCount: number | null //всего колод
+    cardPacksTotalCount: number //всего колод
     minCardsCount: number   //мин количество карт в колоде
     maxCardsCount: number  // макс
-    //текущая страница
+    page: number     //текущая страница
+
     // pageCount:number | null
 
 }
@@ -52,17 +53,18 @@ type InitialStateType = {
 const initialState: InitialStateType = {
     cardPacks: [],
     query: {
-        min: null,//квери параметр покажи колоды с минимальным колличеством коллод
-        max: null,//квери параметр покажи колоды с максиммальным колличеством коллод
+        min: 0,//квери параметр покажи колоды с минимальным колличеством коллод
+        max: 0,//квери параметр покажи колоды с максиммальным колличеством коллод
         pageCount: 5, // количество колод в на странице
-        sortPacks: null, // сортировка по возрастанию / убыванию
-        packName: null, //сортировка по имени
-        user_id: null,// сортировка мои/чужие колоды
-        page: 1,
+        sortPacks: "", // сортировка по возрастанию / убыванию
+        packName: "", //сортировка по имени
+        user_id: "",// сортировка мои/чужие колоды
+
     },
-    cardPacksTotalCount: null,
+    cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
+    page: 1,
     // текущая страница
 }
 
@@ -71,10 +73,8 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'PACKS/SET_PACKS':
             return {...state, ...action.payload}
-
-            return {...state, ...action.payload}
         case "PACKS/CHANGE_PAGE":
-            return {...state, query: {...state.query, page: action.payload.page}}
+            return {...state, page: action.payload.page}
         case "PACKS/CHANGE_MIN":
             return {...state, query: {...state.query, min: action.payload.min}}
         case "PACKS/CHANGE_MAX":
@@ -98,37 +98,37 @@ export const setPacksAC = (resObj: ResponseCardsType) => ({
 
 } as const)
 
-export const changePageAC = (page: number | null) => ({
+export const changePageAC = (page: number) => ({
     type: "PACKS/CHANGE_PAGE",
     payload: {page}
 } as const)
 
-export const changeMinAC = (min: number | null) => ({
+export const changeMinAC = (min: number) => ({
     type: "PACKS/CHANGE_MIN",
     payload: {min}
 } as const)
 
-export const changeMaxAC = (max: number | null) => ({
+export const changeMaxAC = (max: number) => ({
     type: "PACKS/CHANGE_MAX",
     payload: {max}
 } as const)
 
-export const changePageCountAC = (pageCount: 5 | 10) => ({
+export const changePageCountAC = (pageCount: number) => ({
     type: "PACKS/CHANGE_PAGE_COUNT",
     payload: {pageCount}
 } as const)
 
-export const changeSortPacksAC = (sortPacks: string | null) => ({
+export const changeSortPacksAC = (sortPacks: string ) => ({
     type: "PACKS/CHANGE_SORT_PACK",
     payload: {sortPacks}
 } as const)
 
-export const sortPacksNameAC = (packName: string | null) => ({
+export const sortPacksNameAC = (packName: string ) => ({
     type: "PACKS/SORT_PACKS_NAME",
     payload: {packName}
 } as const)
 
-export const changeShowMyPacksAC = (user_id: string | null) => ({
+export const changeShowMyPacksAC = (user_id: string ) => ({
     type: "PACKS/CHANGE_SHOW_MY_PACKS",
     payload: {user_id}
 } as const)
@@ -138,9 +138,11 @@ export const changeShowMyPacksAC = (user_id: string | null) => ({
 
 export const SetCardsPackTC = (): AppThunk =>
     async (dispatch, getState) => {
+
         dispatch(setStatusApp('loading'))
         try {
-            const {min, max, page, pageCount, sortPacks, packName, user_id} = getState().Packs.query
+            const page = getState().Packs.page
+            const {min, max, pageCount, sortPacks, packName, user_id} = getState().Packs.query
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
@@ -156,12 +158,12 @@ export const ResetAllQueryParamsTC = (): AppThunk =>
         dispatch(setStatusApp('loading'))
         try {
             dispatch(changePageAC(1))
-            dispatch(changeMinAC(null))
-            dispatch(changeMaxAC(null))
+            dispatch(changeMinAC(0))
+            dispatch(changeMaxAC(53))
             dispatch(changePageCountAC(5))
-            dispatch(changeSortPacksAC(null))
-            dispatch(sortPacksNameAC(null))
-            dispatch(changeShowMyPacksAC(null))
+            dispatch(changeSortPacksAC(""))
+            dispatch(sortPacksNameAC(""))
+            dispatch(changeShowMyPacksAC(""))
             dispatch(setStatusApp('succeeded'))
         } catch (e) {
             const err = e as Error | AxiosError

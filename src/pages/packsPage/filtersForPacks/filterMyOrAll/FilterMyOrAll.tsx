@@ -12,7 +12,7 @@ export const FilterMyOrAll = () => {
         dispatch(changeShowMyPacksAC(user_idFromProfile))
     }
     const AllPacks = () => {
-        dispatch(changeShowMyPacksAC(null))
+        dispatch(changeShowMyPacksAC(""))
     }
 
     return (

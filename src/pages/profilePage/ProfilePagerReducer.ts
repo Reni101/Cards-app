@@ -6,7 +6,7 @@ import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 
 const initialState = {
-    user_id: null as string | null,
+    user_id: "" ,
     email: null as string | null,
     name: null as string | null,
     publicCardPacksCount: null as number | null,
