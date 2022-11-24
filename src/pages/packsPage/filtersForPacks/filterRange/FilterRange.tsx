@@ -13,31 +13,27 @@ export const FilterRange = () => {
 
     const minCardsCount = useAppSelector(state => state.Packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
-    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
-    const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([0,0]);
+    const [value, setValue] = React.useState<number[]>([0, 0]);
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
     const setValueHandler = () => {
-      dispatch(changeMinAC(value[0]))
-      dispatch(changeMaxAC(value[1]))
+        dispatch(changeMinAC(value[0]))
+        dispatch(changeMaxAC(value[1]))
     }
 
     useEffect(() => {
         setValue([minCardsCount, maxCardsCount])
-    }, [minCardsCount, maxCardsCount,packNameQuery,user_idQuery])
+    }, [minCardsCount, maxCardsCount,])
     return (
         <div className={style.all_wrapper_filter_range}>
 
             <div className={style.title_filter_range}>
                 Number of cards
             </div>
-            <div>{minCardsCount}</div>
-            <div>{maxCardsCount}</div>
             <div className={style.slider_wrapper}>
 
                 <Box sx={{width: 150}}>

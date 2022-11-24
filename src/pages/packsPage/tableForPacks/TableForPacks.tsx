@@ -12,7 +12,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
-import {Slide} from 'react-awesome-reveal';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';

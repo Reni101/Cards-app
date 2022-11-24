@@ -1,8 +1,8 @@
-import React,{useEffect}  from 'react';
+import React  from 'react';
 import style from './AddNewPack.module.css'
 import {Button} from '@mui/material';
 import {useAppDispatch} from '../../../hooks/hooks';
-import {AddPackTC, setCardsPackTC} from '../PacksReducer';
+import {AddPackTC} from '../PacksReducer';
 
 
 export const AddNewPack = () => {

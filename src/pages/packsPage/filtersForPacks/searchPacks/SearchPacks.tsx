@@ -9,7 +9,7 @@ import {sortPacksNameAC} from "../../PacksReducer";
 
 export const SearchPacks = () => {
     const dispatch = useAppDispatch()
-    const packName = useAppSelector(state => state.Packs.query.packName)
+    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
     const [value, setValue] = useState<string | null>(null) // будет ругаться если пустой
     const debouncedValue = useDebounce<string | null>(value, 600) //дебаунс на 1 секунду
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,6 @@ export const SearchPacks = () => {
                     </SearchIconWrapper>
                     <StyledInputBase
                         placeholder="go search..."
-                        inputProps={{'aria-label': 'search'}}
                         onChange={handleChange}
                     />
                 </Search>

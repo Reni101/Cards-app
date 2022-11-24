@@ -1,7 +1,7 @@
 import {AppThunk} from "../../Redux/Store";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
-import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
+import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from "./PacksAPI";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 export type ActionsPacksType =
@@ -70,7 +70,7 @@ const initialState: InitialStateType = {
 export const PacksReducer = (state: InitialStateType = initialState, action: ActionsPacksType): InitialStateType => {
     switch (action.type) {
         case 'PACKS/SET_PACKS':
-            return {...state, ...action.payload.resObj}
+            return {...state, ...action.payload}
 
             return {...state, ...action.payload}
         case "PACKS/CHANGE_PAGE":
