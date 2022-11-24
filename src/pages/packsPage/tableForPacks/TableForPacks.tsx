@@ -67,17 +67,10 @@ const rows: RowsData[] = [
 
 
 export const TableForPacks = () => {
-    // const rows1 = useAppSelector(state => state.Packs.cardPacks)
-    // const page1 = useAppSelector(state => state.Packs.query.page)
-    // let [searchParams, setSearchParams] = useSearchParams();
-    // const pageQuery = searchParams.get('page') || 1
+
 
     const dispatch = useAppDispatch()
 
-
-    // useEffect(() => {
-    //     dispatch(SetCardsPackTC())
-    // }, [page1])
 
 
     const [page, setPage] = React.useState(0);
@@ -162,24 +155,7 @@ export const TableForPacks = () => {
                 </Paper>
             </div>
 
-            {/*{rows1.map(el => {*/}
-            {/*    return <div>{el.name}</div>*/}
-            {/*})}*/}
-            {/*<button onClick={() => {*/}
-            {/*    dispatch(changePageAC(2))*/}
-            {/*    setSearchParams({page: "2"})*/}
-            {/*}}> set page 2*/}
-            {/*</button>*/}
-            {/*<button onClick={() => {*/}
-            {/*    dispatch(changePageAC(1))*/}
-            {/*    setSearchParams({page: "1"})*/}
-            {/*}}> set page 1*/}
-            {/*</button>*/}
-            {/*<button onClick={() => {*/}
-            {/*    dispatch(ResetAllQueryParamsTC())*/}
-            {/*    setSearchParams(undefined)*/}
-            {/*}}> reset*/}
-            {/*</button>*/}
+
         </Slide>
     );
 };
