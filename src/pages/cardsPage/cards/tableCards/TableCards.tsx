@@ -10,10 +10,12 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TablePagination from '@mui/material/TablePagination';
 import moment from 'moment/moment';
-import {Rating} from '@mui/material';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import {useAppSelector} from '../../../../hooks/hooks';
+import {packsRoute} from '../../../../common/paths/Paths';
+import {useNavigate} from 'react-router-dom';
 
 
 interface CardsColumn {
@@ -23,9 +25,8 @@ interface CardsColumn {
     align?: 'center' | 'left' | 'right';
     format?: (value: string) => string;
 }
-
 interface RowsData {
-    packUserId: string;
+    packPackId: string;
     answer: string;
     question: string;
     last_updated: string;
@@ -44,26 +45,23 @@ const columns: readonly CardsColumn[] = [
     },
     {id: 'grade', label: 'Grade', minWidth: 170, align: 'left'},
 ];
-const rows: RowsData[] = [
-    createData('123', 'Whats working JS', 'I dont now', '2022-11-21T17:39:44.915Z', 2),
-    createData('321', 'React - what is it?', 'This is not my problem', '2022-11-21T17:39:44.915Z', 3),
-    createData('231', 'How many count have HTML', 'I dont understand you', '2022-11-21T17:39:44,.915Z', 5)
-];
 
 
 function createData(
-    packUserId: string,
+    packPackId: string,
     answer: string,
     question: string,
     last_updated: string,
     grade: number
 ): RowsData {
-
-    return {packUserId, answer, question, last_updated, grade};
+    return {packPackId, answer, question, last_updated, grade};
 }
 
 
 export const TableCards = () => {
+    const navigate = useNavigate()
+    const cards = useAppSelector( state => state.Cards.cards)
+    const rows = cards.map((card) => createData(card.cardsPack_id,card.answer,card.question,card.updated,card.grade))
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -72,12 +70,23 @@ export const TableCards = () => {
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
+    const goToPacksClick = () =>{
+        navigate(packsRoute)
+    }
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
+    
+    if(cards.length === 0) {
+        return (
+            <div className={style.empty_pack}>
+                <div className={style.empty_text}>Pu pu pu... this pack empty, please take another pack</div>
+                <Button onClick={goToPacksClick} variant="outlined">go to packs list</Button>
+            </div>
+        )
+    }
     return (
         <Slide direction={'up'}>
             <div className={style.table_all_wrapper}>
@@ -103,7 +112,7 @@ export const TableCards = () => {
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
                                         return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.packUserId}>
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
                                                 {columns.map((column) => {
                                                     const value = row[column.id];
                                                     return (

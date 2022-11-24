@@ -13,9 +13,11 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {Slide} from 'react-awesome-reveal';
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {changePageAC, ResetAllQueryParamsTC, SetCardsPackTC} from "../PacksReducer";
-import {useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import {setCardsPackTC} from '../PacksReducer';
+import {useNavigate} from 'react-router-dom';
+import {cardsRoute} from '../../../common/paths/Paths';
+import {setCardsTC} from '../../cardsPage/CardsReducer';
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -40,7 +42,7 @@ const columns: readonly Column[] = [
 ];
 
 interface RowsData {
-    id: number;
+    id: string;
     pack_name: string;
     cards_count: number;
     create_by: string;
@@ -49,29 +51,26 @@ interface RowsData {
 }
 
 function createData(
-    id: number,
+    id: string,
     pack_name: string,
     cards_count: number,
     create_by: string,
     last_updated: string,
 ): RowsData {
-
     return {id, pack_name, cards_count, create_by, last_updated};
 }
-
-const rows: RowsData[] = [
-    createData(1, 'first pack', 20, 'Misha', '2022-11-21T17:39:44.915Z'),
-    createData(2, 'second pack', 10, 'Masha', '2022-11-21T17:39:44.915Z'),
-    createData(3, ' 3pack', 17, 'Igor', '2022-11-21T17:39:44.915Z')
-];
 
 
 export const TableForPacks = () => {
 
-
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    useEffect(() => {
+        dispatch(setCardsPackTC())
+    }, [])
 
-
+    const rowsArray = useAppSelector(state => state.Packs.cardPacks)
+    const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.name, row.cardsCount, row.user_name, row.updated))
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -84,6 +83,11 @@ export const TableForPacks = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const goToCardsClick = async(card_pack_id: string | null) => {
+        await  dispatch(setCardsTC(card_pack_id))
+        navigate(cardsRoute)
+    }
 
     return (
         <Slide direction={'up'}>
@@ -107,17 +111,19 @@ export const TableForPacks = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows // rows =[[colum.id]:{},{},{}]
+                                {rows
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
                                         return (
                                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                                 {columns.map((column) => {
-                                                    const value = row[column.id]; //column.id ===
+                                                    const value = row[column.id];
 
                                                     return (
                                                         <TableCell key={column.id}
-                                                                   align={column.align}>
+                                                                   align={column.align}
+                                                                   className={column.id === 'pack_name' ? style.pack_name : ''}
+                                                                    onClick={column.id === 'pack_name' ? ()=>{goToCardsClick(row.id)} : () => {}}>
                                                             {column.format && typeof value === 'string'
                                                                 ? column.format(value)
                                                                 : value}
@@ -154,8 +160,6 @@ export const TableForPacks = () => {
                     />
                 </Paper>
             </div>
-
-
         </Slide>
     );
 };
