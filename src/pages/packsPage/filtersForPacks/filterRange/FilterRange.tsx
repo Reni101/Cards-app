@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import style from './FilterRange.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import useDebounce, {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {changeMaxAC, changeMinAC} from "../../PacksReducer";
 
 const valuetext = (value: number) => {
@@ -15,19 +15,20 @@ export const FilterRange = () => {
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([0, 0]);
+    const [value, setValue] = React.useState<number[]>([minCardsCount, maxCardsCount]);
+    const debounceValue = useDebounce<number[]>(value, 600);
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
-    const setValueHandler = () => {
-        dispatch(changeMinAC(value[0]))
-        dispatch(changeMaxAC(value[1]))
-    }
+    // const setValueHandler = () => {
+    //
+    // }
 
     useEffect(() => {
-        setValue([minCardsCount, maxCardsCount])
-    }, [minCardsCount, maxCardsCount,])
+        dispatch(changeMinAC(debounceValue[0]))
+            dispatch(changeMaxAC(debounceValue[1]))
+    }, [debounceValue])
     return (
         <div className={style.all_wrapper_filter_range}>
 
@@ -42,11 +43,8 @@ export const FilterRange = () => {
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}
-                        min={minCardsCount}
                         max={maxCardsCount}
                         step={1}
-                        onMouseUp={setValueHandler}
-
                     />
 
                 </Box>

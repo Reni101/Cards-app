@@ -32,8 +32,8 @@ export type PacksType = {
 type InitialStateType = {
     cardPacks: Array<PacksType>
     query: {
-        min: number ,
-        max: number ,
+        min: number,
+        max: number,
         pageCount: number
         sortPacks: string
         packName: string
@@ -63,7 +63,7 @@ const initialState: InitialStateType = {
     },
     cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 0,
+    maxCardsCount: 53,
     page: 1,
     // текущая страница
 }
@@ -118,17 +118,17 @@ export const changePageCountAC = (pageCount: number) => ({
     payload: {pageCount}
 } as const)
 
-export const changeSortPacksAC = (sortPacks: string ) => ({
+export const changeSortPacksAC = (sortPacks: string) => ({
     type: "PACKS/CHANGE_SORT_PACK",
     payload: {sortPacks}
 } as const)
 
-export const sortPacksNameAC = (packName: string ) => ({
+export const sortPacksNameAC = (packName: string) => ({
     type: "PACKS/SORT_PACKS_NAME",
     payload: {packName}
 } as const)
 
-export const changeShowMyPacksAC = (user_id: string ) => ({
+export const changeShowMyPacksAC = (user_id: string) => ({
     type: "PACKS/CHANGE_SHOW_MY_PACKS",
     payload: {user_id}
 } as const)
@@ -153,23 +153,6 @@ export const SetCardsPackTC = (): AppThunk =>
         }
     }
 
-export const ResetAllQueryParamsTC = (): AppThunk =>
-    async (dispatch) => {
-        dispatch(setStatusApp('loading'))
-        try {
-            dispatch(changePageAC(1))
-            dispatch(changeMinAC(0))
-            dispatch(changeMaxAC(53))
-            dispatch(changePageCountAC(5))
-            dispatch(changeSortPacksAC(""))
-            dispatch(sortPacksNameAC(""))
-            dispatch(changeShowMyPacksAC(""))
-            dispatch(setStatusApp('succeeded'))
-        } catch (e) {
-            const err = e as Error | AxiosError
-            handleError(err, dispatch)
-        }
-    }
 export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
