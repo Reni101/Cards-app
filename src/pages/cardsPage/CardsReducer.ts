@@ -34,7 +34,7 @@ type InitialStateType = {
         sortCards: string  // сортировка по вопросам/ответам/грейду/обновлению
         cardsPack_id: string   //айдишка пака обязательно
     }
-    packUserId: string | null; // айдишка юзера, всегда идёт в квери
+    packUserId: string | null; // айдишка пака, всегда идёт в квери
     packName: string | null // название колоды
     packPrivate: boolean | null
     packCreated: string | null

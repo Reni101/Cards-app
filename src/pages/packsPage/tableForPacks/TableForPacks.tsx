@@ -13,7 +13,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
@@ -28,7 +28,6 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
-import {LinearProgress} from "@mui/material";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -94,6 +93,7 @@ export const TableForPacks = () => {
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
 
+
     const [page, setPage] = React.useState(currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -105,6 +105,7 @@ export const TableForPacks = () => {
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
+
         dispatch(changePageCountAC(+event.target.value))
     };
 
@@ -118,10 +119,7 @@ export const TableForPacks = () => {
         pageCountQuery, sortPacksQuery, currentPage]) // если изменилось название, делает запрос с новыми квери параметрами
 
 
-
-
-
-    const goToCardsClick = async (card_pack_id: string) => {
+    const goToCardsClick = async (card_pack_id: string ) => {
         await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
     }
@@ -134,7 +132,6 @@ export const TableForPacks = () => {
 
     return (
         <div className={style.table_all_wrapper}>
-            {status === 'loading' && <div style={{position: "relative"}}><LinearProgress color="primary"/></div>}
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
                 <TableContainer sx={{maxHeight: 440}}>
                     <Table stickyHeader aria-label="sticky table">

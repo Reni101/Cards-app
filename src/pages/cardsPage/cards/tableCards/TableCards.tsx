@@ -61,28 +61,34 @@ function createData(
 export const TableCards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+
     const cards = useAppSelector(state => state.Cards.cards)
-    const rows = cards.map((card) => createData(card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
-
-
+    const packsUserId = useAppSelector(state => state.Cards.packUserId)
+    const myId = useAppSelector(state => state.ProfilePage.user_id)
+    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
     const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
     const currentPage = useAppSelector(state => state.Cards.page)
-    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
     const pageCount = useAppSelector(state => state.Cards.query.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
+    const rows = cards.map((card) => createData(card.cardsPack_id,card.answer,card.question,card.updated,card.grade))
 
 
     const [page, setPage] = useState(currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-
     const [grade, setGrade] = useState<number | null>(0);
+
+
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
         dispatch(changePageCardsAC(newPage + 1))
     };
+    const goToPacksClick = () => {
+        navigate(packsRoute)
+    }
+
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -90,13 +96,16 @@ export const TableCards = () => {
     };
 
 
-    const goToPacksClick = () => {
-        navigate(packsRoute)
-    }
+
+
 
     useEffect(() => {
         dispatch(setCardsTC(packId))
     }, [currentPage,pageCount,findQuestion])
+
+
+
+
 
     if (cards.length === 0) {
         return (
@@ -127,7 +136,6 @@ export const TableCards = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
@@ -135,10 +143,19 @@ export const TableCards = () => {
                                                 const value = row[column.id];
                                                 return (
                                                     <TableCell key={column.id}
-                                                               align={column.align}>
-                                                        {column.format && typeof value === 'string'
+                                                               align={column.align}
+                                                    >
+
+                                                        {column.format &&
+                                                        typeof value === 'string'
                                                             ? column.format(value)
-                                                            : value}
+                                                            :
+                                                            <div className={column.id === 'grade'
+                                                                ? style.icon_display_none
+                                                                : style.value_box}>
+                                                                {value}
+                                                            </div>
+                                                        }
                                                         {column.id === 'grade' &&
                                                             <div className={style.flex_icons}>
                                                                 <Rating
@@ -148,12 +165,16 @@ export const TableCards = () => {
                                                                         setGrade(newValue);
                                                                     }}
                                                                 />
-                                                                <div className={style.flex_icons}>
+                                                                <div className={packsUserId === myId
+                                                                    ? style.flex_icons
+                                                                    : `${style.flex_icons} ${style.icon_display_none}`}>
                                                                     <div className={style.icons}>
                                                                         <DriveFileRenameOutlineOutlinedIcon
                                                                             color={'primary'}/>
                                                                     </div>
-                                                                    <div className={style.icons}>
+                                                                    <div className={packsUserId === myId
+                                                                        ? style.flex_icons
+                                                                        : `${style.flex_icons} ${style.icon_display_none}`}>
                                                                         <DeleteForeverOutlinedIcon
                                                                             color={'primary'}/>
                                                                     </div>

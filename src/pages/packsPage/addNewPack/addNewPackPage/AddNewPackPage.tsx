@@ -5,11 +5,12 @@ import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
 import container from '../../../../common/commonStyles/container.module.css'
 import {Button} from '@mui/material';
+import {useAppSelector} from '../../../../hooks/hooks';
 
 export const AddNewPackPage = () => {
 
     const navigate = useNavigate()
-
+    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
     const goToPacks = () => {
         navigate(packsRoute)
     }
@@ -20,7 +21,7 @@ export const AddNewPackPage = () => {
                 Back to Packs List
             </div>
             <div className={container.contain}>
-                <h2 className={style.title_add_new_pack}>Name Pack</h2>
+                <h2 className={style.title_add_new_pack}>{packNameQuery}</h2>
                 <div className={style.add_new_card_block}>
                     <div className={style.empty}>This pack is empty. Click add new card to fill this pack</div>
                     <Button className={style.button} variant="outlined" type="submit">
