@@ -38,7 +38,7 @@ export const ForgotPasswordPage = () => {
     return (
         <Slide direction={'up'}>
             <div className={style.wrapper_forgot}>
-                {status === "loading" && <div><LinearProgress color="secondary"/></div>}
+                {status === "loading" && <div><LinearProgress color="primary"/></div>}
 
                 <h2 className={style.title}>Forgot your password?</h2>
 

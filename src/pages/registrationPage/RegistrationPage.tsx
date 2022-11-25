@@ -8,7 +8,7 @@ import {LinearProgress} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/Store";
 import {requestStatusType} from "../../AppReducer";
-import {setRegisrationAC} from "../../Redux/RegistrationReducer";
+import {setRegisrationAC} from "./RegistrationReducer";
 
 export const RegistrationPage = () => {
 
@@ -29,19 +29,21 @@ export const RegistrationPage = () => {
 
     return (
         <Slide direction={'up'}>
-            <div className={style.registrationPageBlock}>
-                {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
-                <div className={style.registrationPageContent}>
+            <div className={style.all_wrapper_reg}>
+                <div className={style.registrationPageBlock}>
+                    {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}
+                    <div className={style.registrationPageContent}>
 
-                    <div className={style.registrationPageTitle}>
-                        Sign Up
-                    </div>
-                    <div className={style.signInBlock}>
-                        <FormForRegistration/>
-                        <div className={style.signInTitle}>Already have an account?</div>
-                        <NavLink to={'/'}>
-                            <div className={style.signInBtn}>Sign in</div>
-                        </NavLink>
+                        <div className={style.registrationPageTitle}>
+                            Sign Up
+                        </div>
+                        <div className={style.signInBlock}>
+                            <FormForRegistration/>
+                            <div className={style.signInTitle}>Already have an account?</div>
+                            <NavLink to={'/'}>
+                                <div className={style.signInBtn}>Sign in</div>
+                            </NavLink>
+                        </div>
                     </div>
                 </div>
             </div>

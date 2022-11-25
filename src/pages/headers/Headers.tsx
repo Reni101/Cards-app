@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import style from './Headers.module.css'
 import black_logo from '../../assets/webLogo/pink_punk_black.svg'
@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../../Redux/Store';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {SingOutTC} from '../login/loginReducer/LoginReducer';
-
+import {useScrollPosition} from '../../hooks/useScrollPosition';
 
 
 export const Headers = () => {
@@ -18,18 +18,32 @@ export const Headers = () => {
     const userName = useAppSelector(state => state.ProfilePage.name)
 
 
+    const [nav, setNav] = useState(false)
+    // this hook tracking scrolling yor window and return scrollY value
+    const scrollPosition = useScrollPosition();
+    // if scrollY value > 10px header style = opacity:0
+    useEffect(() => {
+        window.onwheel = (e) => {
+            let scrollDirection = e.deltaY < 0
+            scrollPosition > 10 && !scrollDirection ? setNav && setNav(true) : setNav && setNav(false)
+        }
+    }, [scrollPosition])
+
     const navigate = useNavigate();
     const goSignUp = () => {
         navigate('/registration')
     }
+    const goToProfile = () => {
+        navigate('/profile')
+    }
 
     const changeSignOut = async () => {
-       await dispatch(SingOutTC())
+        await dispatch(SingOutTC())
         navigate('/')
     }
 
     return (
-        <div className={style.header_box}>
+        <div className={nav ? `${style.header_box} ${style.scroll_active}` : style.header_box}>
             <div className={style.website_logo}>
                 <img src={black_logo} alt="logo is late"/>
             </div>
@@ -41,7 +55,8 @@ export const Headers = () => {
                             sign out
                         </Button>
                         <div className={style.user_name}>{userName}</div>
-                        <img src={userLogo ? userLogo : "https://my-engine.ru/modules/users/avatar.png"} alt="logo"/>
+                        <img onClick={goToProfile}
+                             src={userLogo ? userLogo : 'https://my-engine.ru/modules/users/avatar.png'} alt="logo"/>
                     </div>
                     :
                     <Button className={style.button} variant="outlined" onClick={goSignUp} type="submit">

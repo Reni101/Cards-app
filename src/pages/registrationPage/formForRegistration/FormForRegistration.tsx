@@ -1,8 +1,7 @@
 import React from 'react';
 import style from "../RegistrationPage.module.css";
-import SuperButton from "../../../common/SuperButton/SuperButton";
 import {useFormik} from "formik";
-import {registrationTC} from "../../../Redux/RegistrationReducer";
+import {registrationTC} from "../RegistrationReducer";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import InputForRegistration from "./InputForRegistration";
 import {useNavigate} from "react-router-dom";

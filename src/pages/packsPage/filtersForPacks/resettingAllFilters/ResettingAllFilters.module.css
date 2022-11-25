@@ -1,0 +1,31 @@
+.all_wrapper_res_all_filters{
+
+}
+
+.title_res_all {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.icon_wrapper{
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon_wrapper>svg{
+    font-size: 40px;
+    cursor:pointer;
+    stroke-width: 2;
+    transition: all .5s;
+}
+.icon_wrapper>svg:hover{
+    font-size: 45px;
+    transition: all .5s;
+}
+.icon_wrapper>svg:active{
+    font-size: 40px;
+    transition: all .5s;
+}
+

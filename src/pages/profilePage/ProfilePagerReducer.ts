@@ -1,10 +1,12 @@
 import {AppThunk} from "../../Redux/Store";
 import {profilePageAPI, updatedUser} from "./profileAPI";
-import axios, {AxiosError} from "axios";
-import {setErrorApp, setStatusApp} from "../../AppReducer";
+import  {AxiosError} from "axios";
+import { setStatusApp} from "../../AppReducer";
+import {handleError} from "../../common/ErrorUtils/errorFunck";
 
 
 const initialState = {
+    user_id: "" ,
     email: null as string | null,
     name: null as string | null,
     publicCardPacksCount: null as number | null,
@@ -16,7 +18,13 @@ type InitialStateType = typeof initialState
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
     switch (action.type) {
         case "PROFILE_PAGE_SET_PROFILE_DATA":
-            return {...state,name:action.data.name,email: action.data.email,avatar: action.data.avatar}
+            return {
+                ...state,
+                name: action.data.name,
+                email: action.data.email,
+                avatar: action.data.avatar,
+                user_id: action.data._id
+            }
         case 'PROFILE_PAGE_CHANGE_PROFILE_NAME':
             return {...state, name: action.name}
         default:
@@ -44,14 +52,7 @@ export const editProfileNameTC = (newName: string | null): AppThunk => async dis
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            dispatch(setErrorApp(error))
-        } else {
-            dispatch(setErrorApp(`Native error ${err.message}`))
-
-        }
-        dispatch(setStatusApp('failed'))
+        handleError(err, dispatch)
     }
 
 }

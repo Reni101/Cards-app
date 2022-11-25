@@ -36,7 +36,7 @@ interface InitialValuesType {
     rememberMe: boolean
 }
 
-export const LoginPage = React.memo(() => {
+export const LoginPage = () => {
 
     const dispatch: AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
@@ -87,91 +87,92 @@ export const LoginPage = React.memo(() => {
     }
 
     return (
-        <Slide direction={'up'} >
-            <div className={style.wrapper_login}>
-                {status === 'loading' && <div className="loading"><LinearProgress color="primary"/></div>}
-                <div className={style.sing_in}>Sing in</div>
-                <div className={style.form_container}>
-                    <form className={style.gm}>
-                        <div className={style.item_box}>
-                            <TextField
-                                id="outlined-basic"
-                                name="email"
-                                label="email"
-                                type="email"
-                                fullWidth={true}
-                                onChange={formik.handleChange}
-                                value={formik.values.email}
-                                color={formik.touched.email && formik.errors.email ? 'error' : 'success'}
-                                variant="outlined"/>
-                            {formik.touched.email && formik.errors.email ? (
-                                <div className={style.validation}>{formik.errors.email}</div>
-                            ) : null}
-                        </div>
-
-                        <div className={style.item_box}>
-                            <FormControl variant="outlined" fullWidth={true}>
-                                <InputLabel htmlFor="outlined-adornment-password"
-                                            color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
-                                >Password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={values.showPassword ? 'text' : 'password'}
-                                    value={formik.values.password}
-                                    name="password"
+        <Slide direction={'up'}>
+            <div className={style.all_wrapper_login}>
+                <div className={style.wrapper_login}>
+                    {status === 'loading' && <div className="loading"><LinearProgress color="primary"/></div>}
+                    <div className={style.sing_in}>Sing in</div>
+                    <div className={style.form_container}>
+                        <form className={style.gm}>
+                            <div className={style.item_box}>
+                                <TextField
+                                    id="outlined-basic"
+                                    name="email"
+                                    label="email"
+                                    type="email"
+                                    fullWidth={true}
                                     onChange={formik.handleChange}
-                                    label="Password"
-                                    color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {values.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
+                                    value={formik.values.email}
+                                    color={formik.touched.email && formik.errors.email ? 'error' : 'success'}
+                                    variant="outlined"/>
+                                {formik.touched.email && formik.errors.email ? (
+                                    <div className={style.validation}>{formik.errors.email}</div>
+                                ) : null}
+                            </div>
+
+                            <div className={style.item_box}>
+                                <FormControl variant="outlined" fullWidth={true}>
+                                    <InputLabel htmlFor="outlined-adornment-password"
+                                                color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
+                                    >Password</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-password"
+                                        type={values.showPassword ? 'text' : 'password'}
+                                        value={formik.values.password}
+                                        name="password"
+                                        onChange={formik.handleChange}
+                                        label="Password"
+                                        color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
+                                {formik.touched.password && formik.errors.password ? (
+                                    <div className={style.validation}>{formik.errors.password}</div>
+                                ) : null}
+                            </div>
+                            <div className={style.item_box}>
+                                <FormControlLabel
+                                    control={<IOSSwitch sx={{mx: 2}}/>}
+                                    name="rememberMe"
+                                    onChange={() => {
+                                        formik.setFieldValue('rememberMe', !formik.values.rememberMe)
+                                    }}
+                                    label="Remember me"
                                 />
-                            </FormControl>
-                            {formik.touched.password && formik.errors.password ? (
-                                <div className={style.validation}>{formik.errors.password}</div>
-                            ) : null}
+                            </div>
+                        </form>
+                        <div className={style.fagot_pass}>
+                            <NavLink to="/forgot-password">
+                                Fagot Password ?
+                            </NavLink>
                         </div>
-                        <div className={style.item_box}>
-                            <FormControlLabel
-                                control={<IOSSwitch sx={{mx: 2}}/>}
-                                name="rememberMe"
-                                onChange={() => {
-                                    formik.setFieldValue('rememberMe', !formik.values.rememberMe)
-                                }}
-                                label="Remember me"
-                            />
+                        <form onSubmit={formik.handleSubmit} className={style.form}>
+                            <div className={style.item_box}>
+                                <Button className={style.button} variant="outlined" type="submit">LOGIN</Button>
+                            </div>
+                        </form>
+                        <div className={style.haveAccount}>Already have an account?</div>
+                        <div className={style.goToSingUp}>
+                            <NavLink to={'/registration'}>Sing Up</NavLink>
                         </div>
-                    </form>
-                    <div className={style.fagot_pass}>
-                        <NavLink to="/forgot-password">
-                            Fagot Password ?
-                        </NavLink>
-                        {/* нужен компонент fagotPassword*/}
-                    </div>
-                    <form onSubmit={formik.handleSubmit} className={style.form}>
-                        <div className={style.item_box}>
-                            <Button className={style.button} variant="outlined" type="submit">LOGIN</Button>
-                        </div>
-                    </form>
-                    <div className={style.haveAccount}>Already have an account?</div>
-                    <div className={style.goToSingUp}>
-                        <NavLink to={'/registration'}>Sing Up</NavLink>
                     </div>
                 </div>
             </div>
 
         </Slide>
     );
-})
+}
 
 
 const IOSSwitch = styled((props: SwitchProps) => (
