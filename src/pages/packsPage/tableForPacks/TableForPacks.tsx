@@ -204,6 +204,7 @@ export const TableForPacks = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
+                    labelRowsPerPage={"Количество коллод"}
                     rowsPerPageOptions={[5, 10, 20]}
                     component="div"
                     count={cardPacksTotalCount}

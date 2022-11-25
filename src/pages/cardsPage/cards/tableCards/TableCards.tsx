@@ -191,6 +191,7 @@ export const TableCards = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
+                    labelRowsPerPage={"Количество карт"}
                     rowsPerPageOptions={[5, 10, 20]}
                     component="div"
                     count={totalCardsCount}
