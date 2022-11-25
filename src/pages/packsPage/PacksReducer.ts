@@ -194,7 +194,6 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
 export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
-        debugger
         await packsAPI.deletePack(idPack)
         await dispatch(SetCardsPackTC())
         dispatch(setStatusApp('succeeded'))
