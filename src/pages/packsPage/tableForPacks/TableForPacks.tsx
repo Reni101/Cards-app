@@ -126,6 +126,7 @@ export const TableForPacks = () => {
 
 
     const goToCardsClick = async (card_pack_id: string | null) => {
+        console.log(card_pack_id)
         await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
     }

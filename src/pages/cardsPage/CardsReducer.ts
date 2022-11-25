@@ -120,10 +120,11 @@ export const sortCardsAC = (sortCards: string) => ({
     type: 'CARDS/SORT_CARDS',
     payload: {sortCards}
 } as const)
-export const setPacksIdAC = (packsId: string | null) => ({
+export const setPacksIdAC = (packsId: string | null) => {
+    return {
     type: 'CARDS/SET_PACKS_ID',
     payload: {packsId}
-} as const)
+} as const}
 
 
 //==============================TC============================
@@ -137,7 +138,7 @@ export const setCardsTC = (cardsPack_id: string | null): AppThunk =>
                 cardsPack_id, cardQuestion, sortCards, page, pageCount
             })
             dispatch(setCardsAC(res.data))
-           // dispatch(setPacksIdAC(cardsPack_id))
+            dispatch(setPacksIdAC(cardsPack_id))
 
         } catch
             (e) {
