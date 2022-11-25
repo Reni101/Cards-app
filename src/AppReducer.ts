@@ -61,6 +61,7 @@ export const initializedAppTC = (): AppThunk =>
         await Promise.all([promise])
         try{
             dispatch(initializedAppAC())
+            dispatch(setErrorApp(null))
         }
         catch(e){
             const err = e as Error | AxiosError

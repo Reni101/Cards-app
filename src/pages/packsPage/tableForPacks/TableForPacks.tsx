@@ -107,6 +107,11 @@ export const TableForPacks = () => {
         setPage(0);
         dispatch(changePageCountAC(+event.target.value))
     };
+
+
+
+
+
     useEffect(() => {
         dispatch(SetCardsPackTC())
     }, [dispatch, packNameQuery, user_idQuery, minQuery, maxQuery,
@@ -150,7 +155,6 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
