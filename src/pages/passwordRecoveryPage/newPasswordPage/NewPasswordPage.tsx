@@ -47,7 +47,7 @@ export const NewPasswordPage = () => {
     return (
         <Slide direction={'up'}>
             <div className={style.wrapper_newPassword}>
-                {status ==="loading" && <div> <LinearProgress color="secondary" /></div>}
+                {status ==="loading" && <div> <LinearProgress color="primary" /></div>}
                 <h2 className={style.Title}>Create new password</h2>
                 <div className={style.FormStyle}>
                     <form onSubmit={formik.handleSubmit}>

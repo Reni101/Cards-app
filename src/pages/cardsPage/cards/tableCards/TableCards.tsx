@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {Slide} from 'react-awesome-reveal';
+import React, {useEffect, useState} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,9 +12,10 @@ import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
+import {changePageCardsAC, changePageCardsCountAC, setCardsTC} from "../../CardsReducer";
 
 
 interface CardsColumn {
@@ -25,6 +25,7 @@ interface CardsColumn {
     align?: 'center' | 'left' | 'right';
     format?: (value: string) => string;
 }
+
 interface RowsData {
     packPackId: string;
     answer: string;
@@ -60,26 +61,45 @@ function createData(
 
 export const TableCards = () => {
     const navigate = useNavigate()
-    const cards = useAppSelector( state => state.Cards.cards)
-    const rows = cards.map((card) => createData(card.cardsPack_id,card.answer,card.question,card.updated,card.grade))
+    const dispatch = useAppDispatch()
+    const cards = useAppSelector(state => state.Cards.cards)
+    const rows = cards.map((card) => createData(card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-    const [page, setPage] = useState(0);
+
+    const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
+    const currentPage = useAppSelector(state => state.Cards.page)
+    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
+    const pageCount = useAppSelector(state => state.Cards.query.pageCount)
+    const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
+
+
+    const [page, setPage] = useState(currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+
     const [grade, setGrade] = useState<number | null>(0);
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
+        dispatch(changePageCardsAC(newPage + 1))
     };
-    const goToPacksClick = () =>{
-        navigate(packsRoute)
-    }
-
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
+        dispatch(changePageCardsCountAC(+event.target.value))
     };
-    
-    if(cards.length === 0) {
+
+
+    const goToPacksClick = () => {
+        navigate(packsRoute)
+    }
+
+    useEffect(() => {
+        dispatch(setCardsTC(packId))
+    }, [currentPage,pageCount,findQuestion])
+
+    if (cards.length === 0) {
         return (
             <div className={style.empty_pack}>
                 <div className={style.empty_text}>Pu pu pu... this pack empty, please take another pack</div>
@@ -88,79 +108,79 @@ export const TableCards = () => {
         )
     }
     return (
-            <div className={style.table_all_wrapper}>
-                <Paper sx={{width: '100%', overflow: 'hidden'}}>
-                    <TableContainer sx={{maxHeight: 440}}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                    {columns.map((column) => (
-                                        <TableCell
-                                            key={column.id}
-                                            align={column.align}
-                                            style={{minWidth: column.minWidth}}
-                                            className={style.table_title_cell}
-                                        >
-                                            {column.label}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
-                                                {columns.map((column) => {
-                                                    const value = row[column.id];
-                                                    return (
-                                                        <TableCell key={column.id}
-                                                                   align={column.align}>
-                                                            {column.format && typeof value === 'string'
-                                                                ? column.format(value)
-                                                                : value}
-                                                            {column.id === 'grade' &&
+        <div className={style.table_all_wrapper}>
+            <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                <TableContainer sx={{maxHeight: 440}}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{minWidth: column.minWidth}}
+                                        className={style.table_title_cell}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows
+                                //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell key={column.id}
+                                                               align={column.align}>
+                                                        {column.format && typeof value === 'string'
+                                                            ? column.format(value)
+                                                            : value}
+                                                        {column.id === 'grade' &&
+                                                            <div className={style.flex_icons}>
+                                                                <Rating
+                                                                    name="simple-controlled"
+                                                                    value={row.grade}
+                                                                    onChange={(event, newValue) => {
+                                                                        setGrade(newValue);
+                                                                    }}
+                                                                />
                                                                 <div className={style.flex_icons}>
-                                                                    <Rating
-                                                                        name="simple-controlled"
-                                                                        value={row.grade}
-                                                                        onChange={(event, newValue) => {
-                                                                            setGrade(newValue);
-                                                                        }}
-                                                                    />
-                                                                    <div className={style.flex_icons} >
-                                                                        <div className={style.icons}>
-                                                                            <DriveFileRenameOutlineOutlinedIcon
-                                                                                color={'primary'}/>
-                                                                        </div>
-                                                                        <div className={style.icons}>
-                                                                            <DeleteForeverOutlinedIcon
-                                                                                color={'primary'}/>
-                                                                        </div>
+                                                                    <div className={style.icons}>
+                                                                        <DriveFileRenameOutlineOutlinedIcon
+                                                                            color={'primary'}/>
+                                                                    </div>
+                                                                    <div className={style.icons}>
+                                                                        <DeleteForeverOutlinedIcon
+                                                                            color={'primary'}/>
                                                                     </div>
                                                                 </div>
-                                                            }
-                                                        </TableCell>
-                                                    );
-                                                })}
-                                            </TableRow>
-                                        );
-                                    })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 20, 100]}
-                        component="div"
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
-            </div>
+                                                            </div>
+                                                        }
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    );
+                                })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 20]}
+                    component="div"
+                    count={totalCardsCount}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Paper>
+        </div>
     );
 };
 

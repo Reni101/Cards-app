@@ -28,6 +28,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
+import {LinearProgress} from "@mui/material";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -74,7 +75,7 @@ function createData(
 
 
 export const TableForPacks = () => {
-
+    const status = useAppSelector(state => state.App.status)
     const dispatch = useAppDispatch()
     const packNameQuery = useAppSelector(state => state.Packs.query.packName)
     const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
@@ -84,25 +85,13 @@ export const TableForPacks = () => {
     const sortPacksQuery = useAppSelector(state => state.Packs.query.sortPacks)
     const currentPage = useAppSelector(state => state.Packs.page)
 
-
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
-
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
 
-
     const navigate = useNavigate()
-// const changeSortHandler = (sortPacksQuery: any) => {
-//
-//
-//       const newSort
-//     if(sortPacksQuery === "1name" ? "0name" : "1name")
-//     dispatch(changeSortPacksAC(newSort))
-// }
-
 
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
-
 
 
     const [page, setPage] = React.useState(currentPage - 1);
@@ -116,7 +105,6 @@ export const TableForPacks = () => {
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
-
         dispatch(changePageCountAC(+event.target.value))
     };
     useEffect(() => {
@@ -125,7 +113,7 @@ export const TableForPacks = () => {
         pageCountQuery, sortPacksQuery, currentPage]) // если изменилось название, делает запрос с новыми квери параметрами
 
 
-    const goToCardsClick = async (card_pack_id: string | null) => {
+    const goToCardsClick = async (card_pack_id: string) => {
         await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
     }
@@ -138,6 +126,7 @@ export const TableForPacks = () => {
 
     return (
         <div className={style.table_all_wrapper}>
+            {status === 'loading' && <div style={{position:"relative"}}><LinearProgress color="primary"/></div>}
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
                 <TableContainer sx={{maxHeight: 440}}>
                     <Table stickyHeader aria-label="sticky table">
@@ -158,7 +147,7 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                               // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
@@ -191,12 +180,13 @@ export const TableForPacks = () => {
                                                                             name: 'Update name'
                                                                         })}/>
                                                                 </div>
-                                                                <div  className={user_idFromProfile === row.user_id
+                                                                <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DeleteForeverOutlinedIcon
                                                                         color={'primary'}
-                                                                        onClick={() => deletePackClick(row.pack_id)}/>
+                                                                        onClick={() => deletePackClick(row.pack_id)}
+                                                                    />
                                                                 </div>
                                                             </div>
                                                         }
@@ -224,8 +214,6 @@ export const TableForPacks = () => {
     );
 };
 type TablePaginationActionsProps = {
-
-
     count: number;
     page: number;
     rowsPerPage: number;
@@ -236,35 +224,22 @@ type TablePaginationActionsProps = {
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
-
-
     const theme = useTheme();
     const {count, page, rowsPerPage, onPageChange} = props;
 
-    const handleFirstPageButtonClick = (
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => {
-
-        //перекидывает на самую первую страницу
-
+    const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>,) => {
         onPageChange(event, 0);
     };
 
     const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        // перекидывает на предыдущую страницу
-        // dispatch(changePageTC(page -1))
         onPageChange(event, page - 1);
     };
 
     const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        // перекидывает на след страницу
-        // dispatch(changePageTC(page +1))
         onPageChange(event, page + 1);
     };
 
     const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        // перекидывает на последнюю страницу
-        // dispatch(changePageTC(Math.ceil(count / rowsPerPage) - 1)))
         onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
     };
 

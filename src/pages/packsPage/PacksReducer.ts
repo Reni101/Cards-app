@@ -14,6 +14,8 @@ export type ActionsPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
+const MAX_COUNT_CARDS = 53
+
 export type PacksType = {
     _id: string // id колоды!!!
     user_id: string
@@ -32,12 +34,12 @@ export type PacksType = {
 type InitialStateType = {
     cardPacks: Array<PacksType>
     query: {
-        min: number,
-        max: number,
+        min: number | null
+        max: number
         pageCount: number
-        sortPacks: string
-        packName: string
-        user_id: string
+        sortPacks: string | null
+        packName: string | null
+        user_id: string | null
 
     }
     cardPacksTotalCount: number //всего колод
@@ -54,7 +56,7 @@ const initialState: InitialStateType = {
     cardPacks: [],
     query: {
         min: 0,//квери параметр покажи колоды с минимальным колличеством коллод
-        max: 0,//квери параметр покажи колоды с максиммальным колличеством коллод
+        max: MAX_COUNT_CARDS,//квери параметр покажи колоды с максиммальным колличеством коллод
         pageCount: 5, // количество колод в на странице // "1card"
         sortPacks: "", // сортировка по возрастанию / убыванию  changeSortPacksAC("1name")
         packName: "", //сортировка по имени
@@ -63,7 +65,7 @@ const initialState: InitialStateType = {
     },
     cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 53,
+    maxCardsCount: MAX_COUNT_CARDS,
     page: 1,
     // текущая страница
 }
@@ -142,7 +144,13 @@ export const SetCardsPackTC = (): AppThunk =>
         dispatch(setStatusApp('loading'))
         try {
             const page = getState().Packs.page
-            const {min, max, pageCount, sortPacks, packName, user_id} = getState().Packs.query
+            let {min, max, pageCount, sortPacks, packName, user_id} = getState().Packs.query
+            if(sortPacks === "") sortPacks = null
+            if(packName === "") packName = null
+            if(user_id === "") user_id = null
+            if(min === 0) min = null
+
+
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
@@ -157,7 +165,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        dispatch(SetCardsPackTC())
+        await dispatch(SetCardsPackTC())
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -172,7 +180,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
-        dispatch(SetCardsPackTC())
+        await dispatch(SetCardsPackTC())
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -186,8 +194,9 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
 export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
+        debugger
         await packsAPI.deletePack(idPack)
-        dispatch(SetCardsPackTC())
+        await dispatch(SetCardsPackTC())
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError

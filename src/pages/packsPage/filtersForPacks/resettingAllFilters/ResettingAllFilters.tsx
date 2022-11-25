@@ -12,7 +12,7 @@ import {
 export const ResettingAllFilters = () => {
     const dispatch = useAppDispatch()
 
-    const ResetAllQueryParams = () => {
+    const ResetAllFiltersParams = () => {
         dispatch(changeMinAC(0))
         dispatch(changeMaxAC(53))
         dispatch(changeShowMyPacksAC(""))
@@ -23,7 +23,7 @@ export const ResettingAllFilters = () => {
             <div className={style.title_res_all}>
                 Resetting filters
             </div>
-            <div className={style.icon_wrapper} onClick={ResetAllQueryParams}>
+            <div className={style.icon_wrapper} onClick={ResetAllFiltersParams}>
                 <FilterListOffSharpIcon color={'primary'}/>
             </div>
         </div>

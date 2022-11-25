@@ -9,6 +9,7 @@ import {loginRoute} from '../../common/paths/Paths';
 
 
 
+
 export const PacksPage = () => {
 
 
@@ -20,6 +21,7 @@ export const PacksPage = () => {
 
     return (
         <div className={style.all_wrapper_packs}>
+
             <AddNewPack/>
             <FiltersForPacks/>
             <TableForPacks  />

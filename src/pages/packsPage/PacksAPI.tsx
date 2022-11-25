@@ -28,7 +28,7 @@ export type queryModelType = {
     min?: number | null,
     max?: number | null,
     page?: number | null,
-    pageCount?: number ,
+    pageCount?: number | null,
     sortPacks?: string | null,
     packName?: string | null,
     user_id?: string | null

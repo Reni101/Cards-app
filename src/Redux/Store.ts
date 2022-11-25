@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import { combineReducers} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {Reducer} from "./EmptyReducer";
 import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
@@ -10,6 +10,7 @@ import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
+import {configureStore} from "@reduxjs/toolkit";
 
 
 
@@ -25,7 +26,15 @@ const rootReducer = combineReducers({
 
 })
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
+//export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
+export  const store = configureStore({
+    reducer:rootReducer,
+    middleware:(getDefaultMiddleware) => getDefaultMiddleware()
+        .prepend(thunk)
+})
+
+
+
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AllAppActionsType =
