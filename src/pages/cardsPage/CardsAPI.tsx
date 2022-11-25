@@ -4,7 +4,7 @@ import {AxiosResponse} from "axios";
 
 
 export const cardsAPI = {
-    getCards(model?: queryCardsModelType) {
+    getCards(model:queryCardsModelType) {
         return instance.get<ResponseCardsType>("cards/card", {
             params: model
         })
@@ -32,8 +32,6 @@ export type ResponseCardsType = {
     page: number;
     pageCount: number; //количество карточек на странице
     cardsTotalCount: number; // всего карточек
-    //minGrade: number;
-    //maxGrade: number;
 }
 export type CardType = {
     _id: string;
@@ -58,15 +56,10 @@ export type RequestUpdateCardType = {
     question: string
 }
 
-
-
 export type queryCardsModelType = {
     cardsPack_id: string | null // айдишка пака
-    cardQuestion: string | null // по вопросами
-    sortCards: string | null // сортировка по вопросам/ответам/грейду/обновлению
-    page: number | null // страница
-    pageCount: 5 | 10
-    //min: number | null
-    //max: number | null
-    //cardAnswer: string | null // поиск по ответам?
+    cardQuestion?: string | null // поиск по вопросами
+    sortCards?: string | null // сортировка по вопросам/ответам/грейду/обновлению
+    page?: number // страница
+    pageCount: number
 }

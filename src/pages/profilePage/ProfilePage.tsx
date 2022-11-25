@@ -44,7 +44,7 @@ export const ProfilePage = () => {
                     </div>
 
                 <div className={styleProfile.wrapper_profile}>
-                    {status === 'loading' && <div><LinearProgress color="secondary"/></div>}
+                    {status === 'loading' && <div><LinearProgress color="primary"/></div>}
 
 
                     <h2 className={styleProfile.title}>Personal Information</h2>

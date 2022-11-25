@@ -83,8 +83,6 @@ export const TableCards = () => {
         setPage(0);
     };
 
-
-
     if (cards.length === 0) {
         return (
             <div className={style.empty_pack}>
@@ -149,8 +147,7 @@ export const TableCards = () => {
                                                                     : `${style.flex_icons} ${style.icon_display_none}`}>
                                                                     <div className={style.icons}>
                                                                         <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={'primary'}
-                                                                       />
+                                                                            color={'primary'}/>
                                                                     </div>
                                                                     <div className={packsUserId === myId
                                                                         ? style.flex_icons
