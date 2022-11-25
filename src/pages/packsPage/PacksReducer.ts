@@ -145,10 +145,10 @@ export const SetCardsPackTC = (): AppThunk =>
         try {
             const page = getState().Packs.page
             let {min, max, pageCount, sortPacks, packName, user_id} = getState().Packs.query
-            if(sortPacks === "") sortPacks = null
-            if(packName === "") packName = null
-            if(user_id === "") user_id = null
-            if(min === 0) min = null
+            if (sortPacks === "") sortPacks = null
+            if (packName === "") packName = null
+            if (user_id === "") user_id = null
+            if (min === 0) min = null
 
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})

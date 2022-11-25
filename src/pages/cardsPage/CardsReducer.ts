@@ -129,10 +129,12 @@ export const setCardsTC = (cardsPack_id: string): AppThunk =>
             })
             dispatch(setCardsAC(res.data))
             dispatch(setPacksIdAC(cardsPack_id))
+            dispatch(setStatusApp('succeeded'))
 
         } catch
             (e) {
-
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
         }
     }
 export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch, getState) => {
