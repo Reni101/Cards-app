@@ -14,7 +14,7 @@ export type ActionsPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
-const MAX_COUNT_CARDS = 53
+const MAX_COUNT_CARDS = 110
 
 export type PacksType = {
     _id: string // id колоды!!!
