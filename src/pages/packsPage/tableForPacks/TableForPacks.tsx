@@ -13,7 +13,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setCardsTC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
@@ -113,6 +113,9 @@ export const TableForPacks = () => {
         pageCountQuery, sortPacksQuery, currentPage]) // если изменилось название, делает запрос с новыми квери параметрами
 
 
+
+
+
     const goToCardsClick = async (card_pack_id: string) => {
         await dispatch(setCardsTC(card_pack_id))
         navigate(cardsRoute)
@@ -126,7 +129,7 @@ export const TableForPacks = () => {
 
     return (
         <div className={style.table_all_wrapper}>
-            {status === 'loading' && <div style={{position:"relative"}}><LinearProgress color="primary"/></div>}
+            {status === 'loading' && <div style={{position: "relative"}}><LinearProgress color="primary"/></div>}
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
                 <TableContainer sx={{maxHeight: 440}}>
                     <Table stickyHeader aria-label="sticky table">

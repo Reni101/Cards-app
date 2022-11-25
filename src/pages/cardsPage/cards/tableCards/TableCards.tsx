@@ -17,7 +17,6 @@ import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC} from "../../CardsReducer";
 
-
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
     label: string;

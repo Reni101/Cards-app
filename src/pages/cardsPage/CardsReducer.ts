@@ -29,7 +29,7 @@ type CardType = {
 type InitialStateType = {
     cards: CardType[];
     query: {
-        pageCount:number
+        pageCount: number
         cardQuestion: string // по вопросами
         sortCards: string  // сортировка по вопросам/ответам/грейду/обновлению
         cardsPack_id: string   //айдишка пака обязательно
