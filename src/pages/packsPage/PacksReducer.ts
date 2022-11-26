@@ -14,7 +14,7 @@ export type ActionsPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
-const MAX_COUNT_CARDS = 110
+const MAX_COUNT_CARDS = 53
 
 export type PacksType = {
     _id: string // id колоды!!!
@@ -33,41 +33,32 @@ export type PacksType = {
 
 type InitialStateType = {
     cardPacks: Array<PacksType>
-    query: {
-        min: number | null
-        max: number
-        pageCount: number
-        sortPacks: string | null
-        packName: string | null
-        user_id: string | null
+    cardPacksTotalCount: number
+    minCardsCount: number
+    maxCardsCount: number
+    page: number | null
+    pageCount: number
 
-    }
-    cardPacksTotalCount: number //всего колод
-    minCardsCount: number   //мин количество карт в колоде
-    maxCardsCount: number  // макс
-    page: number     //текущая страница
-
-    // pageCount:number | null
-
+    min: number | null
+    max: number | null
+    sortPacks: string | null
+    packName: string | null
+    user_id: string | null
 }
 
 
 const initialState: InitialStateType = {
     cardPacks: [],
-    query: {
-        min: 0,//квери параметр покажи колоды с минимальным колличеством коллод
-        max: MAX_COUNT_CARDS,//квери параметр покажи колоды с максиммальным колличеством коллод
-        pageCount: 5, // количество колод в на странице // "1card"
-        sortPacks: "", // сортировка по возрастанию / убыванию  changeSortPacksAC("1name")
-        packName: "", //сортировка по имени
-        user_id: "",// сортировка мои/чужие колоды
-
-    },
     cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: MAX_COUNT_CARDS,
+    maxCardsCount: 0,
     page: 1,
-    // текущая страница
+    pageCount: 5,
+    min: 0,
+    max: 53,
+    sortPacks: "",
+    packName: "",
+    user_id: "",
 }
 
 
@@ -77,18 +68,21 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
             return {...state, ...action.payload}
         case "PACKS/CHANGE_PAGE":
             return {...state, page: action.payload.page}
-        case "PACKS/CHANGE_MIN":
-            return {...state, query: {...state.query, min: action.payload.min}}
+        case "PACKS/CHANGE_MIN": {
+        }
+            return {...state, min: action.payload.min}
         case "PACKS/CHANGE_MAX":
-            return {...state, query: {...state.query, max: action.payload.max}}
+            return {...state, max: action.payload.max}
+
+
         case "PACKS/CHANGE_PAGE_COUNT":
-            return {...state, query: {...state.query, pageCount: action.payload.pageCount}}
+            return {...state, pageCount: action.payload.pageCount}
         case "PACKS/CHANGE_SORT_PACK":
-            return {...state, query: {...state.query, sortPacks: action.payload.sortPacks}}
+            return {...state, sortPacks: action.payload.sortPacks}
         case "PACKS/SORT_PACKS_NAME":
-            return {...state, query: {...state.query, packName: action.payload.packName}}
+            return {...state, packName: action.payload.packName}
         case "PACKS/CHANGE_SHOW_MY_PACKS":
-            return {...state, query: {...state.query, user_id: action.payload.user_id}}
+            return {...state, user_id: action.payload.user_id}
         default:
             return state
     }
@@ -143,15 +137,16 @@ export const SetCardsPackTC = (): AppThunk =>
 
         dispatch(setStatusApp('loading'))
         try {
-            const page = getState().Packs.page
-            let {min, max, pageCount, sortPacks, packName, user_id} = getState().Packs.query
+            let {page, min, max, pageCount, sortPacks, packName, user_id} = getState().Packs
+            if (page === 1) page = null
+            if (min === 0) min = null
+            if (max === 0) max = null
             if (sortPacks === "") sortPacks = null
             if (packName === "") packName = null
             if (user_id === "") user_id = null
-            if (min === 0) min = null
-
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
+
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
         } catch

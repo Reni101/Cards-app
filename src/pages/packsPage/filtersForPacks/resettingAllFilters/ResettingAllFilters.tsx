@@ -1,9 +1,8 @@
 import React from 'react';
 import style from './ResettingAllFilters.module.css'
 import FilterListOffSharpIcon from '@mui/icons-material/FilterListOffSharp';
-import {useAppDispatch} from "../../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {
-    changeMaxAC,
     changeMinAC,
     changeShowMyPacksAC,
     sortPacksNameAC
@@ -11,10 +10,11 @@ import {
 
 export const ResettingAllFilters = () => {
     const dispatch = useAppDispatch()
+    const maxCard = useAppSelector(state => state.Packs.maxCardsCount)
 
     const ResetAllFiltersParams = () => {
         dispatch(changeMinAC(0))
-        dispatch(changeMaxAC(53))
+        dispatch(changeMinAC(0))
         dispatch(changeShowMyPacksAC(""))
         dispatch(sortPacksNameAC(""))
     }

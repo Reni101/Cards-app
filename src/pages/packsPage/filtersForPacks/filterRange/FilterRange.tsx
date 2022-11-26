@@ -11,24 +11,26 @@ const valuetext = (value: number) => {
 
 export const FilterRange = () => {
 
-    const minCardsCount = useAppSelector(state => state.Packs.minCardsCount)
+    const min = useAppSelector(state => state.Packs.min)
+    const max = useAppSelector(state => state.Packs.max)
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([minCardsCount, maxCardsCount]);
+    const [value, setValue] = React.useState<number[]>([min!, max!]);
     const debounceValue = useDebounce<number[]>(value, 600);
+
+
+    useEffect(() => {
+        dispatch(changeMinAC(debounceValue[0]))
+        dispatch(changeMaxAC(debounceValue[1]))
+    }, [debounceValue])
+
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
-    // const setValueHandler = () => {
-    //
-    // }
 
-    useEffect(() => {
-        dispatch(changeMinAC(debounceValue[0]))
-            dispatch(changeMaxAC(debounceValue[1]))
-    }, [debounceValue])
+
     return (
         <div className={style.all_wrapper_filter_range}>
 

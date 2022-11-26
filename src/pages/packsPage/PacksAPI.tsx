@@ -44,20 +44,16 @@ export type RequestUpdatePackType = {
 }
 
 export const packsAPI = {
-    getPacks(model?:queryModelType) {
-        return instance.get<ResponseCardsType>("cards/pack", {
-            params: model
-        })
+    getPacks(params?: queryModelType) {
+        return instance.get<ResponseCardsType>("cards/pack", {params})
     },
-    addPack (cardsPack: RequestAddPackType) {
-        instance.post<{name: string}, AxiosResponse>('cards/pack', {cardsPack: cardsPack})
+    addPack(cardsPack: RequestAddPackType) {
+        instance.post<{ name: string }, AxiosResponse>('cards/pack', {cardsPack})
     },
-    updatePack (cardsPack: RequestUpdatePackType) {
-        instance.put ('cards/pack', {
-            cardsPack: cardsPack
-        })
+    updatePack(cardsPack: RequestUpdatePackType) {
+        instance.put('cards/pack', {cardsPack})
     },
-    deletePack (idPack: string) {
+    deletePack(idPack: string) {
         instance.delete(`cards/pack?id=${idPack}`)
     }
 }

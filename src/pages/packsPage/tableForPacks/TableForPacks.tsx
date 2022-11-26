@@ -15,7 +15,7 @@ import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
-import {setCardsTC} from '../../cardsPage/CardsReducer';
+import {setCardsTC, setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
 
 import {useTheme} from "@mui/material/styles";
@@ -74,14 +74,13 @@ function createData(
 
 
 export const TableForPacks = () => {
-    const status = useAppSelector(state => state.App.status)
     const dispatch = useAppDispatch()
-    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
-    const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
-    const minQuery = useAppSelector(state => state.Packs.query.min)
-    const maxQuery = useAppSelector(state => state.Packs.query.max)
-    const pageCountQuery = useAppSelector(state => state.Packs.query.pageCount)
-    const sortPacksQuery = useAppSelector(state => state.Packs.query.sortPacks)
+    const packName = useAppSelector(state => state.Packs.packName)
+    const user_id = useAppSelector(state => state.Packs.user_id)
+    const min = useAppSelector(state => state.Packs.min)
+    const max = useAppSelector(state => state.Packs.max)
+    const pageCount = useAppSelector(state => state.Packs.pageCount)
+    const sortPacks = useAppSelector(state => state.Packs.sortPacks)
     const currentPage = useAppSelector(state => state.Packs.page)
 
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
@@ -93,8 +92,7 @@ export const TableForPacks = () => {
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
 
-
-    const [page, setPage] = React.useState(currentPage - 1);
+    const [page, setPage] = React.useState(currentPage! - 1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -110,17 +108,14 @@ export const TableForPacks = () => {
     };
 
 
-
-
-
     useEffect(() => {
+
         dispatch(SetCardsPackTC())
-    }, [dispatch, packNameQuery, user_idQuery, minQuery, maxQuery,
-        pageCountQuery, sortPacksQuery, currentPage]) // если изменилось название, делает запрос с новыми квери параметрами
+    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
 
-    const goToCardsClick = async (card_pack_id: string ) => {
-        await dispatch(setCardsTC(card_pack_id))
+    const goToCardsClick = (card_pack_id: string) => {
+        dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
     const deletePackClick = (pack_id: string) => {

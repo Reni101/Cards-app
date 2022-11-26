@@ -10,7 +10,7 @@ import {useAppSelector} from '../../../../hooks/hooks';
 export const AddNewPackPage = () => {
 
     const navigate = useNavigate()
-    const packNameQuery = useAppSelector(state => state.Packs.query.packName)
+    const packNameQuery = useAppSelector(state => state.Packs.packName)
     const goToPacks = () => {
         navigate(packsRoute)
     }
