@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {Slide} from 'react-awesome-reveal';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,10 +13,10 @@ import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
-import {changePageCardsAC, changePageCardsCountAC, setCardsTC} from "../../CardsReducer";
+
 
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
@@ -60,30 +61,18 @@ function createData(
 
 export const TableCards = () => {
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-
-
     const cards = useAppSelector(state => state.Cards.cards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
-    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
-    const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
-    const currentPage = useAppSelector(state => state.Cards.page)
-    const pageCount = useAppSelector(state => state.Cards.query.pageCount)
-    const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
-    const rows = cards.map((card) => createData(card.cardsPack_id,card.answer,card.question,card.updated,card.grade))
 
+    const rows = cards.map((card) => createData(card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-    const [page, setPage] = useState(currentPage - 1);
+    const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [grade, setGrade] = useState<number | null>(0);
 
-
-
-
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
-        dispatch(changePageCardsAC(newPage + 1))
     };
     const goToPacksClick = () => {
         navigate(packsRoute)
@@ -92,20 +81,7 @@ export const TableCards = () => {
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
-        dispatch(changePageCardsCountAC(+event.target.value))
     };
-
-
-
-
-
-    useEffect(() => {
-        dispatch(setCardsTC(packId))
-    }, [currentPage,pageCount,findQuestion])
-
-
-
-
 
     if (cards.length === 0) {
         return (
@@ -136,6 +112,7 @@ export const TableCards = () => {
                         </TableHead>
                         <TableBody>
                             {rows
+                                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
@@ -191,9 +168,9 @@ export const TableCards = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 20]}
+                    rowsPerPageOptions={[5, 20, 100]}
                     component="div"
-                    count={totalCardsCount}
+                    count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
