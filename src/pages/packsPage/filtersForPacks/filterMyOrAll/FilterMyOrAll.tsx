@@ -6,7 +6,7 @@ import {changeShowMyPacksAC} from "../../PacksReducer";
 
 export const FilterMyOrAll = () => {
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
-    const user_idQuery = useAppSelector(state => state.Packs.query.user_id)
+    const user_idQuery = useAppSelector(state => state.Packs.user_id)
     const dispatch = useAppDispatch()
     const MyPacks = () => {
         dispatch(changeShowMyPacksAC(user_idFromProfile))
@@ -22,10 +22,12 @@ export const FilterMyOrAll = () => {
             </div>
             <div className={style.buttons_wrapper}>
                 <div className={style.item_box}>
-                    <Button className={style.button} variant={user_idQuery ? "contained": "outlined"} type="submit" onClick={MyPacks}>My</Button>
+                    <Button className={style.button} variant={user_idQuery ? "contained" : "outlined"} type="submit"
+                            onClick={MyPacks}>My</Button>
                 </div>
                 <div className={style.item_box}>
-                    <Button className={style.button} variant={user_idQuery ? "outlined": "contained"} type="submit" onClick={AllPacks}>All</Button>
+                    <Button className={style.button} variant={user_idQuery ? "outlined" : "contained"} type="submit"
+                            onClick={AllPacks}>All</Button>
                 </div>
             </div>
         </div>

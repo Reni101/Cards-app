@@ -18,7 +18,7 @@ export const cardsAPI = {
         instance.put("cards/card", {card: card})
     },
     deleteCard(idCard: string) {
-        instance.delete(`"cards/card"?id=${idCard}`)
+        instance.delete(`cards/card?id=${idCard}`)
     }
 }
 

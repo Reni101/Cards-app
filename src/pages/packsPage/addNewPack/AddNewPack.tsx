@@ -17,7 +17,7 @@ export const AddNewPack = () => {
         <div className={style.all_wrapper_add_new_pack}>
             <h2>Packs list</h2>
             <div className={style.item_box}>
-                <Button className={style.button} onClick={AddNewPack} variant="outlined" type="submit" disabled={status === "loading"}>Add new packs</Button>
+                <Button className={style.button} onClick={AddNewPack} variant="outlined" type="submit" disabled={status === "loading"}>Add new pack</Button>
             </div>
         </div>
     );
