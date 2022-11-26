@@ -15,6 +15,7 @@ export const PacksPage = () => {
 
 
     const isAuth = useAppSelector(state => state.Login.isAuth)
+
     if (!isAuth) {
         return <Navigate to={loginRoute}/>
     }

@@ -31,7 +31,9 @@ export const SearchPacks = () => {
                     </SearchIconWrapper>
                     <StyledInputBase
                         placeholder="go search..."
+                        className={style.search_input}
                         onChange={handleChange}
+
                     />
                 </Search>
             </Toolbar>

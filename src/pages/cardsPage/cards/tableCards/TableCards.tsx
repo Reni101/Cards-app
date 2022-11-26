@@ -15,7 +15,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
-import {changePageCardsAC, changePageCardsCountAC, setCardsTC} from "../../CardsReducer";
+import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
 
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
@@ -26,6 +26,7 @@ interface CardsColumn {
 }
 
 interface RowsData {
+    id: string;
     packPackId: string;
     answer: string;
     question: string;
@@ -48,13 +49,14 @@ const columns: readonly CardsColumn[] = [
 
 
 function createData(
+    id: string,
     packPackId: string,
     answer: string,
     question: string,
     last_updated: string,
     grade: number
 ): RowsData {
-    return {packPackId, answer, question, last_updated, grade};
+    return {id, packPackId, answer, question, last_updated, grade};
 }
 
 
@@ -71,14 +73,12 @@ export const TableCards = () => {
     const currentPage = useAppSelector(state => state.Cards.page)
     const pageCount = useAppSelector(state => state.Cards.query.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
-    const rows = cards.map((card) => createData(card.cardsPack_id,card.answer,card.question,card.updated,card.grade))
-
+    const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
+console.log(cards)
 
     const [page, setPage] = useState(currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [grade, setGrade] = useState<number | null>(0);
-
-
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -94,17 +94,22 @@ export const TableCards = () => {
         setPage(0);
         dispatch(changePageCardsCountAC(+event.target.value))
     };
-
-
-
+    const handleUpdateCard = (idCard: string, question: string) => {
+        const card = {
+            _id: idCard,
+            question
+        }
+        dispatch(UpdateCardTC(card))
+    }
+    const handleDeleteCard = (idCard: string) => {
+        console.log(idCard)
+        dispatch(DeleteCardTC(idCard))
+    }
 
 
     useEffect(() => {
         dispatch(setCardsTC(packId))
-    }, [currentPage,pageCount,findQuestion])
-
-
-
+    }, [currentPage, pageCount, findQuestion])
 
 
     if (cards.length === 0) {
@@ -117,8 +122,8 @@ export const TableCards = () => {
     }
     return (
         <div className={style.table_all_wrapper}>
-            <Paper sx={{width: '100%', overflow: 'hidden'}}>
-                <TableContainer sx={{maxHeight: 440}}>
+            <Paper sx={{width: '100%'}}>
+                <TableContainer >
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -138,7 +143,7 @@ export const TableCards = () => {
                             {rows
                                 .map((row) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.packPackId}>
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
                                                 const value = row[column.id];
                                                 return (
@@ -167,16 +172,16 @@ export const TableCards = () => {
                                                                 />
                                                                 <div className={packsUserId === myId
                                                                     ? style.flex_icons
-                                                                    : `${style.flex_icons} ${style.icon_display_none}`}>
+                                                                    : style.icon_display_none}>
                                                                     <div className={style.icons}>
                                                                         <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={'primary'}/>
+                                                                            color={'primary'}
+                                                                            onClick={() => handleUpdateCard(row.id, 'new question')}/>
                                                                     </div>
-                                                                    <div className={packsUserId === myId
-                                                                        ? style.flex_icons
-                                                                        : `${style.flex_icons} ${style.icon_display_none}`}>
+                                                                    <div className={style.icons}>
                                                                         <DeleteForeverOutlinedIcon
-                                                                            color={'primary'}/>
+                                                                            color={'primary'}
+                                                                            onClick={() => handleDeleteCard(row.id)}/>
                                                                     </div>
                                                                 </div>
                                                             </div>
