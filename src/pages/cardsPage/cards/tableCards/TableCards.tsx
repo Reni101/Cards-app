@@ -12,9 +12,10 @@ import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
+
 import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
 
 interface CardsColumn {
@@ -74,7 +75,7 @@ export const TableCards = () => {
     const pageCount = useAppSelector(state => state.Cards.query.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
-console.log(cards)
+
 
     const [page, setPage] = useState(currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
