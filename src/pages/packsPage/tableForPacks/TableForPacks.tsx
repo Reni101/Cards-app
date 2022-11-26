@@ -74,7 +74,9 @@ function createData(
 
 
 export const TableForPacks = () => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
     const packName = useAppSelector(state => state.Packs.packName)
     const user_id = useAppSelector(state => state.Packs.user_id)
     const min = useAppSelector(state => state.Packs.min)
@@ -82,18 +84,21 @@ export const TableForPacks = () => {
     const pageCount = useAppSelector(state => state.Packs.pageCount)
     const sortPacks = useAppSelector(state => state.Packs.sortPacks)
     const currentPage = useAppSelector(state => state.Packs.page)
-
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
-
-    const navigate = useNavigate()
-
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
-
     const [page, setPage] = React.useState(currentPage! - 1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
+    useEffect(() => {
+
+        dispatch(SetCardsPackTC())
+    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
+
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -106,13 +111,6 @@ export const TableForPacks = () => {
 
         dispatch(changePageCountAC(+event.target.value))
     };
-
-
-    useEffect(() => {
-
-        dispatch(SetCardsPackTC())
-    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
-
 
     const goToCardsClick = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))

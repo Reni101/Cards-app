@@ -38,7 +38,6 @@ type InitialStateType = {
     maxCardsCount: number
     page: number | null
     pageCount: number
-
     min: number | null
     max: number | null
     sortPacks: string | null
@@ -52,8 +51,12 @@ const initialState: InitialStateType = {
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
+
+
     page: 1,
     pageCount: 5,
+
+
     min: 0,
     max: 53,
     sortPacks: "",
@@ -69,12 +72,10 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
         case "PACKS/CHANGE_PAGE":
             return {...state, page: action.payload.page}
         case "PACKS/CHANGE_MIN": {
-        }
             return {...state, min: action.payload.min}
+        }
         case "PACKS/CHANGE_MAX":
             return {...state, max: action.payload.max}
-
-
         case "PACKS/CHANGE_PAGE_COUNT":
             return {...state, pageCount: action.payload.pageCount}
         case "PACKS/CHANGE_SORT_PACK":
