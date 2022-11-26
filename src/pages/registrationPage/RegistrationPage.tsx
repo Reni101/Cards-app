@@ -28,7 +28,7 @@ export const RegistrationPage = () => {
 
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'down'}>
             <div className={style.all_wrapper_reg}>
                 <div className={style.registrationPageBlock}>
                     {status === 'loading' && <div className="loading"><LinearProgress color="secondary"/></div>}

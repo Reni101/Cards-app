@@ -16,7 +16,6 @@ import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
 import {
-    addNewCardPage,
     cardsRoute,
     checkEmailRoute,
     forgotPassRoute,
@@ -33,6 +32,7 @@ import {CardsPage} from './pages/cardsPage/CardsPage';
 function App() {
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.App.initialized)
+
 
 
     useEffect(() => {
