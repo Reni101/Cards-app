@@ -10,12 +10,15 @@ import {SingOutTC} from '../login/loginReducer/LoginReducer';
 import {useScrollPosition} from '../../hooks/useScrollPosition';
 
 
+
 export const Headers = () => {
 
     const dispatch = useAppDispatch()
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
     const userName = useAppSelector(state => state.ProfilePage.name)
+    const navigate = useNavigate();
+    console.log(navigate)
 
 
     const [nav, setNav] = useState(false)
@@ -29,7 +32,7 @@ export const Headers = () => {
         }
     }, [scrollPosition])
 
-    const navigate = useNavigate();
+
     const goSignUp = () => {
         navigate('/registration')
     }

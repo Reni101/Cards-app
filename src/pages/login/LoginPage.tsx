@@ -72,9 +72,8 @@ export const LoginPage = () => {
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email('invalid email address').required('required'),
-            password: Yup.string().min(8, 'must be 8 characters long')
+            password: Yup.string().min(7, 'must be 7 characters long')
                 .matches(/[0-9]/, 'requires a number')
-                .matches(/[a-z]/, 'requires a lowercase letter')
                 .required('required')
         }),
         onSubmit: (values: InitialValuesType, {setSubmitting, setStatus}: FormikHelpers<InitialValuesType>) => {
@@ -87,7 +86,7 @@ export const LoginPage = () => {
     }
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'down'}>
             <div className={style.all_wrapper_login}>
                 <div className={style.wrapper_login}>
                     {status === 'loading' && <div className="loading"><LinearProgress color="primary"/></div>}
