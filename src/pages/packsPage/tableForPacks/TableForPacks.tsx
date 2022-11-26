@@ -127,8 +127,8 @@ export const TableForPacks = () => {
 
     return (
         <div className={style.table_all_wrapper}>
-            <Paper sx={{width: '100%', overflow: 'hidden'}}>
-                <TableContainer sx={{maxHeight: 440}}>
+            <Paper sx={{width: '100%'}}>
+                <TableContainer >
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>

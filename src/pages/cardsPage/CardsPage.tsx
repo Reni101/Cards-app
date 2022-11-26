@@ -26,7 +26,7 @@ export const CardsPage = () => {
                 <ArrowBackIcon style={{height: '15px'}}/>
                 Back to Packs List
             </div>
-            <div>
+            <div className={style.wrapper_cards}>
                 <Cards/>
             </div>
         </div>

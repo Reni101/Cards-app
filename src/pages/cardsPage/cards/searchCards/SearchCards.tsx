@@ -39,6 +39,7 @@ export const SearchCards = () => {
                         placeholder="Go search"
                         inputProps={{'aria-label': 'search'}}
                         onChange={handleChange}
+                        className={style.search_input}
                     />
                 </Search>
             </Toolbar>
