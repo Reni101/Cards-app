@@ -69,7 +69,8 @@ function createData(
 export const TableForPacks = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-
+    const status = useAppSelector(state => state.App.status)
+    //disabled={status === "loading"}
     const packName = useAppSelector(state => state.Packs.packName)
     const user_id = useAppSelector(state => state.Packs.user_id)
     const min = useAppSelector(state => state.Packs.min)
@@ -86,7 +87,7 @@ export const TableForPacks = () => {
     useEffect(() => {
 
         dispatch(SetCardsPackTC())
-    }, [dispatch,packName, user_id, min, max, pageCount, sortPacks, currentPage])
+    }, [dispatch, packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
 
     const handleChangePage = (newPage: number) => {
@@ -168,6 +169,7 @@ export const TableForPacks = () => {
                                                                     <DeleteForeverOutlinedIcon
                                                                         color={'primary'}
                                                                         onClick={() => deletePackClick(row.pack_id)}
+
                                                                     />
                                                                 </div>
                                                             </div>
