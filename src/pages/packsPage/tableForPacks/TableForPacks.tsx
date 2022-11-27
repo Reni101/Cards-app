@@ -16,12 +16,13 @@ import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
-
-
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
+
+
+type sortType = "name" | "cardsCount" | "created" | "updated"
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
     label: string;
@@ -77,7 +78,6 @@ export const TableForPacks = () => {
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
     const sortPacks = useAppSelector(state => state.Packs.sortPacks)
-    type sortType = "name" | "cardsCount" | "created" | "updated"
     const currentPage = useAppSelector(state => state.Packs.page)
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
