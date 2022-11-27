@@ -21,8 +21,8 @@ import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
 
+type sortType = "name" | "cardsCount" | "updated" | "user_name"
 
-type sortType = "name" | "cardsCount" | "created" | "updated" |"user_name"
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
     label: string;
@@ -199,10 +199,31 @@ export const TableForPacks = () => {
             </Paper>
 
 
-            <div><button onClick={()=>{handleSort("name")}} >sortName </button></div>
-            <div><button onClick={()=>{handleSort("cardsCount")}} >sortCards </button></div>
-            <div><button onClick={()=>{handleSort("created")}} >sortCreated </button></div>
-            <div><button onClick={()=>{handleSort("user_name")}} >sortUserName </button></div>
+            <div>
+                <button onClick={() => {
+                    handleSort("name")
+                }}>sortName
+                </button>
+            </div>
+            <div>
+                <button onClick={() => {
+                    handleSort("cardsCount")
+                }}>sortCards
+                </button>
+            </div>
+            <div>
+                <button onClick={() => {
+                    handleSort("user_name")
+                }}>sortUserName
+                </button>
+            </div>
+            <div>
+                <button onClick={() => {
+                    handleSort("updated")
+                }}>sortUpdated
+                </button>
+            </div>
+
 
         </div>
     );
