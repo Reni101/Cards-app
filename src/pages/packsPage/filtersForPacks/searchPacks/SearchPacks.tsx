@@ -3,21 +3,25 @@ import style from './SearchPacks.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch} from "../../../../hooks/hooks";
+import useDebounce, {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {sortPacksNameAC} from "../../PacksReducer";
 
 
 export const SearchPacks = () => {
+    let packName = useAppSelector(state => state.Packs.packName)
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("") // будет ругаться если пустой
-    const debouncedValue = useDebounce<string>(text, 600) //дебаунс на 1 секунду
+    const [text, setText] = useState<string>(packName!)
+    const debouncedValue = useDebounce<string>(text, 600)
+
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value)
     }
 
+
     useEffect(() => {
         dispatch(sortPacksNameAC(debouncedValue))
-    }, [debouncedValue]) // через секунду сетает новое имя на запрос
+    }, [debouncedValue])
 
     return (
         <div className={style.all_wrapper_search_packs}>
@@ -33,6 +37,7 @@ export const SearchPacks = () => {
                         placeholder="go search..."
                         className={style.search_input}
                         onChange={handleChange}
+                        value={text}
 
                     />
                 </Search>

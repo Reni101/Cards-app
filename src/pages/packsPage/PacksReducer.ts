@@ -14,7 +14,7 @@ export type ActionsPacksType =
     | ReturnType<typeof sortPacksNameAC>
     | ReturnType<typeof changeShowMyPacksAC>
 
-const MAX_COUNT_CARDS = 53
+const MAX_COUNT_CARDS = 110
 
 export type PacksType = {
     _id: string // id колоды!!!
@@ -58,7 +58,7 @@ const initialState: InitialStateType = {
 
 
     min: 0,
-    max: 53,
+    max: MAX_COUNT_CARDS,
     sortPacks: "",
     packName: "",
     user_id: "",
@@ -144,6 +144,7 @@ export const SetCardsPackTC = (): AppThunk =>
             if (max === 0) max = null
             if (sortPacks === "") sortPacks = null
             if (packName === "") packName = null
+            if (user_id === "") user_id = null
             if (user_id === "") user_id = null
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})

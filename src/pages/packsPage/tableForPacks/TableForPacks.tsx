@@ -15,7 +15,7 @@ import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
-import {setCardsTC, setPacksIdAC} from '../../cardsPage/CardsReducer';
+import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
 
 import {useTheme} from "@mui/material/styles";
