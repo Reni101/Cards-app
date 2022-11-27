@@ -39,13 +39,13 @@ type InitialStateType = {
 
     cardQuestion: string // поиск по вопросами
     sortCards: string  // сортировка по вопросам
-    cardsPack_id: string   //айдишка пака обязательно
+    cardsPack_id: string   //айдишка пака
 }
 
 
 const initialState: InitialStateType = {
     cards: [],
-    packUserId: "", // айди юзера
+    packUserId: "",
     packName: "",
     packPrivate: null,
     packCreated: null,
@@ -56,7 +56,7 @@ const initialState: InitialStateType = {
 
     cardQuestion: '',
     sortCards: "",
-    cardsPack_id: "", //айди колоды
+    cardsPack_id: "",
 
 
 }
