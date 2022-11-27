@@ -15,7 +15,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
-import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
+import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
 
 
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
@@ -77,6 +77,7 @@ export const TableForPacks = () => {
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
     const sortPacks = useAppSelector(state => state.Packs.sortPacks)
+    type sortType = "name" | "cardsCount" | "created" | "updated"
     const currentPage = useAppSelector(state => state.Packs.page)
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
@@ -107,6 +108,11 @@ export const TableForPacks = () => {
     }
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(UpdatePackTC(cards_pack))
+    }
+
+    const handleSort = (sort: sortType) => {
+        const val = sortPacks === ("0" + sort)
+        dispatch(changeSortPacksAC(val ? `1${sort}` : `0${sort}`))
     }
 
     return (
@@ -190,6 +196,13 @@ export const TableForPacks = () => {
                            changeRows={handleChangeRowsPerPage}
                 />
             </Paper>
+
+
+            <div><button onClick={()=>{handleSort("name")}} >sortName </button></div>
+            <div><button onClick={()=>{handleSort("cardsCount")}} >sortCards </button></div>
+            <div><button onClick={()=>{handleSort("updated")}} >sortUpdate </button></div>
+            <div><button onClick={()=>{handleSort("created")}} >sortCreated </button></div>
+
         </div>
     );
 };

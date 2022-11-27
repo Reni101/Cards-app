@@ -5,7 +5,7 @@ import {useAppDispatch} from "../../../../hooks/hooks";
 import {
     changeMaxAC,
     changeMinAC,
-    changeShowMyPacksAC,
+    changeShowMyPacksAC, changeSortPacksAC,
     sortPacksNameAC
 } from "../../PacksReducer";
 
@@ -17,6 +17,7 @@ export const ResettingAllFilters = () => {
         dispatch(changeMaxAC(0))
         dispatch(changeShowMyPacksAC(""))
         dispatch(sortPacksNameAC(""))
+        dispatch(changeSortPacksAC(""))
     }
     return (
         <div className={style.all_wrapper_res_all_filters}>

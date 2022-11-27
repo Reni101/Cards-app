@@ -37,9 +37,9 @@ type InitialStateType = {
     pageCount: number
     cardsTotalCount: number
 
-    cardQuestion: string // поиск по вопросами
-    sortCards: string  // сортировка по вопросам
-    cardsPack_id: string   //айдишка пака
+    cardQuestion: string | null// поиск по вопросами
+    sortCards: string | null  // сортировка по вопросам
+    cardsPack_id: string  //айдишка пака
 }
 
 
@@ -117,7 +117,10 @@ export const setCardsTC = (cardsPack_id: string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
-            let {page,cardQuestion, sortCards, pageCount} = getState().Cards
+            let {page, cardQuestion, sortCards, pageCount} = getState().Cards
+            if (sortCards === "") sortCards = null
+            if (cardQuestion === "") cardQuestion = null
+
 
             const res = await cardsAPI.getCards({
                 cardsPack_id, cardQuestion, sortCards, pageCount, page

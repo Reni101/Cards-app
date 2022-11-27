@@ -32,7 +32,7 @@ export const NewPasswordPage = () => {
 
         },
         validationSchema: Yup.object().shape({
-            password: Yup.string().min(8, 'must be 8 characters long'),
+            password: Yup.string().min(7, 'must be 7 characters long'),
         }),
         onSubmit: values => {
             dispatch(setNewPasswordTC(values.password, token ? token : "bad token"))
