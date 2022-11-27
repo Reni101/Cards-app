@@ -145,8 +145,8 @@ export const SetCardsPackTC = (): AppThunk =>
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
 
-            dispatch(setPacksAC(res.data))
-            dispatch(setStatusApp('succeeded'))
+               dispatch(setPacksAC(res.data))
+               dispatch(setStatusApp('succeeded'))
         } catch
             (e) {
             const err = e as Error | AxiosError

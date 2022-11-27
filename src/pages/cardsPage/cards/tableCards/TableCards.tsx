@@ -80,6 +80,10 @@ export const TableCards = () => {
 
     const [grade, setGrade] = useState<number | null>(0); // пригодится
 
+    useEffect(() => {
+        dispatch(setCardsTC(packId))
+    }, [currentPage, pageCount, findQuestion])
+
 
     useEffect(() => {
         dispatch(setCardsTC(packId))
