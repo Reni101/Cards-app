@@ -9,9 +9,7 @@ import {useSearchParams} from 'react-router-dom';
 
 
 export const SearchPacks = () => {
-    let packName = useAppSelector(state => state.Packs.packName)
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("")
 
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -45,6 +43,7 @@ export const SearchPacks = () => {
                         placeholder="go search..."
                         className={style.search_input}
                         onChange={handleChange}
+                        value={searchQuery}
                     />
                 </Search>
             </Toolbar>
