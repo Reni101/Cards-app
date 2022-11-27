@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import TablePagination from '@mui/material/TablePagination';
+
 import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
@@ -17,6 +17,7 @@ import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
+import {Paginator} from "../../../../common/Paginator/paginator";
 
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
@@ -77,26 +78,21 @@ export const TableCards = () => {
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
 
-    const [page, setPage] = useState(currentPage - 1);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [grade, setGrade] = useState<number | null>(0);
+    const [grade, setGrade] = useState<number | null>(0); // пригодится
 
 
+    useEffect(() => {
+        dispatch(setCardsTC(packId))
+    }, [dispatch,currentPage, pageCount, findQuestion])
 
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-        dispatch(changePageCardsAC(newPage + 1))
+    const handleChangePage = (newPage: number) => {
+        dispatch(changePageCardsAC(newPage))
     };
-    const goToPacksClick = () => {
-        navigate(packsRoute)
-    }
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-        dispatch(changePageCardsCountAC(+event.target.value))
+    const handleChangeRowsPerPage = (rows: number) => {
+        dispatch(changePageCardsCountAC(rows))
     };
+
     const handleUpdateCard = (idCard: string, question: string) => {
         const card = {
             _id: idCard,
@@ -104,15 +100,14 @@ export const TableCards = () => {
         }
         dispatch(UpdateCardTC(card))
     }
+
     const handleDeleteCard = (idCard: string) => {
-        console.log(idCard)
         dispatch(DeleteCardTC(idCard))
     }
 
-
-    useEffect(() => {
-        dispatch(setCardsTC(packId))
-    }, [currentPage, pageCount, findQuestion])
+    const goToPacksClick = () => {
+        navigate(packsRoute)
+    }
 
 
     if (cards.length === 0) {
@@ -126,7 +121,7 @@ export const TableCards = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -198,16 +193,11 @@ export const TableCards = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    labelRowsPerPage={"Количество карт"}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    component="div"
-                    count={totalCardsCount}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <Paginator name={"Количество карт"}
+                           cardPacksTotalCount={totalCardsCount}
+                           currentPage={currentPage}
+                           changePage={handleChangePage}
+                           changeRows={handleChangeRowsPerPage}/>
             </Paper>
         </div>
     );

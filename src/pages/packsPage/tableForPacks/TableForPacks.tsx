@@ -6,7 +6,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
@@ -18,16 +17,10 @@ import {cardsRoute} from '../../../common/paths/Paths';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, SetCardsPackTC} from "../PacksReducer";
 
-import {useTheme} from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
+import {Paginator} from "../../../common/Paginator/paginator";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -89,27 +82,19 @@ export const TableForPacks = () => {
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const rows: RowsData[] = rowsArray.map((row) => createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
-    const [page, setPage] = React.useState(currentPage! - 1);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
 
     useEffect(() => {
 
         dispatch(SetCardsPackTC())
-    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
+    }, [dispatch,packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
 
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-        dispatch(changePageAC(newPage + 1))
+    const handleChangePage = (newPage: number) => {
+        dispatch(changePageAC(newPage))
     };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-
-        dispatch(changePageCountAC(+event.target.value))
+    const handleChangeRowsPerPage = (rows: number) => {
+        dispatch(changePageCountAC(rows))
     };
 
     const goToCardsClick = (card_pack_id: string) => {
@@ -126,7 +111,7 @@ export const TableForPacks = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -196,81 +181,13 @@ export const TableForPacks = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    labelRowsPerPage={"Количество коллод"}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    component="div"
-                    count={cardPacksTotalCount}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    ActionsComponent={TablePaginationActions}
+                <Paginator name={"Количество карт"}
+                           cardPacksTotalCount={cardPacksTotalCount}
+                           currentPage={currentPage!}
+                           changePage={handleChangePage}
+                           changeRows={handleChangeRowsPerPage}
                 />
             </Paper>
         </div>
     );
 };
-type TablePaginationActionsProps = {
-    count: number;
-    page: number;
-    rowsPerPage: number;
-    onPageChange: (
-        event: React.MouseEvent<HTMLButtonElement>,
-        newPage: number,
-    ) => void;
-}
-
-function TablePaginationActions(props: TablePaginationActionsProps) {
-    const theme = useTheme();
-    const {count, page, rowsPerPage, onPageChange} = props;
-
-    const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>,) => {
-        onPageChange(event, 0);
-    };
-
-    const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        onPageChange(event, page - 1);
-    };
-
-    const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        onPageChange(event, page + 1);
-    };
-
-    const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-    };
-
-    return (
-        <Box sx={{flexShrink: 0, ml: 2.5}}>
-            <IconButton
-                onClick={handleFirstPageButtonClick}
-                disabled={page === 0}
-                aria-label="first page"
-            >
-                {theme.direction === 'rtl' ? <LastPageIcon/> : <FirstPageIcon/>}
-            </IconButton>
-            <IconButton
-                onClick={handleBackButtonClick}
-                disabled={page === 0}
-                aria-label="previous page"
-            >
-                {theme.direction === 'rtl' ? <KeyboardArrowRight/> : <KeyboardArrowLeft/>}
-            </IconButton>
-            <IconButton
-                onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="next page"
-            >
-                {theme.direction === 'rtl' ? <KeyboardArrowLeft/> : <KeyboardArrowRight/>}
-            </IconButton>
-            <IconButton
-                onClick={handleLastPageButtonClick}
-                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                aria-label="last page"
-            >
-                {theme.direction === 'rtl' ? <FirstPageIcon/> : <LastPageIcon/>}
-            </IconButton>
-        </Box>
-    );
-}

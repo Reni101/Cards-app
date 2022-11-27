@@ -141,7 +141,7 @@ export const SetCardsPackTC = (): AppThunk =>
             let {page, min, max, pageCount, sortPacks, packName, user_id} = getState().Packs
             if (page === 1) page = null
             if (min === 0) min = null
-            if (max === 0) max = null
+            if (max === 0 || max === 110) max = null
             if (sortPacks === "") sortPacks = null
             if (packName === "") packName = null
             if (user_id === "") user_id = null
