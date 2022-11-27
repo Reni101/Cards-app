@@ -28,41 +28,36 @@ type CardType = {
 
 type InitialStateType = {
     cards: CardType[];
-    query: {
-        pageCount: number
-        cardQuestion: string // по вопросами
-        sortCards: string  // сортировка по вопросам/ответам/грейду/обновлению
-        cardsPack_id: string   //айдишка пака обязательно
-    }
-    packUserId: string | null; // айдишка пака, всегда идёт в квери
-    packName: string | null // название колоды
+    packUserId: string
+    packName: string
     packPrivate: boolean | null
     packCreated: string | null
     packUpdated: string | null
-
-
     page: number
-    cardsTotalCount: number // всего карточек
+    pageCount: number
+    cardsTotalCount: number
+
+    cardQuestion: string // поиск по вопросами
+    sortCards: string  // сортировка по вопросам
+    cardsPack_id: string   //айдишка пака обязательно
 }
 
 
 const initialState: InitialStateType = {
     cards: [],
-    query: {
-        cardQuestion: '',
-        sortCards: "",
-        cardsPack_id: "", //айди колоды
-        pageCount: 5,
-    },
-    packUserId: null, // айди юзера
-    packName: null,
+    packUserId: "", // айди юзера
+    packName: "",
     packPrivate: null,
     packCreated: null,
     packUpdated: null,
-
-
-    cardsTotalCount: 0,
     page: 1,
+    pageCount: 5,
+    cardsTotalCount: 0,
+
+    cardQuestion: '',
+    sortCards: "",
+    cardsPack_id: "", //айди колоды
+
 
 }
 
@@ -74,13 +69,13 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
         case "CARDS/CHANGE_PAGE ":
             return {...state, page: action.payload.page}
         case "CARDS/CHANGE_PAGE_COUNT":
-            return {...state, query: {...state.query, pageCount: action.payload.pageCount}}
+            return {...state, pageCount: action.payload.pageCount}
         case "CARDS/FIND_CARDS_QUESTION_AC":
-            return {...state, query: {...state.query, cardQuestion: action.payload.cardQuestion}}
+            return {...state, cardQuestion: action.payload.cardQuestion}
         case "CARDS/SORT_CARDS":
-            return {...state, query: {...state.query, sortCards: action.payload.sortCards}}
+            return {...state, sortCards: action.payload.sortCards}
         case "CARDS/SET_PACKS_ID":
-            return {...state, query: {...state.query, cardsPack_id: action.payload.packsId}}
+            return {...state, cardsPack_id: action.payload.packsId}
         default:
             return state
     }
@@ -122,8 +117,8 @@ export const setCardsTC = (cardsPack_id: string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
-            const page = getState().Cards.page
-            const {cardQuestion, sortCards, pageCount} = getState().Cards.query
+            let {page,cardQuestion, sortCards, pageCount} = getState().Cards
+
             const res = await cardsAPI.getCards({
                 cardsPack_id, cardQuestion, sortCards, pageCount, page
             })
@@ -141,8 +136,8 @@ export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch
     dispatch(setStatusApp('loading'))
     try {
         await cardsAPI.addCard(card)
-        const packsId = getState().Cards.query.cardsPack_id
-       await dispatch(setCardsTC(packsId))
+        const packsId = getState().Cards.cardsPack_id
+        await dispatch(setCardsTC(packsId))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -157,7 +152,7 @@ export const UpdateCardTC = (card: RequestUpdateCardType): AppThunk => async (di
     dispatch(setStatusApp('loading'))
     try {
         await cardsAPI.updateCard(card)
-        const packsId = getState().Cards.query.cardsPack_id
+        const packsId = getState().Cards.cardsPack_id
         dispatch(setCardsTC(packsId))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
@@ -173,7 +168,7 @@ export const DeleteCardTC = (idCard: string): AppThunk => async (dispatch, getSt
     dispatch(setStatusApp('loading'))
     try {
         await cardsAPI.deleteCard(idCard)
-        const packsId = getState().Cards.query.cardsPack_id
+        const packsId = getState().Cards.cardsPack_id
         dispatch(setCardsTC(packsId))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {

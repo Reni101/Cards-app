@@ -51,12 +51,8 @@ const initialState: InitialStateType = {
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
-
-
     page: 1,
     pageCount: 5,
-
-
     min: 0,
     max: MAX_COUNT_CARDS,
     sortPacks: "",

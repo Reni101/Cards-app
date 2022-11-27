@@ -70,11 +70,11 @@ export const TableCards = () => {
     const cards = useAppSelector(state => state.Cards.cards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
-    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
+    const packId = useAppSelector(state => state.Cards.cardsPack_id)
     const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
     const currentPage = useAppSelector(state => state.Cards.page)
-    const pageCount = useAppSelector(state => state.Cards.query.pageCount)
-    const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
+    const pageCount = useAppSelector(state => state.Cards.pageCount)
+    const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
 

@@ -21,7 +21,7 @@ export const NamePack = () => {
     const dispatch = useAppDispatch()
     const anchorRef = useRef<HTMLHeadingElement>(null);
     const packName = useAppSelector(state => state.Cards.packName)
-    const cardsPack_id = useAppSelector(state => state.Cards.query.cardsPack_id)
+    const cardsPack_id = useAppSelector(state => state.Cards.cardsPack_id)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
 
@@ -50,7 +50,7 @@ export const NamePack = () => {
 
     const prevOpen = useRef(open);
     useEffect(() => {
-        if (prevOpen.current === true && open === false) {
+        if (prevOpen.current && !open) {
             anchorRef.current!.focus();
         }
         prevOpen.current = open;

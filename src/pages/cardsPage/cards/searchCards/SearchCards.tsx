@@ -2,27 +2,24 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from './SearchCards.module.css';
 import {Toolbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {Search,SearchIconWrapper,StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
+import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
 import useDebounce, {useAppDispatch} from "../../../../hooks/hooks";
 import {findCardsQuestionAC} from "../../CardsReducer";
-
-
 
 
 export const SearchCards = () => {
 
 
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("") // будет ругаться если пустой
-    const debouncedValue = useDebounce<string>(text, 600) //дебаунс на 1 секунду
+    const [text, setText] = useState<string>("")
+    const debouncedValue = useDebounce<string>(text, 600)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value)
     }
 
     useEffect(() => {
         dispatch(findCardsQuestionAC(debouncedValue))
-    }, [debouncedValue]) // через секунду сетает новое имя на запрос
-
+    }, [dispatch,debouncedValue])
 
 
     return (
@@ -31,8 +28,8 @@ export const SearchCards = () => {
                 Search
             </div>
             <Toolbar className={style.toolbar}>
-                <Search >
-                    <SearchIconWrapper >
+                <Search>
+                    <SearchIconWrapper>
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
