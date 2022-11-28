@@ -28,6 +28,8 @@ export const NamePack = () => {
     const cardsPack_id = useAppSelector(state => state.Cards.cardsPack_id)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
+    const status = useAppSelector(state => state.App.status)
+    //disabled={status === "loading"}
 
 
     const handleToggle = () => {
@@ -147,11 +149,18 @@ export const NamePack = () => {
             {
                 packsUserId === myId
                     ?
-                    <Button className={style.button} variant="outlined" type="submit" onClick={createNewCard}>
+                    <Button className={style.button}
+                            variant="outlined"
+                            type="submit"
+                            disabled={status === "loading"}
+                            onClick={createNewCard}>
                         Add new card
                     </Button>
                     :
-                    <Button className={style.button} variant="outlined" type="submit">
+                    <Button className={style.button}
+                            disabled={status === "loading"}
+                            variant="outlined"
+                            type="submit">
                         Learn to pack
                     </Button>
             }
