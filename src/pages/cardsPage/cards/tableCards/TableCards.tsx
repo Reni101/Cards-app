@@ -16,11 +16,24 @@ import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
-import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
+import {
+    changePageCardsAC,
+    changePageCardsCountAC,
+    DeleteCardTC,
+    setCardsTC,
+    sortCardsAC,
+    UpdateCardTC
+} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
+import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
+
+
+
+
+type sortCardsType = 'question' | 'answer' | 'updated'  | "grade"
 
 interface CardsColumn {
-    id: 'question' | 'answer' | 'last_updated' | 'grade';
+    id: sortCardsType
     label: string;
     minWidth?: number;
     align?: 'center' | 'left' | 'right';
@@ -32,7 +45,7 @@ interface RowsData {
     packPackId: string;
     answer: string;
     question: string;
-    last_updated: string;
+    updated: string;
     grade?: number;
 }
 
@@ -40,7 +53,7 @@ const columns: readonly CardsColumn[] = [
     {id: 'question', label: 'Question', minWidth: 170, align: 'left'},
     {id: 'answer', label: 'Answer', minWidth: 80, align: 'center'},
     {
-        id: 'last_updated',
+        id: 'updated',
         label: 'Last updated',
         minWidth: 170,
         format: (value: string) => moment(value).utc().format('DD.MM.YYYY'),
@@ -55,10 +68,10 @@ function createData(
     packPackId: string,
     answer: string,
     question: string,
-    last_updated: string,
+    updated: string,
     grade: number
 ): RowsData {
-    return {id, packPackId, answer, question, last_updated, grade};
+    return {id, packPackId, answer, question, updated, grade};
 }
 
 
@@ -71,6 +84,9 @@ export const TableCards = () => {
 
 
     const cards = useAppSelector(state => state.Cards.cards)
+    const sortCards = useAppSelector(state => state.Cards.sortCards)
+
+
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)
@@ -86,7 +102,7 @@ export const TableCards = () => {
     useEffect(() => {
         if(searchQuery !== findQuestion ) return
         dispatch(setCardsTC(packId,searchQuery))
-    }, [currentPage, pageCount, findQuestion])
+    }, [currentPage, pageCount, findQuestion,sortCards])
 
 
     const handleChangePage = (newPage: number) => {
@@ -108,6 +124,14 @@ export const TableCards = () => {
     const handleDeleteCard = (idCard: string) => {
         dispatch(DeleteCardTC(idCard))
     }
+
+
+    const handleSortCards = (columnID: sortCardsType) => {
+        const val = sortCards === ('0' + columnID)
+        dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
+    }
+
+
 
     const goToPacksClick = () => {
         navigate(packsRoute)
@@ -134,6 +158,7 @@ export const TableCards = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
+                                        onClick={() => handleSortCards(column.id)}
                                     >
                                         {column.label}
                                     </TableCell>

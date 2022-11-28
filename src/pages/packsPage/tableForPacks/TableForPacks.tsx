@@ -14,26 +14,18 @@ import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
-
-import {useTheme} from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
-
-
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
 
 
-type sortType = 'name' | 'cardsCount' | 'created' | 'updated' | 'actions'
+
+
+type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
+
 interface Column {
     id: sortType;
     label: string;
@@ -45,7 +37,7 @@ interface Column {
 const columns: readonly Column[] = [
     {id: 'name', label: 'Name', minWidth: 170, align: 'left'},
     {id: 'cardsCount', label: 'Cards', minWidth: 80, align: 'center'},
-    {id: 'created', label: 'Created by', minWidth: 170, align: 'center'},
+    {id: 'user_name', label: 'Created by', minWidth: 170, align: 'center'},
     {
         id: 'updated',
         label: 'Last updated',
@@ -61,7 +53,7 @@ interface RowsData {
     user_id: string;
     name: string;
     cardsCount: number;
-    created: string;
+    user_name: string;
     updated: string;
     actions?: any;
 }
@@ -71,10 +63,10 @@ function createData(
     user_id: string,
     name: string,
     cardsCount: number,
-    created: string,
+    user_name: string,
     updated: string,
 ): RowsData {
-    return {pack_id, user_id, name, cardsCount, created, updated};
+    return {pack_id, user_id, name, cardsCount, user_name, updated};
 }
 
 
@@ -93,7 +85,6 @@ export const TableForPacks = () => {
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
     const sortPacks = useAppSelector(state => state.Packs.sortPacks)
-    type sortType = "name" | "cardsCount" | "created" | "updated"
     const currentPage = useAppSelector(state => state.Packs.page)
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
@@ -102,13 +93,10 @@ export const TableForPacks = () => {
         createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
 
-
-
     useEffect(() => {
-        if(searchQuery !== packName ) return
+        if (searchQuery !== packName) return
         dispatch(SetCardsPackTC(packName))
     }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
-
 
 
     const handleChangePage = (newPage: number) => {
@@ -123,22 +111,22 @@ export const TableForPacks = () => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
-     const deletePackClick = (pack_id: string) => {
+    const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(UpdatePackTC(cards_pack))
     }
 
-    const handleSort = (columnID:sortType) => {
-        const val = sortPacks === ('0' + 'name')
+    const handleSort = (columnID: sortType) => {
+        const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -148,7 +136,7 @@ export const TableForPacks = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={()=>handleSort(column.id)}
+                                        onClick={() => handleSort(column.id)}
                                     >
                                         {column.label}
                                     </TableCell>
@@ -181,13 +169,15 @@ export const TableForPacks = () => {
                                                                 </div>
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
-                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    : `${style.icons} ${style.no_visible_icons}`}
+                                                                >
                                                                     <DriveFileRenameOutlineOutlinedIcon
                                                                         color={'primary'}
                                                                         onClick={() => updatePackClick({
                                                                             _id: row.pack_id,
                                                                             name: 'Update name'
-                                                                        })}/>
+                                                                        })}
+                                                                    />
                                                                 </div>
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
@@ -216,13 +206,6 @@ export const TableForPacks = () => {
                            changeRows={handleChangeRowsPerPage}
                 />
             </Paper>
-
-
-            <div><button onClick={()=>{handleSort("name")}} >sortName </button></div>
-            <div><button onClick={()=>{handleSort("cardsCount")}} >sortCards </button></div>
-            <div><button onClick={()=>{handleSort("updated")}} >sortUpdate </button></div>
-            <div><button onClick={()=>{handleSort("created")}} >sortCreated </button></div>
-
         </div>
     );
 };

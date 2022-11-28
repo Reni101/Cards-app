@@ -112,10 +112,13 @@ export const changePageCountAC = (pageCount: number) => ({
     payload: {pageCount}
 } as const)
 
-export const changeSortPacksAC = (sortPacks: string) => ({
-    type: 'PACKS/CHANGE_SORT_PACK',
-    payload: {sortPacks}
-} as const)
+export const changeSortPacksAC = (sortPacks: string) => {
+    return{
+
+        type: 'PACKS/CHANGE_SORT_PACK',
+        payload: {sortPacks}
+    } as const
+}
 
 export const sortPacksNameAC = (packName: string) => ({
     type: 'PACKS/SORT_PACKS_NAME',
