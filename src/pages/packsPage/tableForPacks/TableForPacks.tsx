@@ -23,6 +23,8 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
@@ -85,9 +87,9 @@ export const TableForPacks = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
 
     const packName = useAppSelector(state => state.Packs.packName)
-    const user_id = useAppSelector(state => state.Packs.user_id)
     const min = useAppSelector(state => state.Packs.min)
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
@@ -105,8 +107,8 @@ export const TableForPacks = () => {
 
     useEffect(() => {
         if(searchQuery !== packName ) return
-        dispatch(SetCardsPackTC(packName))
-    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
+        dispatch(SetCardsPackTC(packName,searchQueryUserId))
+    }, [packName, min, max, pageCount, sortPacks, currentPage,searchQueryUserId])
 
 
 
@@ -134,7 +136,7 @@ export const TableForPacks = () => {
     }
 
     const handleSort = (columnID:sortType) => {
-        const val = sortPacks === ('0' + 'name')
+        const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
@@ -153,7 +155,14 @@ export const TableForPacks = () => {
                                         className={style.table_title_cell}
                                         onClick={()=>handleSort(column.id)}
                                     >
-                                        {column.label}
+                                            {column.label}
+                                        {
+                                            sortPacks === ('0' + column.id)
+                                                ?
+                                                <ArrowDropDownIcon className={style.sort_icon}/>
+                                                :
+                                                <ArrowDropUpIcon className={style.sort_icon}/>
+                                        }
                                     </TableCell>
                                 ))}
                             </TableRow>
