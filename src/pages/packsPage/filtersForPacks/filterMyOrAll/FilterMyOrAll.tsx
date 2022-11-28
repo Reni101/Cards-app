@@ -25,7 +25,7 @@ export const FilterMyOrAll = () => {
         dispatch(changeShowMyPacksAC(""))
     }
 
-    //for new commit and push
+
     return (
         <div className={style.all_wrapper_filter_my_or_all}>
             <div className={style.title_show_packs_cards}>
