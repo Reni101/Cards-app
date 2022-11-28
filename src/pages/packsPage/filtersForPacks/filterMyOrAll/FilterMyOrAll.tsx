@@ -23,7 +23,6 @@ export const FilterMyOrAll = () => {
     const AllPacks = () => {
         setSearchParams({user_id: ""})
         dispatch(changeShowMyPacksAC(""))
-
     }
 
     return (
