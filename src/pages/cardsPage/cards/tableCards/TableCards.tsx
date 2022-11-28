@@ -85,7 +85,7 @@ export const TableCards = () => {
 
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
-
+    const status = useAppSelector(state => state.App.status)
 
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
@@ -201,12 +201,15 @@ export const TableCards = () => {
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
                                                                         <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={'primary'}
+
+                                                                            //добавить сам disabled
+                                                                            color={ "primary"}
                                                                             onClick={() => handleUpdateCard(row.id, 'new question')}/>
                                                                     </div>
                                                                     <div className={style.icons}>
                                                                         <DeleteForeverOutlinedIcon
-                                                                            color={'primary'}
+                                                                            //добавить сам disabled
+                                                                            color={"primary"}
                                                                             onClick={() => handleDeleteCard(row.id)}/>
                                                                     </div>
                                                                 </div>

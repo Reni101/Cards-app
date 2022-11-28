@@ -21,9 +21,6 @@ import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
 
-
-
-
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
 
 interface Column {
@@ -165,14 +162,18 @@ export const TableForPacks = () => {
                                                         {column.id === 'actions' &&
                                                             <div className={style.flex_icons}>
                                                                 <div className={style.icons}>
-                                                                    <SchoolOutlinedIcon color={'primary'}/>
+                                                                    <SchoolOutlinedIcon
+                                                                        color={"primary"}
+                                                                        //добавить сам disabled={status === "loading"}
+                                                                    />
                                                                 </div>
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}
                                                                 >
                                                                     <DriveFileRenameOutlineOutlinedIcon
-                                                                        color={'primary'}
+                                                                        //добавить сам disabled
+                                                                        color={"primary"}
                                                                         onClick={() => updatePackClick({
                                                                             _id: row.pack_id,
                                                                             name: 'Update name'
@@ -183,9 +184,9 @@ export const TableForPacks = () => {
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DeleteForeverOutlinedIcon
-                                                                        color={'primary'}
+                                                                        //добавить сам disabled
+                                                                        color={ "primary"}
                                                                         onClick={() => deletePackClick(row.pack_id)}
-
                                                                     />
                                                                 </div>
                                                             </div>
