@@ -40,7 +40,7 @@ export type RequestAddPackType = {
 
 export type RequestUpdatePackType = {
     _id: string
-    name: string
+    name: string | undefined
 }
 
 export const packsAPI = {

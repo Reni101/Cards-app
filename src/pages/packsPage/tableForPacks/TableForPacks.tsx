@@ -28,6 +28,8 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
+import {EditPackModal} from "../packModal/EditPackModal";
+import {DeletePackModal} from "../packModal/DeletePackModal";
 
 interface Column {
     id: 'pack_name' | 'cards_count' | 'create_by' | 'last_updated' | 'actions';
@@ -98,8 +100,6 @@ export const TableForPacks = () => {
         dispatch(SetCardsPackTC())
     }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
-
-
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
         dispatch(changePageAC(newPage + 1))
@@ -116,17 +116,11 @@ export const TableForPacks = () => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
-    const deletePackClick = (pack_id: string) => {
-        dispatch(DeletePackTC(pack_id))
-    }
-    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
-    }
 
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -170,20 +164,20 @@ export const TableForPacks = () => {
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-                                                                    <DriveFileRenameOutlineOutlinedIcon
-                                                                        color={'primary'}
-                                                                        onClick={() => updatePackClick({
-                                                                            _id: row.pack_id,
-                                                                            name: 'Update name'
-                                                                        })}/>
+                                                                    <EditPackModal id={row.pack_id}>
+                                                                        <DriveFileRenameOutlineOutlinedIcon
+                                                                            color={'primary'}
+                                                                        />
+                                                                    </EditPackModal>
                                                                 </div>
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-                                                                    <DeleteForeverOutlinedIcon
-                                                                        color={'primary'}
-                                                                        onClick={() => deletePackClick(row.pack_id)}
-                                                                    />
+                                                                    <DeletePackModal id={row.pack_id} name={row.pack_name}>
+                                                                        <DeleteForeverOutlinedIcon
+                                                                            color={'primary'}
+                                                                        />
+                                                                    </DeletePackModal>
                                                                 </div>
                                                             </div>
                                                         }

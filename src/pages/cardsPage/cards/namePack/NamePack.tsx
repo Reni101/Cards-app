@@ -12,6 +12,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {AddCardTC} from '../../CardsReducer';
+import {AddCardModal} from "../cardModal/AddCardModal";
 
 
 
@@ -56,12 +57,12 @@ export const NamePack = () => {
         prevOpen.current = open;
     }, [open]);
 
-    const createNewCard =()=> {
-
-        {cardsPack_id &&
-            dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: 'Who is John Galt', answer: 'Good boy'}))
-        }
-    }
+    // const createNewCard =()=> {
+    //
+    //     {cardsPack_id &&
+    //         dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: 'Who is John Galt', answer: 'Good boy'}))
+    //     }
+    // }
 
     return (
         <div className={style.name_pack_all_wrapper}>
@@ -123,9 +124,11 @@ export const NamePack = () => {
             {
                 packsUserId === myId
                     ?
-                    <Button className={style.button} variant="outlined" type="submit" onClick={createNewCard}>
-                        Add new card
-                    </Button>
+                    <AddCardModal cardsPack_id={cardsPack_id}>
+                        <Button className={style.button} variant="outlined" type="submit">
+                            Add new card
+                        </Button>
+                    </AddCardModal>
                     :
                     <Button className={style.button} variant="outlined" type="submit">
                         Learn to pack
