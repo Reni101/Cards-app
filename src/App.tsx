@@ -18,7 +18,7 @@ import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
 import {
     cardsRoute,
     checkEmailRoute,
-    forgotPassRoute,
+    forgotPassRoute, learnRoute,
     loginRoute,
     notFoundRoute, packsRoute,
     profileRoute,
@@ -27,6 +27,7 @@ import {
 } from './common/paths/Paths';
 import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
+import {LearnPage} from "./pages/learn/LearnPage";
 
 
 function App() {
@@ -60,7 +61,8 @@ function App() {
                 <Route path={setNewPassRoute} element={<NewPasswordPage/>}/>
                 <Route path={packsRoute} element={<PacksPage/>}/>
                 <Route path={cardsRoute} element={<CardsPage/>}/>
-                
+                <Route path={learnRoute} element={<LearnPage/>}/>
+
 
                 <Route path="*" element={<Navigate to={notFoundRoute}/>}/>
             </Routes>

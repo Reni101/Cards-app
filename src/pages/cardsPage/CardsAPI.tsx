@@ -29,6 +29,7 @@ export type ResponseCardsType = {
     packPrivate: boolean;
     packCreated: string;
     packUpdated: string;
+
     page: number;
     pageCount: number; //количество карточек на странице
     cardsTotalCount: number; // всего карточек
@@ -39,10 +40,12 @@ export type CardType = {
     user_id: string;
     answer: string;
     question: string;
-    grade: number;
-    shots: number; // сколько раз обучались по карточке
-    created: string;
-    updated: string;
+    rating:number
+    more_id: string
+    grade: number
+    shots: number // сколько раз обучались по карточке
+    created: string
+    updated: string
 }
 
 export type RequestAddCardType = {

@@ -1,0 +1,47 @@
+.wrapper {
+    position: relative;
+    top: 90px;
+    width: 80vw;
+    height: 100%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.go_to_pack_list {
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.title {
+    margin: 75px auto 30px;
+}
+
+.mainBlock {
+    width: 400px;
+    border: .5px solid rgba(84, 84, 84, 0.5);
+    margin: 9px auto;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    text-align: center;
+}
+
+.question {
+  color: #000000;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 20px;
+    opacity: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.text {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 30px 50px 20px ;
+    opacity: 50%;
+}

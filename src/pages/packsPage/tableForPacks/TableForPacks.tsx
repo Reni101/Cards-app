@@ -13,12 +13,13 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {cardsRoute} from '../../../common/paths/Paths';
+import {cardsRoute, learnRoute} from '../../../common/paths/Paths';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
+import {setLearnCardsTC} from "../../learn/LearnReducer";
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -107,7 +108,11 @@ export const TableForPacks = () => {
 
     const goToCardsClick = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
-        navigate(cardsRoute)
+        navigate(`/cards/${card_pack_id}`)
+    }
+    const goToLearnHandler =  (card_pack_id: string) => {
+        dispatch(setPacksIdAC(card_pack_id))
+        navigate(`/learn/${card_pack_id}`)
     }
     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
@@ -165,6 +170,7 @@ export const TableForPacks = () => {
                                                                 <div className={style.icons}>
                                                                     <SchoolOutlinedIcon
                                                                         color={"primary"}
+                                                                        onClick={() => goToLearnHandler(row.pack_id)}
                                                                         //добавить сам disabled={status === "loading"}
                                                                     />
                                                                 </div>
@@ -186,7 +192,7 @@ export const TableForPacks = () => {
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DeleteForeverOutlinedIcon
                                                                         //добавить сам disabled
-                                                                        color={ "primary"}
+                                                                        color={"primary"}
                                                                         onClick={() => deletePackClick(row.pack_id)}
                                                                     />
                                                                 </div>

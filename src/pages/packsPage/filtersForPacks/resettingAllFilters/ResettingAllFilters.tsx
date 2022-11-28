@@ -8,16 +8,19 @@ import {
     changeShowMyPacksAC, changeSortPacksAC,
     sortPacksNameAC
 } from "../../PacksReducer";
+import {useSearchParams} from "react-router-dom";
 
 export const ResettingAllFilters = () => {
     const dispatch = useAppDispatch()
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const ResetAllFiltersParams = () => {
         dispatch(changeMinAC(0))
         dispatch(changeMaxAC(0))
         dispatch(changeShowMyPacksAC(""))
         dispatch(sortPacksNameAC(""))
         dispatch(changeSortPacksAC(""))
+        setSearchParams(undefined)
+
     }
     return (
         <div className={style.all_wrapper_res_all_filters}>

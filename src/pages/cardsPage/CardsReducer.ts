@@ -15,15 +15,16 @@ export type ActionsCardsType =
 
 
 type CardType = {
-    _id: string;
-    cardsPack_id: string;
-    user_id: string;
-    answer: string;
-    question: string;
-    grade: number;
-    shots: number; // сколько раз обучались по карточке
-    created: string;
-    updated: string;
+    _id: string
+    cardsPack_id: string
+    user_id: string
+    answer: string
+    question: string
+    rating: number
+    grade: number
+    shots: number // сколько раз обучались по карточке
+    created: string
+    updated: string
 }
 
 
@@ -120,7 +121,7 @@ export const setPackNameForCardAC = (newPackName: string) => ({
 
 //==============================TC============================
 
-export const setCardsTC = (cardsPack_id: string,questionSearch?:string): AppThunk =>
+export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {

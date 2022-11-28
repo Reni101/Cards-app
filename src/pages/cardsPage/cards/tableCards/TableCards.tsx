@@ -14,7 +14,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
 import {
     changePageCardsAC,
@@ -28,9 +28,7 @@ import {Paginator} from "../../../../common/Paginator/paginator";
 import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
 
 
-
-
-type sortCardsType = 'question' | 'answer' | 'updated'  | "grade"
+type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
 
 interface CardsColumn {
     id: sortCardsType
@@ -96,13 +94,13 @@ export const TableCards = () => {
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-
+    //const {cardsId} = useParams() можно достать и сетать
     const [grade, setGrade] = useState<number | null>(0); // пригодится
 
     useEffect(() => {
-        if(searchQuery !== findQuestion ) return
-        dispatch(setCardsTC(packId,searchQuery))
-    }, [currentPage, pageCount, findQuestion,sortCards])
+        if (searchQuery !== findQuestion) return
+        dispatch(setCardsTC(packId, searchQuery))
+    }, [currentPage, pageCount, findQuestion, sortCards])
 
 
     const handleChangePage = (newPage: number) => {
@@ -130,7 +128,6 @@ export const TableCards = () => {
         const val = sortCards === ('0' + columnID)
         dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
     }
-
 
 
     const goToPacksClick = () => {
@@ -203,7 +200,7 @@ export const TableCards = () => {
                                                                         <DriveFileRenameOutlineOutlinedIcon
 
                                                                             //добавить сам disabled
-                                                                            color={ "primary"}
+                                                                            color={"primary"}
                                                                             onClick={() => handleUpdateCard(row.id, 'new question')}/>
                                                                     </div>
                                                                     <div className={style.icons}>
