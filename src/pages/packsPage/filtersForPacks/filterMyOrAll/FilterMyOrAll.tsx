@@ -7,7 +7,6 @@ import {useSearchParams} from 'react-router-dom';
 
 export const FilterMyOrAll = () => {
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
-    const user_idQuery = useAppSelector(state => state.Packs.user_id)
     const dispatch = useAppDispatch()
 
 

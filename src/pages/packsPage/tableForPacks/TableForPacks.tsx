@@ -89,6 +89,7 @@ export const TableForPacks = () => {
     const searchQuery = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
 
+    const packs_user_id = useAppSelector(state => state.Packs.user_id)
     const packName = useAppSelector(state => state.Packs.packName)
     const min = useAppSelector(state => state.Packs.min)
     const max = useAppSelector(state => state.Packs.max)
@@ -105,10 +106,14 @@ export const TableForPacks = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
+    console.log(packs_user_id)
+    console.log(searchQueryUserId)
     useEffect(() => {
         if(searchQuery !== packName ) return
-        dispatch(SetCardsPackTC(packName,searchQueryUserId))
-    }, [packName, min, max, pageCount, sortPacks, currentPage,searchQueryUserId])
+        console.log(packs_user_id)
+        console.log(searchQueryUserId)
+        dispatch(SetCardsPackTC(searchQueryUserId,packName))
+    }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -128,10 +133,10 @@ export const TableForPacks = () => {
         navigate(cardsRoute)
     }
     const deletePackClick = (pack_id: string) => {
-        dispatch(DeletePackTC(pack_id))
+        dispatch(DeletePackTC(pack_id,searchQueryUserId))
     }
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
+        dispatch(UpdatePackTC(cards_pack,searchQueryUserId))
     }
 
     const handleSort = (columnID:sortType) => {

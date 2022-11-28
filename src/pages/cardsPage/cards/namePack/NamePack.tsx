@@ -14,7 +14,7 @@ import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {AddCardTC, setCardsTC} from '../../CardsReducer';
 import {DeletePackTC, SetCardsPackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {packsRoute} from '../../../../common/paths/Paths';
 
 
@@ -28,6 +28,8 @@ export const NamePack = () => {
     const cardsPack_id = useAppSelector(state => state.Cards.cardsPack_id)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
+
+
 
 
     const handleToggle = () => {

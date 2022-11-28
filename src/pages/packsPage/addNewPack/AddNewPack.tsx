@@ -3,14 +3,18 @@ import style from './AddNewPack.module.css'
 import {Button} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {AddPackTC} from '../PacksReducer';
+import {useSearchParams} from 'react-router-dom';
 
 
 export const AddNewPack = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQueryUserId = searchParams.get('user_id') || '';
+
     const AddNewPack = async () => {
-            await dispatch(AddPackTC({name:"Sanya Luchshaya TC"}))
+            await dispatch(AddPackTC({name:"Sanya Luchshaya TC"},searchQueryUserId))
     }
 
     return (
