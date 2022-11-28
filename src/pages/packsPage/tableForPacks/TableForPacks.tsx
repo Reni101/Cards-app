@@ -13,7 +13,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 
 import {useTheme} from "@mui/material/styles";
@@ -83,6 +83,8 @@ export const TableForPacks = () => {
     const status = useAppSelector(state => state.App.status)
     //disabled={status === "loading"}
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
 
     const packName = useAppSelector(state => state.Packs.packName)
     const user_id = useAppSelector(state => state.Packs.user_id)
@@ -102,8 +104,8 @@ export const TableForPacks = () => {
 
 
     useEffect(() => {
-
-        dispatch(SetCardsPackTC())
+        if(searchQuery !== packName ) return
+        dispatch(SetCardsPackTC(packName))
     }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
 
@@ -124,7 +126,7 @@ export const TableForPacks = () => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
-    const deletePackClick = (pack_id: string) => {
+     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
@@ -220,13 +222,6 @@ export const TableForPacks = () => {
                     ActionsComponent={TablePaginationActions}
                 />
             </Paper>
-
-
-            {/*<div><button onClick={()=>{handleSort("name")}} >sortName </button></div>*/}
-            {/*<div><button onClick={()=>{handleSort("cardsCount")}} >sortCards </button></div>*/}
-            {/*<div><button onClick={()=>{handleSort("updated")}} >sortUpdate </button></div>*/}
-            {/*<div><button onClick={()=>{handleSort("created")}} >sortCreated </button></div>*/}
-
         </div>
     );
 };

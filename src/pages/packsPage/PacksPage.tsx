@@ -11,18 +11,13 @@ import {loginRoute} from '../../common/paths/Paths';
 
 
 export const PacksPage = () => {
-
-
-
-    const isAuth = useAppSelector(state => state.Login.isAuth)
-
+   const isAuth = useAppSelector(state => state.Login.isAuth)
     if (!isAuth) {
         return <Navigate to={loginRoute}/>
     }
 
     return (
         <div className={style.all_wrapper_packs}>
-
             <AddNewPack/>
             <FiltersForPacks/>
             <TableForPacks  />

@@ -13,3 +13,7 @@
     font-size: 15px;
     margin: 0 10px;
 }
+.icon_action{
+    display: flex;
+    flex-direction: row;
+}

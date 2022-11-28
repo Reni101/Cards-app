@@ -11,12 +11,12 @@ import {useSearchParams} from 'react-router-dom';
 export const SearchPacks = () => {
     const dispatch = useAppDispatch()
 
+    const packName = useAppSelector(state => state.Packs.packName)
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
     const debouncedValue = useDebounce<string>(searchQuery, 700)
 
-    console.log(searchQuery)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const form = event.target;
@@ -26,6 +26,7 @@ export const SearchPacks = () => {
 
 
     useEffect(() => {
+        if(packName === debouncedValue) return
         dispatch(sortPacksNameAC(debouncedValue))
     }, [debouncedValue])
 
