@@ -33,8 +33,8 @@ import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
 
-
 type sortType = 'name' | 'cardsCount' | 'created' | 'updated' | 'actions'
+
 interface Column {
     id: sortType;
     label: string;
@@ -111,7 +111,6 @@ export const TableForPacks = () => {
     }, [packName, min, max, pageCount, sortPacks, currentPage,searchQueryUserId])
 
 
-
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
         dispatch(changePageAC(newPage + 1))
@@ -128,7 +127,7 @@ export const TableForPacks = () => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
-     const deletePackClick = (pack_id: string) => {
+    const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
@@ -143,7 +142,7 @@ export const TableForPacks = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -153,7 +152,7 @@ export const TableForPacks = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={()=>handleSort(column.id)}
+                                        onClick={() => handleSort(column.id)}
                                     >
                                             {column.label}
                                         {
@@ -195,6 +194,7 @@ export const TableForPacks = () => {
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <DriveFileRenameOutlineOutlinedIcon
+                                                                        // disabled={status === "loading"}
                                                                         color={'primary'}
                                                                         onClick={() => updatePackClick({
                                                                             _id: row.pack_id,
