@@ -11,6 +11,7 @@ export type ActionsCardsType =
     | ReturnType<typeof findCardsQuestionAC>
     | ReturnType<typeof sortCardsAC>
     | ReturnType<typeof setPacksIdAC>
+    | ReturnType<typeof setPackNameForCardAC>
 
 
 type CardType = {
@@ -54,7 +55,7 @@ const initialState: InitialStateType = {
     pageCount: 5,
     cardsTotalCount: 0,
 
-    cardQuestion: '',
+    cardQuestion: null,
     sortCards: "",
     cardsPack_id: "",
 
@@ -76,6 +77,8 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, sortCards: action.payload.sortCards}
         case "CARDS/SET_PACKS_ID":
             return {...state, cardsPack_id: action.payload.packsId}
+        case 'CARDS/SET_PACK_NAME_FOR_CARD':
+            return {...state, packName: action.payload.newPackName}
         default:
             return state
     }
@@ -109,22 +112,27 @@ export const setPacksIdAC = (packsId: string) => ({
     type: 'CARDS/SET_PACKS_ID',
     payload: {packsId}
 } as const)
+export const setPackNameForCardAC = (newPackName: string) => ({
+    type: 'CARDS/SET_PACK_NAME_FOR_CARD',
+    payload: {newPackName}
+} as const)
 
 
 //==============================TC============================
 
-export const setCardsTC = (cardsPack_id: string): AppThunk =>
+export const setCardsTC = (cardsPack_id: string,questionSearch?:string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
             let {page, cardQuestion, sortCards, pageCount} = getState().Cards
             if (sortCards === "") sortCards = null
             if (cardQuestion === "") cardQuestion = null
-
+            if (!!questionSearch) cardQuestion = questionSearch
 
             const res = await cardsAPI.getCards({
                 cardsPack_id, cardQuestion, sortCards, pageCount, page
             })
+
             dispatch(setCardsAC(res.data))
             dispatch(setPacksIdAC(cardsPack_id))
             dispatch(setStatusApp('succeeded'))

@@ -3,23 +3,30 @@ import style from './SearchPacks.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
-import {sortPacksNameAC} from "../../PacksReducer";
+import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {changeSortPacksAC, sortPacksNameAC} from '../../PacksReducer';
+import {useSearchParams} from 'react-router-dom';
 
 
 export const SearchPacks = () => {
-    let packName = useAppSelector(state => state.Packs.packName)
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string>(packName!)
-    const debouncedValue = useDebounce<string>(text, 600)
 
+    const packName = useAppSelector(state => state.Packs.packName)
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
+    const debouncedValue = useDebounce<string>(searchQuery, 700)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setText(event.target.value)
+        event.preventDefault();
+        const form = event.target;
+        const query = form.value
+        setSearchParams({search:query})
     }
 
 
     useEffect(() => {
+        if(packName === debouncedValue) return
         dispatch(sortPacksNameAC(debouncedValue))
     }, [debouncedValue])
 
@@ -37,8 +44,7 @@ export const SearchPacks = () => {
                         placeholder="go search..."
                         className={style.search_input}
                         onChange={handleChange}
-                        value={text}
-
+                        value={searchQuery}
                     />
                 </Search>
             </Toolbar>

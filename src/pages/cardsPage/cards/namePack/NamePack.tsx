@@ -11,12 +11,16 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {AddCardTC} from '../../CardsReducer';
-
+import {AddCardTC, setCardsTC} from '../../CardsReducer';
+import {DeletePackTC, SetCardsPackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
+import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
+import {useNavigate} from 'react-router-dom';
+import {packsRoute} from '../../../../common/paths/Paths';
 
 
 export const NamePack = () => {
 
+    //const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch()
     const anchorRef = useRef<HTMLHeadingElement>(null);
@@ -24,9 +28,6 @@ export const NamePack = () => {
     const cardsPack_id = useAppSelector(state => state.Cards.cardsPack_id)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
-
-
-
 
 
     const handleToggle = () => {
@@ -56,13 +57,23 @@ export const NamePack = () => {
         prevOpen.current = open;
     }, [open]);
 
-    const createNewCard =()=> {
-
-        {cardsPack_id &&
+    const createNewCard = () => {
+        {
+            cardsPack_id &&
             dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: 'Who is John Galt', answer: 'Good boy'}))
         }
     }
 
+    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+        dispatch(UpdatePackTC(cards_pack))
+    }
+    const deletePackClick = (pack_id: string) => {
+        dispatch(DeletePackTC(pack_id))
+    }
+
+    if (!cardsPack_id) {
+        return <></>
+    }
     return (
         <div className={style.name_pack_all_wrapper}>
             <h2
@@ -102,16 +113,29 @@ export const NamePack = () => {
                                         onKeyDown={handleListKeyDown}
                                     >
                                         <MenuItem onClick={handleClose}>
-                                            <SchoolOutlinedIcon/>
-                                            <div className={style.name_icon}>Learn</div>
+                                            <div className={style.icon_action}>
+                                                <SchoolOutlinedIcon/>
+                                                <div className={style.name_icon}>Learn</div>
+                                            </div>
                                         </MenuItem>
                                         <MenuItem onClick={handleClose}>
-                                            <DriveFileRenameOutlineOutlinedIcon/>
-                                            <div className={style.name_icon}>Edit</div>
+                                            <div className={style.icon_action}
+                                                 onClick={() => updatePackClick(
+                                                     {
+                                                         _id: cardsPack_id,
+                                                         name: 'Hey New Pack Name'
+                                                     }
+                                                 )}>
+                                                <DriveFileRenameOutlineOutlinedIcon/>
+                                                <div className={style.name_icon}>Edit</div>
+                                            </div>
                                         </MenuItem>
                                         <MenuItem onClick={handleClose}>
-                                            <DeleteForeverOutlinedIcon/>
-                                            <div className={style.name_icon}>Delete</div>
+                                            <div className={style.icon_action}
+                                                 onClick={() => deletePackClick(cardsPack_id)}>
+                                                <DeleteForeverOutlinedIcon/>
+                                                <div className={style.name_icon}>Delete</div>
+                                            </div>
                                         </MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>

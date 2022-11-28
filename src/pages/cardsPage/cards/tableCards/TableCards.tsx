@@ -14,7 +14,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
@@ -66,6 +66,9 @@ export const TableCards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
+
 
     const cards = useAppSelector(state => state.Cards.cards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
@@ -80,10 +83,11 @@ export const TableCards = () => {
 
     const [grade, setGrade] = useState<number | null>(0); // пригодится
 
-
     useEffect(() => {
-        dispatch(setCardsTC(packId))
-    }, [dispatch,currentPage, pageCount, findQuestion])
+        if(searchQuery !== findQuestion ) return
+        dispatch(setCardsTC(packId,searchQuery))
+    }, [currentPage, pageCount, findQuestion])
+
 
     const handleChangePage = (newPage: number) => {
         dispatch(changePageCardsAC(newPage))
@@ -109,11 +113,10 @@ export const TableCards = () => {
         navigate(packsRoute)
     }
 
-
-    if (cards.length === 0) {
+    if (!packId) {
         return (
             <div className={style.empty_pack}>
-                <div className={style.empty_text}>Pu pu pu... this pack empty, please take another pack</div>
+                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
                 <Button onClick={goToPacksClick} variant="outlined">go to packs list</Button>
             </div>
         )

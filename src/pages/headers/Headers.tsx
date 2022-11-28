@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import style from './Headers.module.css'
 import black_logo from '../../assets/webLogo/pink_punk_black.svg'
 import {Button} from '@mui/material';
@@ -18,7 +18,10 @@ export const Headers = () => {
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
     const userName = useAppSelector(state => state.ProfilePage.name)
     const navigate = useNavigate();
-    console.log(navigate)
+
+
+
+
 
 
     const [nav, setNav] = useState(false)
