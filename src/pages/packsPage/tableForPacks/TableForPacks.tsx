@@ -72,6 +72,7 @@ export const TableForPacks = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
     //disabled={status === "loading"}
+    //reset
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
