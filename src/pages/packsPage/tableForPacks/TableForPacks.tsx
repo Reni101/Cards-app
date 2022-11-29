@@ -151,6 +151,7 @@ export const TableForPacks = () => {
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
+
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
