@@ -112,13 +112,16 @@ export const TableForPacks = () => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(cardsRoute)
     }
+
     const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(`/learn/${card_pack_id}`)
     }
+
     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
+
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(UpdatePackTC(cards_pack))
     }
@@ -174,10 +177,11 @@ export const TableForPacks = () => {
                                                                 <div className={style.icons}>
                                                                     <IconButton
                                                                         disabled={isLoading || row.cardsCount === 0}
+                                                                        onClick={() => goToLearnHandler(row.pack_id)}
                                                                         size="small">
                                                                         <SchoolOutlinedIcon
                                                                             color={isLoading || row.cardsCount === 0 ? "disabled" : "primary"}
-                                                                            onClick={() => goToLearnHandler(row.pack_id)}
+
                                                                         />
                                                                     </IconButton>
                                                                 </div>
@@ -188,13 +192,14 @@ export const TableForPacks = () => {
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <IconButton
                                                                         disabled={isLoading}
-                                                                        size="small">
+                                                                        size="small"
+                                                                        onClick={() => updatePackClick({
+                                                                            _id: row.pack_id,
+                                                                            name: 'Update name'
+                                                                        })}>
                                                                         <DriveFileRenameOutlineOutlinedIcon
                                                                             color={isLoading ? "disabled" : "primary"}
-                                                                            onClick={() => updatePackClick({
-                                                                                _id: row.pack_id,
-                                                                                name: 'Update name'
-                                                                            })}
+
                                                                         />
                                                                     </IconButton>
                                                                 </div>
@@ -205,10 +210,11 @@ export const TableForPacks = () => {
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
                                                                     <IconButton
                                                                         disabled={isLoading}
-                                                                        size="small">
+                                                                        size="small"
+                                                                        onClick={() => deletePackClick(row.pack_id)}>
                                                                         <DeleteForeverOutlinedIcon
                                                                             color={isLoading ? "disabled" : "primary"}
-                                                                            onClick={() => deletePackClick(row.pack_id)}
+
                                                                         />
                                                                     </IconButton>
                                                                 </div>

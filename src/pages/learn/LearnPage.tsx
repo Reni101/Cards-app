@@ -153,10 +153,11 @@ export const LearnPage = () => {
 
     };
 
-
     const goToPacks = () => {
         navigate(packsRoute)
     }
+
+
     return (
 
         <div className={style.wrapper}>
