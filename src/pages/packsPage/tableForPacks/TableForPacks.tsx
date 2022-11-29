@@ -29,7 +29,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
-import {RequestUpdatePackType} from '../PacksAPI';
+import {queryModelType, RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
 
 
@@ -88,6 +88,8 @@ export const TableForPacks = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
 
     const packs_user_id = useAppSelector(state => state.Packs.user_id)
     const packName = useAppSelector(state => state.Packs.packName)
@@ -106,13 +108,17 @@ export const TableForPacks = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
-    console.log(packs_user_id)
-    console.log(searchQueryUserId)
     useEffect(() => {
-        if(searchQuery !== packName ) return
-        console.log(packs_user_id)
-        console.log(searchQueryUserId)
-        dispatch(SetCardsPackTC(searchQueryUserId,packName))
+        if(searchQuery !== packName) return
+        const min_params = Number(searchQueryMin)
+        const max_params = Number(searchQueryMax)
+        let QuerySearchParams:queryModelType = {
+            min:min_params,
+            max:max_params,
+            packName:searchQuery,
+            user_id:searchQueryUserId
+        }
+        dispatch(SetCardsPackTC(QuerySearchParams))
     }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
@@ -163,9 +169,15 @@ export const TableForPacks = () => {
                                         {
                                             sortPacks === ('0' + column.id)
                                                 ?
-                                                <ArrowDropDownIcon className={style.sort_icon}/>
+                                                <ArrowDropDownIcon
+                                                    className={column.id === 'actions'
+                                                        ? style.actions_display_no
+                                                        : style.sort_icon }/>
                                                 :
-                                                <ArrowDropUpIcon className={style.sort_icon}/>
+                                                <ArrowDropUpIcon
+                                                    className={column.id === 'actions'
+                                                        ? style.actions_display_no
+                                                        : style.sort_icon }/>
                                         }
                                     </TableCell>
                                 ))}

@@ -5,7 +5,9 @@
     background-color: rgb(196, 220, 255) !important;
     cursor: pointer;
 }
-
+.actions_display_no{
+    display: none;
+}
 .flex_icons{
     display: flex;
     flex-direction: row;

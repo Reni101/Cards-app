@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import useDebounce, {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {changeMaxAC, changeMinAC} from "../../PacksReducer";
+import {useSearchParams} from 'react-router-dom';
 
 const valuetext = (value: number) => {
     return `${value}°C`;
@@ -11,13 +12,17 @@ const valuetext = (value: number) => {
 
 export const FilterRange = () => {
 
-    const min = useAppSelector(state => state.Packs.min)
-    const max = useAppSelector(state => state.Packs.max)
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([min!, max!]);
-    const debounceValue = useDebounce<number[]>(value, 600);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
+
+
+
+    const [value, setValue] = React.useState<number[]>([Number(searchQueryMin),Number(searchQueryMax)]);
+    const debounceValue = useDebounce<number[]>(value, 700);
 
 
     useEffect(() => {
@@ -27,6 +32,8 @@ export const FilterRange = () => {
 
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
+        const [min,max] = newValue as number[]
+        setSearchParams({min: min.toString(), max: max.toString()})
         setValue(newValue as number[]);
     };
 

@@ -1,7 +1,7 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from './PacksAPI';
+import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
@@ -130,26 +130,20 @@ export const changeShowMyPacksAC = (user_id: string) => ({
 
 //==============================TC============================
 
-export const SetCardsPackTC = (searchQueryUserId?:string | null,packsSearch?: string,): AppThunk =>
+export const SetCardsPackTC = (QuerySearchParams:queryModelType): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
-            let {page, min, max, pageCount, sortPacks, packName, user_id} = getState().Packs
+            let {packName,user_id,min,max} = QuerySearchParams
+            let {page, pageCount, sortPacks} = getState().Packs
             if (page === 1) page = null
-            if (min === 0) min = null
-            if (max === 0 || max === 110) max = null
+            if (max === 0) max = 110
             if (sortPacks === '') sortPacks = null
             if (packName === '') packName = null
-            if (!!packsSearch) packName = packsSearch
             if (user_id === '') user_id = null
-            console.log(user_id === '')
-            if (!!searchQueryUserId) user_id = searchQueryUserId
-            console.log(!!searchQueryUserId)
-            console.log(user_id)
-            console.log(searchQueryUserId)
+
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
-            console.log(user_id)
-            console.log(searchQueryUserId)
+
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
         } catch
@@ -163,7 +157,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType,searchQueryUserId?:strin
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        await dispatch(SetCardsPackTC(searchQueryUserId))
+        await dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -178,7 +172,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType,searchQueryUserId?
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
-        dispatch(SetCardsPackTC(searchQueryUserId))
+        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
         dispatch(setPackNameForCardAC(cardsPack.name))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
@@ -194,7 +188,7 @@ export const DeletePackTC = (idPack: string,searchQueryUserId?:string): AppThunk
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.deletePack(idPack)
-        dispatch(SetCardsPackTC(searchQueryUserId))
+        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
         dispatch(setPacksIdAC(''))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
