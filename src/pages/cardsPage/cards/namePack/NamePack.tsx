@@ -11,8 +11,8 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {AddCardTC, setCardsTC} from '../../CardsReducer';
-import {DeletePackTC, SetCardsPackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
+import {AddCardTC, setPacksIdAC} from '../../CardsReducer';
+import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
 import {packsRoute} from '../../../../common/paths/Paths';
@@ -20,7 +20,7 @@ import {packsRoute} from '../../../../common/paths/Paths';
 
 export const NamePack = () => {
 
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch()
     const anchorRef = useRef<HTMLHeadingElement>(null);
@@ -29,6 +29,7 @@ export const NamePack = () => {
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
     const status = useAppSelector(state => state.App.status)
+    const cardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
     //disabled={status === "loading"}
 
 
@@ -72,6 +73,11 @@ export const NamePack = () => {
     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
+    const goToLearnHandler =  (card_pack_id: string) => {
+        dispatch(setPacksIdAC(card_pack_id))
+        navigate(packsRoute)
+    }
+
 
     if (!cardsPack_id) {
         return <></>
@@ -158,9 +164,11 @@ export const NamePack = () => {
                     </Button>
                     :
                     <Button className={style.button}
-                            disabled={status === "loading"}
+                            disabled={status === "loading" || cardsCount === 0}
                             variant="outlined"
-                            type="submit">
+                            type="submit"
+                            onClick={()=>{goToLearnHandler(cardsPack_id)}}
+                    >
                         Learn to pack
                     </Button>
             }

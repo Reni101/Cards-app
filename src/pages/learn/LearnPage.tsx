@@ -108,15 +108,17 @@ import {useNavigate, useParams} from "react-router-dom";
 import {packsRoute} from "../../common/paths/Paths";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getRandomCard} from "./RandomCard";
-import {setLearnCardsTC, setRandomCardsLearnAC, updateGradeTC} from "./LearnReducer";
+
+import {
+    setLearnCardsTC,
+    updateGradeTC
+} from "./LearnReducer";
 
 
 export const LearnPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const packName = useAppSelector(state => state.Learn.packName)
-    const cards = useAppSelector(state => state.Learn.cards)
     const randomCard = useAppSelector(state => state.Learn.randomCard)
     const card_pack_id = useAppSelector(state => state.Cards.cardsPack_id)
     let {cardId} = useParams();
@@ -129,7 +131,11 @@ export const LearnPage = () => {
 
 
     useEffect(() => {
+
+        if (randomCard === null) return
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
+
+
     }, [])
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,18 +145,16 @@ export const LearnPage = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        //dispatch answer
-        await dispatch(updateGradeTC(+answer, randomCard._id))
-        dispatch(setRandomCardsLearnAC(getRandomCard(cards)))
+        await dispatch(updateGradeTC(+answer, randomCard!._id))
         setIsShowAnswer(false)
 
 
     };
+
+
     const goToPacks = () => {
         navigate(packsRoute)
     }
-
-
     return (
 
         <div className={style.wrapper}>
@@ -164,8 +168,8 @@ export const LearnPage = () => {
             <div className={style.mainBlock}>
 
 
-                <div className={style.question}><b>Question:</b> :{randomCard.question}</div>
-                <div className={style.text}>Количество попыток ответов на вопрос: {randomCard.shots}</div>
+                <div className={style.question}><b>Question:</b> :{randomCard!.question}</div>
+                <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
                 {!isShowAnswer &&
                     <div>
                         <Button onClick={() => setIsShowAnswer(true)}
@@ -181,7 +185,7 @@ export const LearnPage = () => {
                     <form onSubmit={handleSubmit}>
                         <FormControl error={error} variant="standard">
                             <FormLabel id="demo-error-radios">
-                                <div className={style.question}><b>Answer:</b>{randomCard.answer}</div>
+                                <div className={style.question}><b>Answer:</b>{randomCard!.answer}</div>
                             </FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-error-radios"
@@ -196,7 +200,7 @@ export const LearnPage = () => {
                             </RadioGroup>
                             <FormHelperText>{helperText}</FormHelperText>
                             <Button type="submit"
-                                    style={{marginBottom: "30px"}}
+                                    style={{marginBottom: "30px", width: "231px"}}
                                     variant="outlined"
 
                             >

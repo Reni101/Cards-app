@@ -13,13 +13,13 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {cardsRoute, learnRoute} from '../../../common/paths/Paths';
+import {cardsRoute} from '../../../common/paths/Paths';
 import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
 import {Paginator} from "../../../common/Paginator/paginator";
-import {setLearnCardsTC} from "../../learn/LearnReducer";
+import IconButton from '@mui/material/IconButton';
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -91,6 +91,8 @@ export const TableForPacks = () => {
     const rows: RowsData[] = rowsArray.map((row) =>
         createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
+    const isLoading = status === "loading"
+
 
     useEffect(() => {
         if (searchQuery !== packName) return
@@ -108,9 +110,9 @@ export const TableForPacks = () => {
 
     const goToCardsClick = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
-        navigate(`/cards/${card_pack_id}`)
+        navigate(cardsRoute)
     }
-    const goToLearnHandler =  (card_pack_id: string) => {
+    const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(`/learn/${card_pack_id}`)
     }
@@ -167,35 +169,51 @@ export const TableForPacks = () => {
                                                             : value}
                                                         {column.id === 'actions' &&
                                                             <div className={style.flex_icons}>
+
+
                                                                 <div className={style.icons}>
-                                                                    <SchoolOutlinedIcon
-                                                                        color={"primary"}
-                                                                        onClick={() => goToLearnHandler(row.pack_id)}
-                                                                        //добавить сам disabled={status === "loading"}
-                                                                    />
+                                                                    <IconButton
+                                                                        disabled={isLoading || row.cardsCount === 0}
+                                                                        size="small">
+                                                                        <SchoolOutlinedIcon
+                                                                            color={isLoading || row.cardsCount === 0 ? "disabled" : "primary"}
+                                                                            onClick={() => goToLearnHandler(row.pack_id)}
+                                                                        />
+                                                                    </IconButton>
                                                                 </div>
-                                                                <div className={user_idFromProfile === row.user_id
-                                                                    ? style.icons
-                                                                    : `${style.icons} ${style.no_visible_icons}`}
-                                                                >
-                                                                    <DriveFileRenameOutlineOutlinedIcon
-                                                                        //добавить сам disabled
-                                                                        color={"primary"}
-                                                                        onClick={() => updatePackClick({
-                                                                            _id: row.pack_id,
-                                                                            name: 'Update name'
-                                                                        })}
-                                                                    />
-                                                                </div>
+
+
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-                                                                    <DeleteForeverOutlinedIcon
-                                                                        //добавить сам disabled
-                                                                        color={"primary"}
-                                                                        onClick={() => deletePackClick(row.pack_id)}
-                                                                    />
+                                                                    <IconButton
+                                                                        disabled={isLoading}
+                                                                        size="small">
+                                                                        <DriveFileRenameOutlineOutlinedIcon
+                                                                            color={isLoading ? "disabled" : "primary"}
+                                                                            onClick={() => updatePackClick({
+                                                                                _id: row.pack_id,
+                                                                                name: 'Update name'
+                                                                            })}
+                                                                        />
+                                                                    </IconButton>
                                                                 </div>
+
+
+                                                                <div className={user_idFromProfile === row.user_id
+                                                                    ? style.icons
+                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    <IconButton
+                                                                        disabled={isLoading}
+                                                                        size="small">
+                                                                        <DeleteForeverOutlinedIcon
+                                                                            color={isLoading ? "disabled" : "primary"}
+                                                                            onClick={() => deletePackClick(row.pack_id)}
+                                                                        />
+                                                                    </IconButton>
+                                                                </div>
+
+
                                                             </div>
                                                         }
                                                     </TableCell>
