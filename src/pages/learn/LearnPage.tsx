@@ -127,7 +127,7 @@ export const LearnPage = () => {
     const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false);
     const [answer, setAnswer] = useState('');
     const [error, setError] = useState(false);
-    const [helperText, setHelperText] = useState('Choose');
+    const [helperText, setHelperText] = useState('');
 
 
     useEffect(() => {
@@ -145,8 +145,14 @@ export const LearnPage = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await dispatch(updateGradeTC(+answer, randomCard!._id))
-        setIsShowAnswer(false)
+        if (answer === '') {
+            setHelperText('Choose answer');
+            setError(true);
+        } else {
+            await dispatch(updateGradeTC(+answer, randomCard!._id))
+            setError(false)
+            setIsShowAnswer(false)
+        }
 
 
     };
