@@ -131,11 +131,7 @@ export const LearnPage = () => {
 
 
     useEffect(() => {
-
-        if (randomCard === null) return
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
-
-
     }, [])
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
