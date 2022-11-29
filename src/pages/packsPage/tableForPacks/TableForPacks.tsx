@@ -146,6 +146,7 @@ export const TableForPacks = () => {
     }
 
     const handleSort = (columnID:sortType) => {
+        if(columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
@@ -169,15 +170,17 @@ export const TableForPacks = () => {
                                         {
                                             sortPacks === ('0' + column.id)
                                                 ?
-                                                <ArrowDropDownIcon
-                                                    className={column.id === 'actions'
-                                                        ? style.actions_display_no
-                                                        : style.sort_icon }/>
+                                                <span className={column.id === 'actions'
+                                                    ? style.actions_display_no
+                                                    : style.sort_icon }>
+                                                    <ArrowDropDownIcon/>
+                                                </span>
                                                 :
-                                                <ArrowDropUpIcon
-                                                    className={column.id === 'actions'
-                                                        ? style.actions_display_no
-                                                        : style.sort_icon }/>
+                                                <span className={column.id === 'actions'
+                                                    ? style.actions_display_no
+                                                    : style.sort_icon }>
+                                                    <ArrowDropUpIcon/>
+                                                </span>
                                         }
                                     </TableCell>
                                 ))}
