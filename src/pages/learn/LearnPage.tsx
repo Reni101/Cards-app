@@ -147,7 +147,9 @@ export const LearnPage = () => {
         } else {
             await dispatch(updateGradeTC(+answer, randomCard!._id))
             setError(false)
+            setAnswer("")
             setIsShowAnswer(false)
+            setHelperText("")
         }
 
 
