@@ -135,9 +135,9 @@ export const SetCardsPackTC = (QuerySearchParams:queryModelType): AppThunk =>
         dispatch(setStatusApp('loading'))
         try {
             let {packName,user_id,min,max} = QuerySearchParams
-            let {page, pageCount, sortPacks} = getState().Packs
+            let {page, pageCount, sortPacks,maxCardsCount} = getState().Packs
             if (page === 1) page = null
-            if (max === 0) max = 110
+            if (max === 0) max = maxCardsCount
             if (sortPacks === '') sortPacks = null
             if (packName === '') packName = null
             if (user_id === '') user_id = null

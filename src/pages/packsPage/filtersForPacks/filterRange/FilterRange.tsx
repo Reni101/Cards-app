@@ -10,20 +10,20 @@ const valuetext = (value: number) => {
     return `${value}°C`;
 }
 
+
 export const FilterRange = () => {
 
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const dispatch = useAppDispatch()
 
     const [searchParams, setSearchParams] = useSearchParams();
-
     const searchQueryName = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
 
 
-
+    const max_value = Number(searchQueryMax) ? Number(searchQueryMax) : maxCardsCount
     const [value, setValue] = React.useState<number[]>([Number(searchQueryMin),Number(searchQueryMax)]);
     const debounceValue = useDebounce<number[]>(value, 700);
 
@@ -35,15 +35,15 @@ export const FilterRange = () => {
 
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
-        const [min,max] = newValue as number[]
+        let [min_val,max_val] = newValue as number[]
 
         const params = {
             search:searchQueryName,
             user_id:searchQueryUserId,
-            min:min.toString(),
-            max:max.toString()
+            min:min_val.toString(),
+            max:''
         }
-
+        max_val === 0 ? params.max = maxCardsCount.toString(): params.max = max_val.toString()
         setSearchParams(params)
         setValue(newValue as number[]);
     };
@@ -59,7 +59,7 @@ export const FilterRange = () => {
 
                 <Box sx={{width: 150}}>
                     <Slider
-                        value={[Number(searchQueryMin),Number(searchQueryMax)]}
+                        value={[Number(searchQueryMin),max_value]}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}
