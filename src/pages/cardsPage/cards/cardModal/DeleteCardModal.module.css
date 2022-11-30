@@ -1,0 +1,17 @@
+.textDelete {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.blockBtn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.InputBlock {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}

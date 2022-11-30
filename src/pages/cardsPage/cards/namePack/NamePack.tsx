@@ -11,8 +11,8 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {AddCardTC} from '../../CardsReducer';
 import {AddCardModal} from "../cardModal/AddCardModal";
+import {DeleteCardModal} from "../cardModal/DeleteCardModal";
 
 
 
@@ -57,12 +57,6 @@ export const NamePack = () => {
         prevOpen.current = open;
     }, [open]);
 
-    // const createNewCard =()=> {
-    //
-    //     {cardsPack_id &&
-    //         dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: 'Who is John Galt', answer: 'Good boy'}))
-    //     }
-    // }
 
     return (
         <div className={style.name_pack_all_wrapper}>
@@ -110,10 +104,11 @@ export const NamePack = () => {
                                             <DriveFileRenameOutlineOutlinedIcon/>
                                             <div className={style.name_icon}>Edit</div>
                                         </MenuItem>
-                                        <MenuItem onClick={handleClose}>
-                                            <DeleteForeverOutlinedIcon/>
-                                            <div className={style.name_icon}>Delete</div>
-                                        </MenuItem>
+                                            <MenuItem onClick={handleClose}>
+                                                    <DeleteForeverOutlinedIcon/>
+                                                <div className={style.name_icon}>Delete</div>
+                                            </MenuItem>
+
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>

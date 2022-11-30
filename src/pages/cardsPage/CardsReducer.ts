@@ -142,7 +142,7 @@ export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch
     try {
         await cardsAPI.addCard(card)
         const packsId = getState().Cards.query.cardsPack_id
-       await dispatch(setCardsTC(packsId))
+        await dispatch(setCardsTC(packsId))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError

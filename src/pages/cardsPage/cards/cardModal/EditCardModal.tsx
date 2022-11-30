@@ -1,30 +1,40 @@
 import React, {ReactNode, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {BasicModal} from "../../../common/modal/BasicModal";
 import {Button, Checkbox} from "@mui/material";
-import style from "../addNewPack/AddNewPack.module.css";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import s from './EditPackModal.module.css'
-import {RequestUpdatePackType} from "../PacksAPI";
-import {UpdatePackTC} from "../PacksReducer";
+import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
+import s from './EditCardModal.module.css'
+import {BasicModal} from "../../../../common/modal/BasicModal";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import {UpdateCardTC} from "../../CardsReducer";
+import {RequestUpdateCardType} from "../../CardsAPI";
 
 type EditPackModalType = {
     children: ReactNode
-    id: string
+    idCard: string
+    question: string
 }
 
-export const EditPackModal = ({children, id}: EditPackModalType) => {
+export const EditCardModal = ({children, idCard, question}: EditPackModalType) => {
 
     const [open, setOpen] = React.useState(false);
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
-    const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
-    const [valueInput, setValueInput] = useState(pack?.name)
-    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
-        setValueInput('')
+    const [newQuestion, setNewQuestion] = useState(question)
+
+    const handleUpdateCard = (idCard: string, question: string) => {
+        const card = {
+            _id: idCard,
+            question
+        }
+        dispatch(UpdateCardTC(card))
+    }
+
+
+    const updateCardClick = (card: RequestUpdateCardType) => {
+        dispatch(UpdateCardTC(card))
+        setNewQuestion('')
         setOpen(false)
     }
 
@@ -36,8 +46,8 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
         <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Edit pack'}>
             <div>
                 <div className={s.InputBlock}>
-                    <TextField style={{marginBottom: '20px'}} value={valueInput}
-                               onChange={(e) => setValueInput(e.currentTarget.value)}
+                    <TextField style={{marginBottom: '20px'}} value={newQuestion}
+                               onChange={(e) => setNewQuestion(e.currentTarget.value)}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
@@ -45,7 +55,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                     <Button onClick={HandlerCancel} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF'}}
-                            onClick={() => updatePackClick({_id: id, name: valueInput})}
+                            onClick={() => updateCardClick({_id: idCard, question: newQuestion})}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>

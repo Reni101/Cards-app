@@ -17,6 +17,8 @@ import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
+import {DeleteCardModal} from "../cardModal/DeleteCardModal";
+import {EditCardModal} from "../cardModal/EditCardModal";
 
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
@@ -97,18 +99,6 @@ export const TableCards = () => {
         setPage(0);
         dispatch(changePageCardsCountAC(+event.target.value))
     };
-    const handleUpdateCard = (idCard: string, question: string) => {
-        const card = {
-            _id: idCard,
-            question
-        }
-        dispatch(UpdateCardTC(card))
-    }
-    const handleDeleteCard = (idCard: string) => {
-        console.log(idCard)
-        dispatch(DeleteCardTC(idCard))
-    }
-
 
     useEffect(() => {
         dispatch(setCardsTC(packId))
@@ -177,14 +167,15 @@ export const TableCards = () => {
                                                                     ? style.flex_icons
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
-                                                                        <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={'primary'}
-                                                                            onClick={() => handleUpdateCard(row.id, 'new question')}/>
+                                                                      <EditCardModal question={row.question} idCard={row.id}>
+                                                                          <DriveFileRenameOutlineOutlinedIcon
+                                                                              color={'primary'}/>
+                                                                      </EditCardModal>
                                                                     </div>
                                                                     <div className={style.icons}>
-                                                                        <DeleteForeverOutlinedIcon
-                                                                            color={'primary'}
-                                                                            onClick={() => handleDeleteCard(row.id)}/>
+                                                                 <DeleteCardModal id={row.id} name={row.question}>
+                                                                     <DeleteForeverOutlinedIcon color={'primary'}/>
+                                                                 </DeleteCardModal>
                                                                     </div>
                                                                 </div>
                                                             </div>
