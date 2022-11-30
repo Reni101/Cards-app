@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
 import style from './RegistrationPage.module.css'
 import {useAppSelector} from "../../hooks/hooks";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate, NavLink, useNavigate} from "react-router-dom";
 import FormForRegistration from "./formForRegistration/FormForRegistration";
 import {Slide} from "react-awesome-reveal";
 import {LinearProgress} from "@mui/material";
-import {useDispatch } from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../Redux/Store";
+import {requestStatusType} from "../../AppReducer";
 import {setRegisrationAC} from "./RegistrationReducer";
 
 export const RegistrationPage = () => {
 
     const isSuccessful = useAppSelector(state => state.Registration.isSuccessfulRegistration)
-    const status = useAppSelector(state => state.App.status)
+    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
     const dispatch = useDispatch()
     
     useEffect(() => {

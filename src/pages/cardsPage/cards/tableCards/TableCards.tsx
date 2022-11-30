@@ -7,17 +7,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-
+import TablePagination from '@mui/material/TablePagination';
 import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
-import {Paginator} from "../../../../common/Paginator/paginator";
 
 interface CardsColumn {
     id: 'question' | 'answer' | 'last_updated' | 'grade';
@@ -66,37 +65,38 @@ export const TableCards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
-
 
     const cards = useAppSelector(state => state.Cards.cards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
-    const packId = useAppSelector(state => state.Cards.cardsPack_id)
+    const packId = useAppSelector(state => state.Cards.query.cardsPack_id)
     const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
     const currentPage = useAppSelector(state => state.Cards.page)
-    const pageCount = useAppSelector(state => state.Cards.pageCount)
-    const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
+    const pageCount = useAppSelector(state => state.Cards.query.pageCount)
+    const findQuestion = useAppSelector(state => state.Cards.query.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
 
-    const [grade, setGrade] = useState<number | null>(0); // пригодится
-
-    useEffect(() => {
-        if(searchQuery !== findQuestion ) return
-        dispatch(setCardsTC(packId,searchQuery))
-    }, [currentPage, pageCount, findQuestion])
+    const [page, setPage] = useState(currentPage - 1);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [grade, setGrade] = useState<number | null>(0);
 
 
-    const handleChangePage = (newPage: number) => {
-        dispatch(changePageCardsAC(newPage))
+
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+        dispatch(changePageCardsAC(newPage + 1))
     };
+    const goToPacksClick = () => {
+        navigate(packsRoute)
+    }
 
-    const handleChangeRowsPerPage = (rows: number) => {
-        dispatch(changePageCardsCountAC(rows))
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+        dispatch(changePageCardsCountAC(+event.target.value))
     };
-
     const handleUpdateCard = (idCard: string, question: string) => {
         const card = {
             _id: idCard,
@@ -104,19 +104,21 @@ export const TableCards = () => {
         }
         dispatch(UpdateCardTC(card))
     }
-
     const handleDeleteCard = (idCard: string) => {
+        console.log(idCard)
         dispatch(DeleteCardTC(idCard))
     }
 
-    const goToPacksClick = () => {
-        navigate(packsRoute)
-    }
 
-    if (!packId) {
+    useEffect(() => {
+        dispatch(setCardsTC(packId))
+    }, [currentPage, pageCount, findQuestion])
+
+
+    if (cards.length === 0) {
         return (
             <div className={style.empty_pack}>
-                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
+                <div className={style.empty_text}>Pu pu pu... this pack empty, please take another pack</div>
                 <Button onClick={goToPacksClick} variant="outlined">go to packs list</Button>
             </div>
         )
@@ -124,7 +126,7 @@ export const TableCards = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer>
+                <TableContainer >
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -196,11 +198,15 @@ export const TableCards = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Paginator name={"Количество карт"}
-                           cardPacksTotalCount={totalCardsCount}
-                           currentPage={currentPage}
-                           changePage={handleChangePage}
-                           changeRows={handleChangeRowsPerPage}/>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 20]}
+                    component="div"
+                    count={totalCardsCount}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
             </Paper>
         </div>
     );
