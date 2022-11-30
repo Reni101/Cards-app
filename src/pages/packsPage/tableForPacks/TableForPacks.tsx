@@ -86,7 +86,7 @@ export const TableForPacks = () => {
     //disabled={status === "loading"}
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
+    const searchQueryName = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
@@ -109,13 +109,13 @@ export const TableForPacks = () => {
 
 
     useEffect(() => {
-        if(searchQuery !== packName) return
+        if(searchQueryName !== packName) return
         const min_params = Number(searchQueryMin)
         const max_params = Number(searchQueryMax)
         let QuerySearchParams:queryModelType = {
             min:min_params,
             max:max_params,
-            packName:searchQuery,
+            packName:searchQueryName,
             user_id:searchQueryUserId
         }
         dispatch(SetCardsPackTC(QuerySearchParams))
@@ -188,6 +188,9 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
+                                .filter( (r) => r.name.toLowerCase().startsWith(searchQueryName))
+                                .filter( (r) =>
+                                    Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= Number(searchQueryMax))
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
