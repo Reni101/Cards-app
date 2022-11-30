@@ -1,38 +1,48 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import style from './SearchCards.module.css';
 import {Toolbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {Search,SearchIconWrapper,StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch} from "../../../../hooks/hooks";
+import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
+import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {findCardsQuestionAC} from "../../CardsReducer";
-
-
+import {useSearchParams} from 'react-router-dom';
 
 
 export const SearchCards = () => {
 
 
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("") // будет ругаться если пустой
-    const debouncedValue = useDebounce<string>(text, 600) //дебаунс на 1 секунду
+
+    const question = useAppSelector(state => state.Cards.cardQuestion)
+    const packId = useAppSelector(state => state.Cards.cardsPack_id)
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
+    const debouncedValue = useDebounce<string>(searchQuery, 700)
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setText(event.target.value)
+        event.preventDefault();
+        const form = event.target;
+        const query = form.value
+        setSearchParams({search:query})
     }
 
     useEffect(() => {
+        if(question === debouncedValue) return
         dispatch(findCardsQuestionAC(debouncedValue))
-    }, [debouncedValue]) // через секунду сетает новое имя на запрос
+    }, [debouncedValue])
 
-
-
+    if(!packId){
+      return  <></>
+    }
     return (
         <div className={style.all_wrapper_search_cards}>
             <div className={style.title_search_cards}>
                 Search
             </div>
             <Toolbar className={style.toolbar}>
-                <Search >
-                    <SearchIconWrapper >
+                <Search>
+                    <SearchIconWrapper>
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
@@ -40,6 +50,7 @@ export const SearchCards = () => {
                         inputProps={{'aria-label': 'search'}}
                         onChange={handleChange}
                         className={style.search_input}
+                        value={searchQuery}
                     />
                 </Search>
             </Toolbar>
