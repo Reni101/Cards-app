@@ -7,7 +7,6 @@ import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useFormik} from "formik";
-import {registrationTC} from "../../../registrationPage/RegistrationReducer";
 import {AddCardTC} from "../../CardsReducer";
 
 type AddPackModalType = {
