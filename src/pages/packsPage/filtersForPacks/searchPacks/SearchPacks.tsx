@@ -14,14 +14,23 @@ export const SearchPacks = () => {
     const packName = useAppSelector(state => state.Packs.packName)
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
-    const debouncedValue = useDebounce<string>(searchQuery, 700)
+    const searchQueryName = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
+    const debouncedValue = useDebounce<string>(searchQueryName, 700)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const form = event.target;
         const query = form.value
-        setSearchParams({search:query})
+        const params = {
+            search:query,
+            user_id:searchQueryUserId,
+            min:searchQueryMin,
+            max:searchQueryMax
+        }
+        setSearchParams(params)
     }
 
 
@@ -44,7 +53,7 @@ export const SearchPacks = () => {
                         placeholder="go search..."
                         className={style.search_input}
                         onChange={handleChange}
-                        value={searchQuery}
+                        value={searchQueryName}
                     />
                 </Search>
             </Toolbar>

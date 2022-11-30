@@ -16,6 +16,9 @@ export const FilterRange = () => {
     const dispatch = useAppDispatch()
 
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const searchQueryName = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
 
@@ -33,7 +36,15 @@ export const FilterRange = () => {
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         const [min,max] = newValue as number[]
-        setSearchParams({min: min.toString(), max: max.toString()})
+
+        const params = {
+            search:searchQueryName,
+            user_id:searchQueryUserId,
+            min:min.toString(),
+            max:max.toString()
+        }
+
+        setSearchParams(params)
         setValue(newValue as number[]);
     };
 
@@ -48,7 +59,7 @@ export const FilterRange = () => {
 
                 <Box sx={{width: 150}}>
                     <Slider
-                        value={value}
+                        value={[Number(searchQueryMin),Number(searchQueryMax)]}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}

@@ -12,16 +12,31 @@ export const FilterMyOrAll = () => {
 
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('user_id') || '';
+    const searchQueryName = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
 
     const MyPacks = () => {
-        setSearchParams({user_id: user_idFromProfile})
-        dispatch(changeShowMyPacksAC(user_idFromProfile))
+        const params = {
+            search:searchQueryName,
+            user_id:user_idFromProfile,
+            min:searchQueryMin,
+            max:searchQueryMax
+        }
+        setSearchParams(params)
+        dispatch(changeShowMyPacksAC(params.user_id))
 
     }
     const AllPacks = () => {
-        setSearchParams({user_id: ""})
-        dispatch(changeShowMyPacksAC(""))
+        const params = {
+            search:searchQueryName,
+            user_id:'',
+            min:searchQueryMin,
+            max:searchQueryMax
+        }
+        setSearchParams(params)
+        dispatch(changeShowMyPacksAC(params.user_id))
     }
 
 
@@ -33,12 +48,12 @@ export const FilterMyOrAll = () => {
             <div className={style.buttons_wrapper}>
                 <div className={style.item_box}>
                     <Button className={style.button} variant={
-                        searchQuery ? "contained" : "outlined"} type="submit"
+                        searchQueryUserId ? "contained" : "outlined"} type="submit"
                             onClick={MyPacks}>My</Button>
                 </div>
                 <div className={style.item_box}>
                     <Button className={style.button} variant={
-                        searchQuery ? "outlined" : "contained"} type="submit"
+                        searchQueryUserId ? "outlined" : "contained"} type="submit"
                             onClick={AllPacks}>All</Button>
                 </div>
             </div>
