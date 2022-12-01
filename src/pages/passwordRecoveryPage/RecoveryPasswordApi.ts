@@ -8,8 +8,7 @@ export type ForgotResponseType = {
     "html": boolean
 }
 
-//http://localhost:3000/
-//https://reni101.github.io/FridayProject
+
 export const RecoveryPasswordApi = {
 
     recoveryForgotPassword(email: string) {

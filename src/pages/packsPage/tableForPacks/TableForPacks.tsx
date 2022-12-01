@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect,useCallback} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -14,12 +14,16 @@ import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
-import {setPacksIdAC} from '../../cardsPage/CardsReducer';
+
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
+import {setCardsTC, setPacksIdAC} from '../../cardsPage/CardsReducer';
+
+import IconButton from '@mui/material/IconButton';
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
 import {RequestUpdatePackType} from '../PacksAPI';
+import {EditPackModal} from "../packModal/EditPackModal";
+import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
-import IconButton from '@mui/material/IconButton';
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -116,13 +120,13 @@ export const TableForPacks = () => {
         navigate(`/learn/${card_pack_id}`)
     }
 
-    const deletePackClick = (pack_id: string) => {
-        dispatch(DeletePackTC(pack_id))
-    }
-
-    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
-    }
+    // const deletePackClick = (pack_id: string) => {
+    //     dispatch(DeletePackTC(pack_id))
+    // }
+    //
+    // const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+    //     dispatch(UpdatePackTC(cards_pack))
+    // }
 
     const handleSort = (columnID: sortType) => {
         const val = sortPacks === ('0' + columnID)
@@ -132,7 +136,7 @@ export const TableForPacks = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer>
+                <TableContainer >
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -182,39 +186,41 @@ export const TableForPacks = () => {
 
                                                                         />
                                                                     </IconButton>
+
                                                                 </div>
-
-
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-                                                                    <IconButton
-                                                                        disabled={isLoading}
-                                                                        size="small"
-                                                                        onClick={() => updatePackClick({
-                                                                            _id: row.pack_id,
-                                                                            name: 'Update name'
-                                                                        })}>
+
+
+
+                                                                    <EditPackModal id={row.pack_id}>
+                                                                        <IconButton disabled={isLoading}
+                                                                                    size="small">
                                                                         <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={isLoading ? "disabled" : "primary"}
-
-                                                                        />
-                                                                    </IconButton>
+                                                                            color={isLoading ? "disabled" : "primary"}/>
+                                                                        </IconButton>
+                                                                    </EditPackModal>
                                                                 </div>
 
 
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-                                                                    <IconButton
-                                                                        disabled={isLoading}
-                                                                        size="small"
-                                                                        onClick={() => deletePackClick(row.pack_id)}>
+
+
+
+                                                                    <DeletePackModal id={row.pack_id} name={row.name}>
+                                                                        <IconButton disabled={isLoading}
+                                                                                    size="small" >
                                                                         <DeleteForeverOutlinedIcon
                                                                             color={isLoading ? "disabled" : "primary"}
-
                                                                         />
-                                                                    </IconButton>
+                                                                        </IconButton>
+                                                                    </DeletePackModal>
+
+
+
                                                                 </div>
 
 

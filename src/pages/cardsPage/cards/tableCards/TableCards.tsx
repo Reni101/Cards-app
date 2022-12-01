@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -16,19 +16,15 @@ import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
-import {
-    changePageCardsAC,
-    changePageCardsCountAC,
-    DeleteCardTC,
-    setCardsTC,
-    sortCardsAC,
-    UpdateCardTC
-} from '../../CardsReducer';
+import {sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
+import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
+import {DeleteCardModal} from "../cardModal/DeleteCardModal";
+import {EditCardModal} from "../cardModal/EditCardModal";
 
 interface CardsColumn {
     id: sortCardsType
@@ -94,7 +90,7 @@ export const TableCards = () => {
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-    //const {cardsId} = useParams() можно достать и сетать
+
     const [grade, setGrade] = useState<number | null>(0); // пригодится
 
     useEffect(() => {
@@ -155,7 +151,6 @@ export const TableCards = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={() => handleSortCards(column.id)}
                                     >
                                         {column.label}
                                     </TableCell>
@@ -197,17 +192,15 @@ export const TableCards = () => {
                                                                     ? style.flex_icons
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
-                                                                        <DriveFileRenameOutlineOutlinedIcon
-
-                                                                            //добавить сам disabled
-                                                                            color={"primary"}
-                                                                            onClick={() => handleUpdateCard(row.id, 'new question')}/>
+                                                                      <EditCardModal question={row.question} idCard={row.id}>
+                                                                          <DriveFileRenameOutlineOutlinedIcon
+                                                                              color={'primary'}/>
+                                                                      </EditCardModal>
                                                                     </div>
                                                                     <div className={style.icons}>
-                                                                        <DeleteForeverOutlinedIcon
-                                                                            //добавить сам disabled
-                                                                            color={"primary"}
-                                                                            onClick={() => handleDeleteCard(row.id)}/>
+                                                                 <DeleteCardModal id={row.id} name={row.question}>
+                                                                     <DeleteForeverOutlinedIcon color={'primary'}/>
+                                                                 </DeleteCardModal>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -119,7 +119,7 @@ export const setPackNameForCardAC = (newPackName: string) => ({
 
 //==============================TC============================
 
-export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppThunk =>
+export const setCardsTC = (cardsPack_id: string,questionSearch?:string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
@@ -142,7 +142,6 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppTh
             handleError(err, dispatch)
         }
     }
-
 export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch, getState) => {
     dispatch(setStatusApp('loading'))
     try {
@@ -172,6 +171,7 @@ export const UpdateCardTC = (card: RequestUpdateCardType): AppThunk => async (di
         dispatch(setStatusApp('idle'))
     }
 }
+
 
 export const DeleteCardTC = (idCard: string): AppThunk => async (dispatch, getState) => {
     dispatch(setStatusApp('loading'))

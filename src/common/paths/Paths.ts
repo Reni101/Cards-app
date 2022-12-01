@@ -9,4 +9,5 @@ export const packsRoute = '/packs';
 export const cardsRoute = '/cards';
 export const learnRoute = '/learn/:cardId';
 
+//export const addNewCardPage = '/packs/new_pack';
 

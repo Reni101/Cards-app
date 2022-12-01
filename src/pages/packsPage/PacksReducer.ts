@@ -26,9 +26,9 @@ export type PacksType = {
     grade: number
     shots: number
     deckCover: string
-    cardsCount: number,
-    created: string,
-    updated: string,
+    cardsCount: number, // количество карт в колоде
+    created: string, //Date
+    updated: string,//Date
 }
 
 
@@ -86,7 +86,7 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 //=============================AC======================================
-export const setPacksAC = (resObj: ResponsePacksType) => ({
+export const setPacksAC = (resObj: ResponseCardsType) => ({
     type: 'PACKS/SET_PACKS',
     payload: resObj
 
@@ -112,13 +112,10 @@ export const changePageCountAC = (pageCount: number) => ({
     payload: {pageCount}
 } as const)
 
-export const changeSortPacksAC = (sortPacks: string) => {
-    return{
-
-        type: 'PACKS/CHANGE_SORT_PACK',
-        payload: {sortPacks}
-    } as const
-}
+export const changeSortPacksAC = (sortPacks: string) => ({
+    type: 'PACKS/CHANGE_SORT_PACK',
+    payload: {sortPacks}
+} as const)
 
 export const sortPacksNameAC = (packName: string) => ({
     type: 'PACKS/SORT_PACKS_NAME',
@@ -145,7 +142,7 @@ export const SetCardsPackTC = (packsSearch?: string): AppThunk =>
             if (packName === '') packName = null
             if (!!packsSearch) packName = packsSearch
             if (user_id === '') user_id = null
-            if (user_id === '') user_id = null
+           // if (user_id === '') user_id = null
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))

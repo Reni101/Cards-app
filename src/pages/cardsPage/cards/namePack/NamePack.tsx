@@ -16,6 +16,9 @@ import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
 import {packsRoute} from '../../../../common/paths/Paths';
+import {AddCardModal} from "../cardModal/AddCardModal";
+import {DeleteCardModal} from "../cardModal/DeleteCardModal";
+
 
 
 export const NamePack = () => {
@@ -30,7 +33,7 @@ export const NamePack = () => {
     const myId = useAppSelector(state => state.ProfilePage.user_id)
     const status = useAppSelector(state => state.App.status)
     const cardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
-    //disabled={status === "loading"}
+
 
 
     const handleToggle = () => {
@@ -60,12 +63,6 @@ export const NamePack = () => {
         prevOpen.current = open;
     }, [open]);
 
-    const createNewCard = () => {
-        {
-            cardsPack_id &&
-            dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: 'Who is John Galt', answer: 'Good boy'}))
-        }
-    }
 
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(UpdatePackTC(cards_pack))
@@ -155,13 +152,14 @@ export const NamePack = () => {
             {
                 packsUserId === myId
                     ?
-                    <Button className={style.button}
-                            variant="outlined"
-                            type="submit"
-                            disabled={status === "loading"}
-                            onClick={createNewCard}>
-                        Add new card
-                    </Button>
+                    <AddCardModal cardsPack_id={cardsPack_id}>
+                        <Button className={style.button}
+                                disabled={status === "loading"}
+                                variant="outlined"
+                                type="submit">
+                            Add new card
+                        </Button>
+                    </AddCardModal>
                     :
                     <Button className={style.button}
                             disabled={status === "loading" || cardsCount === 0}
