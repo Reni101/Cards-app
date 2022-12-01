@@ -28,8 +28,6 @@ type PaginatorPropsType = {
 }
 
 export const Paginator = memo((props: PaginatorPropsType) => {
-    const status = useAppSelector(state => state.App.status)
-    //disabled={status === "loading"}
     const [page, setPage] = React.useState(props.currentPage - 1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 

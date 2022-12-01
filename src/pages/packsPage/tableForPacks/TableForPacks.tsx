@@ -14,19 +14,15 @@ import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
-
-
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
-import {setCardsTC, setPacksIdAC} from '../../cardsPage/CardsReducer';
+import { setPacksIdAC} from '../../cardsPage/CardsReducer';
 import IconButton from '@mui/material/IconButton';
-import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
-import {RequestUpdatePackType,queryModelType} from '../PacksAPI';
+import {queryModelType} from '../PacksAPI';
 import {EditPackModal} from "../packModal/EditPackModal";
 import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
-import {Button} from "@mui/material";
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -86,13 +82,9 @@ export const TableForPacks = () => {
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
 
+
     const packs_user_id = useAppSelector(state => state.Packs.user_id)
-    const user_id = useAppSelector(state => state.Packs.user_id)
-
-
     const packName = useAppSelector(state => state.Packs.packName)
-
-
     const min = useAppSelector(state => state.Packs.min)
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
@@ -120,7 +112,7 @@ export const TableForPacks = () => {
             user_id:searchQueryUserId
         }
         dispatch(SetCardsPackTC(QuerySearchParams))
-    }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
+    }, [dispatch,packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
     const handleChangePage = useCallback((newPage: number) => {

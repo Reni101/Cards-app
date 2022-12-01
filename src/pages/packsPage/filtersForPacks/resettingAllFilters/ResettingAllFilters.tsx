@@ -30,7 +30,7 @@ export const ResettingAllFilters = () => {
         dispatch(changeShowMyPacksAC(params.user_id))
         dispatch(sortPacksNameAC(params.search))
         dispatch(changeSortPacksAC(""))
-        // setSearchParams(undefined)
+        //setSearchParams(undefined)
 
     }
     return (

@@ -1,7 +1,6 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode} from 'react';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import {Button, Checkbox} from "@mui/material";
+import {Button} from "@mui/material";
 import style from "../../cards/namePack/NamePack.module.css";
 import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
@@ -28,17 +27,12 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
             answer: ''
         },
         onSubmit: values => {
-            const data = {
-                email: values.question,
-                answer: values.answer
-            }
-
             {
                 cardsPack_id &&
                 dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
             }
 
-            console.log(data)
+
             formik.resetForm()
             setOpen(false)
 

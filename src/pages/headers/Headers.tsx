@@ -18,13 +18,11 @@ export const Headers = () => {
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
     const userName = useAppSelector(state => state.ProfilePage.name)
     const navigate = useNavigate();
-    console.log(navigate)
+
 
 
     const [nav, setNav] = useState(false)
-    // this hook tracking scrolling yor window and return scrollY value
     const scrollPosition = useScrollPosition();
-    // if scrollY value > 10px header style = opacity:0
     useEffect(() => {
         window.onwheel = (e) => {
             let scrollDirection = e.deltaY < 0
