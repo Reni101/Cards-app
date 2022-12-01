@@ -13,16 +13,15 @@ export const SearchCards = () => {
 
 
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("") // будет ругаться если пустой
-    const debouncedValue = useDebounce<string>(text, 600) //дебаунс на 1 секунду
+    const [text, setText] = useState<string >("")
+    const debouncedValue = useDebounce<string>(text, 600)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value)
     }
 
     useEffect(() => {
         dispatch(findCardsQuestionAC(debouncedValue))
-    }, [debouncedValue]) // через секунду сетает новое имя на запрос
-
+    }, [debouncedValue])
 
 
     return (

@@ -1,34 +1,46 @@
-.table_title_cell{
-    font-size: 15px!important;
+.table_title_cell {
+    cursor: pointer;
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: rgba(0, 0, 0, 0.7) !important;
     background-color: rgb(196, 220, 255) !important;
 }
-.flex_icons{
+
+.flex_icons {
     display: flex;
     flex-direction: row;
     justify-content: right;
 }
-.icons>svg{
-    margin:0 5px;
+
+.icons > svg {
+    margin: 0 5px;
 }
 
-.icons>svg:hover{
+.icons > svg:hover {
     transition: all .2s;
 }
-.icons>svg:active{
+
+.icons > svg:active {
     color: rgba(0, 0, 0, 0.2);
     transition: all .2s;
 }
-.pack_name{
+
+.pack_name {
     cursor: pointer;
     transition: all .5s;
 }
-.pack_name:hover{
+
+.pack_name:hover {
     color: rgb(30, 144, 255);
     cursor: pointer;
     transition: all .5s;
 }
-.no_visible_icons{
+
+.no_visible_icons {
     display: none;
 }
+
+.actions_display_no{
+    display: none;
+}
+

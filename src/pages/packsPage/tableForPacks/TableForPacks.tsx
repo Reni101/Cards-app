@@ -141,15 +141,9 @@ export const TableForPacks = () => {
         navigate(`/learn/${card_pack_id}`)
     }
 
-    // const deletePackClick = (pack_id: string) => {
-    //     dispatch(DeletePackTC(pack_id,searchQueryUserId))
-    // }
-    //
-    //const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-    //         dispatch(UpdatePackTC(cards_pack,searchQueryUserId))
-    //     }
 
     const handleSort = (columnID: sortType) => {
+        if(columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
