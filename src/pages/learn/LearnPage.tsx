@@ -55,8 +55,6 @@ export const LearnPage = () => {
             setIsShowAnswer(false)
             setHelperText("")
         }
-
-
     };
 
     const goToPacks = () => {
@@ -67,15 +65,12 @@ export const LearnPage = () => {
     return (
 
         <div className={style.wrapper}>
-
             <div className={style.go_to_pack_list} onClick={goToPacks}>
                 <ArrowBackIcon style={{height: '15px'}}/>
                 Back to Packs List
             </div>
             <h1 className={style.title}>Learn "{packName}"</h1>
-
             <div className={style.mainBlock}>
-
 
                 <div className={style.question}><b>Question:</b> :{randomCard!.question}</div>
                 <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
@@ -112,7 +107,6 @@ export const LearnPage = () => {
                                     variant="outlined"
 
                             >
-
                                 Next
                             </Button>
                         </FormControl>
