@@ -108,18 +108,6 @@ export const TableCards = () => {
         dispatch(changePageCardsCountAC(rows))
     }, [dispatch])
 
-    // const handleUpdateCard = (idCard: string, question: string) => {
-    //     const card = {
-    //         _id: idCard,
-    //         question
-    //     }
-    //     dispatch(UpdateCardTC(card))
-    // }
-    //
-    // const handleDeleteCard = (idCard: string) => {
-    //     dispatch(DeleteCardTC(idCard))
-    // }
-
 
     const handleSortCards = (columnID: sortCardsType) => {
         const val = sortCards === ('0' + columnID)
