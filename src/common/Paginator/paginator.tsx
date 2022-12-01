@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import TablePagination from "@mui/material/TablePagination";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -27,7 +27,7 @@ type PaginatorPropsType = {
     changeRows: (rows: number) => void
 }
 
-export const Paginator = (props: PaginatorPropsType) => {
+export const Paginator = memo((props: PaginatorPropsType) => {
     const status = useAppSelector(state => state.App.status)
     //disabled={status === "loading"}
     const [page, setPage] = React.useState(props.currentPage - 1);
@@ -59,7 +59,7 @@ export const Paginator = (props: PaginatorPropsType) => {
             />
         </>
     );
-};
+})
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
     const status = useAppSelector(state => state.App.status)

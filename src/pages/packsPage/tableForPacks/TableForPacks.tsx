@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -72,8 +72,6 @@ export const TableForPacks = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
-    //disabled={status === "loading"}
-    //reset
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
@@ -100,13 +98,13 @@ export const TableForPacks = () => {
     }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
 
 
-    const handleChangePage = (newPage: number) => {
+    const handleChangePage = useCallback((newPage: number) => {
         dispatch(changePageAC(newPage))
-    };
+    }, [dispatch])
 
-    const handleChangeRowsPerPage = (rows: number) => {
+    const handleChangeRowsPerPage = useCallback((rows: number) => {
         dispatch(changePageCountAC(rows))
-    };
+    }, [dispatch])
 
     const goToCardsClick = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))

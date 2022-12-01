@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -103,13 +103,13 @@ export const TableCards = () => {
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
-    const handleChangePage = (newPage: number) => {
+    const handleChangePage = useCallback((newPage: number) => {
         dispatch(changePageCardsAC(newPage))
-    };
+    }, [dispatch])
 
-    const handleChangeRowsPerPage = (rows: number) => {
+    const handleChangeRowsPerPage = useCallback((rows: number) => {
         dispatch(changePageCardsCountAC(rows))
-    };
+    }, [dispatch])
 
     const handleUpdateCard = (idCard: string, question: string) => {
         const card = {
