@@ -101,6 +101,7 @@ export const TableForPacks = () => {
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
+    const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const rows: RowsData[] = rowsArray.map((row) =>
         createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
@@ -108,10 +109,12 @@ export const TableForPacks = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
+
     useEffect(() => {
         if(searchQueryName !== packName) return
-        const min_params = Number(searchQueryMin)
+        const min_params =  Number(searchQueryMin)
         const max_params = Number(searchQueryMax)
+
         let QuerySearchParams:queryModelType = {
             min:min_params,
             max:max_params,
@@ -190,7 +193,7 @@ export const TableForPacks = () => {
                             {rows
                                 .filter( (r) => r.name.toLowerCase().startsWith(searchQueryName))
                                 .filter( (r) =>
-                                    Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= Number(searchQueryMax))
+                                    Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>

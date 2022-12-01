@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import style from './FilterRange.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import useDebounce, {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
-import {changeMaxAC, changeMinAC} from "../../PacksReducer";
+import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {changeMaxAC, changeMinAC} from '../../PacksReducer';
 import {useSearchParams} from 'react-router-dom';
 
 const valuetext = (value: number) => {
@@ -24,7 +24,7 @@ export const FilterRange = () => {
 
 
     const max_value = Number(searchQueryMax) ? Number(searchQueryMax) : maxCardsCount
-    const [value, setValue] = React.useState<number[]>([Number(searchQueryMin),Number(searchQueryMax)]);
+    const [value, setValue] = React.useState<number[]>([Number(searchQueryMin), Number(searchQueryMax)]);
     const debounceValue = useDebounce<number[]>(value, 700);
 
 
@@ -35,15 +35,15 @@ export const FilterRange = () => {
 
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
-        let [min_val,max_val] = newValue as number[]
+        let [min_val, max_val] = newValue as number[]
 
         const params = {
-            search:searchQueryName,
-            user_id:searchQueryUserId,
-            min:min_val.toString(),
-            max:''
+            search: searchQueryName,
+            user_id: searchQueryUserId,
+            min: min_val.toString(),
+            max: ''
         }
-        max_val === 0 ? params.max = maxCardsCount.toString(): params.max = max_val.toString()
+        max_val === 0 ? params.max = maxCardsCount.toString() : params.max = max_val.toString()
         setSearchParams(params)
         setValue(newValue as number[]);
     };
@@ -56,19 +56,18 @@ export const FilterRange = () => {
                 Number of cards
             </div>
             <div className={style.slider_wrapper}>
-
-                <Box sx={{width: 150}}>
+                <div className={style.count_value_wrapper}>{Number(searchQueryMin)}</div>
+                <Box sx={{width: 100}}>
                     <Slider
-                        value={[Number(searchQueryMin),max_value]}
+                        value={[Number(searchQueryMin), max_value]}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}
                         max={maxCardsCount}
                         step={1}
                     />
-
                 </Box>
-
+                <div className={style.count_value_wrapper_right}>{max_value}</div>
             </div>
 
         </div>
