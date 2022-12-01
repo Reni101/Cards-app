@@ -22,7 +22,7 @@ export type CardType = {
     question: string
     rating: number
     grade: number
-    shots: number // сколько раз обучались по карточке
+    shots: number
     created: string
     updated: string
 }
@@ -38,10 +38,9 @@ type InitialStateType = {
     page: number
     pageCount: number
     cardsTotalCount: number
-
-    cardQuestion: string | null// поиск по вопросами
-    sortCards: string | null  // сортировка по вопросам
-    cardsPack_id: string  //айдишка пака
+    cardQuestion: string | null
+    sortCards: string | null
+    cardsPack_id: string
 }
 
 
@@ -143,6 +142,7 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppTh
             handleError(err, dispatch)
         }
     }
+
 export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch, getState) => {
     dispatch(setStatusApp('loading'))
     try {
@@ -158,7 +158,6 @@ export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch
     }
 }
 
-
 export const UpdateCardTC = (card: RequestUpdateCardType): AppThunk => async (dispatch, getState) => {
     dispatch(setStatusApp('loading'))
     try {
@@ -173,7 +172,6 @@ export const UpdateCardTC = (card: RequestUpdateCardType): AppThunk => async (di
         dispatch(setStatusApp('idle'))
     }
 }
-
 
 export const DeleteCardTC = (idCard: string): AppThunk => async (dispatch, getState) => {
     dispatch(setStatusApp('loading'))
