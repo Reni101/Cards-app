@@ -19,10 +19,10 @@ export const ResettingAllFilters = () => {
     const ResetAllFiltersParams = () => {
 
         const params = {
-            search:'',
-            user_id:'',
-            min:'0',
-            max:maxCardsCount.toString()
+            search: '',
+            user_id: '',
+            min: '0',
+            max: maxCardsCount.toString()
         }
         setSearchParams(params)
         dispatch(changeMinAC(Number(params.min)))
@@ -30,7 +30,7 @@ export const ResettingAllFilters = () => {
         dispatch(changeShowMyPacksAC(params.user_id))
         dispatch(sortPacksNameAC(params.search))
         dispatch(changeSortPacksAC(""))
-        //setSearchParams(undefined)
+        // setSearchParams(undefined)
 
     }
     return (

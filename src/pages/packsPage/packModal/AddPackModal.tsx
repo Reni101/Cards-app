@@ -7,24 +7,35 @@ import style from "../addNewPack/AddNewPack.module.css";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {AddPackTC} from "../PacksReducer";
 import s from './AddPackModal.module.css'
+import {useSearchParams} from "react-router-dom";
 
 type AddPackModalType = {
     children: ReactNode
 }
 
 export const AddPackModal = ({children}: AddPackModalType) => {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const searchQueryUserId = searchParams.get('user_id') || '';
+    const status = useAppSelector(state => state.App.status)
+
 
     const [open, setOpen] = React.useState(false);
 
     const [valueInput, setValueInput] = useState('')
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.App.status)
+
+    const isLoading = status === "loading"
+
 
     const AddNewPack = async () => {
-        await dispatch(AddPackTC({name: valueInput}))
+        await dispatch(AddPackTC({name: valueInput},searchQueryUserId))
         setValueInput('')
         setOpen(false)
     }
+
+    //const AddNewPack = async () => {
+    //             await dispatch(AddPackTC({name:"Sanya Luchshaya TC"},searchQueryUserId))
+    //     }
 
     const HandlerCancel = () => {
         setOpen(false)

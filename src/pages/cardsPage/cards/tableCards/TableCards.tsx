@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -16,15 +16,16 @@ import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
-import {sortCardsAC,} from '../../CardsReducer';
+import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
-
-
-type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
-import {changePageCardsAC, changePageCardsCountAC, DeleteCardTC, setCardsTC, UpdateCardTC} from '../../CardsReducer';
-import {DeleteCardModal} from "../cardModal/DeleteCardModal";
+import { DeleteCardModal } from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
+type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
+
+
+
+
 
 interface CardsColumn {
     id: sortCardsType
@@ -107,17 +108,17 @@ export const TableCards = () => {
         dispatch(changePageCardsCountAC(rows))
     }, [dispatch])
 
-    const handleUpdateCard = (idCard: string, question: string) => {
-        const card = {
-            _id: idCard,
-            question
-        }
-        dispatch(UpdateCardTC(card))
-    }
-
-    const handleDeleteCard = (idCard: string) => {
-        dispatch(DeleteCardTC(idCard))
-    }
+    // const handleUpdateCard = (idCard: string, question: string) => {
+    //     const card = {
+    //         _id: idCard,
+    //         question
+    //     }
+    //     dispatch(UpdateCardTC(card))
+    // }
+    //
+    // const handleDeleteCard = (idCard: string) => {
+    //     dispatch(DeleteCardTC(idCard))
+    // }
 
 
     const handleSortCards = (columnID: sortCardsType) => {
@@ -130,7 +131,7 @@ export const TableCards = () => {
         navigate(packsRoute)
     }
 
-    if (!packId) {
+    if (cards.length === 0) {
         return (
             <div className={style.empty_pack}>
                 <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>

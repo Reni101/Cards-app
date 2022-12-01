@@ -26,6 +26,7 @@ import {RequestUpdatePackType,queryModelType} from '../PacksAPI';
 import {EditPackModal} from "../packModal/EditPackModal";
 import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
+import {Button} from "@mui/material";
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -151,6 +152,14 @@ export const TableForPacks = () => {
     const handleSort = (columnID: sortType) => {
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
+    }
+
+    if (rows.length === 0) {
+        return (
+            <div className={style.empty_pack}>
+                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
+            </div>
+        )
     }
 
     return (

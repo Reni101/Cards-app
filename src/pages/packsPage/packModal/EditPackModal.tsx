@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import s from './EditPackModal.module.css'
 import {RequestUpdatePackType} from "../PacksAPI";
 import {UpdatePackTC} from "../PacksReducer";
+import {useSearchParams} from "react-router-dom";
 
 type EditPackModalType = {
     children: ReactNode
@@ -15,6 +16,9 @@ type EditPackModalType = {
 }
 
 export const EditPackModal = ({children, id}: EditPackModalType) => {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const searchQueryUserId = searchParams.get('user_id') || '';
+
 
     const [open, setOpen] = React.useState(false);
 
@@ -23,7 +27,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
     const [valueInput, setValueInput] = useState(pack?.name)
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
+        dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
         setOpen(false)
     }
