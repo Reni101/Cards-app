@@ -36,7 +36,7 @@ export const LearnPage = () => {
 
     useEffect(() => {
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
-    }, [])
+    }, [dispatch])
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer((event.target as HTMLInputElement).value);
@@ -91,15 +91,15 @@ export const LearnPage = () => {
 
 
                 {isShowAnswer &&
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className={style.formBlock}>
                         <FormControl error={error} variant="standard">
                             <FormLabel id="demo-error-radios">
                                 <div className={style.question}><b>Answer:</b>{randomCard!.answer}</div>
                             </FormLabel>
-                            <RadioGroup
-                                aria-labelledby="demo-error-radios"
-                                name="quiz"
-                                onChange={handleRadioChange}
+                            <RadioGroup className={style.answerBlock}
+                                        aria-labelledby="demo-error-radios"
+                                        name="quiz"
+                                        onChange={handleRadioChange}
                             >
                                 <FormControlLabel value="1" control={<Radio/>} label="Did not know"/>
                                 <FormControlLabel value="2" control={<Radio/>} label="Forgot"/>
@@ -107,9 +107,8 @@ export const LearnPage = () => {
                                 <FormControlLabel value="4" control={<Radio/>} label="Confuse"/>
                                 <FormControlLabel value="5" control={<Radio/>} label="Knew the answer"/>
                             </RadioGroup>
-                            <FormHelperText>{helperText}</FormHelperText>
+                            <FormHelperText className={style.helpText}>{helperText}</FormHelperText>
                             <Button type="submit"
-                                    style={{marginBottom: "30px", width: "231px"}}
                                     variant="outlined"
 
                             >

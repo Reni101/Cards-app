@@ -75,7 +75,7 @@ export const NamePack = () => {
     }
     const goToLearnHandler =  (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
-        navigate(packsRoute)
+        navigate(`/learn/${card_pack_id}`)
     }
 
 
