@@ -14,7 +14,7 @@ export type ActionsCardsType =
     | ReturnType<typeof setPackNameForCardAC>
 
 
-type CardType = {
+export type CardType = {
     _id: string
     cardsPack_id: string
     user_id: string
@@ -55,7 +55,6 @@ const initialState: InitialStateType = {
     page: 1,
     pageCount: 5,
     cardsTotalCount: 0,
-
     cardQuestion: null,
     sortCards: "",
     cardsPack_id: "",

@@ -1,18 +1,15 @@
 import {instance} from "../../common/API/api";
 import {AxiosResponse} from "axios";
-
+import {CardType} from "./CardsReducer";
 
 
 export const cardsAPI = {
-    getCards(model:queryCardsModelType) {
-        return instance.get<ResponseCardsType>("cards/card", {
-            params: model
-        })
-
+    getCards(params: queryCardsModelType) {
+        return instance.get<ResponseCardsType>("cards/card", {params})
     },
     addCard(card: RequestAddCardType) {
 
-      return  instance.post<{ card: RequestAddCardType }, AxiosResponse>("cards/card",{card})
+        return instance.post<{ card: RequestAddCardType }, AxiosResponse>("cards/card", {card})
     },
     updateCard(card: RequestUpdateCardType) {
         instance.put("cards/card", {card: card})
@@ -25,27 +22,13 @@ export const cardsAPI = {
 export type ResponseCardsType = {
     cards: CardType[];
     packUserId: string;
-    packName: string; // название колоды
-    packPrivate: boolean;
-    packCreated: string;
-    packUpdated: string;
-
-    page: number;
-    pageCount: number; //количество карточек на странице
-    cardsTotalCount: number; // всего карточек
-}
-export type CardType = {
-    _id: string;
-    cardsPack_id: string;
-    user_id: string;
-    answer: string;
-    question: string;
-    rating:number
-    more_id: string
-    grade: number
-    shots: number // сколько раз обучались по карточке
-    created: string
-    updated: string
+    packName: string
+    packPrivate: boolean | null
+    packCreated: string | null
+    packUpdated: string | null
+    page: number
+    pageCount: number
+    cardsTotalCount: number
 }
 
 export type RequestAddCardType = {

@@ -1,7 +1,7 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponseCardsType} from './PacksAPI';
+import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
@@ -18,17 +18,17 @@ export type ActionsPacksType =
 const MAX_COUNT_CARDS = 110
 
 export type PacksType = {
-    _id: string // id колоды!!!
+    _id: string
     user_id: string
     user_name: string
     private: boolean
-    name: string, // название колоды
+    name: string,
     grade: number
     shots: number
     deckCover: string
-    cardsCount: number, // количество карт в колоде
-    created: string, //Date
-    updated: string,//Date
+    cardsCount: number,
+    created: string,
+    updated: string,
 }
 
 
@@ -86,7 +86,7 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 //=============================AC======================================
-export const setPacksAC = (resObj: ResponseCardsType) => ({
+export const setPacksAC = (resObj: ResponsePacksType) => ({
     type: 'PACKS/SET_PACKS',
     payload: resObj
 

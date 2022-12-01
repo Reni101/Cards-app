@@ -1,27 +1,14 @@
 import {instance} from "../../common/API/api";
 import {AxiosResponse} from "axios";
+import {PacksType} from "./PacksReducer";
 
-export type ResponseCardsType = {
-    cardPacks: CardPacksType[];
+export type ResponsePacksType = {
+    cardPacks: PacksType[];
     page: number;
     pageCount: number;
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
-
-}
-export type CardPacksType = {
-    _id: string;
-    user_id: string;
-    user_name: string;
-    private: boolean;
-    name: string;
-    grade: number;
-    shots: number;
-    deckCover: string;
-    cardsCount: number;
-    created: string;
-    updated: string;
 }
 
 export type queryModelType = {
@@ -45,7 +32,7 @@ export type RequestUpdatePackType = {
 
 export const packsAPI = {
     getPacks(params?: queryModelType) {
-        return instance.get<ResponseCardsType>("cards/pack", {params})
+        return instance.get<ResponsePacksType>("cards/pack", {params})
     },
     addPack(cardsPack: RequestAddPackType) {
         instance.post<{ name: string }, AxiosResponse>('cards/pack', {cardsPack})
