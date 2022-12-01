@@ -3,21 +3,41 @@ import style from './SearchPacks.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch} from "../../../../hooks/hooks";
-import {sortPacksNameAC} from "../../PacksReducer";
+import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {changeSortPacksAC, sortPacksNameAC} from '../../PacksReducer';
+import {useSearchParams} from 'react-router-dom';
 
 
 export const SearchPacks = () => {
     const dispatch = useAppDispatch()
-    const [text, setText] = useState<string >("") // будет ругаться если пустой
-    const debouncedValue = useDebounce<string>(text, 600) //дебаунс на 1 секунду
+
+    const packName = useAppSelector(state => state.Packs.packName)
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQueryName = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
+    const debouncedValue = useDebounce<string>(searchQueryName, 700)
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setText(event.target.value)
+        event.preventDefault();
+        const form = event.target;
+        const query = form.value
+        const params = {
+            search:query,
+            user_id:searchQueryUserId,
+            min:searchQueryMin,
+            max:searchQueryMax
+        }
+        setSearchParams(params)
     }
 
+
     useEffect(() => {
+        if(packName === debouncedValue) return
         dispatch(sortPacksNameAC(debouncedValue))
-    }, [debouncedValue]) // через секунду сетает новое имя на запрос
+    }, [debouncedValue])
 
     return (
         <div className={style.all_wrapper_search_packs}>
@@ -33,7 +53,7 @@ export const SearchPacks = () => {
                         placeholder="go search..."
                         className={style.search_input}
                         onChange={handleChange}
-
+                        value={searchQueryName}
                     />
                 </Search>
             </Toolbar>

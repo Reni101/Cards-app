@@ -15,12 +15,14 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {cardsRoute} from '../../../common/paths/Paths';
 
+
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
 import {setCardsTC, setPacksIdAC} from '../../cardsPage/CardsReducer';
-
 import IconButton from '@mui/material/IconButton';
 import {DeletePackTC, UpdatePackTC} from '../PacksReducer';
-import {RequestUpdatePackType} from '../PacksAPI';
+import {RequestUpdatePackType,queryModelType} from '../PacksAPI';
 import {EditPackModal} from "../packModal/EditPackModal";
 import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
@@ -78,10 +80,18 @@ export const TableForPacks = () => {
     const status = useAppSelector(state => state.App.status)
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
+    const searchQueryName = searchParams.get('search') || '';
+    const searchQueryUserId = searchParams.get('user_id') || '';
+    const searchQueryMin = searchParams.get('min') || '';
+    const searchQueryMax = searchParams.get('max') || '';
+
+    const packs_user_id = useAppSelector(state => state.Packs.user_id)
+    const user_id = useAppSelector(state => state.Packs.user_id)
+
 
     const packName = useAppSelector(state => state.Packs.packName)
-    const user_id = useAppSelector(state => state.Packs.user_id)
+
+
     const min = useAppSelector(state => state.Packs.min)
     const max = useAppSelector(state => state.Packs.max)
     const pageCount = useAppSelector(state => state.Packs.pageCount)
@@ -90,6 +100,7 @@ export const TableForPacks = () => {
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
+    const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const rows: RowsData[] = rowsArray.map((row) =>
         createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
@@ -97,9 +108,18 @@ export const TableForPacks = () => {
 
 
     useEffect(() => {
-        if (searchQuery !== packName) return
-        dispatch(SetCardsPackTC(packName))
-    }, [packName, user_id, min, max, pageCount, sortPacks, currentPage])
+        if(searchQueryName !== packName) return
+        const min_params =  Number(searchQueryMin)
+        const max_params = Number(searchQueryMax)
+
+        let QuerySearchParams:queryModelType = {
+            min:min_params,
+            max:max_params,
+            packName:searchQueryName,
+            user_id:searchQueryUserId
+        }
+        dispatch(SetCardsPackTC(QuerySearchParams))
+    }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
     const handleChangePage = useCallback((newPage: number) => {
@@ -121,12 +141,12 @@ export const TableForPacks = () => {
     }
 
     // const deletePackClick = (pack_id: string) => {
-    //     dispatch(DeletePackTC(pack_id))
+    //     dispatch(DeletePackTC(pack_id,searchQueryUserId))
     // }
     //
-    // const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-    //     dispatch(UpdatePackTC(cards_pack))
-    // }
+    //const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+    //         dispatch(UpdatePackTC(cards_pack,searchQueryUserId))
+    //     }
 
     const handleSort = (columnID: sortType) => {
         const val = sortPacks === ('0' + columnID)
@@ -136,7 +156,7 @@ export const TableForPacks = () => {
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
-                <TableContainer >
+                <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -148,13 +168,31 @@ export const TableForPacks = () => {
                                         className={style.table_title_cell}
                                         onClick={() => handleSort(column.id)}
                                     >
-                                        {column.label}
+                                            {column.label}
+                                        {
+                                            sortPacks === ('0' + column.id)
+                                                ?
+                                                <span className={column.id === 'actions'
+                                                    ? style.actions_display_no
+                                                    : style.sort_icon }>
+                                                    <ArrowDropDownIcon/>
+                                                </span>
+                                                :
+                                                <span className={column.id === 'actions'
+                                                    ? style.actions_display_no
+                                                    : style.sort_icon }>
+                                                    <ArrowDropUpIcon/>
+                                                </span>
+                                        }
                                     </TableCell>
                                 ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows
+                                .filter( (r) => r.name.toLowerCase().startsWith(searchQueryName))
+                                .filter( (r) =>
+                                    Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
@@ -188,12 +226,11 @@ export const TableForPacks = () => {
                                                                     </IconButton>
 
                                                                 </div>
+
+
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
-
-
-
                                                                     <EditPackModal id={row.pack_id}>
                                                                         <IconButton disabled={isLoading}
                                                                                     size="small">
@@ -222,8 +259,6 @@ export const TableForPacks = () => {
 
 
                                                                 </div>
-
-
                                                             </div>
                                                         }
                                                     </TableCell>

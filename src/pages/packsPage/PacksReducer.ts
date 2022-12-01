@@ -1,7 +1,7 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
+import {packsAPI, RequestAddPackType,queryModelType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
@@ -86,7 +86,7 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 //=============================AC======================================
-export const setPacksAC = (resObj: ResponseCardsType) => ({
+export const setPacksAC = (resObj: ResponsePacksType) => ({
     type: 'PACKS/SET_PACKS',
     payload: resObj
 
@@ -130,19 +130,18 @@ export const changeShowMyPacksAC = (user_id: string) => ({
 
 //==============================TC============================
 
-export const SetCardsPackTC = (packsSearch?: string): AppThunk =>
+export const SetCardsPackTC = (QuerySearchParams:queryModelType): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
-            let {page, min, max, pageCount, sortPacks, packName, user_id} = getState().Packs
+            let {packName,user_id,min,max} = QuerySearchParams
+            let {page, pageCount, sortPacks,maxCardsCount} = getState().Packs
             if (page === 1) page = null
-            if (min === 0) min = null
-            if (max === 0 || max === 110) max = null
+            if (max === 0) max = maxCardsCount
             if (sortPacks === '') sortPacks = null
             if (packName === '') packName = null
-            if (!!packsSearch) packName = packsSearch
             if (user_id === '') user_id = null
-           // if (user_id === '') user_id = null
+
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
@@ -153,11 +152,11 @@ export const SetCardsPackTC = (packsSearch?: string): AppThunk =>
         }
     }
 
-export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dispatch) => {
+export const AddPackTC = (cardsPack: RequestAddPackType,searchQueryUserId?:string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        await dispatch(SetCardsPackTC())
+        await dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -168,12 +167,12 @@ export const AddPackTC = (cardsPack: RequestAddPackType): AppThunk => async (dis
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => async (dispatch) => {
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType,searchQueryUserId?:string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
-        await dispatch(SetCardsPackTC())
-        dispatch(setPackNameForCardAC(cardsPack.name))
+        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
+        dispatch(setPackNameForCardAC(cardsPack.name!))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -184,11 +183,11 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType): AppThunk => asyn
 }
 
 
-export const DeletePackTC = (idPack: string): AppThunk => async (dispatch) => {
+export const DeletePackTC = (idPack: string,searchQueryUserId?:string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.deletePack(idPack)
-        await dispatch(SetCardsPackTC())
+        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
         dispatch(setPacksIdAC(''))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {

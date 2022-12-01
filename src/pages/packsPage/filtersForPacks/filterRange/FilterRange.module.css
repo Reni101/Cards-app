@@ -1,16 +1,45 @@
 .all_wrapper_filter_range{
 }
+.count_value_wrapper {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    min-width: 30px;
+    padding: 0 5px;
+    border: 1px solid #5fb0ff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 15px;
+
+}
+.count_value_wrapper_right{
+    position: absolute;
+    right: 0;
+    height: 30px;
+    min-width: 30px;
+    padding: 0 5px;
+    border: 1px solid #5fb0ff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 15px;
+}
 
 .title_filter_range{
     font-size: 20px;
+    text-align: center;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
 .slider_wrapper{
     position: relative;
+    min-width: 220px;
+    align-items: center;
     min-height: 64px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
+
 }
 
