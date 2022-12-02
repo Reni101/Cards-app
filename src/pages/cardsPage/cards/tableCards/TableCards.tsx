@@ -7,7 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-
 import moment from 'moment/moment';
 import {Button, Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
@@ -15,15 +14,12 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
-import { DeleteCardModal } from '../cardModal/DeleteCardModal';
+import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
+
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
-
-
-
 
 
 interface CardsColumn {
@@ -72,14 +68,8 @@ function createData(
 export const TableCards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
-
-
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
-
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)
@@ -89,8 +79,8 @@ export const TableCards = () => {
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-
-    const [grade, setGrade] = useState<number | null>(0); // пригодится
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
 
     useEffect(() => {
         if (searchQuery !== findQuestion) return
@@ -98,22 +88,20 @@ export const TableCards = () => {
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
-    const handleChangePage = useCallback((newPage: number) => {
+    const changePageHandler = useCallback((newPage: number) => {
         dispatch(changePageCardsAC(newPage))
     }, [dispatch])
 
-    const handleChangeRowsPerPage = useCallback((rows: number) => {
+    const changeRowsPerPageHandler = useCallback((rows: number) => {
         dispatch(changePageCardsCountAC(rows))
     }, [dispatch])
 
-
-    const handleSortCards = (columnID: sortCardsType) => {
+    const sortCardsHandler = (columnID: sortCardsType) => {
         const val = sortCards === ('0' + columnID)
         dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
-
-    const goToPacksClick = () => {
+    const goToPacksHandler = () => {
         navigate(packsRoute)
     }
 
@@ -121,7 +109,7 @@ export const TableCards = () => {
         return (
             <div className={style.empty_pack}>
                 <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
-                <Button onClick={goToPacksClick} variant="outlined">go to packs list</Button>
+                <Button onClick={goToPacksHandler} variant="outlined">go to packs list</Button>
             </div>
         )
     }
@@ -138,7 +126,9 @@ export const TableCards = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={()=>{handleSortCards(column.id)}}
+                                        onClick={() => {
+                                            sortCardsHandler(column.id)
+                                        }}
                                     >
                                         {column.label}
                                     </TableCell>
@@ -154,9 +144,7 @@ export const TableCards = () => {
                                                 const value = row[column.id];
                                                 return (
                                                     <TableCell key={column.id}
-                                                               align={column.align}
-                                                    >
-
+                                                               align={column.align}>
                                                         {column.format &&
                                                         typeof value === 'string'
                                                             ? column.format(value)
@@ -172,23 +160,23 @@ export const TableCards = () => {
                                                                 <Rating
                                                                     name="simple-controlled"
                                                                     value={row.grade}
-                                                                    onChange={(event, newValue) => {
-                                                                        setGrade(newValue);
-                                                                    }}
                                                                 />
                                                                 <div className={packsUserId === myId
                                                                     ? style.flex_icons
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
-                                                                      <EditCardModal question={row.question} idCard={row.id}>
-                                                                          <DriveFileRenameOutlineOutlinedIcon
-                                                                              color={'primary'}/>
-                                                                      </EditCardModal>
+                                                                        <EditCardModal question={row.question}
+                                                                                       idCard={row.id}>
+                                                                            <DriveFileRenameOutlineOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </EditCardModal>
                                                                     </div>
                                                                     <div className={style.icons}>
-                                                                 <DeleteCardModal id={row.id} name={row.question}>
-                                                                     <DeleteForeverOutlinedIcon color={'primary'}/>
-                                                                 </DeleteCardModal>
+                                                                        <DeleteCardModal id={row.id}
+                                                                                         name={row.question}>
+                                                                            <DeleteForeverOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </DeleteCardModal>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -205,8 +193,8 @@ export const TableCards = () => {
                 <Paginator name={"Количество карт"}
                            cardPacksTotalCount={totalCardsCount}
                            currentPage={currentPage}
-                           changePage={handleChangePage}
-                           changeRows={handleChangeRowsPerPage}/>
+                           changePage={changePageHandler}
+                           changeRows={changeRowsPerPageHandler}/>
             </Paper>
         </div>
     );
