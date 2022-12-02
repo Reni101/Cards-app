@@ -101,7 +101,8 @@ export const changePageCardsCountAC = (pageCount: number) => ({
 export const findCardsQuestionAC = (cardQuestion: string) => ({
     type: 'CARDS/FIND_CARDS_QUESTION_AC',
     payload: {cardQuestion}
-} as const)
+}as const)
+
 
 export const sortCardsAC = (sortCards: string) => ({
     type: 'CARDS/SORT_CARDS',

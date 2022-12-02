@@ -18,7 +18,7 @@ export const Headers = () => {
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
     const userName = useAppSelector(state => state.ProfilePage.name)
     const navigate = useNavigate();
-    console.log(navigate)
+
 
 
     const [nav, setNav] = useState(false)

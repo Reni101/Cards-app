@@ -17,14 +17,14 @@ import {packsRoute} from '../../../../common/paths/Paths';
 import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
-import {Paginator} from "../../../../common/Paginator/paginator";
-import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
-import { DeleteCardModal } from '../cardModal/DeleteCardModal';
-import {EditCardModal} from "../cardModal/EditCardModal";
-type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
+import {Paginator} from '../../../../common/Paginator/paginator';
+import {changeSortPacksAC} from '../../../packsPage/PacksReducer';
+import {DeleteCardModal} from '../cardModal/DeleteCardModal';
+import {EditCardModal} from '../cardModal/EditCardModal';
+import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
+import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 
-
-
+type sortCardsType = 'question' | 'answer' | 'updated' | 'grade'
 
 
 interface CardsColumn {
@@ -75,7 +75,7 @@ export const TableCards = () => {
     const dispatch = useAppDispatch()
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search') || '';
+    const searchQueryQuestName = searchParams.get('search_question)') || '';
 
 
     const cards = useAppSelector(state => state.Cards.cards)
@@ -95,8 +95,7 @@ export const TableCards = () => {
     const [grade, setGrade] = useState<number | null>(0); // пригодится
 
     useEffect(() => {
-        if (searchQuery !== findQuestion) return
-        dispatch(setCardsTC(packId, searchQuery))
+        dispatch(setCardsTC(packId, searchQueryQuestName))
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
@@ -109,24 +108,26 @@ export const TableCards = () => {
     }, [dispatch])
 
 
-    const handleSortCards = (columnID: sortCardsType) => {
-        const val = sortCards === ('0' + columnID)
-        dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
-    }
+    // const handleSortCards = (columnID: sortCardsType) => {
+    //     const val = sortCards === ('0' + columnID)
+    //     dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
+    // }
+    // we dont have sort Questions, this sort cards handle, but we not need this handle in TableCards.tsx
 
 
-    const goToPacksClick = () => {
-        navigate(packsRoute)
-    }
-
-    if (cards.length === 0) {
+    if (status === 'loading') {
         return (
-            <div className={style.empty_pack}>
-                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
-                <Button onClick={goToPacksClick} variant="outlined">go to packs list</Button>
-            </div>
+            <ExampleAnimation/>
         )
     }
+
+    if (rows.length === 0) {
+        const error = 'There\'s nothing here';
+        return (
+            <LottieNoSearch error_name={error}/>
+        )
+    }
+
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
@@ -181,15 +182,18 @@ export const TableCards = () => {
                                                                     ? style.flex_icons
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
-                                                                      <EditCardModal question={row.question} idCard={row.id}>
-                                                                          <DriveFileRenameOutlineOutlinedIcon
-                                                                              color={'primary'}/>
-                                                                      </EditCardModal>
+                                                                        <EditCardModal question={row.question}
+                                                                                       idCard={row.id}>
+                                                                            <DriveFileRenameOutlineOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </EditCardModal>
                                                                     </div>
                                                                     <div className={style.icons}>
-                                                                 <DeleteCardModal id={row.id} name={row.question}>
-                                                                     <DeleteForeverOutlinedIcon color={'primary'}/>
-                                                                 </DeleteCardModal>
+                                                                        <DeleteCardModal id={row.id}
+                                                                                         name={row.question}>
+                                                                            <DeleteForeverOutlinedIcon
+                                                                                color={'primary'}/>
+                                                                        </DeleteCardModal>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -203,7 +207,7 @@ export const TableCards = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Paginator name={"Количество карт"}
+                <Paginator name={'Количество карт'}
                            cardPacksTotalCount={totalCardsCount}
                            currentPage={currentPage}
                            changePage={handleChangePage}
