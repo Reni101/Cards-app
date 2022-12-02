@@ -14,11 +14,10 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
-import {changeSortPacksAC} from "../../../packsPage/PacksReducer";
 import { DeleteCardModal } from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
@@ -80,7 +79,6 @@ export const TableCards = () => {
 
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
-    const status = useAppSelector(state => state.App.status)
 
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
     const myId = useAppSelector(state => state.ProfilePage.user_id)
@@ -140,6 +138,7 @@ export const TableCards = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
+                                        onClick={()=>{handleSortCards(column.id)}}
                                     >
                                         {column.label}
                                     </TableCell>

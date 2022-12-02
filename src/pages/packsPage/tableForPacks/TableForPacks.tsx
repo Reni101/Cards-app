@@ -133,7 +133,6 @@ export const TableForPacks = () => {
         navigate(`/learn/${card_pack_id}`)
     }
 
-
     const handleSort = (columnID: sortType) => {
         if(columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)

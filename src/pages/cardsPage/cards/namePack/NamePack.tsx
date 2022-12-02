@@ -11,14 +11,11 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {AddCardTC, setPacksIdAC} from '../../CardsReducer';
+import { setPacksIdAC} from '../../CardsReducer';
 import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
-import {packsRoute} from '../../../../common/paths/Paths';
 import {AddCardModal} from "../cardModal/AddCardModal";
-import {DeleteCardModal} from "../cardModal/DeleteCardModal";
-
 
 
 export const NamePack = () => {
@@ -33,7 +30,6 @@ export const NamePack = () => {
     const myId = useAppSelector(state => state.ProfilePage.user_id)
     const status = useAppSelector(state => state.App.status)
     const cardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
-
 
 
     const handleToggle = () => {
@@ -70,7 +66,7 @@ export const NamePack = () => {
     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
-    const goToLearnHandler =  (card_pack_id: string) => {
+    const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(`/learn/${card_pack_id}`)
     }
@@ -118,7 +114,10 @@ export const NamePack = () => {
                                         onKeyDown={handleListKeyDown}
                                     >
                                         <MenuItem onClick={handleClose}>
-                                            <div className={style.icon_action}>
+                                            <div className={style.icon_action}
+                                                 onClick={() => {
+                                                     goToLearnHandler(cardsPack_id)
+                                                 }}>
                                                 <SchoolOutlinedIcon/>
                                                 <div className={style.name_icon}>Learn</div>
                                             </div>
@@ -165,7 +164,9 @@ export const NamePack = () => {
                             disabled={status === "loading" || cardsCount === 0}
                             variant="outlined"
                             type="submit"
-                            onClick={()=>{goToLearnHandler(cardsPack_id)}}
+                            onClick={() => {
+                                goToLearnHandler(cardsPack_id)
+                            }}
                     >
                         Learn to pack
                     </Button>
