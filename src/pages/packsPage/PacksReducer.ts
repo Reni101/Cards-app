@@ -1,7 +1,7 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType,queryModelType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
+import {packsAPI, RequestAddPackType, queryModelType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
@@ -22,13 +22,13 @@ export type PacksType = {
     user_id: string
     user_name: string
     private: boolean
-    name: string,
+    name: string
     grade: number
     shots: number
     deckCover: string
-    cardsCount: number, // количество карт в колоде
-    created: string, //Date
-    updated: string,//Date
+    cardsCount: number
+    created: string
+    updated: string
 }
 
 
@@ -68,9 +68,8 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
             return {...state, ...action.payload}
         case 'PACKS/CHANGE_PAGE':
             return {...state, page: action.payload.page}
-        case 'PACKS/CHANGE_MIN': {
+        case 'PACKS/CHANGE_MIN':
             return {...state, min: action.payload.min}
-        }
         case 'PACKS/CHANGE_MAX':
             return {...state, max: action.payload.max}
         case 'PACKS/CHANGE_PAGE_COUNT':
@@ -130,12 +129,12 @@ export const changeShowMyPacksAC = (user_id: string) => ({
 
 //==============================TC============================
 
-export const SetCardsPackTC = (QuerySearchParams:queryModelType): AppThunk =>
+export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp('loading'))
         try {
-            let {packName,user_id,min,max} = QuerySearchParams
-            let {page, pageCount, sortPacks,maxCardsCount} = getState().Packs
+            let {packName, user_id, min, max} = QuerySearchParams
+            let {page, pageCount, sortPacks, maxCardsCount} = getState().Packs
             if (page === 1) page = null
             if (max === 0) max = maxCardsCount
             if (sortPacks === '') sortPacks = null
@@ -152,11 +151,11 @@ export const SetCardsPackTC = (QuerySearchParams:queryModelType): AppThunk =>
         }
     }
 
-export const AddPackTC = (cardsPack: RequestAddPackType,searchQueryUserId?:string): AppThunk => async (dispatch) => {
+export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)
-        await dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
+        await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -167,11 +166,11 @@ export const AddPackTC = (cardsPack: RequestAddPackType,searchQueryUserId?:strin
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType,searchQueryUserId?:string): AppThunk => async (dispatch) => {
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
-        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
+        dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPackNameForCardAC(cardsPack.name!))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
@@ -183,11 +182,11 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType,searchQueryUserId?
 }
 
 
-export const DeletePackTC = (idPack: string,searchQueryUserId?:string): AppThunk => async (dispatch) => {
+export const DeletePackTC = (idPack: string, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.deletePack(idPack)
-        dispatch(SetCardsPackTC({user_id:searchQueryUserId}))
+        dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPacksIdAC(''))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
