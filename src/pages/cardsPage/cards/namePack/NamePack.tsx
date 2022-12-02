@@ -115,15 +115,17 @@ export const NamePack = () => {
                                         aria-labelledby="composition-button"
                                         onKeyDown={handleListKeyDown}
                                     >
-                                        <MenuItem onClick={handleClose}>
-                                            <div className={style.icon_action}
-                                                 onClick={() => {
-                                                     goToLearnHandler(cardsPack_id)
-                                                 }}>
-                                                <SchoolOutlinedIcon/>
-                                                <div className={style.name_icon}>Learn</div>
-                                            </div>
-                                        </MenuItem>
+                                        {cardsCount !== 0 &&
+                                            <MenuItem onClick={handleClose}>
+                                                <div className={style.icon_action}
+                                                     onClick={() => {
+                                                         goToLearnHandler(cardsPack_id)
+                                                     }}
+                                                >
+                                                    <SchoolOutlinedIcon/>
+                                                    <div className={style.name_icon}>Learn</div>
+                                                </div>
+                                            </MenuItem>}
                                         <MenuItem onClick={handleClose}>
                                             <div className={style.icon_action}
                                                  onClick={() => updatePackClick(
