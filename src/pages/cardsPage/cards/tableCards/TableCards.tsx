@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,7 +13,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {DeleteCardModal} from '../cardModal/DeleteCardModal';
@@ -68,6 +68,7 @@ function createData(
 export const TableCards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const {packIdQuery} = useParams();
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
@@ -84,7 +85,7 @@ export const TableCards = () => {
 
     useEffect(() => {
         if (searchQuery !== findQuestion) return
-        dispatch(setCardsTC(packId, searchQuery))
+        dispatch(setCardsTC(packId ? packId : packIdQuery!, searchQuery))
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 

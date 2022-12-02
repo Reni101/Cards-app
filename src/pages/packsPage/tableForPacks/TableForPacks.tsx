@@ -13,7 +13,6 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {cardsRoute} from '../../../common/paths/Paths';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
@@ -125,7 +124,7 @@ export const TableForPacks = () => {
 
     const goToCardsClick = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
-        navigate(cardsRoute)
+        navigate(`/cards/${card_pack_id}`)
     }
 
     const goToLearnHandler = (card_pack_id: string) => {

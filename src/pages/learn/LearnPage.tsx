@@ -22,11 +22,10 @@ import {
 export const LearnPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const {cardId} = useParams();
     const packName = useAppSelector(state => state.Learn.packName)
     const randomCard = useAppSelector(state => state.Learn.randomCard)
     const card_pack_id = useAppSelector(state => state.Cards.cardsPack_id)
-    let {cardId} = useParams();
-
 
     const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false);
     const [answer, setAnswer] = useState('');
