@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -18,9 +18,11 @@ import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} fro
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
+import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
+import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
+
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
-
 
 interface CardsColumn {
     id: sortCardsType
@@ -107,13 +109,20 @@ export const TableCards = () => {
     }
 
     if (cards.length === 0) {
+
+    if (status === 'loading') {
         return (
-            <div className={style.empty_pack}>
-                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
-                <Button onClick={goToPacksHandler} variant="outlined">go to packs list</Button>
-            </div>
+            <ExampleAnimation/>
         )
     }
+
+    if (rows.length === 0) {
+        const error = 'There\'s nothing here';
+        return (
+            <LottieNoSearch error_name={error}/>
+        )
+    }
+
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>

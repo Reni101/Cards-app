@@ -22,6 +22,10 @@ import {queryModelType} from '../PacksAPI';
 import {EditPackModal} from "../packModal/EditPackModal";
 import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
+import {Button} from "@mui/material";
+import {AnimationWaiting} from '../../../common/lottieAnimation/LottieAnimationNotFound';
+import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
+import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 
 
 type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -111,7 +115,7 @@ export const TableForPacks = () => {
             user_id:searchQueryUserId
         }
         dispatch(SetCardsPackTC(QuerySearchParams))
-    }, [dispatch,packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
+    }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
     const changePageHandler = useCallback((newPage: number) => {
@@ -138,11 +142,16 @@ export const TableForPacks = () => {
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
-    if (rows.length === 0) {
+
+    if(status === 'loading'){
         return (
-            <div className={style.empty_pack}>
-                <div className={style.empty_text}>Pu pu pu... This pack does not exist, please take another pack</div>
-            </div>
+            <ExampleAnimation/>
+        )
+    }
+    if (rows.length === 0) {
+     const error = 'Pu pu pu... This pack was not found';
+        return (
+          <LottieNoSearch error_name={error}/>
         )
     }
 
@@ -183,7 +192,6 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                .filter( (r) => r.name.toLowerCase().startsWith(searchQueryName))
                                 .filter( (r) =>
                                     Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map((row) => {

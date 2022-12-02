@@ -1,0 +1,9 @@
+.empty_text{
+    font-size: 20px;
+    text-align: center;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.5);
+}
+.empty_pack{
+    margin-top:50px ;
+}
