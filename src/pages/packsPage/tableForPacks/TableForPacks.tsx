@@ -22,8 +22,6 @@ import {queryModelType} from '../PacksAPI';
 import {EditPackModal} from "../packModal/EditPackModal";
 import {DeletePackModal} from "../packModal/DeletePackModal";
 import {Paginator} from "../../../common/Paginator/paginator";
-import {Button} from "@mui/material";
-import {AnimationWaiting} from '../../../common/lottieAnimation/LottieAnimationNotFound';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 
@@ -122,7 +120,7 @@ export const TableForPacks = () => {
         dispatch(changePageAC(newPage))
     }, [dispatch])
 
-    const ChangeRowsPerPageHandler = useCallback((rows: number) => {
+    const changeRowsPerPageHandler = useCallback((rows: number) => {
         dispatch(changePageCountAC(rows))
     }, [dispatch])
 
@@ -274,7 +272,7 @@ export const TableForPacks = () => {
                            cardPacksTotalCount={cardPacksTotalCount}
                            currentPage={currentPage!}
                            changePage={changePageHandler}
-                           changeRows={ChangeRowsPerPageHandler}
+                           changeRows={changeRowsPerPageHandler}
                 />
             </Paper>
         </div>

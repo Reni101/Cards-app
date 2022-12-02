@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import style from './TableCards.module.css'
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
@@ -8,12 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import moment from 'moment/moment';
-import {Button, Rating} from '@mui/material';
+import { Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {packsRoute} from '../../../../common/paths/Paths';
-import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import { useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {DeleteCardModal} from '../cardModal/DeleteCardModal';
@@ -68,9 +67,9 @@ function createData(
 
 
 export const TableCards = () => {
-    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const {packIdQuery} = useParams();
+    const status = useAppSelector(state => state.App.status)
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
     const packsUserId = useAppSelector(state => state.Cards.packUserId)
@@ -104,25 +103,21 @@ export const TableCards = () => {
         dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
-    const goToPacksHandler = () => {
-        navigate(packsRoute)
-    }
-
     if (cards.length === 0) {
 
-    if (status === 'loading') {
-        return (
-            <ExampleAnimation/>
-        )
-    }
+        if (status === 'loading') {
+            return (
+                <ExampleAnimation/>
+            )
+        }
 
-    if (rows.length === 0) {
-        const error = 'There\'s nothing here';
-        return (
-            <LottieNoSearch error_name={error}/>
-        )
+        if (rows.length === 0) {
+            const error = 'There\'s nothing here';
+            return (
+                <LottieNoSearch error_name={error}/>
+            )
+        }
     }
-
     return (
         <div className={style.table_all_wrapper}>
             <Paper sx={{width: '100%'}}>
