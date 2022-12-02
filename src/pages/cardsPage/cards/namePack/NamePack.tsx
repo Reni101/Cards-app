@@ -11,7 +11,7 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import { setPacksIdAC} from '../../CardsReducer';
+import {setPacksIdAC} from '../../CardsReducer';
 import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
@@ -19,7 +19,6 @@ import {AddCardModal} from "../cardModal/AddCardModal";
 
 
 export const NamePack = () => {
-
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch()
@@ -33,8 +32,9 @@ export const NamePack = () => {
 
 
     const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
+        setOpen((prevOpen) => !prevOpen)
     };
+
     const handleClose = (event: Event | React.SyntheticEvent) => {
         if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
             return;
@@ -63,14 +63,15 @@ export const NamePack = () => {
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(UpdatePackTC(cards_pack))
     }
+
     const deletePackClick = (pack_id: string) => {
         dispatch(DeletePackTC(pack_id))
     }
+
     const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(`/learn/${card_pack_id}`)
     }
-
 
     if (!cardsPack_id) {
         return <></>
@@ -167,8 +168,7 @@ export const NamePack = () => {
                             onClick={() => {
                                 goToLearnHandler(cardsPack_id)
                             }}
-                    >
-                        Learn to pack
+                    > Learn to pack
                     </Button>
             }
         </div>
