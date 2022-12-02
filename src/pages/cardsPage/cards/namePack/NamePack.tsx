@@ -16,7 +16,7 @@ import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
 import {AddCardModal} from "../cardModal/AddCardModal";
-
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 export const NamePack = () => {
     const navigate = useNavigate()
@@ -85,8 +85,9 @@ export const NamePack = () => {
                 aria-expanded={open ? 'true' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                className={style.title_my_cards}>
-                {packName}
+                className={style.title_my_cards}
+            >
+                {packName}{packsUserId === myId && <MenuOpenIcon style={{margin: "10px"}}/>}
             </h2>
             {packsUserId === myId &&
                 <Popper

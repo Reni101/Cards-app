@@ -114,15 +114,15 @@ export const TableForPacks = () => {
     }, [dispatch,packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
 
 
-    const handleChangePage = useCallback((newPage: number) => {
+    const changePageHandler = useCallback((newPage: number) => {
         dispatch(changePageAC(newPage))
     }, [dispatch])
 
-    const handleChangeRowsPerPage = useCallback((rows: number) => {
+    const ChangeRowsPerPageHandler = useCallback((rows: number) => {
         dispatch(changePageCountAC(rows))
     }, [dispatch])
 
-    const goToCardsClick = (card_pack_id: string) => {
+    const goToCardsHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC(card_pack_id))
         navigate(`/cards/${card_pack_id}`)
     }
@@ -132,7 +132,7 @@ export const TableForPacks = () => {
         navigate(`/learn/${card_pack_id}`)
     }
 
-    const handleSort = (columnID: sortType) => {
+    const sortHandler = (columnID: sortType) => {
         if(columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
@@ -159,7 +159,7 @@ export const TableForPacks = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={() => handleSort(column.id)}
+                                        onClick={() => sortHandler(column.id)}
                                     >
                                             {column.label}
                                         {
@@ -197,7 +197,7 @@ export const TableForPacks = () => {
                                                                align={column.align}
                                                                className={column.id === 'name' ? style.pack_name : ''}
                                                                onClick={column.id === 'name' ? () => {
-                                                                   goToCardsClick(row.pack_id)
+                                                                   goToCardsHandler(row.pack_id)
                                                                } : () => {
                                                                }}>
                                                         {column.format && typeof value === 'string'
@@ -250,7 +250,6 @@ export const TableForPacks = () => {
                                                                     </DeletePackModal>
 
 
-
                                                                 </div>
                                                             </div>
                                                         }
@@ -266,8 +265,8 @@ export const TableForPacks = () => {
                 <Paginator name={"Количество карт"}
                            cardPacksTotalCount={cardPacksTotalCount}
                            currentPage={currentPage!}
-                           changePage={handleChangePage}
-                           changeRows={handleChangeRowsPerPage}
+                           changePage={changePageHandler}
+                           changeRows={ChangeRowsPerPageHandler}
                 />
             </Paper>
         </div>
