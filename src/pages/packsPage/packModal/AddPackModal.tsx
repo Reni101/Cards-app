@@ -19,9 +19,6 @@ export const AddPackModal = ({children}: AddPackModalType) => {
     const searchQueryUserId = searchParams.get('user_id') || '';
     const status = useAppSelector(state => state.App.status)
 
-
-    const [open, setOpen] = React.useState(false);
-
     const [valueInput, setValueInput] = useState('')
     const dispatch = useAppDispatch()
 
@@ -29,49 +26,44 @@ export const AddPackModal = ({children}: AddPackModalType) => {
 
 
 
-    const AddNewPack = async () => {
+    const AddNewPack = async (handleClose: () => void) => {
         let trimValueInput = valueInput.trim();
         if (trimValueInput.toLowerCase() === 'хуй' || trimValueInput.toLowerCase() === 'fuck') {
             setValueInput('');
             dispatch(setErrorApp('foul language is prohibited'))
             return;
         }
-        setOpen(false)
+
         await dispatch(AddPackTC({name: valueInput},searchQueryUserId))
         setValueInput('')
-
+        handleClose()
     }
 
-    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>):Promise<void> => {
+    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>,handleClose: () => void):Promise<void> => {
         if (e.key === 'Enter') {
-           await AddNewPack()
+            await AddNewPack(handleClose)
         }
     }
 
 
-    const HandlerCancel = () => {
-        setOpen(false)
-        setValueInput('')
-    }
-
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Add new pack'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Add new pack'}>
+            {(handleClose: () => void) => <>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e)=>setValueInput(e.currentTarget.value)}
-                               onKeyUp={AddNewPackWithInput}
+                               onKeyUp={(e)=>AddNewPackWithInput(e,handleClose)}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
-                    <Button style={{color: 'white', backgroundColor: '#366EFF',}} onClick={AddNewPack}
+                    <Button style={{color: 'white', backgroundColor: '#366EFF'}} onClick={() => AddNewPack(handleClose)}
                             className={style.button} variant="outlined" type="submit"
-                            disabled={status === "loading"}>Save</Button>
+                            disabled={isLoading}>Save</Button>
                 </div>
-            </div>
+            </>}
         </BasicModal>
     );
 };

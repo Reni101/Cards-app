@@ -38,7 +38,8 @@ export type RequestAddCardType = {
 
 export type RequestUpdateCardType = {
     _id: string
-    question: string
+    question: string,
+    answer: string
 }
 
 export type queryCardsModelType = {
