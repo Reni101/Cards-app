@@ -18,33 +18,19 @@ export const AddPackModal = ({children}: AddPackModalType) => {
     const searchQueryUserId = searchParams.get('user_id') || '';
     const status = useAppSelector(state => state.App.status)
 
-
-    const [open, setOpen] = React.useState(false);
-
     const [valueInput, setValueInput] = useState('')
     const dispatch = useAppDispatch()
 
-    const isLoading = status === "loading"
-
-
-    const AddNewPack = async () => {
+    const AddNewPack = async (handleClose: () => void) => {
         await dispatch(AddPackTC({name: valueInput},searchQueryUserId))
         setValueInput('')
-        setOpen(false)
+        handleClose()
     }
 
-    //const AddNewPack = async () => {
-    //             await dispatch(AddPackTC({name:"Sanya Luchshaya TC"},searchQueryUserId))
-    //     }
-
-    const HandlerCancel = () => {
-        setOpen(false)
-        setValueInput('')
-    }
-
+debugger
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Add new pack'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Add new pack'}>
+            {(handleClose: () => void) => <>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e) => setValueInput(e.currentTarget.value)}
@@ -52,13 +38,13 @@ export const AddPackModal = ({children}: AddPackModalType) => {
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
-                    <Button style={{color: 'white', backgroundColor: '#366EFF',}} onClick={AddNewPack}
+                    <Button style={{color: 'white', backgroundColor: '#366EFF'}} onClick={() => AddNewPack(handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </div>
+            </>}
         </BasicModal>
     );
 };

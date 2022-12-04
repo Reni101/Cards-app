@@ -14,34 +14,28 @@ type DeleteCardModalType = {
 
 export const DeleteCardModal = ({children, id, name}: DeleteCardModalType) => {
 
-    const [open, setOpen] = React.useState(false);
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
 
-    const deleteCardClick = async (pack_id: string) => {
+    const deleteCardClick = async (pack_id: string, handleClose: () => void) => {
         await dispatch(DeleteCardTC(pack_id))
-        setOpen(false)
-    }
-
-    const HandlerCancel = () => {
-        setOpen(false)
+        handleClose()
     }
 
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Delete Card'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Delete Card'}>
+            {(handleClose) => <>
                 <div className={s.textDelete}>
                     Do you really want to remove <span style={{fontWeight: '600'}}>{name}</span>? All cards will be deleted.
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
-                    <Button style={{color: 'white', backgroundColor: 'red',}} onClick={() => deleteCardClick(id)}
+                    <Button style={{color: 'white', backgroundColor: 'red',}} onClick={() => deleteCardClick(id, handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Delete</Button>
                 </div>
-            </div>
+            </>}
         </BasicModal>
     );
 };

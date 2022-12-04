@@ -19,26 +19,20 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     const [searchParams, setSearchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 
-
-    const [open, setOpen] = React.useState(false);
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
     const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
     const [valueInput, setValueInput] = useState(pack?.name)
-    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
+    const updatePackClick = (cards_pack: RequestUpdatePackType, handleClose: () => void) => {
         dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
-        setOpen(false)
+        handleClose()
     }
 
-    const HandlerCancel = () => {
-        setOpen(false)
-    }
 
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Edit pack'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Edit pack'}>
+            {(handleClose) => <>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e) => setValueInput(e.currentTarget.value)}
@@ -46,14 +40,14 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF'}}
-                            onClick={() => updatePackClick({_id: id, name: valueInput})}
+                            onClick={() => () => updatePackClick({_id: id, name: valueInput}, handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </div>
+            </>}
         </BasicModal>
     );
 };
