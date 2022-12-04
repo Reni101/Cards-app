@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {KeyboardEvent, ReactNode, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from "../../../common/modal/BasicModal";
@@ -9,6 +9,7 @@ import s from './EditPackModal.module.css'
 import {RequestUpdatePackType} from "../PacksAPI";
 import {UpdatePackTC} from "../PacksReducer";
 import {useSearchParams} from "react-router-dom";
+import {setErrorApp} from '../../../AppReducer';
 
 type EditPackModalType = {
     children: ReactNode
@@ -26,10 +27,28 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     const status = useAppSelector(state => state.App.status)
     const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
     const [valueInput, setValueInput] = useState(pack?.name)
-    const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
+
+
+
+
+    const updatePackClick = async (cards_pack: RequestUpdatePackType) => {
+        let trimValueInput = valueInput && valueInput.trim();
+        if (trimValueInput && trimValueInput.toLowerCase() === 'хуй' ||
+            trimValueInput && trimValueInput.toLowerCase() === 'fuck') {
+            setValueInput('');
+            dispatch(setErrorApp('foul language is prohibited'))
+            return;
+        }
+
+        await  dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
         setOpen(false)
+    }
+
+    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>,cards_pack: RequestUpdatePackType):Promise<void> => {
+        if (e.key === 'Enter') {
+            await updatePackClick(cards_pack)
+        }
     }
 
     const HandlerCancel = () => {
@@ -42,6 +61,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e) => setValueInput(e.currentTarget.value)}
+                               onKeyUp={(e)=>AddNewPackWithInput(e,{_id: id, name: valueInput})}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>

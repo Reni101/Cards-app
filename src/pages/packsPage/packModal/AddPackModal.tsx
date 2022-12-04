@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {KeyboardEvent, ReactNode, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from "../../../common/modal/BasicModal";
@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {AddPackTC} from "../PacksReducer";
 import s from './AddPackModal.module.css'
 import {useSearchParams} from "react-router-dom";
+import {setErrorApp} from '../../../AppReducer';
 
 type AddPackModalType = {
     children: ReactNode
@@ -27,15 +28,26 @@ export const AddPackModal = ({children}: AddPackModalType) => {
     const isLoading = status === "loading"
 
 
+
     const AddNewPack = async () => {
+        let trimValueInput = valueInput.trim();
+        if (trimValueInput.toLowerCase() === 'хуй' || trimValueInput.toLowerCase() === 'fuck') {
+            setValueInput('');
+            dispatch(setErrorApp('foul language is prohibited'))
+            return;
+        }
+        setOpen(false)
         await dispatch(AddPackTC({name: valueInput},searchQueryUserId))
         setValueInput('')
-        setOpen(false)
+
     }
 
-    //const AddNewPack = async () => {
-    //             await dispatch(AddPackTC({name:"Sanya Luchshaya TC"},searchQueryUserId))
-    //     }
+    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>):Promise<void> => {
+        if (e.key === 'Enter') {
+           await AddNewPack()
+        }
+    }
+
 
     const HandlerCancel = () => {
         setOpen(false)
@@ -47,7 +59,8 @@ export const AddPackModal = ({children}: AddPackModalType) => {
             <div>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
-                               onChange={(e) => setValueInput(e.currentTarget.value)}
+                               onChange={(e)=>setValueInput(e.currentTarget.value)}
+                               onKeyUp={AddNewPackWithInput}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
