@@ -15,16 +15,7 @@ import {useAppDispatch, useAppSelector} from './hooks/hooks';
 import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
-import {
-    cardsRoute,
-    checkEmailRoute,
-    forgotPassRoute, learnRoute,
-    loginRoute,
-    notFoundRoute, packsRoute,
-    profileRoute,
-    registrationRoute,
-    setNewPassRoute
-} from './common/paths/Paths';
+import {Paths} from './common/paths/Paths';
 import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
@@ -52,19 +43,19 @@ function App() {
             <ErrorSnackbar/>
             <Headers/>
             <Routes>
-                <Route path={loginRoute} element={<LoginPage/>}/>
-                <Route path={notFoundRoute} element={<NotFoundPage/>}/>
-                <Route path={profileRoute} element={<ProfilePage/>}/>
-                <Route path={registrationRoute} element={<RegistrationPage/>}/>
-                <Route path={forgotPassRoute} element={<ForgotPasswordPage/>}/>
-                <Route path={checkEmailRoute} element={<CheckEmailPage/>}/>
-                <Route path={setNewPassRoute} element={<NewPasswordPage/>}/>
-                <Route path={packsRoute} element={<PacksPage/>}/>
-                <Route path={cardsRoute} element={<CardsPage/>}/>
-                <Route path={learnRoute} element={<LearnPage/>}/>
+                <Route path={Paths.loginRoute} element={<LoginPage/>}/>
+                <Route path={Paths.notFoundRoute} element={<NotFoundPage/>}/>
+                <Route path={Paths.profileRoute} element={<ProfilePage/>}/>
+                <Route path={Paths.registrationRoute} element={<RegistrationPage/>}/>
+                <Route path={Paths.forgotPassRoute} element={<ForgotPasswordPage/>}/>
+                <Route path={Paths.checkEmailRoute} element={<CheckEmailPage/>}/>
+                <Route path={Paths.setNewPassRoute} element={<NewPasswordPage/>}/>
+                <Route path={Paths.packsRoute} element={<PacksPage/>}/>
+                <Route path={Paths.cardsRoute} element={<CardsPage/>}/>
+                <Route path={Paths.learnRoute} element={<LearnPage/>}/>
 
 
-                <Route path="*" element={<Navigate to={notFoundRoute}/>}/>
+                <Route path="*" element={<Navigate to={Paths.notFoundRoute}/>}/>
             </Routes>
         </>
     );

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import style from './RegistrationPage.module.css'
 import {useAppSelector} from "../../hooks/hooks";
-import {Navigate, NavLink, useNavigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import FormForRegistration from "./formForRegistration/FormForRegistration";
 import {Slide} from "react-awesome-reveal";
 import {LinearProgress} from "@mui/material";
@@ -20,7 +20,7 @@ export const RegistrationPage = () => {
         return () => {
             dispatch(setRegisrationAC(false))
         }
-    }, [])
+    }, [dispatch])
 
     if (isSuccessful) {
         return <Navigate to={'/'}/>

@@ -5,7 +5,7 @@ import {FiltersForPacks} from './filtersForPacks/FiltersForPacks';
 import {TableForPacks} from './tableForPacks/TableForPacks';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/hooks';
-import {loginRoute} from '../../common/paths/Paths';
+import {Paths} from '../../common/paths/Paths';
 
 
 export const PacksPage = () => {
@@ -14,7 +14,7 @@ export const PacksPage = () => {
     const isAuth = useAppSelector(state => state.Login.isAuth)
 
     if (!isAuth) {
-        return <Navigate to={loginRoute}/>
+        return <Navigate to={Paths.loginRoute}/>
     }
 
     return (

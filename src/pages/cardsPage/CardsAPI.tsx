@@ -1,21 +1,21 @@
-import {instance} from "../../common/API/api";
-import {AxiosResponse} from "axios";
-import {CardType} from "./CardsReducer";
+import {instance} from '../../common/API/api';
+import {AxiosResponse} from 'axios';
+import {CardType} from './CardsReducer';
 
 
 export const cardsAPI = {
     getCards(params: queryCardsModelType) {
-        return instance.get<ResponseCardsType>("cards/card", {params})
+        return instance.get<ResponseCardsType>('cards/card', {params})
     },
     addCard(card: RequestAddCardType) {
 
-        return instance.post<{ card: RequestAddCardType }, AxiosResponse>("cards/card", {card})
+        return instance.post<{ card: RequestAddCardType }, AxiosResponse>('cards/card', {card})
     },
     updateCard(card: RequestUpdateCardType) {
-        instance.put("cards/card", {card: card})
+        return instance.put('cards/card', {card: card})
     },
     deleteCard(idCard: string) {
-        instance.delete(`cards/card?id=${idCard}`)
+        return instance.delete(`cards/card?id=${idCard}`)
     }
 }
 

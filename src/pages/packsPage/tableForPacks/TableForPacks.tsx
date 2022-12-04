@@ -244,8 +244,6 @@ export const TableForPacks = () => {
                                                                     ? style.icons
                                                                     : `${style.icons} ${style.no_visible_icons}`}>
 
-
-
                                                                     <DeletePackModal id={row.pack_id} name={row.name}>
                                                                         <IconButton disabled={isLoading}
                                                                                     size="small" >

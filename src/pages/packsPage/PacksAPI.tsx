@@ -35,12 +35,12 @@ export const packsAPI = {
         return instance.get<ResponsePacksType>("cards/pack", {params})
     },
     addPack(cardsPack: RequestAddPackType) {
-        instance.post<{ name: string }, AxiosResponse>('cards/pack', {cardsPack})
+      return   instance.post<{ name: string }, AxiosResponse>('cards/pack', {cardsPack})
     },
     updatePack(cardsPack: RequestUpdatePackType) {
-        instance.put('cards/pack', {cardsPack})
+       return instance.put('cards/pack', {cardsPack})
     },
     deletePack(idPack: string) {
-        instance.delete(`cards/pack?id=${idPack}`)
+       return  instance.delete(`cards/pack?id=${idPack}`)
     }
 }

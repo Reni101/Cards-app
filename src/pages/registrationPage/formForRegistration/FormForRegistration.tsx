@@ -4,7 +4,6 @@ import {useFormik} from "formik";
 import {registrationTC} from "../RegistrationReducer";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import InputForRegistration from "./InputForRegistration";
-import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 
 
@@ -18,7 +17,6 @@ type FormikErrorType = {
 const FormForRegistration = (props: FormForRegistrationProps) => {
 
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     const errorApi = useAppSelector(state => state.Registration.error)
 

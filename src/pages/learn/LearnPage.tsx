@@ -9,7 +9,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
-import {packsRoute} from "../../common/paths/Paths";
+import {Paths} from "../../common/paths/Paths";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
@@ -57,7 +57,7 @@ export const LearnPage = () => {
     };
 
     const goToPacks = () => {
-        navigate(packsRoute)
+        navigate(Paths.packsRoute)
     }
 
 
