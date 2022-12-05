@@ -10,7 +10,6 @@ import {SingOutTC} from '../login/loginReducer/LoginReducer';
 import {useScrollPosition} from '../../hooks/useScrollPosition';
 
 
-
 export const Headers = () => {
 
     const dispatch = useAppDispatch()
@@ -18,7 +17,6 @@ export const Headers = () => {
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
     const userName = useAppSelector(state => state.ProfilePage.name)
     const navigate = useNavigate();
-
 
 
     const [nav, setNav] = useState(false)
@@ -63,7 +61,9 @@ export const Headers = () => {
                     <Button className={style.button} variant="outlined" onClick={goSignUp} type="submit">
                         sign up
                     </Button>}
+
             </div>
+
         </div>
     );
 };

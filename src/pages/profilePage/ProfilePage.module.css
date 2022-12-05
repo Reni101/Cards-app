@@ -1,10 +1,11 @@
-.all_wrapper_profile{
-    position: relative;
+.all_wrapper_profile {
     padding: 90px 0;
     width: 100vw;
     height: 100%;
 }
+
 .wrapper_profile {
+    position: relative;
     width: 400px;
     border: .5px solid rgba(84, 84, 84, 0.5);
     margin: 0px auto;
@@ -43,51 +44,10 @@
     opacity: 50%;
 }
 
-.logOut {
+.avatarButton {
+    position: absolute;
+    top: 160px;
+    right: 120px;
 
 }
 
-
-/*
-
-.title {
-    padding-top: 27px;
-}
-
-.Link_block a {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    color: #000000;
-    font-size: 14px;
-    text-decoration: none;
-
-}
-
-
-.MainBlock img {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-}
-
-
-.Email {
-    font-size: 14px;
-    margin: 19px;
-    opacity: 0.5;
-}
-
-.MainBlock .LogOut {
-    Opacity: 80%;
-    width: 127px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    border: 0;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-*/

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {useAppDispatch} from "../../../hooks/hooks";
-import {editProfileNameTC} from "../ProfilePagerReducer";
+import {editProfileNameAvatarTC} from "../ProfilePagerReducer";
 import styleEditProfile from './editProfileName.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, TextField} from "@mui/material";
@@ -9,8 +9,8 @@ import {Button, TextField} from "@mui/material";
 type PropsType = {
     profileName: string | null
 }
-export const EditProfileName: FC<PropsType> = (props:PropsType)=> {
-    const [Name, setName] = useState(props.profileName)// приходит из пропсов
+export const EditProfileName: FC<PropsType> = React.memo((props: PropsType) => {
+    const [Name, setName] = useState(props.profileName)
     const [editMode, setEditMode] = useState(false)
     const dispatch = useAppDispatch()
 
@@ -18,8 +18,8 @@ export const EditProfileName: FC<PropsType> = (props:PropsType)=> {
         setEditMode(!editMode)
 
     }
-    const Handler = () => {
-        dispatch(editProfileNameTC(Name))
+    const changeNameHandler = () => {
+        dispatch(editProfileNameAvatarTC({name:Name}))
 
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,18 +37,19 @@ export const EditProfileName: FC<PropsType> = (props:PropsType)=> {
                                onChange={onChangeHandler}
                                onBlur={setEditModeHandler}
                                defaultValue={props.profileName}
-color={"success"}
+                               color={"success"}
 
                     />
                     <Button size="small"
-                            onMouseDown={Handler}
+                            onMouseDown={changeNameHandler}
                             variant="contained"
                             color={"success"}
                     >SAVE</Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{props.profileName} <EditIcon onClick={setEditModeHandler} style={{cursor: "pointer"}} /></div>}
+                : <div className={styleEditProfile.Name}>{props.profileName} <EditIcon onClick={setEditModeHandler}
+                                                                                       style={{cursor: "pointer"}}/>
+                </div>}
         </div>
     );
-};
-//Когда стоит на кнопке onClick то он перерывается onBlur это фиксится елси поставить onMouseDown на кнопку!
+})
