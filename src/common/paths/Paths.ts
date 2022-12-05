@@ -1,13 +1,14 @@
-export const loginRoute = '/';
-export const notFoundRoute = '/notFound';
-export const profileRoute = '/profile';
-export const registrationRoute = '/registration';
-export const forgotPassRoute = '/forgot-password';
-export const checkEmailRoute = '/check-email-page';
-export const setNewPassRoute = '/set-new-password/:token';
-export const packsRoute = '/packs';
-export const cardsRoute = '/cards/:packIdQuery';
-export const learnRoute = '/learn/:cardId';
 
-//export const addNewCardPage = '/packs/new_pack';
+export const Paths = {
+    loginRoute:'/',
+    notFoundRoute:'/notFound',
+    profileRoute:'/profile',
+    registrationRoute:'/registration',
+    forgotPassRoute:'/forgot-password',
+    checkEmailRoute:'/check-email-page',
+    setNewPassRoute:'/set-new-password/:token',
+    packsRoute:'/packs',
+    cardsRoute : '/cards/:packIdQuery',
+    learnRoute : '/learn/:cardId'
+}
 

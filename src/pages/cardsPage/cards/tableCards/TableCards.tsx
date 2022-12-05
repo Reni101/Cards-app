@@ -171,6 +171,7 @@ export const TableCards = () => {
                                                                     : style.icon_display_none}>
                                                                     <div className={style.icons}>
                                                                         <EditCardModal question={row.question}
+                                                                                       answer={row.answer}
                                                                                        idCard={row.id}>
                                                                             <DriveFileRenameOutlineOutlinedIcon
                                                                                 color={'primary'}/>

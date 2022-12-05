@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './CardsPage.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {loginRoute, packsRoute} from '../../common/paths/Paths';
+import {Paths} from '../../common/paths/Paths';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Cards} from './cards/Cards';
 import {useAppSelector} from '../../hooks/hooks';
@@ -12,11 +12,11 @@ export const CardsPage = () => {
 
     const navigate = useNavigate()
     const goToPacks = () => {
-        navigate(packsRoute)
+        navigate(Paths.packsRoute)
     }
 
     if (!isAuth) {
-        return <Navigate to={loginRoute}/>
+        return <Navigate to={Paths.loginRoute}/>
     }
     return (
         <div className={style.all_wrapper_cards}>

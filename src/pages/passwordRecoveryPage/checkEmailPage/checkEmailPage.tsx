@@ -14,7 +14,7 @@ export const CheckEmailPage = () => {
         return ()=>{
             dispatch(setRecoverEmailAC(null))
         }
-    },[])
+    },[dispatch])
 
 
 
