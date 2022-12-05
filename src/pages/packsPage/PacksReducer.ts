@@ -32,7 +32,7 @@ export type PacksType = {
 }
 
 
-type InitialStateType = {
+export type InitialStateType = {
     cardPacks: Array<PacksType>
     cardPacksTotalCount: number
     minCardsCount: number
