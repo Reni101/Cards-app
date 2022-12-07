@@ -1,4 +1,4 @@
-import React, {useEffect,useCallback} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -15,18 +15,20 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from "../PacksReducer";
-import { setPacksIdAC} from '../../cardsPage/CardsReducer';
+import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from '../PacksReducer';
+import {setPacksIdAC} from '../../cardsPage/CardsReducer';
 import IconButton from '@mui/material/IconButton';
 import {queryModelType} from '../PacksAPI';
-import {EditPackModal} from "../packModal/EditPackModal";
-import {DeletePackModal} from "../packModal/DeletePackModal";
-import {Paginator} from "../../../common/Paginator/paginator";
+import {EditPackModal} from '../packModal/EditPackModal';
+import {DeletePackModal} from '../packModal/DeletePackModal';
+import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
+import {CoverForTable} from './coverForTable/CoverForTable';
+import {log} from 'util';
 
 
-type sortType = 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
+type sortType = 'cover' | 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
 
 interface Column {
     id: sortType;
@@ -37,7 +39,8 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    {id: 'name', label: 'Name', minWidth: 170, align: 'left'},
+    {id: 'cover', label: 'Cover', minWidth: 100, align: 'left'},
+    {id: 'name', label: 'Name', minWidth: 170, align: 'center'},
     {id: 'cardsCount', label: 'Cards', minWidth: 80, align: 'center'},
     {id: 'user_name', label: 'Created by', minWidth: 170, align: 'center'},
     {
@@ -51,6 +54,7 @@ const columns: readonly Column[] = [
 ];
 
 interface RowsData {
+    cover: string;
     pack_id: string;
     user_id: string;
     name: string;
@@ -61,6 +65,7 @@ interface RowsData {
 }
 
 function createData(
+    cover: string,
     pack_id: string,
     user_id: string,
     name: string,
@@ -68,7 +73,7 @@ function createData(
     user_name: string,
     updated: string,
 ): RowsData {
-    return {pack_id, user_id, name, cardsCount, user_name, updated};
+    return {cover, pack_id, user_id, name, cardsCount, user_name, updated};
 }
 
 
@@ -96,24 +101,24 @@ export const TableForPacks = () => {
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const rows: RowsData[] = rowsArray.map((row) =>
-        createData(row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
-
-    const isLoading = status === "loading"
+        createData(row.deckCover, row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
+    console.log(rowsArray)
+    const isLoading = status === 'loading'
 
 
     useEffect(() => {
-        if(searchQueryName !== packName) return
-        const min_params =  Number(searchQueryMin)
+        if (searchQueryName !== packName) return
+        const min_params = Number(searchQueryMin)
         const max_params = Number(searchQueryMax)
 
-        let QuerySearchParams:queryModelType = {
-            min:min_params,
-            max:max_params,
-            packName:searchQueryName,
-            user_id:searchQueryUserId
+        let QuerySearchParams: queryModelType = {
+            min: min_params,
+            max: max_params,
+            packName: searchQueryName,
+            user_id: searchQueryUserId
         }
         dispatch(SetCardsPackTC(QuerySearchParams))
-    }, [packName, min, max, pageCount, sortPacks, currentPage,packs_user_id,searchQueryUserId])
+    }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
 
 
     const changePageHandler = useCallback((newPage: number) => {
@@ -135,21 +140,21 @@ export const TableForPacks = () => {
     }
 
     const sortHandler = (columnID: sortType) => {
-        if(columnID === 'actions') return
+        if (columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
     }
 
 
-    if(status === 'loading'){
+    if (status === 'loading') {
         return (
             <ExampleAnimation/>
         )
     }
     if (rows.length === 0) {
-     const error = 'Pu pu pu... This pack was not found';
+        const error = 'Pu pu pu... This pack was not found';
         return (
-          <LottieNoSearch error_name={error}/>
+            <LottieNoSearch error_name={error}/>
         )
     }
 
@@ -168,19 +173,19 @@ export const TableForPacks = () => {
                                         className={style.table_title_cell}
                                         onClick={() => sortHandler(column.id)}
                                     >
-                                            {column.label}
+                                        {column.label}
                                         {
                                             sortPacks === ('0' + column.id)
                                                 ?
                                                 <span className={column.id === 'actions'
                                                     ? style.actions_display_no
-                                                    : style.sort_icon }>
+                                                    : style.sort_icon}>
                                                     <ArrowDropDownIcon/>
                                                 </span>
                                                 :
                                                 <span className={column.id === 'actions'
                                                     ? style.actions_display_no
-                                                    : style.sort_icon }>
+                                                    : style.sort_icon}>
                                                     <ArrowDropUpIcon/>
                                                 </span>
                                         }
@@ -190,51 +195,58 @@ export const TableForPacks = () => {
                         </TableHead>
                         <TableBody>
                             {rows
-                                .filter( (r) =>
+                                .filter((r) =>
                                     Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.pack_id}>
                                             {columns.map((column) => {
                                                 const value = row[column.id];
-
                                                 return (
                                                     <TableCell key={column.id}
                                                                align={column.align}
                                                                className={column.id === 'name' ? style.pack_name : ''}
-                                                               onClick={column.id === 'name' ? () => {
+                                                               onClick={column.id === 'name' || column.id === 'cover'  ? () => {
                                                                    goToCardsHandler(row.pack_id)
                                                                } : () => {
                                                                }}>
                                                         {column.format && typeof value === 'string'
                                                             ? column.format(value)
-                                                            : value}
+                                                            :
+                                                            <div
+                                                                className={column.id !== 'cover'
+                                                                ? style.slot_for_value
+                                                                : style.display_no}>
+                                                                {value}
+                                                            </div>}
+
+                                                        {column.id === 'cover' &&
+                                                            <div className={style.img_wrapper}>
+                                                                <CoverForTable cover={row.cover}/>
+                                                            </div>}
+
                                                         {column.id === 'actions' &&
                                                             <div className={style.flex_icons}>
-
-
                                                                 <div className={style.icons}>
                                                                     <IconButton
                                                                         disabled={isLoading || row.cardsCount === 0}
                                                                         onClick={() => goToLearnHandler(row.pack_id)}
                                                                         size="small">
                                                                         <SchoolOutlinedIcon
-                                                                            color={isLoading || row.cardsCount === 0 ? "disabled" : "primary"}
-
+                                                                            color={isLoading || row.cardsCount === 0 ? 'disabled' : 'primary'}
                                                                         />
                                                                     </IconButton>
-
                                                                 </div>
 
 
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
-                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    : `${style.icons} ${style.display_no}`}>
                                                                     <EditPackModal id={row.pack_id}>
                                                                         <IconButton disabled={isLoading}
                                                                                     size="small">
-                                                                        <DriveFileRenameOutlineOutlinedIcon
-                                                                            color={isLoading ? "disabled" : "primary"}/>
+                                                                            <DriveFileRenameOutlineOutlinedIcon
+                                                                                color={isLoading ? 'disabled' : 'primary'}/>
                                                                         </IconButton>
                                                                     </EditPackModal>
                                                                 </div>
@@ -242,14 +254,14 @@ export const TableForPacks = () => {
 
                                                                 <div className={user_idFromProfile === row.user_id
                                                                     ? style.icons
-                                                                    : `${style.icons} ${style.no_visible_icons}`}>
+                                                                    : `${style.icons} ${style.display_no}`}>
 
                                                                     <DeletePackModal id={row.pack_id} name={row.name}>
                                                                         <IconButton disabled={isLoading}
-                                                                                    size="small" >
-                                                                        <DeleteForeverOutlinedIcon
-                                                                            color={isLoading ? "disabled" : "primary"}
-                                                                        />
+                                                                                    size="small">
+                                                                            <DeleteForeverOutlinedIcon
+                                                                                color={isLoading ? 'disabled' : 'primary'}
+                                                                            />
                                                                         </IconButton>
                                                                     </DeletePackModal>
 
@@ -266,7 +278,7 @@ export const TableForPacks = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Paginator name={"Количество карт"}
+                <Paginator name={'Количество карт'}
                            cardPacksTotalCount={cardPacksTotalCount}
                            currentPage={currentPage!}
                            changePage={changePageHandler}

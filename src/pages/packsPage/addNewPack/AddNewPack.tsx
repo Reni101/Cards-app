@@ -7,6 +7,8 @@ import {AddPackModal} from "../packModal/AddPackModal";
 
 export const AddNewPack = () => {
     const status = useAppSelector(state => state.App.status)
+    const cardPacks = useAppSelector(state => state.Packs.cardPacks)
+
 
     return (
         <div className={style.all_wrapper_add_new_pack}>

@@ -142,6 +142,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
             if (user_id === '') user_id = null
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
+            console.log(res)
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
         } catch
@@ -154,6 +155,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
 export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
+        console.log(cardsPack)
         await packsAPI.addPack(cardsPack)
         await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setStatusApp('succeeded'))
