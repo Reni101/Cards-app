@@ -10,9 +10,9 @@ const initialState = {
     isRedirectToLogin: false
 }
 
-type InitialStateType = typeof initialState
+export type InitialRecoveryPasswordStateType = typeof initialState
 
-export const forgotPasswordReducer = (state: InitialStateType = initialState, action: ActionsForgotType): InitialStateType => {
+export const recoveryPasswordReducer = (state: InitialRecoveryPasswordStateType = initialState, action: ActionsForgotType): InitialRecoveryPasswordStateType => {
     switch (action.type) {
         case "FORGOT/REDIRECT_TO_LOGIN":
             return {...state, isRedirectToLogin: action.value}

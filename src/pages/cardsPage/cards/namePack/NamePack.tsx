@@ -89,7 +89,7 @@ export const NamePack = () => {
                 onClick={handleToggle}
                 className={style.title_my_cards}
             >
-                {packName}{packsUserId === myId && <MenuOpenIcon style={{margin: "10px"}} color={"disabled"}/>}
+                {packName}{packsUserId === myId && <MenuOpenIcon style={{margin: "10px"}} color={"primary"}/>}
             </h2>
             {packsUserId === myId &&
                 <Popper

@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
 import {
+    clearLearnStateAC,
     setLearnCardsTC,
     updateGradeTC
 } from "./LearnReducer";
@@ -35,6 +36,9 @@ export const LearnPage = () => {
 
     useEffect(() => {
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
+        return () => {
+            dispatch(clearLearnStateAC())
+        }
     }, [dispatch])
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {

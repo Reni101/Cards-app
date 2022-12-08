@@ -13,9 +13,9 @@ const initialState = {
     avatar: null as string | null
 }
 
-type InitialStateType = typeof initialState
+export type InitialProfileStateType = typeof initialState
 
-export const ProfilePageReducer = (state: InitialStateType = initialState, action: ActionsProfileType): InitialStateType => {
+export const ProfilePageReducer = (state: InitialProfileStateType = initialState, action: ActionsProfileType): InitialProfileStateType => {
     switch (action.type) {
         case "PROFILE_PAGE_SET_PROFILE_DATA":
             return {
@@ -26,13 +26,13 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
                 user_id: action.data._id
             }
         case 'PROFILE_PAGE_CHANGE_PROFILE_NAME':
-            return {...state, name: action.payload.name, avatar: action.payload.avatar}
+            return {...state, name: action.payload?.name, avatar: action.payload?.avatar}
         default:
             return state
     }
 }
 //=============================AC======================================
-export const editProfileNameAvatarAC = (name: string, avatar: string) => ({
+export const editProfileNameAvatarAC = (name: string | null, avatar: string | null) => ({
     type: 'PROFILE_PAGE_CHANGE_PROFILE_NAME',
     payload: {
         name,

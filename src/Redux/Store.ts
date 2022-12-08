@@ -1,25 +1,25 @@
 import {combineReducers} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
-import {ActionsForgotType, forgotPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+import {ActionsForgotType, recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {ActionsLearnCardsType, LearnReducer} from "../pages/learn/LearnReducer";
+import {ActionsLearnCardsType, learnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
     ProfilePage: ProfilePageReducer,//М
-    ForgotPassword: forgotPasswordReducer,//M
+    ForgotPassword: recoveryPasswordReducer,//M
     Login: LoginReducer,//I
     App: AppReducer,//I
     Registration: RegistrationReducer,//A
     Packs: PacksReducer,//I
     Cards: CardsReducer,//A
-    Learn:LearnReducer,//М
+    Learn:learnReducer,//М
 
 })
 

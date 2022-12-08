@@ -2,12 +2,11 @@ import {AppThunk} from "../../Redux/Store";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
-import {cardsLearnAPI, UpdatedGradeType} from "./LearnAPI";
+import {cardsLearnAPI, ResponseCardsType, UpdatedGradeType} from "./LearnAPI";
 import {getRandomCard} from "./RandomCard";
 
 export type ActionsLearnCardsType =
     | ReturnType<typeof setCardsLearnAC>
-    | ReturnType<typeof setRandomCardsLearnAC>
     | ReturnType<typeof generateRandomCardAC>
     | ReturnType<typeof updateCardsAC>
     | ReturnType<typeof clearLearnStateAC>
@@ -27,7 +26,7 @@ export type CardLearnType = {
 }
 
 
-type InitialStateType = {
+export type InitialLearnStateType = {
     cards: CardLearnType[];
     randomCard: CardLearnType | null
     packUserId: string | null
@@ -38,7 +37,7 @@ type InitialStateType = {
 }
 
 
-const initialState: InitialStateType = {
+const initialState: InitialLearnStateType = {
     cards: [],
     randomCard: {
         _id: "",
@@ -59,12 +58,10 @@ const initialState: InitialStateType = {
 }
 
 
-export const LearnReducer = (state: InitialStateType = initialState, action: ActionsLearnCardsType): InitialStateType => {
+export const learnReducer = (state: InitialLearnStateType = initialState, action: ActionsLearnCardsType): InitialLearnStateType => {
     switch (action.type) {
         case 'LEARN/SET_CARDS':
             return {...state, ...action.payload}
-        case "LEARN/SET_RANDOM_CARD":
-            return {...state, randomCard: action.payload.card}
         case "LEARN/GENERATE_RANDOM_CARD":
             return {...state, randomCard: getRandomCard(state.cards)}
         case "LEARN/UPDATE_CARDS":
@@ -83,23 +80,20 @@ export const LearnReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 //=============================AC======================================
-export const setCardsLearnAC = (resObj: any) => ({
+export const setCardsLearnAC = (resObj: ResponseCardsType) => ({
     type: "LEARN/SET_CARDS",
     payload: resObj
-} as const)
-
-export const setRandomCardsLearnAC = (card: CardLearnType) => ({
-    type: "LEARN/SET_RANDOM_CARD",
-    payload: {card}
 } as const)
 
 export const generateRandomCardAC = () => ({
     type: "LEARN/GENERATE_RANDOM_CARD"
 } as const)
+
 export const updateCardsAC = (newCard: UpdatedGradeType) => ({
     type: "LEARN/UPDATE_CARDS",
     payload: newCard
 } as const)
+
 export const clearLearnStateAC = () => ({
     type: "LEARN/CLEAR_STATE",
 } as const)
@@ -113,7 +107,8 @@ export const setLearnCardsTC = (cardsPack_id: string,): AppThunk =>
         try {
             const res = await cardsLearnAPI.getLearnCards(cardsPack_id)
             dispatch(setCardsLearnAC(res.data))
-            dispatch(setRandomCardsLearnAC(getRandomCard(res.data.cards)))
+
+            dispatch(generateRandomCardAC())
             dispatch(setStatusApp('succeeded'))
 
         } catch
@@ -128,7 +123,7 @@ export const updateGradeTC = (grade: number, cardId: string): AppThunk =>
         try {
             const res = await cardsLearnAPI.updateGrade(grade, cardId)
             dispatch(updateCardsAC(res.data.updatedGrade))
-            await dispatch(generateRandomCardAC())
+            dispatch(generateRandomCardAC())
             dispatch(setStatusApp('succeeded'))
         } catch
             (e) {
