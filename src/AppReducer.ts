@@ -1,7 +1,7 @@
 import {AppThunk} from './Redux/Store';
 import {Dispatch} from 'redux';
 import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
-import  {AxiosError} from 'axios';
+import {AxiosError} from 'axios';
 import {handleError} from "./common/ErrorUtils/errorFunck";
 
 
@@ -26,7 +26,7 @@ export const AppReducer = (state: appInitialStateType = InitialState, action: ap
             return {...state, status: action.status}
         }
         case 'APP/INITIALIZED' : {
-            return {...state,initialized:false}
+            return {...state, initialized: false}
         }
         default:
             return {...state}
@@ -59,13 +59,12 @@ export const initializedAppTC = (): AppThunk =>
     async (dispatch: Dispatch) => {
         const promise = await dispatch(getAuthTC() as any)
         await Promise.all([promise])
-        try{
+        try {
             dispatch(initializedAppAC())
             dispatch(setErrorApp(null))
-        }
-        catch(e){
+        } catch (e) {
             const err = e as Error | AxiosError
-            handleError(err,dispatch)
+            handleError(err, dispatch)
         }
 
     }

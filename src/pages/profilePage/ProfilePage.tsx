@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import {SingOutTC} from '../login/loginReducer/LoginReducer';
 import {Paths} from '../../common/paths/Paths';
 import {editProfileNameAvatarTC} from "./ProfilePagerReducer";
+import {setErrorApp} from "../../AppReducer";
+import defaultAvatar from '../../assets/default-avatar.png'
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -33,17 +35,15 @@ export const ProfilePage = () => {
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
-            if (file.size < 1000000) {
+            if (file.size < 100000) {
                 convertFileToBase64(file, (file64: string) => {
                     dispatch(editProfileNameAvatarTC({avatar: file64}))
                     //отправляет Base64 на сервак
                 })
             } else {
-                console.error('Error: ', 'Файл слишком большого размера')
+                dispatch(setErrorApp('The file is too large'))
             }
         }
-
-
     }
     const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
         const reader = new FileReader();
@@ -54,9 +54,9 @@ export const ProfilePage = () => {
         reader.readAsDataURL(file)
     }
 
-    // const selectFileHandler = () => {
-    //     inputRef && inputRef.current?.click();
-    // };
+    const errorHandler = () => {
+        dispatch(setErrorApp('Incorrect photo'))
+    }
 
     if (!isAuth) {
         return <Navigate to={Paths.loginRoute}/>
@@ -76,11 +76,11 @@ export const ProfilePage = () => {
                 <div className={styleProfile.wrapper_profile}>
                     <h2 className={styleProfile.title}>Personal Information</h2>
 
-                    <img src={avatar ? avatar : 'https://my-engine.ru/modules/users/avatar.png'} alt=""/>
+                    <img src={avatar ? avatar : defaultAvatar} alt="avatar"/>
 
                     <label className={styleProfile.avatarButton}>
                         <input type="file"
-
+                               onError={errorHandler}
                                onChange={uploadHandler}
                                style={{display: 'none'}}
                                accept='image/*'/>
