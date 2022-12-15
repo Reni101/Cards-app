@@ -102,7 +102,6 @@ export const TableForPacks = () => {
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const rows: RowsData[] = rowsArray.map((row) =>
         createData(row.deckCover, row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
-    console.log(rowsArray)
     const isLoading = status === 'loading'
 
 

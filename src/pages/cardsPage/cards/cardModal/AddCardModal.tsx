@@ -31,8 +31,6 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
                 cardsPack_id &&
                 dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
             }
-
-
             formik.resetForm()
             setOpen(false)
 

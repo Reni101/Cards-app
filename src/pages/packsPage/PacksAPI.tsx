@@ -29,6 +29,7 @@ export type RequestAddPackType = {
 export type RequestUpdatePackType = {
     _id: string
     name: string | undefined
+    deckCover?:string
 }
 
 export const packsAPI = {
