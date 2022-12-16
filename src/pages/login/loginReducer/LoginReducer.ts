@@ -83,7 +83,6 @@ export const getAuthTC = (): AppThunk =>
             const err = e as Error | AxiosError
             handleError(err,dispatch)
         }
-
     }
 
 export const SingInTC = (data: LoginType): AppThunk =>

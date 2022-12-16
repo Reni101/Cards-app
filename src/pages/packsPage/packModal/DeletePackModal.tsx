@@ -1,6 +1,6 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode} from 'react';
 import {BasicModal} from "../../../common/modal/BasicModal";
-import {Button, Checkbox} from "@mui/material";
+import {Button} from "@mui/material";
 import style from "../addNewPack/AddNewPack.module.css";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {DeletePackTC} from "../PacksReducer";

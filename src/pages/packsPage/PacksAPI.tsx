@@ -23,11 +23,13 @@ export type queryModelType = {
 
 export type RequestAddPackType = {
     name: string
+    deckCover?:string
 }
 
 export type RequestUpdatePackType = {
     _id: string
     name: string | undefined
+    deckCover?:string
 }
 
 export const packsAPI = {
@@ -35,12 +37,12 @@ export const packsAPI = {
         return instance.get<ResponsePacksType>("cards/pack", {params})
     },
     addPack(cardsPack: RequestAddPackType) {
-        return instance.post<{ name: string }, AxiosResponse>('cards/pack', {cardsPack})
+      return   instance.post<{ name: string,deckCover:string }, AxiosResponse>('cards/pack', {cardsPack})
     },
     updatePack(cardsPack: RequestUpdatePackType) {
-        return instance.put('cards/pack', {cardsPack})
+       return instance.put('cards/pack', {cardsPack})
     },
     deletePack(idPack: string) {
-        return instance.delete(`cards/pack?id=${idPack}`)
+       return  instance.delete(`cards/pack?id=${idPack}`)
     }
 }
