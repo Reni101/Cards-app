@@ -1,9 +1,9 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType, queryModelType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
+import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
-import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
+import {setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
 export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
@@ -153,9 +153,9 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
     }
 
 export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
+    debugger
     dispatch(setStatusApp('loading'))
     try {
-        console.log(cardsPack)
         await packsAPI.addPack(cardsPack)
         await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setStatusApp('succeeded'))

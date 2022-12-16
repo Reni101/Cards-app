@@ -21,12 +21,9 @@ type EditPackModalType = {
 
 export const EditPackModal = ({children, id}: EditPackModalType) => {
 
-    const [newCover,setNewCover] = useState<string>('')
+    const [newCover, setNewCover] = useState<string>('')
     const [searchParams, setSearchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
-
-
-    const [open, setOpen] = React.useState(false);
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
@@ -34,9 +31,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     const [valueInput, setValueInput] = useState(pack?.name)
 
 
-
-
-    const updatePackClick = async (cards_pack: RequestUpdatePackType) => {
+    const updatePackClick = async (cards_pack: RequestUpdatePackType, handleClose: () => void) => {
         let trimValueInput = valueInput && valueInput.trim();
         if (trimValueInput && trimValueInput.toLowerCase() === 'хуй' ||
             trimValueInput && trimValueInput.toLowerCase() === 'fuck') {
@@ -44,26 +39,22 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
             dispatch(setErrorApp('foul language is prohibited'))
             return;
         }
-        await  dispatch(UpdatePackTC(cards_pack, searchQueryUserId,))
+        await dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
-        setOpen(false)
+        handleClose()
     }
 
-    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>,cards_pack: RequestUpdatePackType):Promise<void> => {
+    const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, cards_pack: RequestUpdatePackType, handleClose: () => void): Promise<void> => {
         if (e.key === 'Enter') {
-            await updatePackClick(cards_pack)
+            await updatePackClick(cards_pack, handleClose)
         }
-    }
-
-    const HandlerCancel = () => {
-        setOpen(false)
     }
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
             if (file.size < 100000) {
-                convertFileToBase64(file,(file64: string) => {
+                convertFileToBase64(file, (file64: string) => {
                     setNewCover(file64)
                 })
             } else {
@@ -73,10 +64,12 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     };
 
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Edit pack'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Edit pack'}>
+            {(handleClose) => <>
+
+
                 <div className={s.wrapper_img}>
-                    <CoverForTable cover={newCover.length === 0 ?  pack && pack.deckCover : newCover }/>
+                    <CoverForTable cover={newCover.length === 0 ? pack && pack.deckCover : newCover}/>
                     <label className={s.change_cover}>
                         <input type="file"
                                accept={"image/*"}
@@ -91,19 +84,25 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e) => setValueInput(e.currentTarget.value)}
-                               onKeyUp={(e)=>AddNewPackWithInput(e,{_id: id, name: valueInput})}
+                               onKeyUp={(e) => AddNewPackWithInput(e, {_id: id, name: valueInput}, handleClose)}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF'}}
-                            onClick={() => updatePackClick({_id: id, name: valueInput,deckCover:newCover})}
+                            onClick={() => updatePackClick({
+                                _id: id, name: valueInput,
+                                deckCover: newCover
+                            }, handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </div>
+            </>
+            }
         </BasicModal>
-    );
-};
+
+    )
+        ;
+}
