@@ -12,14 +12,14 @@ import {ActionsLearnCardsType, learnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
-    ProfilePage: ProfilePageReducer,//М
-    ForgotPassword: recoveryPasswordReducer,//M
-    Login: LoginReducer,//I
-    App: AppReducer,//I
-    Registration: RegistrationReducer,//A
-    Packs: PacksReducer,//I
-    Cards: CardsReducer,//A
-    Learn:learnReducer,//М
+    ProfilePage: ProfilePageReducer,//М //t
+    ForgotPassword: recoveryPasswordReducer,//M//t
+    Login: LoginReducer,//I t
+    App: AppReducer,//I t
+    Registration: RegistrationReducer,//A t
+    Packs: PacksReducer,//I t
+    Cards: CardsReducer,//M t
+    Learn:learnReducer,//М t
 
 })
 
