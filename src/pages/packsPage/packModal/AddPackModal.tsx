@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, ReactNode, useState, ChangeEvent } from 'react';
+import React, {KeyboardEvent, ReactNode, useState, ChangeEvent} from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from '../../../common/modal/BasicModal';
@@ -10,7 +10,7 @@ import s from './AddPackModal.module.css'
 import {useSearchParams} from 'react-router-dom';
 import {setErrorApp} from '../../../AppReducer';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
-import { IconButton } from '@mui/material';
+import {IconButton} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
 
@@ -20,7 +20,7 @@ type AddPackModalType = {
     cover?: string
 }
 
-export const AddPackModal = ({children,cover}: AddPackModalType) => {
+export const AddPackModal = ({children, cover}: AddPackModalType) => {
     const [searchParams, setSearchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
     const status = useAppSelector(state => state.App.status)
@@ -30,7 +30,7 @@ export const AddPackModal = ({children,cover}: AddPackModalType) => {
 
     const isLoading = status === 'loading'
 
-    const [newCover,setNewCover] = useState<string>('')
+    const [newCover, setNewCover] = useState<string>('')
 
     const AddNewPack = async (handleClose: () => void) => {
         let trimValueInput = valueInput.trim();
@@ -40,12 +40,12 @@ export const AddPackModal = ({children,cover}: AddPackModalType) => {
             return;
         }
 
-        await dispatch(AddPackTC({name: valueInput},searchQueryUserId))
+        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
         setValueInput('')
         handleClose()
     }
 
-    const AddNewPackWithInput = async (e:KeyboardEvent<HTMLDivElement>,handleClose: () => void):Promise<void> => {
+    const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, handleClose: () => void): Promise<void> => {
         if (e.key === 'Enter') {
             await AddNewPack(handleClose)
         }
@@ -56,11 +56,11 @@ export const AddPackModal = ({children,cover}: AddPackModalType) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
             if (file.size < 100000) {
-                convertFileToBase64(file,(file64: string) => {
+                convertFileToBase64(file, (file64: string) => {
                     setNewCover(file64)
                 })
             } else {
-               dispatch(setErrorApp('This file really large'))
+                dispatch(setErrorApp('This file really large'))
             }
         }
     };
@@ -69,7 +69,6 @@ export const AddPackModal = ({children,cover}: AddPackModalType) => {
         <BasicModal childrenBtn={children} name={'Add new pack'}>
             {(handleClose: () => void) => <>
 
-            <div >
                 <div className={s.wrapper_img}>
                     <CoverForTable cover={newCover}/>
                     <label className={s.change_cover}>
@@ -85,8 +84,8 @@ export const AddPackModal = ({children,cover}: AddPackModalType) => {
                 </div>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
-                               onChange={(e)=>setValueInput(e.currentTarget.value)}
-                               onKeyUp={(e)=>AddNewPackWithInput(e,handleClose)}
+                               onChange={(e) => setValueInput(e.currentTarget.value)}
+                               onKeyUp={(e) => AddNewPackWithInput(e, handleClose)}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>

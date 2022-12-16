@@ -21,7 +21,7 @@ type EditPackModalType = {
 
 export const EditPackModal = ({children, id}: EditPackModalType) => {
 
-    const [newCover,setNewCover] = useState<string>('')
+    const [newCover, setNewCover] = useState<string>('')
     const [searchParams, setSearchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 
@@ -44,9 +44,9 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
         handleClose()
     }
 
-    const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, cards_pack: RequestUpdatePackType,handleClose: () => void): Promise<void> => {
+    const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, cards_pack: RequestUpdatePackType, handleClose: () => void): Promise<void> => {
         if (e.key === 'Enter') {
-            await updatePackClick(cards_pack,handleClose)
+            await updatePackClick(cards_pack, handleClose)
         }
     }
 
@@ -54,7 +54,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
             if (file.size < 100000) {
-                convertFileToBase64(file,(file64: string) => {
+                convertFileToBase64(file, (file64: string) => {
                     setNewCover(file64)
                 })
             } else {
@@ -67,9 +67,9 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
         <BasicModal childrenBtn={children} name={'Edit pack'}>
             {(handleClose) => <>
 
-            <div>
+
                 <div className={s.wrapper_img}>
-                    <CoverForTable cover={newCover.length === 0 ?  pack && pack.deckCover : newCover }/>
+                    <CoverForTable cover={newCover.length === 0 ? pack && pack.deckCover : newCover}/>
                     <label className={s.change_cover}>
                         <input type="file"
                                accept={"image/*"}
@@ -84,7 +84,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={valueInput}
                                onChange={(e) => setValueInput(e.currentTarget.value)}
-                               onKeyUp={(e) => AddNewPackWithInput(e, {_id: id, name: valueInput},handleClose)}
+                               onKeyUp={(e) => AddNewPackWithInput(e, {_id: id, name: valueInput}, handleClose)}
                                id="standard-basic" label="Name pack" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
@@ -92,11 +92,17 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                     <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF'}}
-                            onClick={() => updatePackClick({_id: id, name: valueInput,deckCover:newCover},handleClose)}
+                            onClick={() => updatePackClick({
+                                _id: id, name: valueInput,
+                                deckCover: newCover
+                            }, handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </>}
+            </>
+            }
         </BasicModal>
-    );
-};
+
+    )
+        ;
+}
