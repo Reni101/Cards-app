@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, {DetailedHTMLProps, FormHTMLAttributes, ReactNode} from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import style from "../../cards/namePack/NamePack.module.css";
@@ -15,33 +15,34 @@ type AddPackModalType = {
 
 export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
 
-    const [open, setOpen] = React.useState(false);
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
-
-
+    type formikType = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
     const formik = useFormik({
         initialValues: {
             question: '',
             answer: ''
         },
-        onSubmit: values => {
+        onSubmit: (values, handleClose: any) => {
             {
                 cardsPack_id &&
                 dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
+
             }
-
-
             formik.resetForm()
-            setOpen(false)
-
+            handleClose()
         },
+
     });
 
+    const handlerSubmitForm = (handleClose: () => void) => {
+        formik.handleSubmit()
+        handleClose()
+    }
+
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Add new card'}>
-            <form className={s.InputBlock} onSubmit={formik.handleSubmit}>
+        <BasicModal childrenBtn={children} name={'Add new card'}>
+            {(handleClose) => <form className={s.InputBlock} onSubmit={() => handlerSubmitForm(handleClose)}>
                 <TextField onChange={formik.handleChange}
                            name={'question'} style={{marginBottom: '20px'}} value={formik.values.question}
                            id="standard-basic" label="Question" variant="standard"/>
@@ -50,12 +51,12 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
                            id="standard-basic" label="Answer" variant="standard"/>
 
                 <div className={s.blockBtn}>
-                    <Button className={style.button} variant="outlined">Cancel</Button>
+                    <Button onClick={handleClose} className={style.button} variant="outlined">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF',}}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </form>
+            </form>}
         </BasicModal>
     )
 }

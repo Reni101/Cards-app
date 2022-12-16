@@ -13,53 +13,44 @@ type EditPackModalType = {
     children: ReactNode
     idCard: string
     question: string
+    answer: string
 }
 
-export const EditCardModal = ({children, idCard, question}: EditPackModalType) => {
-
-    const [open, setOpen] = React.useState(false);
+export const EditCardModal = ({children, idCard, question, answer}: EditPackModalType) => {
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
     const [newQuestion, setNewQuestion] = useState(question)
+    const [newAnswer, setNewAnswer] = useState(answer)
 
-    const handleUpdateCard = (idCard: string, question: string) => {
-        const card = {
-            _id: idCard,
-            question
-        }
-        dispatch(UpdateCardTC(card))
-    }
-
-
-    const updateCardClick = (card: RequestUpdateCardType) => {
+    const updateCardClick = (card: RequestUpdateCardType, handleClose: () => void) => {
         dispatch(UpdateCardTC(card))
         setNewQuestion('')
-        setOpen(false)
+        handleClose()
     }
 
-    const HandlerCancel = () => {
-        setOpen(false)
-    }
 
     return (
-        <BasicModal childrenBtn={children} open={open} setOpen={setOpen} name={'Edit pack'}>
-            <div>
+        <BasicModal childrenBtn={children} name={'Edit pack'}>
+            {(handleClose) => <>
                 <div className={s.InputBlock}>
                     <TextField style={{marginBottom: '20px'}} value={newQuestion}
                                onChange={(e) => setNewQuestion(e.currentTarget.value)}
-                               id="standard-basic" label="Name pack" variant="standard"/>
+                               id="standard-basic" label="Question" variant="standard"/>
+                    <TextField style={{marginBottom: '20px'}} value={newAnswer}
+                               onChange={(e) => setNewAnswer(e.currentTarget.value)}
+                               id="standard-basic" label="Answer" variant="standard"/>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Private pack"/>
                 </div>
                 <div className={s.blockBtn}>
-                    <Button onClick={HandlerCancel} className={style.button} variant="outlined"
+                    <Button onClick={handleClose} className={style.button} variant="outlined"
                             type="submit">Cancel</Button>
                     <Button style={{color: 'white', backgroundColor: '#366EFF'}}
-                            onClick={() => updateCardClick({_id: idCard, question: newQuestion})}
+                            onClick={() => updateCardClick({_id: idCard, question: newQuestion, answer: newAnswer}, handleClose)}
                             className={style.button} variant="outlined" type="submit"
                             disabled={status === "loading"}>Save</Button>
                 </div>
-            </div>
+            </>}
         </BasicModal>
     );
 };

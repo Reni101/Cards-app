@@ -18,19 +18,24 @@ const style = {
 };
 
 type BasicModalType = {
-    children: ReactNode
+    children: (handleClose: () => void) =>  ReactNode
     childrenBtn: ReactNode
     name: string
-    open: boolean
-    setOpen: (open: boolean) => void
 }
 
 
-export const BasicModal = ({children, childrenBtn, open, setOpen, name}: BasicModalType) => {
+export const BasicModal = ({children, childrenBtn, name}: BasicModalType) => {
+
+    const [open, setOpen] = React.useState(false)
 
     const handleClose = () => {
         setOpen(false)
     }
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
     return (
         <div>
             <div onClick={() => setOpen(true)}>
@@ -48,7 +53,7 @@ export const BasicModal = ({children, childrenBtn, open, setOpen, name}: BasicMo
                       {name}
                       <CloseIcon style={{cursor: 'pointer'}} onClick={handleClose}/>
                   </div>
-                    {children}
+                    {children(handleClose)}
                 </Box>
             </Modal>
         </div>

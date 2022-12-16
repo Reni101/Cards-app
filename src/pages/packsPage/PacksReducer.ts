@@ -1,9 +1,9 @@
 import {AppThunk} from '../../Redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
-import {packsAPI, RequestAddPackType, queryModelType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
+import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
-import {setCardsAC, setCardsTC, setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
+import {setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
 
 export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
@@ -32,7 +32,7 @@ export type PacksType = {
 }
 
 
-type InitialStateType = {
+export type InitialStateType = {
     cardPacks: Array<PacksType>
     cardPacksTotalCount: number
     minCardsCount: number
@@ -142,6 +142,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
             if (user_id === '') user_id = null
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
+            console.log(res)
             dispatch(setPacksAC(res.data))
             dispatch(setStatusApp('succeeded'))
         } catch
@@ -152,6 +153,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
     }
 
 export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
+    debugger
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.addPack(cardsPack)

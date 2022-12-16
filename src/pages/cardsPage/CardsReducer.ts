@@ -28,7 +28,7 @@ export type CardType = {
 }
 
 
-type InitialStateType = {
+export type InitialStateType = {
     cards: CardType[];
     packUserId: string
     packName: string

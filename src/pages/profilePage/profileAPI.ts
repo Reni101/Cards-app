@@ -1,14 +1,20 @@
 import {instance} from "../../common/API/api";
 
+export type profileEditType = {
+    name?: string | null,
+    avatar?: any
+}
 
 export const profilePageAPI = {
-    editProfileName(name: string | null) {
-        return instance.put<ResponseUpdateProfileType>("/auth/me", {name})
+    editProfileName(profileData: profileEditType) {
+        return instance.put<ResponseUpdateProfileType>("/auth/me", {
+            name: profileData.name,
+            avatar: profileData.avatar,
+        })
     }
 }
 
 
-// Типизация респонса, после обновления имени/аватара
 export type ResponseUpdateProfileType = {
     updatedUser: updatedUser;
     token: string;

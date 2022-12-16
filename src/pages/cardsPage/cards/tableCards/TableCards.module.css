@@ -14,6 +14,9 @@
 .icons>svg{
     margin:0 5px;
 }
+.icons{
+    cursor: pointer;
+}
 
 .icons>svg:hover{
     transition: all .2s;

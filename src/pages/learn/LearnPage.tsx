@@ -9,11 +9,12 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
-import {packsRoute} from "../../common/paths/Paths";
+import {Paths} from "../../common/paths/Paths";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
 import {
+    clearLearnStateAC,
     setLearnCardsTC,
     updateGradeTC
 } from "./LearnReducer";
@@ -35,6 +36,9 @@ export const LearnPage = () => {
 
     useEffect(() => {
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
+        return () => {
+            dispatch(clearLearnStateAC())
+        }
     }, [dispatch])
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +61,7 @@ export const LearnPage = () => {
     };
 
     const goToPacks = () => {
-        navigate(packsRoute)
+        navigate(Paths.packsRoute)
     }
 
 

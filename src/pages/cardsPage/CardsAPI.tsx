@@ -8,7 +8,6 @@ export const cardsAPI = {
         return instance.get<ResponseCardsType>("cards/card", {params})
     },
     addCard(card: RequestAddCardType) {
-
         return instance.post<{ card: RequestAddCardType }, AxiosResponse>("cards/card", {card})
     },
     updateCard(card: RequestUpdateCardType) {
@@ -39,13 +38,14 @@ export type RequestAddCardType = {
 
 export type RequestUpdateCardType = {
     _id: string
-    question: string
+    question: string,
+    answer: string
 }
 
 export type queryCardsModelType = {
-    cardsPack_id: string | null // айдишка пака
-    cardQuestion?: string | null // поиск по вопросами
-    sortCards?: string | null // сортировка по вопросам/ответам/грейду/обновлению
-    page?: number // страница
+    cardsPack_id: string | null
+    cardQuestion?: string | null
+    sortCards?: string | null
+    page?: number
     pageCount: number
 }

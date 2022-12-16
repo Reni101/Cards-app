@@ -17,6 +17,7 @@ import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
 import {useNavigate} from 'react-router-dom';
 import {AddCardModal} from "../cardModal/AddCardModal";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import {Paths} from "../../../../common/paths/Paths";
 
 export const NamePack = () => {
     const navigate = useNavigate()
@@ -64,8 +65,9 @@ export const NamePack = () => {
         dispatch(UpdatePackTC(cards_pack))
     }
 
-    const deletePackClick = (pack_id: string) => {
-        dispatch(DeletePackTC(pack_id))
+    const deletePackClick = async (pack_id: string) => {
+        await dispatch(DeletePackTC(pack_id))
+        navigate(Paths.packsRoute)
     }
 
     const goToLearnHandler = (card_pack_id: string) => {
@@ -87,7 +89,7 @@ export const NamePack = () => {
                 onClick={handleToggle}
                 className={style.title_my_cards}
             >
-                {packName}{packsUserId === myId && <MenuOpenIcon style={{margin: "10px"}}/>}
+                {packName}{packsUserId === myId && <MenuOpenIcon style={{margin: "10px"}} color={"primary"}/>}
             </h2>
             {packsUserId === myId &&
                 <Popper

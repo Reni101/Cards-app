@@ -1,29 +1,28 @@
 import {combineReducers} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
-import {ActionsForgotType, forgotPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+import {ActionsForgotType, recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {ActionsLearnCardsType, LearnReducer} from "../pages/learn/LearnReducer";
+import {ActionsLearnCardsType, learnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
-    ProfilePage: ProfilePageReducer,
-    ForgotPassword: forgotPasswordReducer,
-    Login: LoginReducer,
-    App: AppReducer,
-    Registration: RegistrationReducer,
-    Packs: PacksReducer,
-    Cards: CardsReducer,
-    Learn:LearnReducer,
+    ProfilePage: ProfilePageReducer,//М
+    ForgotPassword: recoveryPasswordReducer,//M
+    Login: LoginReducer,//I
+    App: AppReducer,//I
+    Registration: RegistrationReducer,//A
+    Packs: PacksReducer,//I
+    Cards: CardsReducer,//A
+    Learn:learnReducer,//М
 
 })
 
-//export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()

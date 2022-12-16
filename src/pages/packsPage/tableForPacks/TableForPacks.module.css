@@ -36,12 +36,28 @@
     transition: all .5s;
 }
 
-.no_visible_icons {
+.display_no{
     display: none;
 }
-
-.actions_display_no{
-    display: none;
+.img_wrapper{
+    max-width: 70px;
+    max-height: 70px;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+.img_wrapper:hover{
+    box-shadow: -5px 5px 5px black;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
 }
 
 
