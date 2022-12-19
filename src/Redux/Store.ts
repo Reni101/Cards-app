@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
+import { ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
 import {ActionsForgotType, recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
@@ -32,7 +32,6 @@ export const store = configureStore({
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AllAppActionsType =
-    | ActionsProfileType
     | ActionsLoginType
     | ActionsForgotType
     | appReducersType

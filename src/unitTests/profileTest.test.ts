@@ -1,11 +1,10 @@
 import {
     editProfileNameAvatarAC,
-    InitialProfileStateType,
-    ProfilePageReducer
+    ProfilePageReducer, sliceProfileType
 } from "../pages/profilePage/ProfilePagerReducer";
 
 
-let startState:InitialProfileStateType
+let startState: sliceProfileType
 
 
 beforeEach(() => {
@@ -19,13 +18,13 @@ beforeEach(() => {
 })
 
 test('correct edit profile name', () => {
-    const endState = ProfilePageReducer(startState, editProfileNameAvatarAC("Maxim1", null))
+    const endState = ProfilePageReducer(startState, editProfileNameAvatarAC({name: "Maxim1", avatar: null}))
 
     expect(endState.name).toBe("Maxim1")
     expect(endState.avatar).toBe(null)
 })
 test('correct edit profile avatar', () => {
-    const endState = ProfilePageReducer(startState, editProfileNameAvatarAC("", "new avatar"))
+    const endState = ProfilePageReducer(startState, editProfileNameAvatarAC({name: "", avatar: "new avatar"}))
 
     expect(endState.name).toBe("")
     expect(endState.avatar).toBe("new avatar")

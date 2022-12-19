@@ -1,57 +1,48 @@
-import {AppThunk} from "../../Redux/Store";
 import {profileEditType, profilePageAPI, updatedUser} from "./profileAPI";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Dispatch} from "redux";
 
 
-const initialState = {
-    user_id: "",
+const initialProfileState = {
+    user_id: "" as string,
     email: null as string | null,
     name: null as string | null,
     publicCardPacksCount: null as number | null,
     avatar: null as string | null
-}
+} as const
 
-export type InitialProfileStateType = typeof initialState
+export type sliceProfileType = typeof initialProfileState
 
-export const ProfilePageReducer = (state: InitialProfileStateType = initialState, action: ActionsProfileType): InitialProfileStateType => {
-    switch (action.type) {
-        case "PROFILE_PAGE_SET_PROFILE_DATA":
-            return {
-                ...state,
-                name: action.data.name,
-                email: action.data.email,
-                avatar: action.data.avatar,
-                user_id: action.data._id
-            }
-        case 'PROFILE_PAGE_CHANGE_PROFILE_NAME':
-            return {...state, name: action.payload?.name, avatar: action.payload?.avatar}
-        default:
-            return state
+const slice = createSlice({
+    name: "ProfilePageReducer",
+    initialState: initialProfileState,
+    reducers: {
+        editProfileNameAvatarAC(state, action: PayloadAction<{ name: string | null, avatar: string | null }>) {
+            state.name = action.payload.name
+            state.avatar = action.payload.avatar
+        },
+        setProfileDataAC(state, action: PayloadAction<{ data: updatedUser }>) {
+            state.name = action.payload.data.name
+            state.email = action.payload.data.email
+            state.avatar = action.payload.data.avatar
+            state.user_id = action.payload.data._id
+        }
     }
-}
-//=============================AC======================================
-export const editProfileNameAvatarAC = (name: string | null, avatar: string | null) => ({
-    type: 'PROFILE_PAGE_CHANGE_PROFILE_NAME',
-    payload: {
-        name,
-        avatar
-    }
-} as const)
-export const setProfileDataAC = (data: updatedUser) => ({
-    type: 'PROFILE_PAGE_SET_PROFILE_DATA',
-    data
-} as const)
+})
+
+export const ProfilePageReducer = slice.reducer
+export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 
 //==============================TC============================
-
-export const editProfileNameAvatarTC = ({name, avatar}: profileEditType): AppThunk => async dispatch => {
+export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => async (dispatch:Dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})
-        dispatch(editProfileNameAvatarAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+        dispatch(editProfileNameAvatarAC({name: res.data.updatedUser.name, avatar: res.data.updatedUser.avatar}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -59,7 +50,3 @@ export const editProfileNameAvatarTC = ({name, avatar}: profileEditType): AppThu
     }
 }
 
-
-export type ActionsProfileType =
-    | ReturnType<typeof editProfileNameAvatarAC>
-    | ReturnType<typeof setProfileDataAC>
