@@ -1,19 +1,16 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import style from './SearchCards.module.css';
 import {Toolbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {Search,SearchIconWrapper,StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, { useAppSelector} from '../../../../hooks/hooks';
+import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
+import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {findCardsQuestionAC} from "../../CardsReducer";
 import {useSearchParams} from 'react-router-dom';
-import {useDispatch} from "react-redux";
-
-
 
 
 export const SearchCards = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const question = useAppSelector(state => state.Cards.cardQuestion)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)

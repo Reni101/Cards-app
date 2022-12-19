@@ -8,18 +8,17 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import moment from 'moment/moment';
-import { Rating} from '@mui/material';
+import {Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import { useParams, useSearchParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
 import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
-import {useDispatch} from "react-redux";
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
@@ -68,7 +67,7 @@ function createData(
 
 
 export const TableCards = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const {packIdQuery} = useParams();
     const status = useAppSelector(state => state.App.status)
     const cards = useAppSelector(state => state.Cards.cards)
@@ -82,18 +81,16 @@ export const TableCards = () => {
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
 
     useEffect(() => {
         if (searchQuery !== findQuestion) return
-        //@ts-ignore
         dispatch(setCardsTC(packId ? packId : packIdQuery!, searchQuery))
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
     const changePageHandler = useCallback((newPage: number) => {
-        //@ts-ignore
         dispatch(changePageCardsAC({page:newPage}))
     }, [dispatch])
 

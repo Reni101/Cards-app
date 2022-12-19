@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import style from "./Learn.module.css"
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -10,19 +11,13 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
 import {Paths} from "../../common/paths/Paths";
-import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
-import {
-    clearLearnStateAC,
-    setLearnCardsTC,
-    updateGradeTC
-} from "./LearnReducer";
-import {useDispatch} from "react-redux";
+import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "./LearnReducer";
 
 
 export const LearnPage = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {cardId} = useParams();
     const packName = useAppSelector(state => state.Learn.packName)
@@ -36,7 +31,6 @@ export const LearnPage = () => {
 
 
     useEffect(() => {
-        //@ts-ignore
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
         return () => {
             dispatch(clearLearnStateAC())
@@ -54,7 +48,6 @@ export const LearnPage = () => {
             setHelperText('Choose answer');
             setError(true);
         } else {
-            //@ts-ignore
             await dispatch(updateGradeTC(+answer, randomCard!._id))
             setError(false)
             setAnswer("")

@@ -1,14 +1,14 @@
 import {combineReducers} from "redux";
-import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import { ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
+import thunk, {ThunkAction} from "redux-thunk";
+import {ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
 import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
-import { CardsReducer} from "../pages/cardsPage/CardsReducer";
+import {CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import { learnReducer} from "../pages/learn/LearnReducer";
+import {learnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
@@ -38,7 +38,7 @@ export type AllAppActionsType =
     | ActionsPacksType
 
 
-export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>
+export type AppDispatch = typeof store.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AllAppActionsType>
 
 // @ts-ignore

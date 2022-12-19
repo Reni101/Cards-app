@@ -5,8 +5,11 @@ import style from './Login.module.css'
 import {
     Button,
     FormControl,
-    FormControlLabel, IconButton, InputAdornment,
-    InputLabel, LinearProgress,
+    FormControlLabel,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    LinearProgress,
     OutlinedInput,
     styled,
     Switch,
@@ -14,12 +17,13 @@ import {
     TextField
 } from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Navigate, NavLink} from 'react-router-dom';
 import {AppDispatch, AppRootStateType} from '../../Redux/Store';
 import {SingInTC} from './loginReducer/LoginReducer';
 import {Slide} from 'react-awesome-reveal';
 import {requestStatusType} from '../../AppReducer';
+import {useAppDispatch} from "../../hooks/hooks";
 
 
 interface State {
@@ -38,7 +42,7 @@ interface InitialValuesType {
 
 export const LoginPage = () => {
 
-    const dispatch: AppDispatch = useDispatch() // нужно для диспатча, пока что заглушка alert
+    const dispatch: AppDispatch = useAppDispatch()
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
     const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
 
