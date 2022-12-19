@@ -25,6 +25,7 @@ import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
+import {useDispatch} from "react-redux";
 
 
 
@@ -79,7 +80,7 @@ function createData(
 
 export const TableForPacks = () => {
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const status = useAppSelector(state => state.App.status)
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -116,6 +117,7 @@ export const TableForPacks = () => {
             packName: searchQueryName,
             user_id: searchQueryUserId
         }
+        //@ts-ignore
         dispatch(SetCardsPackTC(QuerySearchParams))
     }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
 
@@ -129,12 +131,12 @@ export const TableForPacks = () => {
     }, [dispatch])
 
     const goToCardsHandler = (card_pack_id: string) => {
-        dispatch(setPacksIdAC(card_pack_id))
+        dispatch(setPacksIdAC({packsId:card_pack_id}))
         navigate(`/cards/${card_pack_id}`)
     }
 
     const goToLearnHandler = (card_pack_id: string) => {
-        dispatch(setPacksIdAC(card_pack_id))
+        dispatch(setPacksIdAC({packsId:card_pack_id}))
         navigate(`/learn/${card_pack_id}`)
     }
 

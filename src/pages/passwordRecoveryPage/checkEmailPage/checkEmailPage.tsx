@@ -5,14 +5,15 @@ import style from './checkEmailPage.module.css'
 import CheckEmail from "../../../assets/chekEmail.svg"
 import {Slide} from 'react-awesome-reveal';
 import {setRecoverEmailAC} from "../RecoveryPasswordReducer";
+import {useDispatch} from "react-redux";
 
 export const CheckEmailPage = () => {
 
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     useEffect(()=>{
         return ()=>{
-            dispatch(setRecoverEmailAC(null))
+            dispatch(setRecoverEmailAC({email:null}))
         }
     },[dispatch])
 

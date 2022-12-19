@@ -3,16 +3,17 @@ import style from './SearchCards.module.css';
 import {Toolbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {Search,SearchIconWrapper,StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import useDebounce, { useAppSelector} from '../../../../hooks/hooks';
 import {findCardsQuestionAC} from "../../CardsReducer";
 import {useSearchParams} from 'react-router-dom';
+import {useDispatch} from "react-redux";
 
 
 
 
 export const SearchCards = () => {
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const question = useAppSelector(state => state.Cards.cardQuestion)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)
@@ -30,7 +31,7 @@ export const SearchCards = () => {
 
     useEffect(() => {
         if(question === debouncedValue) return
-        dispatch(findCardsQuestionAC(debouncedValue))
+        dispatch(findCardsQuestionAC({cardQuestion:debouncedValue}))
     }, [debouncedValue])
 
     if(!packId){

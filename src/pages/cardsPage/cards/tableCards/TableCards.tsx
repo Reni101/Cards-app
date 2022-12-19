@@ -19,6 +19,7 @@ import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
+import {useDispatch} from "react-redux";
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
@@ -67,7 +68,7 @@ function createData(
 
 
 export const TableCards = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const {packIdQuery} = useParams();
     const status = useAppSelector(state => state.App.status)
     const cards = useAppSelector(state => state.Cards.cards)
@@ -86,21 +87,23 @@ export const TableCards = () => {
 
     useEffect(() => {
         if (searchQuery !== findQuestion) return
+        //@ts-ignore
         dispatch(setCardsTC(packId ? packId : packIdQuery!, searchQuery))
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
     const changePageHandler = useCallback((newPage: number) => {
-        dispatch(changePageCardsAC(newPage))
+        //@ts-ignore
+        dispatch(changePageCardsAC({page:newPage}))
     }, [dispatch])
 
     const changeRowsPerPageHandler = useCallback((rows: number) => {
-        dispatch(changePageCardsCountAC(rows))
+        dispatch(changePageCardsCountAC({pageCount:rows}))
     }, [dispatch])
 
     const sortCardsHandler = (columnID: sortCardsType) => {
         const val = sortCards === ('0' + columnID)
-        dispatch(sortCardsAC(val ? `1${columnID}` : `0${columnID}`))
+        dispatch(sortCardsAC({sortCards:val ? `1${columnID}` : `0${columnID}`}))
     }
 
     if (cards.length === 0) {

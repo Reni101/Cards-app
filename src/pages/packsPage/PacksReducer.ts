@@ -4,6 +4,7 @@ import {AxiosError} from 'axios';
 import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
+import {Dispatch} from "redux";
 
 export type ActionsPacksType =
     | ReturnType<typeof setPacksAC>
@@ -168,12 +169,13 @@ export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch:Dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await packsAPI.updatePack(cardsPack)
+        //@ts-ignore
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
-        dispatch(setPackNameForCardAC(cardsPack.name!))
+        dispatch(setPackNameForCardAC({newPackName:cardsPack.name!}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -189,7 +191,8 @@ export const DeletePackTC = (idPack: string, searchQueryUserId?: string): AppThu
     try {
         await packsAPI.deletePack(idPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
-        dispatch(setPacksIdAC(''))
+        //@ts-ignore
+        dispatch(setPacksIdAC({packsId:''}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError

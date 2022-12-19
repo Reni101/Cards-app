@@ -12,7 +12,7 @@ const initialProfileState = {
     name: null as string | null,
     publicCardPacksCount: null as number | null,
     avatar: null as string | null
-} as const
+}
 
 export type sliceProfileType = typeof initialProfileState
 

@@ -18,10 +18,11 @@ import {
     setLearnCardsTC,
     updateGradeTC
 } from "./LearnReducer";
+import {useDispatch} from "react-redux";
 
 
 export const LearnPage = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const {cardId} = useParams();
     const packName = useAppSelector(state => state.Learn.packName)
@@ -35,6 +36,7 @@ export const LearnPage = () => {
 
 
     useEffect(() => {
+        //@ts-ignore
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
         return () => {
             dispatch(clearLearnStateAC())
@@ -52,6 +54,7 @@ export const LearnPage = () => {
             setHelperText('Choose answer');
             setError(true);
         } else {
+            //@ts-ignore
             await dispatch(updateGradeTC(+answer, randomCard!._id))
             setError(false)
             setAnswer("")
@@ -75,7 +78,7 @@ export const LearnPage = () => {
             <h1 className={style.title}>Learn "{packName}"</h1>
             <div className={style.mainBlock}>
 
-                <div className={style.question}><b>Question:</b> :{randomCard!.question}</div>
+                <div className={style.question}><b>Question:</b> {randomCard!.question}</div>
                 <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
                 {!isShowAnswer &&
                     <div>

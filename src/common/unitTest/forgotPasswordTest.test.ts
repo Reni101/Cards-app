@@ -1,11 +1,12 @@
 import {
-    InitialRecoveryPasswordStateType,
+    sliceRecoveryType,
+
     recoveryPasswordReducer,
     setRecoverEmailAC
-} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+} from "../../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 
 
-let startState: InitialRecoveryPasswordStateType = {
+let startState:sliceRecoveryType = {
     email: "",
     isRedirectToLogin: false
 };
@@ -19,7 +20,7 @@ beforeEach(() => {
 })
 
 test('correct set email ', () => {
-    const endState = recoveryPasswordReducer(startState, setRecoverEmailAC("maximor-2008@tut.by"))
+    const endState = recoveryPasswordReducer(startState, setRecoverEmailAC({email:"maximor-2008@tut.by"}))
 
     expect(endState.email).toBe("maximor-2008@tut.by")
     expect(endState.isRedirectToLogin).toBe(false)

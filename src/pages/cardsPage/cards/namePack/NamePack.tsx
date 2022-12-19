@@ -71,7 +71,8 @@ export const NamePack = () => {
     }
 
     const goToLearnHandler = (card_pack_id: string) => {
-        dispatch(setPacksIdAC(card_pack_id))
+        //@ts-ignore
+        dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/learn/${card_pack_id}`)
     }
 

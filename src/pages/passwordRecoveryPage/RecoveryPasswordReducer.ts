@@ -1,71 +1,57 @@
-import {AppThunk} from "../../Redux/Store";
 import {RecoveryPasswordApi} from "./RecoveryPasswordApi";
-import  {AxiosError} from "axios";
-import { setStatusApp} from "../../AppReducer";
+import {AxiosError} from "axios";
+import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Dispatch} from "redux";
 
 
-const initialState = {
-    email: null as string | null,
-    isRedirectToLogin: false
-}
-
-export type InitialRecoveryPasswordStateType = typeof initialState
-
-export const recoveryPasswordReducer = (state: InitialRecoveryPasswordStateType = initialState, action: ActionsForgotType): InitialRecoveryPasswordStateType => {
-    switch (action.type) {
-        case "FORGOT/REDIRECT_TO_LOGIN":
-            return {...state, isRedirectToLogin: action.value}
-        case "FORGOT/SET_RECOVER_EMAIL":
-            return {...state, email: action.email}
-        default:
-            return state
+const slice = createSlice({
+    name: "recoveryPasswordReducer",
+    initialState: {
+        email: null as string | null,
+        isRedirectToLogin: false as boolean
+    },
+    reducers: {
+        setRecoverEmailAC(state, action: PayloadAction<{ email: string | null }>) {
+            state.email = action.payload.email
+        },
+        setRedirectToLoginAC(state, action: PayloadAction<{ value: boolean }>) {
+            state.isRedirectToLogin = action.payload.value
+        }
     }
-}
-//=============================AC======================================
-export const setRecoverEmailAC = (email: string | null) => ({
-    type: 'FORGOT/SET_RECOVER_EMAIL',
-    email
-
-} as const)
-export const setRedirectToLoginAC = (value: boolean) => ({
-    type: 'FORGOT/REDIRECT_TO_LOGIN',
-    value
-
-} as const)
+})
+export const recoveryPasswordReducer = slice.reducer
+export const {setRecoverEmailAC, setRedirectToLoginAC} = slice.actions
+export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 
 
 //==============================TC============================
 
-export const forgotPasswordTC = (email: string): AppThunk => async dispatch => {
+export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await RecoveryPasswordApi.recoveryForgotPassword(email)
-        dispatch(setRecoverEmailAC(email))
+        dispatch(setRecoverEmailAC({email}))
         dispatch(setStatusApp('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     }
 }
 
-export const setNewPasswordTC = (password: string, token: string): AppThunk => async dispatch => {
+export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch) => {
     dispatch(setStatusApp('loading'))
     try {
         await RecoveryPasswordApi.setNewPassword(password, token)
-        dispatch(setRedirectToLoginAC(true))
+        dispatch(setRedirectToLoginAC({value: true}))
         dispatch(setStatusApp('succeeded'))
 
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     }
 }
 
 
-//
-
-export type ActionsForgotType =
-    | ReturnType<typeof setRecoverEmailAC>
-    | ReturnType<typeof setRedirectToLoginAC>
 
