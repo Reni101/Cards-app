@@ -12,12 +12,12 @@ beforeEach(()=>{
 
 test('correct error message', () => {
 
- const StateFinish = AppReducer(InitialState,setErrorApp('New error'))
+ const StateFinish = AppReducer(InitialState,setErrorApp({error:'New error'}))
 
     expect(StateFinish.error).toBe('New error')
 });
 test('correct status changing', () => {
-    const StateFinishWithStatus = AppReducer(InitialState,setStatusApp('failed'))
+    const StateFinishWithStatus = AppReducer(InitialState,setStatusApp({status:'failed'}))
 
     expect(StateFinishWithStatus.status).toBe('failed')
 })

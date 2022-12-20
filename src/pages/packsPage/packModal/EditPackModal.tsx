@@ -22,7 +22,7 @@ type EditPackModalType = {
 export const EditPackModal = ({children, id}: EditPackModalType) => {
 
     const [newCover, setNewCover] = useState<string>('')
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 
     const dispatch = useAppDispatch()
@@ -33,15 +33,15 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
 
     const updatePackClick = async (cards_pack: RequestUpdatePackType, handleClose: () => void) => {
         let trimValueInput = valueInput && valueInput.trim();
-        if (trimValueInput && trimValueInput.toLowerCase() === 'хуй' ||
-            trimValueInput && trimValueInput.toLowerCase() === 'fuck') {
+        if ((trimValueInput && trimValueInput.toLowerCase() === 'хуй') ||
+            (trimValueInput && trimValueInput.toLowerCase() === 'fuck')) {
             setValueInput('');
-            dispatch(setErrorApp('foul language is prohibited'))
+            dispatch(setErrorApp({error:'foul language is prohibited'}))
             return;
         }
+        handleClose()
         await dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
-        handleClose()
     }
 
     const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, cards_pack: RequestUpdatePackType, handleClose: () => void): Promise<void> => {
@@ -58,7 +58,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                     setNewCover(file64)
                 })
             } else {
-                dispatch(setErrorApp('This file really large'))
+                dispatch(setErrorApp({error:'This file really large'}))
             }
         }
     };
@@ -66,8 +66,6 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
     return (
         <BasicModal childrenBtn={children} name={'Edit pack'}>
             {(handleClose) => <>
-
-
                 <div className={s.wrapper_img}>
                     <CoverForTable cover={newCover.length === 0 ? pack && pack.deckCover : newCover}/>
                     <label className={s.change_cover}>

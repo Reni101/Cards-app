@@ -8,7 +8,7 @@ import {RegistrationActionType, RegistrationReducer} from "../pages/registration
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {ActionsLearnCardsType, learnReducer} from "../pages/learn/LearnReducer";
+import {ActionsLearnCardsType, LearnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     Registration: RegistrationReducer,//A t
     Packs: PacksReducer,//I t
     Cards: CardsReducer,//M t
-    Learn:learnReducer,//М t
+    Learn:LearnReducer,//М t
 
 })
 

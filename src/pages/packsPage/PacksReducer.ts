@@ -131,7 +131,7 @@ export const changeShowMyPacksAC = (user_id: string) => ({
 
 export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
     async (dispatch, getState) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status:'loading'}))
         try {
             let {packName, user_id, min, max} = QuerySearchParams
             let {page, pageCount, sortPacks, maxCardsCount} = getState().Packs
@@ -144,7 +144,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             console.log(res)
             dispatch(setPacksAC(res.data))
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setStatusApp({status:'succeeded'}))
         } catch
             (e) {
             const err = e as Error | AxiosError
@@ -154,48 +154,48 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
 
 export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     debugger
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         await packsAPI.addPack(cardsPack)
         await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
     } finally {
-        dispatch(setStatusApp('idle'))
+        dispatch(setStatusApp({status:'idle'}))
     }
 }
 
 
 export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         await packsAPI.updatePack(cardsPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPackNameForCardAC(cardsPack.name!))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
     } finally {
-        dispatch(setStatusApp('idle'))
+        dispatch(setStatusApp({status:'idle'}))
     }
 }
 
 
 export const DeletePackTC = (idPack: string, searchQueryUserId?: string): AppThunk => async (dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         await packsAPI.deletePack(idPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPacksIdAC(''))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
     } finally {
-        dispatch(setStatusApp('idle'))
+        dispatch(setStatusApp({status:'idle'}))
     }
 }
 

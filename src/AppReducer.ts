@@ -2,7 +2,8 @@ import {AppThunk} from './Redux/Store';
 import {Dispatch} from 'redux';
 import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
 import {AxiosError} from 'axios';
-import {handleError} from "./common/ErrorUtils/errorFunck";
+import {handleError} from './common/ErrorUtils/errorFunck';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 
 export type requestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -16,44 +17,30 @@ const InitialState: appInitialStateType = {
     error: null,
     initialized: true
 }
-export const AppReducer = (state: appInitialStateType = InitialState, action: appReducersType): appInitialStateType => {
 
-    switch (action.type) {
-        case 'APP/SET_ERROR': {
-            return {...state, error: action.error}
+const slice = createSlice({
+    name: 'app',
+    initialState: InitialState,
+    reducers: {
+        setErrorApp(state, action: PayloadAction<{ error: string | null }>) {
+            state.error = action.payload.error
+        },
+        setStatusApp(state,action:PayloadAction<{status:requestStatusType}>) {
+            state.status = action.payload.status
+        },
+        initializedAppAC(status,action:PayloadAction){
+            status.initialized = false
         }
-        case 'APP/SET_STATUS' : {
-            return {...state, status: action.status}
-        }
-        case 'APP/INITIALIZED' : {
-            return {...state, initialized: false}
-        }
-        default:
-            return {...state}
     }
-}
+})
+export const AppReducer = slice.reducer
+export const {setErrorApp,setStatusApp,initializedAppAC} = slice.actions
 
 export type appReducersType = setErrorType | setStatusType | initializedAppType
 type setErrorType = ReturnType<typeof setErrorApp>
-export const setErrorApp = (error: string | null) => {
-    return {
-        type: 'APP/SET_ERROR',
-        error
-    } as const
-}
 export type setStatusType = ReturnType<typeof setStatusApp>
-export const setStatusApp = (status: requestStatusType) => {
-    return {
-        type: 'APP/SET_STATUS',
-        status
-    } as const
-}
 export type initializedAppType = ReturnType<typeof initializedAppAC>
-export const initializedAppAC = () => {
-    return {
-        type: 'APP/INITIALIZED',
-    } as const
-}
+
 
 export const initializedAppTC = (): AppThunk =>
     async (dispatch: Dispatch) => {
@@ -61,7 +48,7 @@ export const initializedAppTC = (): AppThunk =>
         await Promise.all([promise])
         try {
             dispatch(initializedAppAC())
-            dispatch(setErrorApp(null))
+            dispatch(setErrorApp({error:null}))
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

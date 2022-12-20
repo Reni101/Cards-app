@@ -1,12 +1,12 @@
 
 import {
-    InitialLearnStateType,
-    learnReducer,
+    InitialStateType,
+    LearnReducer,
     setCardsLearnAC
 } from "../pages/learn/LearnReducer";
 
 
-let startState: InitialLearnStateType
+let startState: InitialStateType
 
 
 beforeEach(() => {
@@ -32,7 +32,7 @@ beforeEach(() => {
 })
 
 test('correct set response', () => {
-    const endState = learnReducer(startState, setCardsLearnAC({
+    const endState = LearnReducer(startState, setCardsLearnAC({
         cards: [{
             _id: "",
             cardsPack_id: "",

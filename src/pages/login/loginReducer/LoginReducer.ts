@@ -1,6 +1,6 @@
 import {AppThunk} from '../../../Redux/Store';
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
-import axios, {AxiosError} from 'axios';
+import {AxiosError} from 'axios';
 import {setStatusApp} from '../../../AppReducer';
 
 
@@ -87,11 +87,11 @@ export const getAuthTC = (): AppThunk =>
 
 export const SingInTC = (data: LoginType): AppThunk =>
     async (dispatch) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status:'loading'}))
         try {
             const res = await loginApi.login(data)
             dispatch(setLoginAC(data, res.data._id, true))
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setStatusApp({status:'succeeded'}))
             dispatch(setProfileDataAC(res.data)) // добавляет в профаил имя, email, avatar, id
         } catch (e) {
             const err = e as Error | AxiosError
@@ -101,11 +101,11 @@ export const SingInTC = (data: LoginType): AppThunk =>
 
 export const SingOutTC = (): AppThunk =>
     async (dispatch) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status:'loading'}))
         try {
             await loginApi.logout()
             dispatch(getAuthAC('', '', '', false, ''))
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setStatusApp({status:'succeeded'}))
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err,dispatch)

@@ -41,7 +41,7 @@ export const ProfilePage = () => {
                     //отправляет Base64 на сервак
                 })
             } else {
-                dispatch(setErrorApp('The file is too large'))
+                dispatch(setErrorApp({error:'The file is too large'}))
             }
         }
     }
@@ -55,7 +55,7 @@ export const ProfilePage = () => {
     }
 
     const errorHandler = () => {
-        dispatch(setErrorApp('Incorrect photo'))
+        dispatch(setErrorApp({error:'Incorrect photo'}))
     }
 
     if (!isAuth) {

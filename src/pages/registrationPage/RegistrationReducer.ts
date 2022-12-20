@@ -33,7 +33,7 @@ const setErrorApiRegistration = (error: string) => ({type: 'registration/SET-ERR
 
 
 export const registrationTC = (data: { email: string, password: string }): AppThunk => async (dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         const response = await registrationApi.registration(data)
         dispatch(setRegisrationAC(response.data.addedUser))
@@ -41,7 +41,7 @@ export const registrationTC = (data: { email: string, password: string }): AppTh
         const err = e as Error | AxiosError
         handleError(err,dispatch)
     } finally {
-        dispatch(setStatusApp('idle'))
+        dispatch(setStatusApp({status:'idle'}))
     }
 
 
