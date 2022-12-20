@@ -1,4 +1,4 @@
-import {AppThunk} from "../../Redux/Store";
+
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
@@ -97,8 +97,7 @@ export const setLearnCardsTC = (cardsPack_id: string) =>
             dispatch(generateRandomCardAC())
             dispatch(setStatusApp('succeeded'))
 
-        } catch
-            (e) {
+        } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)
         }
@@ -111,8 +110,7 @@ export const updateGradeTC = (grade: number, cardId: string) =>
             dispatch(updateCardsAC({newCard: res.data.updatedGrade}))
             dispatch(generateRandomCardAC())
             dispatch(setStatusApp('succeeded'))
-        } catch
-            (e) {
+        } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)
         }

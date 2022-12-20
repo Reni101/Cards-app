@@ -18,8 +18,8 @@ const rootReducer = combineReducers({
     App: AppReducer,//I t
     Registration: RegistrationReducer,//A t
     Packs: PacksReducer,//I t
-    Cards: CardsReducer,//M t
-    Learn:learnReducer,//М t
+    Cards: CardsReducer,//M t+
+    Learn:learnReducer,//М t+
 
 })
 

@@ -37,7 +37,6 @@ export const packsAPI = {
         return instance.get<ResponsePacksType>("cards/pack", {params})
     },
     addPack(cardsPack: RequestAddPackType) {
-        debugger
         return instance.post<{ name: string, deckCover: string }, AxiosResponse>('cards/pack', {cardsPack})
     },
     updatePack(cardsPack: RequestUpdatePackType) {
