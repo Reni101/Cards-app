@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import style from './FilterMyOrAll.module.css'
 import {Button} from '@mui/material';
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
@@ -25,7 +25,7 @@ export const FilterMyOrAll = () => {
             max:searchQueryMax
         }
         setSearchParams(params)
-        dispatch(changeShowMyPacksAC(params.user_id))
+        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
 
     }
     const AllPacks = () => {
@@ -36,7 +36,7 @@ export const FilterMyOrAll = () => {
             max:searchQueryMax
         }
         setSearchParams(params)
-        dispatch(changeShowMyPacksAC(params.user_id))
+        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
     }
 
     return (

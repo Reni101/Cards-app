@@ -29,8 +29,8 @@ export const FilterRange = () => {
 
 
     useEffect(() => {
-        dispatch(changeMinAC(debounceValue[0]))
-        dispatch(changeMaxAC(debounceValue[1]))
+        dispatch(changeMinAC({min:debounceValue[0]}))
+        dispatch(changeMaxAC({max:debounceValue[1]}))
     }, [debounceValue])
 
 

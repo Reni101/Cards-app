@@ -82,7 +82,7 @@ export const TableForPacks = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
@@ -121,11 +121,11 @@ export const TableForPacks = () => {
 
 
     const changePageHandler = useCallback((newPage: number) => {
-        dispatch(changePageAC(newPage))
+        dispatch(changePageAC({page:newPage}))
     }, [dispatch])
 
     const changeRowsPerPageHandler = useCallback((rows: number) => {
-        dispatch(changePageCountAC(rows))
+        dispatch(changePageCountAC({pageCount:rows}))
     }, [dispatch])
 
     const goToCardsHandler = (card_pack_id: string) => {
@@ -141,7 +141,7 @@ export const TableForPacks = () => {
     const sortHandler = (columnID: sortType) => {
         if (columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
-        dispatch(changeSortPacksAC(val ? `1${columnID}` : `0${columnID}`))
+        dispatch(changeSortPacksAC({sortPacks:val ? `1${columnID}` : `0${columnID}`}))
     }
 
 

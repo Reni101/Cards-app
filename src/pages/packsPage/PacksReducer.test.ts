@@ -50,7 +50,7 @@ test('corrected work set packs ',()=>{
         maxCardsCount:20,
         minCardsCount:0
     }
-    const FinishState = PacksReducer(InitialPacksState,setPacksAC(PacksData))
+    const FinishState = PacksReducer(InitialPacksState,setPacksAC({resObj:PacksData}))
     expect(FinishState.page).toBe(1)
     expect(FinishState.cardPacks[0].name).toBe('NewPack')
     expect(FinishState.cardPacksTotalCount).toBe(1)
@@ -59,37 +59,37 @@ test('corrected work set packs ',()=>{
 })
 
 test('correct work change page ',()=>{
-const FinishState = PacksReducer(InitialPacksState,changePageAC(4))
+const FinishState = PacksReducer(InitialPacksState,changePageAC({page:4}))
 
     expect(FinishState.page).toBe(4)
 })
 
 test('correct change min filter value',()=>{
-const FinishState = PacksReducer(InitialPacksState,changeMinAC(1))
+const FinishState = PacksReducer(InitialPacksState,changeMinAC({min:1}))
     expect(FinishState.min).toBe(1)
 })
 
 test('correct change max filter value',()=>{
-const FinishState = PacksReducer(InitialPacksState,changeMaxAC(25))
+const FinishState = PacksReducer(InitialPacksState,changeMaxAC({max:25}))
     expect(FinishState.max).toBe(25)
 })
 
 test('correct change page count',()=>{
-    const FinishState = PacksReducer(InitialPacksState,changePageCountAC(10))
+    const FinishState = PacksReducer(InitialPacksState,changePageCountAC({pageCount:10}))
     expect(FinishState.pageCount).toBe(10)
 })
 
 test('correct sort of the name packs',()=>{
-    const FinishState = PacksReducer(InitialPacksState,changeSortPacksAC('hello'))
+    const FinishState = PacksReducer(InitialPacksState,changeSortPacksAC({sortPacks:'hello'}))
     expect(FinishState.sortPacks).toBe('hello')
 })
 
 test('correct change of the pack name ',()=>{
-    const FinishState = PacksReducer(InitialPacksState,sortPacksNameAC('Changed name'))
+    const FinishState = PacksReducer(InitialPacksState,sortPacksNameAC({packName:'Changed name'}))
     expect(FinishState.packName).toBe('Changed name')
 })
 
 test('correct show me pack where matched user id  ',()=>{
-    const FinishState = PacksReducer(InitialPacksState,changeShowMyPacksAC('user_id_1857564756'))
+    const FinishState = PacksReducer(InitialPacksState,changeShowMyPacksAC({user_id:'user_id_1857564756'}))
     expect(FinishState.user_id).toBe('user_id_1857564756')
 })

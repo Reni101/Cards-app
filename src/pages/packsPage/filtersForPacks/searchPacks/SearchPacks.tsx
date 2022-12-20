@@ -36,7 +36,7 @@ export const SearchPacks = () => {
 
     useEffect(() => {
         if(packName === debouncedValue) return
-        dispatch(sortPacksNameAC(debouncedValue))
+        dispatch(sortPacksNameAC({packName:debouncedValue}))
     }, [debouncedValue])
 
     return (
