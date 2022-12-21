@@ -5,7 +5,6 @@ import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {cardsLearnAPI, ResponseCardsType, UpdatedGradeType} from "./LearnAPI";
 import {getRandomCard} from "./RandomCard";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Dispatch} from "redux";
 
 
 export type CardLearnType = {
@@ -53,6 +52,14 @@ const initialState: InitialLearnStateType = {
     cardsTotalCount: null
 }
 
+
+export type ActionsLearnType =
+    | ReturnType<typeof setCardsLearnAC>
+    | ReturnType<typeof generateRandomCardAC>
+    | ReturnType<typeof updateCardsAC>
+    | ReturnType<typeof clearLearnStateAC>
+
+
 const slice = createSlice({
     name: "learnReducer",
     initialState: initialState,
@@ -87,8 +94,8 @@ export const {
 
 //==============================TC============================
 
-export const setLearnCardsTC = (cardsPack_id: string) =>
-    async (dispatch: Dispatch) => {
+export const setLearnCardsTC = (cardsPack_id: string): AppThunk =>
+    async (dispatch) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.getLearnCards(cardsPack_id)
@@ -102,8 +109,8 @@ export const setLearnCardsTC = (cardsPack_id: string) =>
             handleError(err, dispatch)
         }
     }
-export const updateGradeTC = (grade: number, cardId: string) =>
-    async (dispatch: Dispatch) => {
+export const updateGradeTC = (grade: number, cardId: string): AppThunk =>
+    async (dispatch) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.updateGrade(grade, cardId)

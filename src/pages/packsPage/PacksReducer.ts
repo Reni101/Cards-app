@@ -4,7 +4,6 @@ import {AxiosError} from 'axios';
 import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
 import {handleError} from '../../common/ErrorUtils/errorFunck';
 import {setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
-import {Dispatch} from "redux";
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export type ActionsPacksType =
@@ -60,6 +59,7 @@ const initialState: InitialStateType = {
     packName: null,
     user_id: '',
 }
+
 
 
 export const slice = createSlice({
@@ -129,7 +129,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
         }
     }
 
-export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
+export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.addPack(cardsPack)
@@ -144,7 +144,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch:Dispatch) => {
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.updatePack(cardsPack)
@@ -160,7 +160,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId
 }
 
 
-export const DeletePackTC = (idPack: string, searchQueryUserId?: string) => async (dispatch:Dispatch) => {
+export const DeletePackTC = (idPack: string, searchQueryUserId?: string):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.deletePack(idPack)

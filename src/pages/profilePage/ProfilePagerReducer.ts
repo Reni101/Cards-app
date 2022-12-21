@@ -1,10 +1,9 @@
-import {AppThunk} from "../../Redux/Store";
 import {profileEditType, profilePageAPI, updatedUser} from "./profileAPI";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Dispatch} from "redux";
+import {AppThunk} from "../../Redux/Store";
 
 
 const initialProfileState = {
@@ -14,6 +13,11 @@ const initialProfileState = {
     publicCardPacksCount: null as number | null,
     avatar: null as string | null
 }
+
+export type ActionsProfileType =
+    | ReturnType<typeof editProfileNameAvatarAC>
+    | ReturnType<typeof setProfileDataAC>
+
 
 export type sliceProfileType = typeof initialProfileState
 
@@ -39,7 +43,7 @@ export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 
 //==============================TC============================
-export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => async (dispatch:Dispatch) => {
+export const editProfileNameAvatarTC = ({name, avatar}: profileEditType):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})

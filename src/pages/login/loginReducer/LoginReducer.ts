@@ -57,8 +57,8 @@ export type LoginACType = ReturnType<typeof setLoginAC>
 export type getAuthACType = ReturnType<typeof getAuthAC>
 
 
-export const getAuthTC = () =>
-    async (dispatch: Dispatch) => {
+export const getAuthTC = ():AppThunk =>
+    async (dispatch) => {
         try {
             let res = await loginApi.authUser();
             let {_id, email, name, token} = res.data
@@ -70,8 +70,8 @@ export const getAuthTC = () =>
         }
     }
 
-export const SingInTC = (data: LoginType) =>
-    async (dispatch: Dispatch) => {
+export const SingInTC = (data: LoginType):AppThunk =>
+    async (dispatch) => {
         dispatch(setStatusApp({status:'loading'}))
         try {
             const res = await loginApi.login(data)

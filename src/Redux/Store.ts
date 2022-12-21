@@ -1,14 +1,14 @@
 import {combineReducers} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
-import {ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
-import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
+import {ActionsRecoveryType, recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
 import {AppReducer, appReducersType} from '../AppReducer';
 import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
-import {CardsReducer} from "../pages/cardsPage/CardsReducer";
+import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {learnReducer} from "../pages/learn/LearnReducer";
+import {ActionsLearnType, learnReducer} from "../pages/learn/LearnReducer";
 
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     Registration: RegistrationReducer,//A t
     Packs: PacksReducer,//I t
     Cards: CardsReducer,//M t+
-    Learn:learnReducer,//М t+
+    Learn: learnReducer,//М t+
 
 })
 
@@ -31,11 +31,16 @@ export const store = configureStore({
 
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
+
 export type AllAppActionsType =
     | ActionsLoginType
     | appReducersType
     | RegistrationActionType
     | ActionsPacksType
+    | ActionsProfileType
+    | ActionsRecoveryType
+    | ActionsCardsType
+    | ActionsLearnType
 
 
 export type AppDispatch = typeof store.dispatch

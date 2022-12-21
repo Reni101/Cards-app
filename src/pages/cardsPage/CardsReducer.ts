@@ -4,7 +4,6 @@ import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Dispatch} from "redux";
 
 export type CardType = {
     _id: string
@@ -52,6 +51,19 @@ const initialState: InitialStateType = {
 
 
 }
+export type ActionsCardsType =
+    | ReturnType<typeof setCardsAC>
+    | ReturnType<typeof changePageCardsAC>
+    | ReturnType<typeof changePageCardsCountAC>
+    | ReturnType<typeof findCardsQuestionAC>
+    | ReturnType<typeof findCardsQuestionAC>
+    | ReturnType<typeof sortCardsAC>
+    | ReturnType<typeof setPacksIdAC>
+    | ReturnType<typeof setPackNameForCardAC>
+
+
+
+
 
 const slice = createSlice({
     name: "CardsReducer",
@@ -99,10 +111,7 @@ export const {
 
 //==============================TC============================
 
-export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
-    async (dispatch:Dispatch, getState:any) => {
-        dispatch(setStatusApp({status:'loading'}))
-export const setCardsTC = (cardsPack_id: string,questionSearch?:string): AppThunk =>
+export const setCardsTC = (cardsPack_id: string,questionSearch?:string):AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusApp({status:'loading'}))
         try {

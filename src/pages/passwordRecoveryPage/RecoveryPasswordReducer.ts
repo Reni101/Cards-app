@@ -4,7 +4,10 @@ import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Dispatch} from "redux";
+
+export type ActionsRecoveryType =
+    | ReturnType<typeof setRecoverEmailAC>
+    | ReturnType<typeof setRedirectToLoginAC>
 
 
 const slice = createSlice({
@@ -29,7 +32,7 @@ export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 
 //==============================TC============================
 
-export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) => {
+export const forgotPasswordTC = (email: string):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
         await RecoveryPasswordApi.recoveryForgotPassword(email)
@@ -41,7 +44,7 @@ export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) =>
     }
 }
 
-export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch) => {
+export const setNewPasswordTC = (password: string, token: string):AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
         await RecoveryPasswordApi.setNewPassword(password, token)
