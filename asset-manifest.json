@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/FridayProject/static/css/main.3f0e2b0b.css",
-    "main.js": "/FridayProject/static/js/main.f374df39.js",
+    "main.js": "/FridayProject/static/js/main.764b9305.js",
     "static/js/787.d7ab4312.chunk.js": "/FridayProject/static/js/787.d7ab4312.chunk.js",
     "static/media/pink_punk_black.svg": "/FridayProject/static/media/pink_punk_black.52a65dd17d157379900af348a624546f.svg",
     "static/media/noch.jpeg": "/FridayProject/static/media/noch.faaf7675472f8b8544eb.jpeg",
@@ -10,11 +10,11 @@
     "static/media/book-education-learning-school-science-study-svgrepo-com.svg": "/FridayProject/static/media/book-education-learning-school-science-study-svgrepo-com.1bd46dcb0e1272fe133edabda62b6660.svg",
     "index.html": "/FridayProject/index.html",
     "main.3f0e2b0b.css.map": "/FridayProject/static/css/main.3f0e2b0b.css.map",
-    "main.f374df39.js.map": "/FridayProject/static/js/main.f374df39.js.map",
+    "main.764b9305.js.map": "/FridayProject/static/js/main.764b9305.js.map",
     "787.d7ab4312.chunk.js.map": "/FridayProject/static/js/787.d7ab4312.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3f0e2b0b.css",
-    "static/js/main.f374df39.js"
+    "static/js/main.764b9305.js"
   ]
 }
