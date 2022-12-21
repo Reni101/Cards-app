@@ -1,3 +1,4 @@
+import {AppThunk} from "../../Redux/Store";
 import {RecoveryPasswordApi} from "./RecoveryPasswordApi";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
@@ -29,11 +30,11 @@ export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 //==============================TC============================
 
 export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         await RecoveryPasswordApi.recoveryForgotPassword(email)
         dispatch(setRecoverEmailAC({email}))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
@@ -41,11 +42,11 @@ export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) =>
 }
 
 export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         await RecoveryPasswordApi.setNewPassword(password, token)
         dispatch(setRedirectToLoginAC({value: true}))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
 
     } catch (e) {
         const err = e as Error | AxiosError

@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, ReactNode, useState, ChangeEvent} from 'react';
+import React, {KeyboardEvent, ReactNode, useState, ChangeEvent } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from '../../../common/modal/BasicModal';
@@ -10,7 +10,7 @@ import s from './AddPackModal.module.css'
 import {useSearchParams} from 'react-router-dom';
 import {setErrorApp} from '../../../AppReducer';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
-import {IconButton} from '@mui/material';
+import { IconButton } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
 
@@ -20,8 +20,8 @@ type AddPackModalType = {
     cover?: string
 }
 
-export const AddPackModal = ({children, cover}: AddPackModalType) => {
-    const [searchParams, setSearchParams] = useSearchParams()
+export const AddPackModal = ({children}: AddPackModalType) => {
+    const [searchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
     const status = useAppSelector(state => state.App.status)
 
@@ -36,13 +36,13 @@ export const AddPackModal = ({children, cover}: AddPackModalType) => {
         let trimValueInput = valueInput.trim();
         if (trimValueInput.toLowerCase() === 'хуй' || trimValueInput.toLowerCase() === 'fuck') {
             setValueInput('');
-            dispatch(setErrorApp('foul language is prohibited'))
+            dispatch(setErrorApp({error:'foul language is prohibited'}))
             return;
         }
-
-        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
-        setValueInput('')
         handleClose()
+        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
+        setNewCover('')
+        setValueInput('')
     }
 
     const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, handleClose: () => void): Promise<void> => {
@@ -60,7 +60,7 @@ export const AddPackModal = ({children, cover}: AddPackModalType) => {
                     setNewCover(file64)
                 })
             } else {
-                dispatch(setErrorApp('This file really large'))
+               dispatch(setErrorApp({error:'This file really large'}))
             }
         }
     };

@@ -1,3 +1,4 @@
+import {AppThunk} from "../../Redux/Store";
 import {profileEditType, profilePageAPI, updatedUser} from "./profileAPI";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
@@ -39,11 +40,11 @@ export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 //==============================TC============================
 export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => async (dispatch:Dispatch) => {
-    dispatch(setStatusApp('loading'))
+    dispatch(setStatusApp({status:'loading'}))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})
         dispatch(editProfileNameAvatarAC({name: res.data.updatedUser.name, avatar: res.data.updatedUser.avatar}))
-        dispatch(setStatusApp('succeeded'))
+        dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)

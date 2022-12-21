@@ -1,4 +1,4 @@
-
+import {AppThunk} from "../../Redux/Store";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
@@ -89,13 +89,13 @@ export const {
 
 export const setLearnCardsTC = (cardsPack_id: string) =>
     async (dispatch: Dispatch) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.getLearnCards(cardsPack_id)
             dispatch(setCardsLearnAC({resObj: res.data}))
 
             dispatch(generateRandomCardAC())
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setStatusApp({status: 'succeeded'}))
 
         } catch (e) {
             const err = e as Error | AxiosError
@@ -104,12 +104,12 @@ export const setLearnCardsTC = (cardsPack_id: string) =>
     }
 export const updateGradeTC = (grade: number, cardId: string) =>
     async (dispatch: Dispatch) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.updateGrade(grade, cardId)
             dispatch(updateCardsAC({newCard: res.data.updatedGrade}))
             dispatch(generateRandomCardAC())
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setStatusApp({status: 'succeeded'}))
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

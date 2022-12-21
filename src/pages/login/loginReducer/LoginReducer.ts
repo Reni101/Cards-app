@@ -1,11 +1,12 @@
 import {AppThunk} from '../../../Redux/Store';
 import {loginApi, LoginType} from '../loginAPI/LoginApi';
-import axios, {AxiosError} from 'axios';
+import {AxiosError} from 'axios';
 import {setStatusApp} from '../../../AppReducer';
 
 
 import {setProfileDataAC} from "../../profilePage/ProfilePagerReducer";
 import {handleError} from "../../../common/ErrorUtils/errorFunck";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 
 export type initialStateType = LoginType & forLoginUserInfo
@@ -26,57 +27,42 @@ const initialState: initialStateType = {
     rememberMe: false,
 }
 
-export const LoginReducer = (state: initialStateType = initialState, action: ActionsLoginType): initialStateType => {
-    switch (action.type) {
-        case 'LOGIN_USER': {
-            return {...state, ...action.payload.data, id: action.payload.id, isAuth: action.payload.isAuth}
-        }
-        case 'AUTH_USER': {
-            return {
-                ...state,
-                id: action.payload.id,
-                isAuth: action.payload.isAuth,
-                name: action.payload.name,
-                email: action.payload.email,
-                token: action.payload.token
+const slice = createSlice(
+    {
+        name:'login',
+        initialState:initialState,
+        reducers:{
+            setLoginAC(state,action:PayloadAction<{data: LoginType, id: string, isAuth: boolean}>){
+                state.id = action.payload.id
+                state.isAuth = action.payload.isAuth
+                state.email = action.payload.data.email
+                state.rememberMe = action.payload.data.rememberMe
+                state.password = action.payload.data.password
+            },
+            getAuthAC(state,action:PayloadAction<{id: string, name: string, email: string, isAuth: boolean, token: string}>){
+                state.id = action.payload.id
+                state.isAuth = action.payload.isAuth
+                state.email = action.payload.email
+                state.name = action.payload.name
+                state.token = action.payload.token
             }
         }
-        default:
-            return state
     }
-}
+)
+export const LoginReducer = slice.reducer
+export const {setLoginAC,getAuthAC} = slice.actions
+
 export type ActionsLoginType = LoginACType | getAuthACType
 export type LoginACType = ReturnType<typeof setLoginAC>
-export const setLoginAC = (data: LoginType, id: string, isAuth: boolean) => {
-    return {
-        type: 'LOGIN_USER',
-        payload: {
-            data,
-            id,
-            isAuth
-        }
-    } as const
-}
 export type getAuthACType = ReturnType<typeof getAuthAC>
-export const getAuthAC = (id: string, name: string, email: string, isAuth: boolean, token: string) => {
-    return {
-        type: 'AUTH_USER',
-        payload: {
-            id,
-            name,
-            email,
-            isAuth,
-            token
-        }
-    } as const
-}
+
 
 export const getAuthTC = () =>
-    async (dispatch: any) => {
+    async (dispatch: Dispatch) => {
         try {
             let res = await loginApi.authUser();
             let {_id, email, name, token} = res.data
-            dispatch(getAuthAC(_id, name, email, true, token))
+            dispatch(getAuthAC({id:_id, name, email, isAuth:true, token}))
             dispatch(setProfileDataAC({data: res.data})) // добавляет в профаил имя, email, avatar id
         } catch (e) {
             const err = e as Error | AxiosError
@@ -85,12 +71,12 @@ export const getAuthTC = () =>
     }
 
 export const SingInTC = (data: LoginType) =>
-    async (dispatch: any) => {
-        dispatch(setStatusApp('loading'))
+    async (dispatch: Dispatch) => {
+        dispatch(setStatusApp({status:'loading'}))
         try {
             const res = await loginApi.login(data)
-            dispatch(setLoginAC(data, res.data._id, true))
-            dispatch(setStatusApp('succeeded'))
+            dispatch(setLoginAC({data, id:res.data._id, isAuth:true}))
+            dispatch(setStatusApp({status:'succeeded'}))
             dispatch(setProfileDataAC({data: res.data})) // добавляет в профаил имя, email, avatar, id
         } catch (e) {
             const err = e as Error | AxiosError
@@ -100,11 +86,11 @@ export const SingInTC = (data: LoginType) =>
 
 export const SingOutTC = (): AppThunk =>
     async (dispatch) => {
-        dispatch(setStatusApp('loading'))
+        dispatch(setStatusApp({status:'loading'}))
         try {
             await loginApi.logout()
-            dispatch(getAuthAC('', '', '', false, ''))
-            dispatch(setStatusApp('succeeded'))
+            dispatch(getAuthAC({id:'', name:'', email:'', isAuth:false, token:''}))
+            dispatch(setStatusApp({status:'succeeded'}))
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

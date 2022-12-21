@@ -22,7 +22,7 @@ test('correct work of the login action creator',()=>{
         email:'kotpavlik88@gmail.com'
     }
 
-    const FinishInitialState = LoginReducer(initialState,setLoginAC(loginData,'kotpavlikId',true))
+    const FinishInitialState = LoginReducer(initialState,setLoginAC({data:loginData, id:'kotpavlikId',isAuth: true}))
 
     expect(FinishInitialState.id).toBe('kotpavlikId')
     expect(FinishInitialState.isAuth).toBe(true)
@@ -35,7 +35,7 @@ test('correct work of the getAuth action creator',()=>{
 
 
     const FinishInitialState = LoginReducer(initialState,
-        getAuthAC('kotpavlikId','Misha','kotpavlik88@gmail.com',true,'223454356'))
+        getAuthAC({id:'kotpavlikId', name:'Misha', email:'kotpavlik88@gmail.com', isAuth:true, token:'223454356'}))
 
     expect(FinishInitialState.id).toBe('kotpavlikId')
     expect(FinishInitialState.name).toBe('Misha')

@@ -16,7 +16,7 @@ type DeletePackModalType = {
 export const DeletePackModal = ({children, id, name}: DeletePackModalType) => {
 
     const dispatch = useAppDispatch()
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 
     const status = useAppSelector(state => state.App.status)

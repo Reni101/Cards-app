@@ -25,11 +25,11 @@ export const ResettingAllFilters = () => {
             max: maxCardsCount.toString()
         }
         setSearchParams(params)
-        dispatch(changeMinAC(Number(params.min)))
-        dispatch(changeMaxAC(Number(params.max)))
-        dispatch(changeShowMyPacksAC(params.user_id))
-        dispatch(sortPacksNameAC(params.search))
-        dispatch(changeSortPacksAC(""))
+        dispatch(changeMinAC({min:Number(params.min)}))
+        dispatch(changeMaxAC({max:Number(params.max)}))
+        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
+        dispatch(sortPacksNameAC({packName:params.search}))
+        dispatch(changeSortPacksAC({sortPacks:''}))
         setSearchParams(undefined)
 
     }
