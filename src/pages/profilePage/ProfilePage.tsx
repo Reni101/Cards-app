@@ -76,7 +76,9 @@ export const ProfilePage = () => {
                 <div className={styleProfile.wrapper_profile}>
                     <h2 className={styleProfile.title}>Personal Information</h2>
 
-                    <img src={avatar ? avatar : defaultAvatar} alt="avatar"/>
+                    <div className={styleProfile.profile_avatar}>
+                        <img src={avatar ? avatar : defaultAvatar} alt="avatar"/>
+                    </div>
 
                     <label className={styleProfile.avatarButton}>
                         <input type="file"

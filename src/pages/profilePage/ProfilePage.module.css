@@ -28,12 +28,16 @@
     font-size: 26px;
     font-weight: 500;
 }
-
-.wrapper_profile img {
-    margin-top: 20px;
+.profile_avatar{
+    margin: 0 auto;
+    object-fit: cover;
+    overflow: hidden;
     width: 96px;
     height: 96px;
     border-radius: 50%;
+}
+.profile_avatar>img{
+    width: 100%;
 }
 
 .email {
