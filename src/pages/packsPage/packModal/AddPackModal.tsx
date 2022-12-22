@@ -40,9 +40,10 @@ export const AddPackModal = ({children, cover}: AddPackModalType) => {
             return;
         }
 
-        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
-        setValueInput('')
         handleClose()
+        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
+        setNewCover('')
+        setValueInput('')
     }
 
     const AddNewPackWithInput = async (e: KeyboardEvent<HTMLDivElement>, handleClose: () => void): Promise<void> => {
@@ -100,3 +101,6 @@ export const AddPackModal = ({children, cover}: AddPackModalType) => {
         </BasicModal>
     );
 };
+
+
+
