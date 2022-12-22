@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import style from './TableForPacks.module.css'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -25,6 +25,7 @@ import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
+
 
 
 
@@ -87,6 +88,7 @@ export const TableForPacks = () => {
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
+
 
 
     const packs_user_id = useAppSelector(state => state.Packs.user_id)
