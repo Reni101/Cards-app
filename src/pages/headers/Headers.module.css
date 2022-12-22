@@ -30,17 +30,23 @@
     font-weight: 400;
 }
 
-.user_info>img{
+.avatar_wrapper{
     width: 40px;
+    height: 40px;
+    overflow: hidden;
     border: .5px solid rgba(0, 0, 0, 0);
     border-radius: 50px;
     transition: all .5s;
     cursor: pointer;
 
 }
-.user_info>img:hover{
+.avatar_wrapper:hover{
     transform: scale(1.2);
     transition: all .5s;
+}
+.avatar_wrapper>img{
+    width: 100%;
+    object-fit:cover;
 }
 .website_logo{
     margin: 0 25px;

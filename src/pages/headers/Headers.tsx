@@ -54,8 +54,11 @@ export const Headers = () => {
                             sign out
                         </Button>
                         <div className={style.user_name}>{userName}</div>
-                        <img onClick={goToProfile}
-                             src={userLogo ? userLogo : 'https://my-engine.ru/modules/users/avatar.png'} alt="logo"/>
+                        <div className={style.avatar_wrapper}>
+                            <img onClick={goToProfile}
+                                  src={userLogo ? userLogo : 'https://my-engine.ru/modules/users/avatar.png'}
+                                  alt="logo"/>
+                        </div>
                     </div>
                     :
                     <Button className={style.button} variant="outlined" onClick={goSignUp} type="submit">
