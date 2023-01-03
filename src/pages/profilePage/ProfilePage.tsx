@@ -14,6 +14,7 @@ import {Paths} from '../../common/paths/Paths';
 import {editProfileNameAvatarTC} from "./ProfilePagerReducer";
 import {setErrorApp} from "../../AppReducer";
 import defaultAvatar from '../../assets/default-avatar.png'
+import {convertFileToBase64} from "../../common/convertFileToBase64/ConvertFileToBase64";
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -45,14 +46,7 @@ export const ProfilePage = () => {
             }
         }
     }
-    const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const file64 = reader.result as string
-            callBack(file64)
-        }
-        reader.readAsDataURL(file)
-    }
+
 
     const errorHandler = () => {
         dispatch(setErrorApp({error:'Incorrect photo'}))

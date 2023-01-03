@@ -43,12 +43,12 @@ export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 
 //==============================TC============================
-export const editProfileNameAvatarTC = ({name, avatar}: profileEditType):AppThunk => async (dispatch) => {
-    dispatch(setStatusApp({status:'loading'}))
+export const editProfileNameAvatarTC = ({name, avatar}: profileEditType): AppThunk => async (dispatch) => {
+    dispatch(setStatusApp({status: 'loading'}))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})
         dispatch(editProfileNameAvatarAC({name: res.data.updatedUser.name, avatar: res.data.updatedUser.avatar}))
-        dispatch(setStatusApp({status:'succeeded'}))
+        dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
