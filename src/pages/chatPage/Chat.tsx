@@ -12,7 +12,6 @@ const Chat = () => {
     })
 
     useEffect(() => {
-        debugger
         dispatch(createConnectionTC())
     }, [])
 

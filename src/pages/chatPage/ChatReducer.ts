@@ -34,31 +34,25 @@ export const ChatReducer = (state: InitialStateType = initialState, action: Chat
 export type ChatActionType = setMessagesACType | setNewMessageACType
 
 export type setMessagesACType = ReturnType<typeof setMessagesAC>
-export const setMessagesAC = (messages: Array<messageType>) => ({type: 'CHAT/SET-MESSAGES', messages} as const)
+export const setMessagesAC = (messages: Array<messageType>) => {
+    debugger
+    return {type: 'CHAT/SET-MESSAGES', messages} as const
+}
 
 export type setNewMessageACType = ReturnType<typeof setNewMessageAC>
 export const setNewMessageAC = (message: messageType) => ({type: 'CHAT/SET-NEW-MESSAGES', message} as const)
 
 
-export const createConnectionTC = (): AppThunk => async (dispatch) => {
+export const createConnectionTC = (): AppThunk => (dispatch) => {
 
-    dispatch(setStatusApp({status: 'loading'}))
-    try {
-        chatAPI.createConnection()
-        chatAPI.subscribe((messages) => {
-                dispatch(setMessagesAC(messages))
-            },
-            (message) => {
-                dispatch(setNewMessageAC(message))
-            })
 
-    } catch (e) {
-        const err = e as Error | AxiosError
-        handleError(err, dispatch)
-    } finally {
-        dispatch(setStatusApp({status: 'idle'}))
-    }
-
+    chatAPI.createConnection()
+    // chatAPI.subscribe((messages) => {
+    //         dispatch(setMessagesAC(messages))
+    //     },
+    //     (message) => {
+    //         dispatch(setNewMessageAC(message))
+    //     })
 
 }
 
