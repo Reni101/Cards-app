@@ -19,6 +19,7 @@ import {Paths} from './common/paths/Paths';
 import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
+import Chat from "./pages/chatPage/Chat";
 
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
                 <Route path={Paths.packsRoute} element={<PacksPage/>}/>
                 <Route path={Paths.cardsRoute} element={<CardsPage/>}/>
                 <Route path={Paths.learnRoute} element={<LearnPage/>}/>
+
+                <Route path={Paths.chatRoute} element={<Chat/>}/>
 
 
                 <Route path="*" element={<Navigate to={Paths.notFoundRoute}/>}/>

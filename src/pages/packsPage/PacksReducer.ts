@@ -61,7 +61,6 @@ const initialState: InitialStateType = {
 }
 
 
-
 export const slice = createSlice({
     name: 'packs',
     initialState: initialState,
@@ -92,7 +91,7 @@ export const slice = createSlice({
         sortPacksNameAC(state, action: PayloadAction<{ packName: string }>) {
             state.packName = action.payload.packName
         },
-        changeShowMyPacksAC(state,action:PayloadAction<{user_id:string}>){
+        changeShowMyPacksAC(state, action: PayloadAction<{ user_id: string }>) {
             state.user_id = action.payload.user_id
         }
 
@@ -101,7 +100,7 @@ export const slice = createSlice({
 export const PacksReducer = slice.reducer
 export const {
     setPacksAC, changePageAC, changeMinAC, changeMaxAC,
-    changePageCountAC, changeSortPacksAC, sortPacksNameAC,changeShowMyPacksAC
+    changePageCountAC, changeSortPacksAC, sortPacksNameAC, changeShowMyPacksAC
 } = slice.actions
 
 
@@ -129,7 +128,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType): AppThunk =>
         }
     }
 
-export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string):AppThunk => async (dispatch) => {
+export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.addPack(cardsPack)
@@ -144,12 +143,12 @@ export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string):AppThunk => async (dispatch) => {
+export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.updatePack(cardsPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
-        dispatch(setPackNameForCardAC({newPackName:cardsPack.name!}))
+        dispatch(setPackNameForCardAC({newPackName: cardsPack.name!}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -160,12 +159,12 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId
 }
 
 
-export const DeletePackTC = (idPack: string, searchQueryUserId?: string):AppThunk => async (dispatch) => {
+export const DeletePackTC = (idPack: string, searchQueryUserId?: string): AppThunk => async (dispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsAPI.deletePack(idPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
-        dispatch(setPacksIdAC({packsId:''}))
+        dispatch(setPacksIdAC({packsId: ''}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError

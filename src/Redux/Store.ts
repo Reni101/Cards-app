@@ -9,6 +9,7 @@ import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
 import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
 import {ActionsLearnType, learnReducer} from "../pages/learn/LearnReducer";
+import {ChatActionType, ChatReducer} from "../pages/chatPage/ChatReducer";
 
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     Packs: PacksReducer,//I t
     Cards: CardsReducer,//M t+
     Learn: learnReducer,//М t+
+    Chat: ChatReducer,
 
 })
 
@@ -41,6 +43,7 @@ export type AllAppActionsType =
     | ActionsRecoveryType
     | ActionsCardsType
     | ActionsLearnType
+    | ChatActionType
 
 
 export type AppDispatch = typeof store.dispatch

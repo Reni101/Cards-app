@@ -85,6 +85,7 @@ export const TableCards = () => {
     const searchQuery = searchParams.get('search') || '';
 
     useEffect(() => {
+
         if (searchQuery !== findQuestion) return
         dispatch(setCardsTC(packId ? packId : packIdQuery!, searchQuery))
     }, [currentPage, pageCount, findQuestion, sortCards])
