@@ -1,21 +1,12 @@
 import {io, Socket} from "socket.io-client";
 import {messageType} from "./ChatReducer";
 
-
-//const socket = socketIo("https://neko-back.herokuapp.com/");
-//(messages: Array<{
-//             _id: string
-//             message: string
-//             user: {
-//                 _id: string
-//                 name: string
-//             }
-//         }>) => {
-//         })
 export const chatAPI = {
     socket: null as null | Socket,
     createConnection() {
-        this.socket = io("https://neko-back.herokuapp.com/",);
+        this.socket = io('http://localhost:7542/2.0/', {
+            withCredentials: true,
+        });
         console.log(this.socket)
 
     },
@@ -25,6 +16,13 @@ export const chatAPI = {
         this.socket?.on('init-messages-published', initMessagesHandler);
         this.socket?.on('new-message-sent', newMessageSentHandler);
 
+    },
+    sentMessage(messageText: string) {
+        this.socket?.emit("client-message-sent", messageText)
+    },
+    destroyConnection() {
+        this.socket?.disconnect()
+        this.socket = null
     }
 
 }

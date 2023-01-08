@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {createConnectionTC} from "./ChatReducer";
+import {createConnectionTC, destroyConnectionTC} from "./ChatReducer";
 
 const Chat = () => {
     const dispatch = useAppDispatch()
@@ -13,6 +13,10 @@ const Chat = () => {
 
     useEffect(() => {
         dispatch(createConnectionTC())
+
+        return () => {
+            dispatch(destroyConnectionTC())
+        }
     }, [])
 
     return (

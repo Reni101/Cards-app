@@ -1,7 +1,4 @@
-import {setStatusApp} from "../../AppReducer";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {AppThunk} from "../../Redux/Store";
-import {AxiosError} from "axios";
 import {chatAPI} from "./ChatAPI";
 
 const initialState = {
@@ -35,7 +32,6 @@ export type ChatActionType = setMessagesACType | setNewMessageACType
 
 export type setMessagesACType = ReturnType<typeof setMessagesAC>
 export const setMessagesAC = (messages: Array<messageType>) => {
-    debugger
     return {type: 'CHAT/SET-MESSAGES', messages} as const
 }
 
@@ -44,15 +40,18 @@ export const setNewMessageAC = (message: messageType) => ({type: 'CHAT/SET-NEW-M
 
 
 export const createConnectionTC = (): AppThunk => (dispatch) => {
-
-
     chatAPI.createConnection()
-    // chatAPI.subscribe((messages) => {
-    //         dispatch(setMessagesAC(messages))
-    //     },
-    //     (message) => {
-    //         dispatch(setNewMessageAC(message))
-    //     })
+    chatAPI.subscribe((messages) => {
+            dispatch(setMessagesAC(messages))
+        },
+        (message) => {
+            dispatch(setNewMessageAC(message))
+        })
 
 }
 
+export const destroyConnectionTC = (): AppThunk => (dispatch) => {
+    chatAPI.destroyConnection()
+    dispatch(setMessagesAC([]))
+
+}
