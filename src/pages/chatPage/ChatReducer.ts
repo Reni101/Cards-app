@@ -1,5 +1,6 @@
 import {AppThunk} from "../../Redux/Store";
 import {chatAPI} from "./ChatAPI";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     messages: [] as Array<messageType>
@@ -14,44 +15,42 @@ export type messageType = {
 }
 type InitialStateType = typeof initialState
 
-export const ChatReducer = (state: InitialStateType = initialState, action: ChatActionType): InitialStateType => {
-    switch (action.type) {
-        case "CHAT/SET-MESSAGES": {
-            return {...state, messages: action.messages}
-        }
 
-        case "CHAT/SET-NEW-MESSAGES":
-            return {...state, messages: [...state.messages, action.message]}
-        default:
-            return state
+const slice = createSlice({
+    name: 'ChatReducer',
+    initialState: initialState,
+    reducers: {
+        setMessagesAC(state, action: PayloadAction<{ messages: Array<messageType> }>) {
+            state.messages = action.payload.messages
+        },
+        setNewMessageAC(state, action: PayloadAction<{ message: messageType }>) {
+            state.messages = [...state.messages, action.payload.message]
+        },
+
     }
-}
+})
 
+export const ChatReducer = slice.reducer
+export const {setMessagesAC, setNewMessageAC} = slice.actions
 
-export type ChatActionType = setMessagesACType | setNewMessageACType
-
-export type setMessagesACType = ReturnType<typeof setMessagesAC>
-export const setMessagesAC = (messages: Array<messageType>) => {
-    return {type: 'CHAT/SET-MESSAGES', messages} as const
-}
-
-export type setNewMessageACType = ReturnType<typeof setNewMessageAC>
-export const setNewMessageAC = (message: messageType) => ({type: 'CHAT/SET-NEW-MESSAGES', message} as const)
+export type ChatActionType =
+    | ReturnType<typeof setMessagesAC>
+    | ReturnType<typeof setNewMessageAC>
 
 
 export const createConnectionTC = (): AppThunk => (dispatch) => {
     chatAPI.createConnection()
     chatAPI.subscribe((messages) => {
-            dispatch(setMessagesAC(messages))
+            dispatch(setMessagesAC({messages}))
         },
         (message) => {
-            dispatch(setNewMessageAC(message))
+            dispatch(setNewMessageAC({message}))
         })
 
 }
 
 export const destroyConnectionTC = (): AppThunk => (dispatch) => {
     chatAPI.destroyConnection()
-    dispatch(setMessagesAC([]))
+    dispatch(setMessagesAC({messages: []}))
 
 }
