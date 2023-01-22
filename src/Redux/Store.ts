@@ -13,14 +13,14 @@ import {ChatActionType, ChatReducer} from "../pages/chatPage/ChatReducer";
 
 
 const rootReducer = combineReducers({
-    ProfilePage: ProfilePageReducer,//М //t +
-    ForgotPassword: recoveryPasswordReducer,//M//t +
-    Login: LoginReducer,//I t
-    App: AppReducer,//I t
-    Registration: RegistrationReducer,//A t
-    Packs: PacksReducer,//I t
-    Cards: CardsReducer,//M t+
-    Learn: learnReducer,//М t+
+    ProfilePage: ProfilePageReducer,
+    ForgotPassword: recoveryPasswordReducer,
+    Login: LoginReducer,
+    App: AppReducer,
+    Registration: RegistrationReducer,
+    Packs: PacksReducer,
+    Cards: CardsReducer,
+    Learn: learnReducer,
     Chat: ChatReducer,
 
 })

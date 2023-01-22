@@ -1,8 +1,9 @@
 import {registrationApi} from "./apiRegistration";
 import {AppThunk} from "../../Redux/Store";
-import  {AxiosError} from "axios";
-import { setStatusApp} from "../../AppReducer";
+import {AxiosError} from "axios";
+import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isSuccessfulRegistration: false,
@@ -11,37 +12,38 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const RegistrationReducer = (state: InitialStateType = initialState, action: RegistrationActionType): InitialStateType => {
-    switch (action.type) {
-        case 'registration/SET-REGISTRATION':
-            return {...state, isSuccessfulRegistration: action.data}
-        case "registration/SET-ERROR-API":
-            return {...state, error: action.error}
-        default:
-            return state
+const slice = createSlice({
+    name: 'RegistrationReducer',
+    initialState: initialState,
+    reducers: {
+        setRegisrationAC(state, action: PayloadAction<{ data: boolean }>) {
+            state.isSuccessfulRegistration = action.payload.data
+        },
+        setErrorApiRegistration(state, action: PayloadAction<{ error: string }>) {
+            state.error = action.payload.error
+        },
     }
-}
+})
 
 
-export type RegistrationActionType = SetRegisrationACType | SetErrorApiRegistrationType
+export const RegistrationReducer = slice.reducer
+export const {setRegisrationAC, setErrorApiRegistration} = slice.actions
 
-export type SetRegisrationACType = ReturnType<typeof setRegisrationAC>
-export const setRegisrationAC = (data: boolean) => ({type: 'registration/SET-REGISTRATION', data} as const)
-
-export type SetErrorApiRegistrationType = ReturnType<typeof setErrorApiRegistration>
-const setErrorApiRegistration = (error: string) => ({type: 'registration/SET-ERROR-API', error} as const)
+export type RegistrationActionType =
+    | ReturnType<typeof setRegisrationAC>
+    | ReturnType<typeof setErrorApiRegistration>
 
 
 export const registrationTC = (data: { email: string, password: string }): AppThunk => async (dispatch) => {
-    dispatch(setStatusApp({status:'loading'}))
+    dispatch(setStatusApp({status: 'loading'}))
     try {
         const response = await registrationApi.registration(data)
         dispatch(setRegisrationAC(response.data.addedUser))
     } catch (e) {
         const err = e as Error | AxiosError
-        handleError(err,dispatch)
+        handleError(err, dispatch)
     } finally {
-        dispatch(setStatusApp({status:'idle'}))
+        dispatch(setStatusApp({status: 'idle'}))
     }
 
 

@@ -15,10 +15,10 @@ export const RegistrationPage = () => {
     const isSuccessful = useAppSelector(state => state.Registration.isSuccessfulRegistration)
     const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         return () => {
-            dispatch(setRegisrationAC(false))
+            dispatch(setRegisrationAC({data: false}))
         }
     }, [dispatch])
 
