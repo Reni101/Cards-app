@@ -23,6 +23,7 @@ export const chatAPI = {
     destroyConnection() {
         this.socket?.disconnect()
         this.socket = null
+
     }
 
 }
