@@ -18,7 +18,6 @@ export const Headers = () => {
     const userName = useAppSelector(state => state.ProfilePage.name)
     const navigate = useNavigate();
 
-
     const [nav, setNav] = useState(false)
     const scrollPosition = useScrollPosition();
     useEffect(() => {

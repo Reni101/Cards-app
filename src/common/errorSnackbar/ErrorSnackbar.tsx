@@ -18,16 +18,12 @@ export  const  ErrorSnackbar = () => {
     const error = useSelector<AppRootStateType,string | null>(state => state.App.error)
     const dispatch = useAppDispatch()
 
-
-
-
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
        dispatch(setErrorApp({error:null}))
     };
-
 
     return (
             <Snackbar open={error && error.length > 1 && !null ? true : false} autoHideDuration={5000} anchorOrigin={{vertical:"bottom",horizontal: 'center'}}  onClose={handleClose}>

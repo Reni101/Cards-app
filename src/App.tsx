@@ -3,8 +3,6 @@ import './App.css';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {LoginPage} from './pages/login/LoginPage';
 import {NotFoundPage} from './pages/notFoudPage/NotFoundPage';
-
-
 import {ProfilePage} from './pages/profilePage/ProfilePage';
 import {RegistrationPage} from './pages/registrationPage/RegistrationPage';
 import {Headers} from './pages/headers/Headers';
@@ -26,15 +24,11 @@ function App() {
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.App.initialized)
 
-
-
     useEffect(() => {
         dispatch(initializedAppTC())
     }, [])
 
-
-    // если инициализация провалилась => редирект на логин
-    if (initialized) {//!isInitialized пока не прошла инициализация показывать крутилку
+    if (initialized) {
         return <div className="flex_for_lottie">
             <div className="app_lottie_animation_wrapper"><ExampleAnimation/></div>
         </div>
