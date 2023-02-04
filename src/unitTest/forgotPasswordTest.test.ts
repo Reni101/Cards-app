@@ -1,9 +1,8 @@
 import {
     sliceRecoveryType,
-
     recoveryPasswordReducer,
     setRecoverEmailAC
-} from "../../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
 
 
 let startState:sliceRecoveryType = {

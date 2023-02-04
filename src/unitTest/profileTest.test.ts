@@ -1,7 +1,7 @@
 import {
     editProfileNameAvatarAC,
     ProfilePageReducer, sliceProfileType
-} from "../../pages/profilePage/ProfilePagerReducer";
+} from "../pages/profilePage/ProfilePagerReducer";
 
 
 let startState: sliceProfileType

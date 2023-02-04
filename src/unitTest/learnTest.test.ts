@@ -3,7 +3,7 @@ import {
     InitialLearnStateType,
     learnReducer,
     setCardsLearnAC
-} from "../../pages/learn/LearnReducer";
+} from "../pages/learn/LearnReducer";
 
 
 let startState: InitialLearnStateType

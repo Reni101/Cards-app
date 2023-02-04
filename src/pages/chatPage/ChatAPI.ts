@@ -4,7 +4,7 @@ import {messageType} from "./ChatReducer";
 export const chatAPI = {
     socket: null as null | Socket,
     createConnection() {
-        this.socket = io('http://localhost:7542/2.0/', {
+        this.socket = io('https://neko-back.herokuapp.com/2.0/', {
             withCredentials: true,
         });
         console.log(this.socket)
