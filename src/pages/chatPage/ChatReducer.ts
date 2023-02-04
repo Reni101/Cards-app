@@ -39,7 +39,7 @@ export type ChatActionType =
 
 
 export const createConnectionTC = (id: string, name: string, avatar: string | null): AppThunk => (dispatch) => {
-    chatAPI.createConnection(id,name,avatar)
+    chatAPI.createConnection(id, name, avatar)
     chatAPI.subscribe((messages) => {
             dispatch(setMessagesAC({messages}))
         },
@@ -53,4 +53,7 @@ export const destroyConnectionTC = (): AppThunk => (dispatch) => {
     chatAPI.destroyConnection()
     dispatch(setMessagesAC({messages: []}))
 
+}
+export const sentMessageTC = (message: string): AppThunk => (dispatch) => {
+    chatAPI.sentMessage(message)
 }

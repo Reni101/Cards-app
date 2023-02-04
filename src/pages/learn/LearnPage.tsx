@@ -56,17 +56,17 @@ export const LearnPage = () => {
         }
     };
 
-    const goToPacks = () => {
-        navigate(Paths.packsRoute)
+    const goToCards = () => {
+        navigate(`/cards/${cardId}`)
     }
 
 
     return (
 
         <div className={style.wrapper}>
-            <div className={style.go_to_pack_list} onClick={goToPacks}>
+            <div className={style.go_to_pack_list} onClick={goToCards}>
                 <ArrowBackIcon style={{height: '15px'}}/>
-                Back to Packs List
+                Back to Cards List
             </div>
             <h1 className={style.title}>Learn "{packName}"</h1>
             <div className={style.mainBlock}>

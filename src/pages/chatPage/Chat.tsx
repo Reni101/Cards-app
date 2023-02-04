@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {createConnectionTC, destroyConnectionTC} from "./ChatReducer";
+import {createConnectionTC, destroyConnectionTC, sentMessageTC} from "./ChatReducer";
+import style from './Chat.module.css'
 
 const Chat = () => {
     const dispatch = useAppDispatch()
@@ -12,6 +13,10 @@ const Chat = () => {
         return <div>name:{el.user.name} message:{el.message}</div>
     })
 
+    const sendMessageHandler = () => {
+        dispatch(sentMessageTC("привет"))
+    }
+
     useEffect(() => {
         dispatch(createConnectionTC(userid, name!, null))
 
@@ -21,8 +26,10 @@ const Chat = () => {
     }, [])
 
     return (
-        <div>
+        <div className={style.wrapper}>
+            <h2>chat</h2>
             {messagesForRender}
+            <button onClick={sendMessageHandler}>Send message</button>
         </div>
     );
 };

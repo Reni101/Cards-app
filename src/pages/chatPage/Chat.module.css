@@ -1,0 +1,9 @@
+.wrapper {
+    position: relative;
+    top: 90px;
+    width: 80vw;
+    height: 100%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    text-align: center;
+}
