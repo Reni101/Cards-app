@@ -38,8 +38,8 @@ export type ChatActionType =
     | ReturnType<typeof setNewMessageAC>
 
 
-export const createConnectionTC = (): AppThunk => (dispatch) => {
-    chatAPI.createConnection()
+export const createConnectionTC = (id: string, name: string, avatar: string | null): AppThunk => (dispatch) => {
+    chatAPI.createConnection(id,name,avatar)
     chatAPI.subscribe((messages) => {
             dispatch(setMessagesAC({messages}))
         },

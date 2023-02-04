@@ -3,9 +3,11 @@ import {messageType} from "./ChatReducer";
 
 export const chatAPI = {
     socket: null as null | Socket,
-    createConnection() {
-        this.socket = io('https://neko-back.herokuapp.com/');
-        console.log(this.socket)
+    createConnection(_id: string, name: string, avatar: string | null) {
+        this.socket = io('https://neko-back.herokuapp.com/', {
+            query: {_id, name, avatar}
+        });
+        this.socket?.emit("init")
 
     },
     subscribe(initMessagesHandler: (messages: Array<messageType>) => void,
