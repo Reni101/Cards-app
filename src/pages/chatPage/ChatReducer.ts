@@ -13,7 +13,7 @@ export type messageType = {
         name: string
     }
 }
-type InitialStateType = typeof initialState
+type InitialChatStateType = typeof initialState
 
 
 const slice = createSlice({
