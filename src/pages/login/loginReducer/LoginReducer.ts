@@ -61,9 +61,9 @@ export const getAuthTC = ():AppThunk =>
     async (dispatch) => {
         try {
             let res = await loginApi.authUser();
-            let {_id, email, name, token} = res.data
+            let {_id, email, name, token} = res
             dispatch(getAuthAC({id:_id, name, email, isAuth:true, token}))
-            dispatch(setProfileDataAC({data: res.data})) // добавляет в профаил имя, email, avatar id
+            dispatch(setProfileDataAC({data: res})) // добавляет в профаил имя, email, avatar id
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

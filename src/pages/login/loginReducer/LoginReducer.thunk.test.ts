@@ -2,7 +2,7 @@ import {getAuthTC} from './LoginReducer';
 import {loginApi, ResponseDataLoginType} from '../loginAPI/LoginApi';
 
 jest.mock('../loginAPI/LoginApi')
-const loginApiMock = loginApi;
+const loginApiMock = loginApi as jest.Mocked<typeof loginApi>;
 
 const result: ResponseDataLoginType = {
     _id: 'userId_1',
@@ -20,17 +20,14 @@ const result: ResponseDataLoginType = {
     verified: false
 }
 
-// @ts-ignore
-loginApiMock.authUser.mockReturnValue(Promise.resolve(result))
-
-
-// this is bad test for thunk, need more info about jest testing for thunks.
-// Please don't use this test as example !
+// I repaired this test <3
 test('', async () => {
+    loginApiMock.authUser.mockReturnValue(Promise.resolve(result))
     const thunk = getAuthTC()
     const dispatchMock = jest.fn()
-    //@ts-ignore
-    await thunk(dispatchMock)
+    const getStateMock = jest.fn()
 
-    expect(dispatchMock).toBeCalledTimes(1)
+    await thunk(dispatchMock, getStateMock, "")
+
+    expect(dispatchMock).toBeCalledTimes(2)
 })

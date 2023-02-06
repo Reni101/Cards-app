@@ -31,7 +31,7 @@ export const loginApi = {
     },
     authUser() {
         return instance.post<ResponseDataLoginType>('/auth/me', {}).then(response => {
-                return response
+                return response.data
     })
     },
     logout() {
