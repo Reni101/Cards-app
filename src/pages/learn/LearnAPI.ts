@@ -3,7 +3,7 @@ import {instance} from "../../common/API/api";
 
 export const cardsLearnAPI = {
     getLearnCards(packId: string) {
-        return instance.get<ResponseCardsType>(`cards/card?cardsPack_id=${packId}&pageCount=100`,)
+        return instance.get<ResponseCardsType>(`cards/card?cardsPack_id=${packId}&pageCount=100`)
 
     },
     updateGrade(grade: number, card_id: string) {
