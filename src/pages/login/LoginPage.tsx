@@ -76,9 +76,9 @@ export const LoginPage = () => {
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email('invalid email address').required('required'),
-            password: Yup.string().min(7, 'must be 7 characters long')
-                .matches(/[0-9]/, 'requires a number')
-                .required('required')
+            // password: Yup.string().min(7, 'must be 7 characters long')
+            //     .matches(/[0-9]/, 'requires a number')
+            //     .required('required')
         }),
         onSubmit: (values: InitialValuesType, {setSubmitting, setStatus}: FormikHelpers<InitialValuesType>) => {
             dispatch(SingInTC(values))
