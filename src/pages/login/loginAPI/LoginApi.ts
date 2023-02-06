@@ -32,6 +32,7 @@ export const loginApi = {
     authUser() {
         return instance.post<ResponseDataLoginType>('/auth/me', {}).then(response => {
                 return response.data
+            //this nid to test thunk
     })
     },
     logout() {
