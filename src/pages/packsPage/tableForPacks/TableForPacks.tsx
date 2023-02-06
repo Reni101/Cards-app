@@ -11,7 +11,7 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
-import {useAppSelector} from '../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -25,7 +25,7 @@ import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
-import {useDispatch} from "react-redux";
+
 
 
 type sortType = 'cover' | 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -79,7 +79,7 @@ function createData(
 
 export const TableForPacks = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
 
     const [searchParams] = useSearchParams();
@@ -116,7 +116,7 @@ export const TableForPacks = () => {
             packName: searchQueryName,
             user_id: searchQueryUserId
         }
-        //@ts-ignore
+
         dispatch(SetCardsPackTC(QuerySearchParams))
     }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
 

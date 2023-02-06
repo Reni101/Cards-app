@@ -5,7 +5,9 @@ export const chatAPI = {
     socket: null as null | Socket,
 
     createConnection(_id: string, name: string, avatar: string | null) {
-        this.socket = io('https://neko-back.herokuapp.com/2.0/',);
+        this.socket = io('https://neko-back.herokuapp.com/', {
+            withCredentials: true
+        });
         this.socket?.emit("init")
         console.log(this.socket)
     },
