@@ -21,7 +21,7 @@ const result: ResponseDataLoginType = {
 }
 
 // I repaired this test <3
-test('', async () => {
+test('auth thunk work correct', async () => {
     loginApiMock.authUser.mockReturnValue(Promise.resolve(result))
     const thunk = getAuthTC()
     const dispatchMock = jest.fn()
