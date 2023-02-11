@@ -1,5 +1,5 @@
-import {getAuthTC} from './LoginReducer';
-import {loginApi, ResponseDataLoginType} from '../loginAPI/LoginApi';
+import {getAuthTC} from '../pages/login/LoginReducer';
+import {loginApi, ResponseDataLoginType} from '../pages/login/LoginApi';
 
 jest.mock('../loginAPI/LoginApi')
 const loginApiMock = loginApi as jest.Mocked<typeof loginApi>;
@@ -25,9 +25,8 @@ test('auth thunk work correct', async () => {
     loginApiMock.authUser.mockReturnValue(Promise.resolve(result))
     const thunk = getAuthTC()
     const dispatchMock = jest.fn()
-    const getStateMock = jest.fn()
 
-    await thunk(dispatchMock, getStateMock, "")
+    await thunk(dispatchMock)
 
     expect(dispatchMock).toBeCalledTimes(2)
 })

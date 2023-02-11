@@ -1,14 +1,12 @@
 import React from 'react';
 import style from './AddNewPack.module.css'
 import {Button} from '@mui/material';
-import {useAppSelector} from '../../../hooks/hooks';
 import {AddPackModal} from "../packModal/AddPackModal";
+import {useAppSelector} from "../../../redux/Store";
 
 
 export const AddNewPack = () => {
     const status = useAppSelector(state => state.App.status)
-    const cardPacks = useAppSelector(state => state.Packs.cardPacks)
-
 
     return (
         <div className={style.all_wrapper_add_new_pack}>

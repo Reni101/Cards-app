@@ -1,27 +1,28 @@
 import React, {ChangeEvent, FC, useState} from 'react';
-import {useAppDispatch} from "../../../hooks/hooks";
 import {editProfileNameAvatarTC} from "../ProfilePagerReducer";
-import styleEditProfile from './editProfileName.module.css'
+import styleEditProfile from './EditProfileName.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, TextField} from "@mui/material";
+import {useAppDispatch} from "../../../redux/Store";
 
 
 type PropsType = {
     profileName: string | null
 }
 export const EditProfileName: FC<PropsType> = React.memo((props: PropsType) => {
+    const dispatch = useAppDispatch()
+
     const [Name, setName] = useState(props.profileName)
     const [editMode, setEditMode] = useState(false)
-    const dispatch = useAppDispatch()
 
     const setEditModeHandler = () => {
         setEditMode(!editMode)
-
     }
+
     const changeNameHandler = () => {
-        dispatch(editProfileNameAvatarTC({name:Name}))
-
+        dispatch(editProfileNameAvatarTC({name: Name}))
     }
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value.trim())
     }

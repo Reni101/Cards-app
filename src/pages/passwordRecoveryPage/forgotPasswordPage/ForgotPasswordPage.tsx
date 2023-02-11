@@ -2,18 +2,18 @@ import React from 'react';
 import style from "./ForgotPasswordPage.module.css"
 import {Button, TextField, LinearProgress} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {forgotPasswordTC} from "../RecoveryPasswordReducer";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {Slide} from 'react-awesome-reveal';
 import {requestStatusType} from "../../../AppReducer";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const ForgotPasswordPage = () => {
-
+    const dispatch = useAppDispatch()
     const email = useAppSelector(store => store.ForgotPassword.email)
     const status = useAppSelector<requestStatusType>(state => state.App.status)
-    const dispatch = useAppDispatch()
+
 
     const formik = useFormik({
         initialValues: {

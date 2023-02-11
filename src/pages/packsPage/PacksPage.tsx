@@ -4,12 +4,12 @@ import {AddNewPack} from './addNewPack/AddNewPack';
 import {FiltersForPacks} from './filtersForPacks/FiltersForPacks';
 import {TableForPacks} from './tableForPacks/TableForPacks';
 import {Navigate} from 'react-router-dom';
-import {useAppSelector} from '../../hooks/hooks';
+
 import {Paths} from '../../common/paths/Paths';
+import {useAppSelector} from "../../redux/Store";
 
 
 export const PacksPage = () => {
-
 
     const isAuth = useAppSelector(state => state.Login.isAuth)
 

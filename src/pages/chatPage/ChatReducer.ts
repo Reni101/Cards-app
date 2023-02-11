@@ -1,6 +1,6 @@
-import {AppThunk} from "../../Redux/Store";
 import {chatAPI} from "./ChatAPI";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppDispatch} from "../../redux/Store";
 
 const initialState = {
     messages: [] as Array<messageType>
@@ -13,8 +13,6 @@ export type messageType = {
         name: string
     }
 }
-type InitialChatStateType = typeof initialState
-
 
 const slice = createSlice({
     name: 'ChatReducer',
@@ -30,15 +28,10 @@ const slice = createSlice({
     }
 })
 
-export const ChatReducer = slice.reducer
+export const chatReducer = slice.reducer
 export const {setMessagesAC, setNewMessageAC} = slice.actions
 
-export type ChatActionType =
-    | ReturnType<typeof setMessagesAC>
-    | ReturnType<typeof setNewMessageAC>
-
-
-export const createConnectionTC = (id: string, name: string, avatar: string | null): AppThunk => (dispatch) => {
+export const createConnectionTC = (id: string, name: string, avatar: string | null) => (dispatch: AppDispatch) => {
     chatAPI.createConnection(id, name, avatar)
     chatAPI.subscribe((messages) => {
             dispatch(setMessagesAC({messages}))
@@ -49,11 +42,11 @@ export const createConnectionTC = (id: string, name: string, avatar: string | nu
 
 }
 
-export const destroyConnectionTC = (): AppThunk => (dispatch) => {
+export const destroyConnectionTC = () => (dispatch: AppDispatch) => {
     chatAPI.destroyConnection()
     dispatch(setMessagesAC({messages: []}))
 
 }
-export const sentMessageTC = (message: string): AppThunk => (dispatch) => {
+export const sentMessageTC = (message: string) => (dispatch: AppDispatch) => {
     chatAPI.sentMessage(message)
 }

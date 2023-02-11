@@ -1,4 +1,4 @@
-import {AppThunk} from "../../Redux/Store";
+import {AppDispatch, AppRootStateType} from "../../redux/Store";
 import {cardsAPI, RequestAddCardType, RequestUpdateCardType, ResponseCardsType} from "./CardsAPI";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
@@ -51,15 +51,6 @@ const initialState: InitialStateType = {
 
 
 }
-export type ActionsCardsType =
-    | ReturnType<typeof setCardsAC>
-    | ReturnType<typeof changePageCardsAC>
-    | ReturnType<typeof changePageCardsCountAC>
-    | ReturnType<typeof findCardsQuestionAC>
-    | ReturnType<typeof findCardsQuestionAC>
-    | ReturnType<typeof sortCardsAC>
-    | ReturnType<typeof setPacksIdAC>
-    | ReturnType<typeof setPackNameForCardAC>
 
 
 const slice = createSlice({
@@ -99,7 +90,7 @@ const slice = createSlice({
 })
 
 
-export const CardsReducer = slice.reducer
+export const cardsReducer = slice.reducer
 export const {
     setCardsAC, changePageCardsAC, changePageCardsCountAC, findCardsQuestionAC,
     sortCardsAC, setPacksIdAC, setPackNameForCardAC
@@ -108,8 +99,8 @@ export const {
 
 //==============================TC============================
 
-export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppThunk =>
-    async (dispatch, getState) => {
+export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
+    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
             let {page, cardQuestion, sortCards, pageCount} = getState().Cards
@@ -130,49 +121,52 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string): AppTh
             handleError(err, dispatch)
         }
     }
-export const AddCardTC = (card: RequestAddCardType): AppThunk => async (dispatch, getState) => {
-    dispatch(setStatusApp({status: 'loading'}))
-    try {
-        await cardsAPI.addCard(card)
-        const packsId = getState().Cards.cardsPack_id
-        await dispatch(setCardsTC(packsId))
-        dispatch(setStatusApp({status: 'succeeded'}))
-    } catch (e) {
-        const err = e as Error | AxiosError
-        handleError(err, dispatch)
-    } finally {
-        dispatch(setStatusApp({status: 'idle'}))
+export const AddCardTC = (card: RequestAddCardType) =>
+    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+        dispatch(setStatusApp({status: 'loading'}))
+        try {
+            await cardsAPI.addCard(card)
+            const packsId = getState().Cards.cardsPack_id
+            await dispatch(setCardsTC(packsId))
+            dispatch(setStatusApp({status: 'succeeded'}))
+        } catch (e) {
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
+        } finally {
+            dispatch(setStatusApp({status: 'idle'}))
+        }
     }
-}
 
-export const UpdateCardTC = (card: RequestUpdateCardType): AppThunk => async (dispatch, getState) => {
-    dispatch(setStatusApp({status: 'loading'}))
-    try {
-        await cardsAPI.updateCard(card)
-        const packsId = getState().Cards.cardsPack_id
-        dispatch(setCardsTC(packsId))
-        dispatch(setStatusApp({status: 'succeeded'}))
-    } catch (e) {
-        const err = e as Error | AxiosError
-        handleError(err, dispatch)
-    } finally {
-        dispatch(setStatusApp({status: 'idle'}))
+export const UpdateCardTC = (card: RequestUpdateCardType) =>
+    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+        dispatch(setStatusApp({status: 'loading'}))
+        try {
+            await cardsAPI.updateCard(card)
+            const packsId = getState().Cards.cardsPack_id
+            dispatch(setCardsTC(packsId))
+            dispatch(setStatusApp({status: 'succeeded'}))
+        } catch (e) {
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
+        } finally {
+            dispatch(setStatusApp({status: 'idle'}))
+        }
     }
-}
 
 
-export const DeleteCardTC = (idCard: string): AppThunk => async (dispatch, getState) => {
-    dispatch(setStatusApp({status: 'loading'}))
-    try {
-        await cardsAPI.deleteCard(idCard)
-        const packsId = getState().Cards.cardsPack_id
-        dispatch(setCardsTC(packsId))
-        dispatch(setStatusApp({status: 'succeeded'}))
-    } catch (e) {
-        const err = e as Error | AxiosError
-        handleError(err, dispatch)
-    } finally {
-        dispatch(setStatusApp({status: 'idle'}))
+export const DeleteCardTC = (idCard: string) =>
+    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+        dispatch(setStatusApp({status: 'loading'}))
+        try {
+            await cardsAPI.deleteCard(idCard)
+            const packsId = getState().Cards.cardsPack_id
+            dispatch(setCardsTC(packsId))
+            dispatch(setStatusApp({status: 'succeeded'}))
+        } catch (e) {
+            const err = e as Error | AxiosError
+            handleError(err, dispatch)
+        } finally {
+            dispatch(setStatusApp({status: 'idle'}))
+        }
     }
-}
 

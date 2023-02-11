@@ -1,29 +1,19 @@
-import {profileEditType, profilePageAPI, updatedUser} from "./profileAPI";
+import {profileEditType, profilePageAPI, updatedUser} from "./ProfileAPI";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppThunk} from "../../Redux/Store";
-
-
-const initialProfileState = {
-    user_id: "" as string,
-    email: null as string | null,
-    name: null as string | null,
-    publicCardPacksCount: null as number | null,
-    avatar: null as string | null
-}
-
-export type ActionsProfileType =
-    | ReturnType<typeof editProfileNameAvatarAC>
-    | ReturnType<typeof setProfileDataAC>
-
-
-export type sliceProfileType = typeof initialProfileState
+import {AppDispatch} from "../../redux/Store";
 
 const slice = createSlice({
     name: "ProfilePageReducer",
-    initialState: initialProfileState,
+    initialState: {
+        user_id: "" as string,
+        email: null as string | null,
+        name: null as string | null,
+        publicCardPacksCount: null as number | null,
+        avatar: null as string | null
+    },
     reducers: {
         editProfileNameAvatarAC(state, action: PayloadAction<{ name: string | null, avatar: string | null }>) {
             state.name = action.payload.name
@@ -37,13 +27,13 @@ const slice = createSlice({
         }
     }
 })
-
-export const ProfilePageReducer = slice.reducer
+export type sliceProfileType = ReturnType<typeof slice.getInitialState>
+export const profilePageReducer = slice.reducer
 export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 
 //==============================TC============================
-export const editProfileNameAvatarTC = ({name, avatar}: profileEditType): AppThunk => async (dispatch) => {
+export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})

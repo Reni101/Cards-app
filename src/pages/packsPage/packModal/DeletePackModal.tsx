@@ -2,10 +2,10 @@ import React, {ReactNode} from 'react';
 import {BasicModal} from "../../../common/modal/BasicModal";
 import {Button} from "@mui/material";
 import style from "../addNewPack/AddNewPack.module.css";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {DeletePackTC} from "../PacksReducer";
 import s from './DeletePackModal.module.css'
 import {useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 type DeletePackModalType = {
     children: ReactNode
@@ -16,6 +16,7 @@ type DeletePackModalType = {
 export const DeletePackModal = ({children, id, name}: DeletePackModalType) => {
 
     const dispatch = useAppDispatch()
+
     const [searchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 

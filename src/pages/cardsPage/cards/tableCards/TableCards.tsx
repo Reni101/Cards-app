@@ -11,7 +11,6 @@ import moment from 'moment/moment';
 import {Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
 import {Paginator} from "../../../../common/Paginator/paginator";
@@ -19,6 +18,7 @@ import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
+import {useAppDispatch, useAppSelector} from '../../../../redux/Store';
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
@@ -79,33 +79,32 @@ export const TableCards = () => {
     const currentPage = useAppSelector(state => state.Cards.page)
     const pageCount = useAppSelector(state => state.Cards.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
+
     const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
 
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
 
-    useEffect(() => {
+    const changePageHandler = useCallback((newPage: number) => {
+        dispatch(changePageCardsAC({page: newPage}))
+    }, [dispatch])
 
+    const changeRowsPerPageHandler = useCallback((rows: number) => {
+        dispatch(changePageCardsCountAC({pageCount: rows}))
+    }, [dispatch])
+
+    const sortCardsHandler = (columnID: sortCardsType) => {
+        const val = sortCards === ('0' + columnID)
+        dispatch(sortCardsAC({sortCards: val ? `1${columnID}` : `0${columnID}`}))
+    }
+
+    useEffect(() => {
         if (searchQuery !== findQuestion) return
         dispatch(setCardsTC(packId ? packId : packIdQuery!, searchQuery))
     }, [currentPage, pageCount, findQuestion, sortCards])
 
 
-    const changePageHandler = useCallback((newPage: number) => {
-        dispatch(changePageCardsAC({page:newPage}))
-    }, [dispatch])
-
-    const changeRowsPerPageHandler = useCallback((rows: number) => {
-        dispatch(changePageCardsCountAC({pageCount:rows}))
-    }, [dispatch])
-
-    const sortCardsHandler = (columnID: sortCardsType) => {
-        const val = sortCards === ('0' + columnID)
-        dispatch(sortCardsAC({sortCards:val ? `1${columnID}` : `0${columnID}`}))
-    }
-
     if (cards.length === 0) {
-
         if (status === 'loading') {
             return (
                 <ExampleAnimation/>

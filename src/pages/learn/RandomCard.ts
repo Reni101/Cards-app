@@ -1,4 +1,3 @@
-
 import {CardLearnType} from "./LearnReducer";
 
 export const getRandomCard = (cards: CardLearnType[]): CardLearnType => {

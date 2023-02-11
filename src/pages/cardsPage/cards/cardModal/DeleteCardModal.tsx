@@ -1,10 +1,10 @@
-import React, {ReactNode, useState} from 'react';
-import {Button, Checkbox} from "@mui/material";
+import React, {ReactNode} from 'react';
+import {Button} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './DeleteCardModal.module.css'
 import {DeleteCardTC} from "../../CardsReducer";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {BasicModal} from "../../../../common/modal/BasicModal";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type DeleteCardModalType = {
     children: ReactNode

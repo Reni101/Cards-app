@@ -1,4 +1,4 @@
-import {appInitialStateType, AppReducer, initializedAppAC, setErrorApp, setStatusApp} from './AppReducer';
+import {appInitialStateType, appReducer, initializedAppAC, setErrorApp, setStatusApp} from '../AppReducer';
 
 let InitialState: appInitialStateType;
 
@@ -12,17 +12,17 @@ beforeEach(()=>{
 
 test('correct error message', () => {
 
- const StateFinish = AppReducer(InitialState,setErrorApp({error:'New error'}))
+ const StateFinish = appReducer(InitialState,setErrorApp({error:'New error'}))
 
     expect(StateFinish.error).toBe('New error')
 });
 test('correct status changing', () => {
-    const StateFinishWithStatus = AppReducer(InitialState,setStatusApp({status:'failed'}))
+    const StateFinishWithStatus = appReducer(InitialState,setStatusApp({status:'failed'}))
 
     expect(StateFinishWithStatus.status).toBe('failed')
 })
 test('checking the correct operation of initialization', () => {
-    const StateFinishForCorrectInitialization = AppReducer(InitialState,initializedAppAC())
+    const StateFinishForCorrectInitialization = appReducer(InitialState,initializedAppAC())
 
     expect(StateFinishForCorrectInitialization.initialized).toBe(false)
 })

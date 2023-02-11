@@ -1,22 +1,16 @@
-import {registrationApi} from "./apiRegistration";
-import {AppThunk} from "../../Redux/Store";
+import {registrationApi} from "./RegistrationAPI";
+import {AppDispatch} from "../../redux/Store";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-const initialState = {
-    isSuccessfulRegistration: false,
-    error: null as string | null
-}
-
-type InitialStateType = typeof initialState
-
 const slice = createSlice({
     name: 'RegistrationReducer',
-    initialState: initialState,
+    initialState: { isSuccessfulRegistration: false,
+        error: null as string | null},
     reducers: {
-        setRegisrationAC(state, action: PayloadAction<{ data: boolean }>) {
+        setRegistrationAC(state, action: PayloadAction<{ data: boolean }>) {
             state.isSuccessfulRegistration = action.payload.data
         },
         setErrorApiRegistration(state, action: PayloadAction<{ error: string }>) {
@@ -26,19 +20,15 @@ const slice = createSlice({
 })
 
 
-export const RegistrationReducer = slice.reducer
-export const {setRegisrationAC, setErrorApiRegistration} = slice.actions
-
-export type RegistrationActionType =
-    | ReturnType<typeof setRegisrationAC>
-    | ReturnType<typeof setErrorApiRegistration>
+export const registrationReducer = slice.reducer
+export const {setRegistrationAC, setErrorApiRegistration} = slice.actions
 
 
-export const registrationTC = (data: { email: string, password: string }): AppThunk => async (dispatch) => {
+export const registrationTC = (data: { email: string, password: string }) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         const response = await registrationApi.registration(data)
-        dispatch(setRegisrationAC(response.data.addedUser))
+        dispatch(setRegistrationAC(response.data.addedUser))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)

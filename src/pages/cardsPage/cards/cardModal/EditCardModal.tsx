@@ -5,9 +5,9 @@ import {Button, Checkbox} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './EditCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {UpdateCardTC} from "../../CardsReducer";
 import {RequestUpdateCardType} from "../../CardsAPI";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type EditPackModalType = {
     children: ReactNode

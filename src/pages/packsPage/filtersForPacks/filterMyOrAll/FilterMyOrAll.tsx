@@ -1,14 +1,13 @@
 import React from 'react';
 import style from './FilterMyOrAll.module.css'
 import {Button} from '@mui/material';
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {changeShowMyPacksAC} from "../../PacksReducer";
 import {useSearchParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 export const FilterMyOrAll = () => {
-    const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
     const dispatch = useAppDispatch()
-
+    const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
 
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -19,24 +18,24 @@ export const FilterMyOrAll = () => {
 
     const MyPacks = () => {
         const params = {
-            search:searchQueryName,
-            user_id:user_idFromProfile,
-            min:searchQueryMin,
-            max:searchQueryMax
+            search: searchQueryName,
+            user_id: user_idFromProfile,
+            min: searchQueryMin,
+            max: searchQueryMax
         }
         setSearchParams(params)
-        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
+        dispatch(changeShowMyPacksAC({user_id: params.user_id}))
 
     }
     const AllPacks = () => {
         const params = {
-            search:searchQueryName,
-            user_id:'',
-            min:searchQueryMin,
-            max:searchQueryMax
+            search: searchQueryName,
+            user_id: '',
+            min: searchQueryMin,
+            max: searchQueryMax
         }
         setSearchParams(params)
-        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
+        dispatch(changeShowMyPacksAC({user_id: params.user_id}))
     }
 
     return (
