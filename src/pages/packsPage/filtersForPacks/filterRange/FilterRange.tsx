@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {changeMaxAC, changeMinAC} from '../../PacksReducer';
 import {useSearchParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 import useDebounce from "../../../../hooks/useDebounce";
 
 const valuetext = (value: number) => {

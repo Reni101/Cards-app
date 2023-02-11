@@ -11,7 +11,7 @@ import {setErrorApp} from '../../../AppReducer';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 
 type AddPackModalType = {

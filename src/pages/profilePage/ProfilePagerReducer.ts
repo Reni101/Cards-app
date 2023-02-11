@@ -1,9 +1,9 @@
-import {profileEditType, profilePageAPI, updatedUser} from "./profileAPI";
+import {profileEditType, profilePageAPI, updatedUser} from "./ProfileAPI";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch} from "../../Redux/Store";
+import {AppDispatch} from "../../redux/Store";
 
 const slice = createSlice({
     name: "ProfilePageReducer",

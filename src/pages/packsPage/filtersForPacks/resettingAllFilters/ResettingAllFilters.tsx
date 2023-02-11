@@ -3,7 +3,7 @@ import style from './ResettingAllFilters.module.css'
 import FilterListOffSharpIcon from '@mui/icons-material/FilterListOffSharp';
 import {changeMaxAC, changeMinAC, changeShowMyPacksAC, changeSortPacksAC, sortPacksNameAC} from "../../PacksReducer";
 import {useSearchParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 export const ResettingAllFilters = () => {
     const dispatch = useAppDispatch()

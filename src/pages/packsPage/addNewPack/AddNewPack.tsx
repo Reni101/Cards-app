@@ -2,7 +2,7 @@ import React from 'react';
 import style from './AddNewPack.module.css'
 import {Button} from '@mui/material';
 import {AddPackModal} from "../packModal/AddPackModal";
-import {useAppSelector} from "../../../Redux/Store";
+import {useAppSelector} from "../../../redux/Store";
 
 
 export const AddNewPack = () => {

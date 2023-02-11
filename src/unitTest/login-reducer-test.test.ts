@@ -1,5 +1,5 @@
-import {getAuthAC, initialStateType, loginReducer, setLoginAC} from './LoginReducer';
-import {LoginType} from '../loginAPI/LoginApi';
+import {getAuthAC, initialStateType, loginReducer, setLoginAC} from '../pages/login/LoginReducer';
+import {LoginType} from '../pages/login/LoginApi';
 
 let initialState: initialStateType;
 

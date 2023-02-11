@@ -1,5 +1,5 @@
-import {registrationApi} from "./apiRegistration";
-import {AppDispatch} from "../../Redux/Store";
+import {registrationApi} from "./RegistrationAPI";
+import {AppDispatch} from "../../redux/Store";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";
 import {handleError} from "../../common/ErrorUtils/errorFunck";

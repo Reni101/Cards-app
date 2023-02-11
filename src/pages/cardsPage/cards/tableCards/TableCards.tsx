@@ -18,7 +18,7 @@ import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
-import {useAppDispatch, useAppSelector} from '../../../../Redux/Store';
+import {useAppDispatch, useAppSelector} from '../../../../redux/Store';
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"

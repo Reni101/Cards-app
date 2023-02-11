@@ -13,7 +13,7 @@ import {useNavigate, useParams} from "react-router-dom";
 
 
 import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "./LearnReducer";
-import {useAppDispatch, useAppSelector} from "../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../redux/Store";
 
 
 export const LearnPage = () => {

@@ -1,9 +1,9 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {editProfileNameAvatarTC} from "../ProfilePagerReducer";
-import styleEditProfile from './editProfileName.module.css'
+import styleEditProfile from './EditProfileName.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, TextField} from "@mui/material";
-import {useAppDispatch} from "../../../Redux/Store";
+import {useAppDispatch} from "../../../redux/Store";
 
 
 type PropsType = {

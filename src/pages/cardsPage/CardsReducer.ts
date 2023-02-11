@@ -1,4 +1,4 @@
-import {AppDispatch, AppRootStateType} from "../../Redux/Store";
+import {AppDispatch, AppRootStateType} from "../../redux/Store";
 import {cardsAPI, RequestAddCardType, RequestUpdateCardType, ResponseCardsType} from "./CardsAPI";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";

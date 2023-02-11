@@ -1,21 +1,20 @@
 import React, {ChangeEvent} from 'react';
 import styleProfile from './ProfilePage.module.css'
-
 import {Navigate, useNavigate} from 'react-router-dom';
-import {EditProfileName} from './EditProfileName/editProfileName';
+import {EditProfileName} from './EditProfileName/EditProfileName';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Slide} from 'react-awesome-reveal';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PartyModeIcon from '@mui/icons-material/PartyMode';
 import Button from '@mui/material/Button';
-import {SingOutTC} from '../login/loginReducer/LoginReducer';
+import {SingOutTC} from '../login/LoginReducer';
 import {Paths} from '../../common/paths/Paths';
 import {editProfileNameAvatarTC} from "./ProfilePagerReducer";
 import {setErrorApp} from "../../AppReducer";
 import defaultAvatar from '../../assets/default-avatar.png'
 import {convertFileToBase64} from "../../common/convertFileToBase64/ConvertFileToBase64";
-import {useAppDispatch, useAppSelector} from "../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../redux/Store";
 
 export const ProfilePage = () => {
     const navigate = useNavigate();

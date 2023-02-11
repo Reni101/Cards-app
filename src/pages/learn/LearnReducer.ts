@@ -1,4 +1,4 @@
-import {AppDispatch} from "../../Redux/Store";
+import {AppDispatch} from "../../redux/Store";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";

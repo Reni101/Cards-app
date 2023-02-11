@@ -4,7 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {Paths} from '../../common/paths/Paths';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Cards} from './cards/Cards';
-import {useAppSelector} from "../../Redux/Store";
+import {useAppSelector} from "../../redux/Store";
 
 
 export const CardsPage = () => {

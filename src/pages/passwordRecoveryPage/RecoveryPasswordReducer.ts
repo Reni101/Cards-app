@@ -1,4 +1,4 @@
-import {AppDispatch} from "../../Redux/Store";
+import {AppDispatch} from "../../redux/Store";
 import {RecoveryPasswordApi} from "./RecoveryPasswordApi";
 import {AxiosError} from "axios";
 import {setStatusApp} from "../../AppReducer";

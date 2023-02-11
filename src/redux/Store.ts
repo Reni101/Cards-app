@@ -2,7 +2,7 @@ import {combineReducers} from "redux";
 import thunk from "redux-thunk";
 import {profilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
 import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
-import {loginReducer} from '../pages/login/loginReducer/LoginReducer';
+import {loginReducer} from '../pages/login/LoginReducer';
 import {appReducer} from '../AppReducer';
 import {registrationReducer} from "../pages/registrationPage/RegistrationReducer";
 import {packsReducer} from "../pages/packsPage/PacksReducer";
@@ -34,13 +34,12 @@ export const store = configureStore({
 
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-
-
+export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = () => <AppDispatch>useDispatch()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
-export type AppDispatch = typeof store.dispatch
+
 
 // @ts-ignore
 window.store = store

@@ -5,7 +5,7 @@ import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
 import {sortPacksNameAC} from '../../PacksReducer';
 import {useSearchParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 import useDebounce from "../../../../hooks/useDebounce";
 
 

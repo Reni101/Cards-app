@@ -18,8 +18,8 @@ import {
 } from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {Navigate, NavLink} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../Redux/Store';
-import {SingInTC} from './loginReducer/LoginReducer';
+import {useAppDispatch, useAppSelector} from '../../redux/Store';
+import {SingInTC} from './LoginReducer';
 import {Slide} from 'react-awesome-reveal';
 import {requestStatusType} from '../../AppReducer';
 

@@ -1,5 +1,5 @@
-import {AppDispatch} from './Redux/Store';
-import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
+import {AppDispatch} from './redux/Store';
+import {getAuthTC} from './pages/login/LoginReducer';
 import {AxiosError} from 'axios';
 import {handleError} from './common/ErrorUtils/errorFunck';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';

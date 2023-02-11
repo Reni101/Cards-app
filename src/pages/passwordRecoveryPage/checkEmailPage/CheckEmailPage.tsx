@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {NavLink} from "react-router-dom";
-import style from './checkEmailPage.module.css'
+import style from './CheckEmailPage.module.css'
 import CheckEmail from "../../../assets/chekEmail.svg"
 import {Slide} from 'react-awesome-reveal';
 import {setRecoverEmailAC} from "../RecoveryPasswordReducer";
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const CheckEmailPage = () => {
     const dispatch = useAppDispatch()
@@ -19,7 +19,6 @@ export const CheckEmailPage = () => {
 
     return (
         <Slide direction={'up'}>
-
             <div className={style.wrapper_checkEmail}>
                 <h2 className={style.Title}>Check Email</h2>
                 <img src={CheckEmail} alt=""/>

@@ -16,7 +16,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Slide} from 'react-awesome-reveal';
 import * as Yup from "yup";
 import {requestStatusType} from "../../../AppReducer";
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const NewPasswordPage = () => {
     let {token} = useParams();

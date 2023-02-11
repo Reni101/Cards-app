@@ -4,7 +4,7 @@ import {useFormik} from "formik";
 import {registrationTC} from "../RegistrationReducer";
 import InputForRegistration from "./InputForRegistration";
 import {Button} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 
 type FormikErrorType = {

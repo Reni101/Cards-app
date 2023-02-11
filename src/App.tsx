@@ -7,7 +7,7 @@ import {ProfilePage} from './pages/profilePage/ProfilePage';
 import {RegistrationPage} from './pages/registrationPage/RegistrationPage';
 import {Headers} from './pages/headers/Headers';
 import {ForgotPasswordPage} from './pages/passwordRecoveryPage/forgotPasswordPage/ForgotPasswordPage';
-import {CheckEmailPage} from './pages/passwordRecoveryPage/checkEmailPage/checkEmailPage';
+import {CheckEmailPage} from './pages/passwordRecoveryPage/checkEmailPage/CheckEmailPage';
 import {NewPasswordPage} from './pages/passwordRecoveryPage/newPasswordPage/NewPasswordPage';
 import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
@@ -17,7 +17,7 @@ import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
 import Chat from "./pages/chatPage/Chat";
-import {useAppDispatch, useAppSelector} from "./Redux/Store";
+import {useAppDispatch, useAppSelector} from "./redux/Store";
 
 
 function App() {

@@ -6,7 +6,7 @@ import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useFormik} from "formik";
 import {AddCardTC} from "../../CardsReducer";
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type AddPackModalType = {
     children: ReactNode

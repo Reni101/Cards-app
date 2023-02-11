@@ -5,7 +5,7 @@ import style from "../addNewPack/AddNewPack.module.css";
 import {DeletePackTC} from "../PacksReducer";
 import s from './DeletePackModal.module.css'
 import {useSearchParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 type DeletePackModalType = {
     children: ReactNode

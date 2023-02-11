@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {createConnectionTC, destroyConnectionTC, sentMessageTC} from "./ChatReducer";
 import style from './Chat.module.css'
-import {useAppDispatch, useAppSelector} from "../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../redux/Store";
 
 const Chat = () => {
     const dispatch = useAppDispatch()

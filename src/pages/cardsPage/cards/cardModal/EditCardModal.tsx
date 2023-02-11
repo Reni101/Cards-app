@@ -7,7 +7,7 @@ import s from './EditCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {UpdateCardTC} from "../../CardsReducer";
 import {RequestUpdateCardType} from "../../CardsAPI";
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type EditPackModalType = {
     children: ReactNode

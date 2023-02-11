@@ -1,6 +1,6 @@
 import {chatAPI} from "./ChatAPI";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch} from "../../Redux/Store";
+import {AppDispatch} from "../../redux/Store";
 
 const initialState = {
     messages: [] as Array<messageType>

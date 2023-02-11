@@ -3,7 +3,7 @@ import style from './FilterMyOrAll.module.css'
 import {Button} from '@mui/material';
 import {changeShowMyPacksAC} from "../../PacksReducer";
 import {useSearchParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 export const FilterMyOrAll = () => {
     const dispatch = useAppDispatch()

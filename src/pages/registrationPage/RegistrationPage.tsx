@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
 import style from './RegistrationPage.module.css'
-
 import {Navigate, NavLink} from "react-router-dom";
 import FormForRegistration from "./formForRegistration/FormForRegistration";
 import {Slide} from "react-awesome-reveal";
 import {LinearProgress} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../Redux/Store";
+import {useAppSelector} from "../../redux/Store";
 import {requestStatusType} from "../../AppReducer";
 import {setRegistrationAC} from "./RegistrationReducer";
 

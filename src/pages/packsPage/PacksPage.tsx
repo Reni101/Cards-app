@@ -6,7 +6,7 @@ import {TableForPacks} from './tableForPacks/TableForPacks';
 import {Navigate} from 'react-router-dom';
 
 import {Paths} from '../../common/paths/Paths';
-import {useAppSelector} from "../../Redux/Store";
+import {useAppSelector} from "../../redux/Store";
 
 
 export const PacksPage = () => {

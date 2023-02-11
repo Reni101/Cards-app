@@ -4,7 +4,7 @@ import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './DeleteCardModal.module.css'
 import {DeleteCardTC} from "../../CardsReducer";
 import {BasicModal} from "../../../../common/modal/BasicModal";
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type DeleteCardModalType = {
     children: ReactNode

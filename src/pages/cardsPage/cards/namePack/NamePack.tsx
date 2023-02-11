@@ -17,7 +17,7 @@ import {useNavigate} from 'react-router-dom';
 import {AddCardModal} from "../cardModal/AddCardModal";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {Paths} from "../../../../common/paths/Paths";
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 export const NamePack = () => {
     const dispatch = useAppDispatch()

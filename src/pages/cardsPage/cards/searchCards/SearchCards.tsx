@@ -6,7 +6,7 @@ import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/com
 import useDebounce from '../../../../hooks/useDebounce';
 import {findCardsQuestionAC} from "../../CardsReducer";
 import {useSearchParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 
 export const SearchCards = () => {

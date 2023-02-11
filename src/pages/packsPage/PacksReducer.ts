@@ -1,4 +1,4 @@
-import {AppDispatch, AppRootStateType} from '../../Redux/Store';
+import {AppDispatch, AppRootStateType} from '../../redux/Store';
 import {setStatusApp} from '../../AppReducer';
 import {AxiosError} from 'axios';
 import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';

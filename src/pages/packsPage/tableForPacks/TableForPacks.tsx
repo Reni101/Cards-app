@@ -24,7 +24,7 @@ import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
-import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
+import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 
 type sortType = 'cover' | 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
