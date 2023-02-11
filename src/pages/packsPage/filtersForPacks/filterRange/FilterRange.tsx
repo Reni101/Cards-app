@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import style from './FilterRange.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {changeMaxAC, changeMinAC} from '../../PacksReducer';
 import {useSearchParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import useDebounce from "../../../../hooks/useDebounce";
 
 const valuetext = (value: number) => {
     return `${value}°C`;
@@ -12,9 +13,9 @@ const valuetext = (value: number) => {
 
 
 export const FilterRange = () => {
-
-    const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
     const dispatch = useAppDispatch()
+    const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
+
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
@@ -25,6 +26,7 @@ export const FilterRange = () => {
 
     const max_value = Number(searchQueryMax) ? Number(searchQueryMax) : maxCardsCount
     const [value, setValue] = React.useState<number[]>([Number(searchQueryMin), Number(searchQueryMax)]);
+
     const debounceValue = useDebounce<number[]>(value, 700);
 
 

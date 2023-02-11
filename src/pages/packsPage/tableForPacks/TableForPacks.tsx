@@ -11,7 +11,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import moment from 'moment';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -25,7 +24,7 @@ import {Paginator} from '../../../common/Paginator/paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
-
+import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
 
 
 type sortType = 'cover' | 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
@@ -80,7 +79,6 @@ function createData(
 export const TableForPacks = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.App.status)
 
     const [searchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
@@ -88,7 +86,7 @@ export const TableForPacks = () => {
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
 
-
+    const status = useAppSelector(state => state.App.status)
     const packs_user_id = useAppSelector(state => state.Packs.user_id)
     const packName = useAppSelector(state => state.Packs.packName)
     const min = useAppSelector(state => state.Packs.min)
@@ -122,31 +120,31 @@ export const TableForPacks = () => {
 
 
     const changePageHandler = useCallback((newPage: number) => {
-        dispatch(changePageAC({page:newPage}))
+        dispatch(changePageAC({page: newPage}))
     }, [dispatch])
 
     const changeRowsPerPageHandler = useCallback((rows: number) => {
-        dispatch(changePageCountAC({pageCount:rows}))
+        dispatch(changePageCountAC({pageCount: rows}))
     }, [dispatch])
 
     const goToCardsHandler = (card_pack_id: string) => {
-        dispatch(setPacksIdAC({packsId:card_pack_id}))
+        dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/cards/${card_pack_id}`)
     }
 
     const goToLearnHandler = (card_pack_id: string) => {
-        dispatch(setPacksIdAC({packsId:card_pack_id}))
+        dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/learn/${card_pack_id}`)
     }
 
     const sortHandler = (columnID: sortType) => {
         if (columnID === 'actions') return
         const val = sortPacks === ('0' + columnID)
-        dispatch(changeSortPacksAC({sortPacks:val ? `1${columnID}` : `0${columnID}`}))
+        dispatch(changeSortPacksAC({sortPacks: val ? `1${columnID}` : `0${columnID}`}))
     }
 
 
-    if (status === 'loading') {
+    if (isLoading) {
         return (
             <ExampleAnimation/>
         )
@@ -206,7 +204,7 @@ export const TableForPacks = () => {
                                                     <TableCell key={column.id}
                                                                align={column.align}
                                                                className={column.id === 'name' ? style.pack_name : ''}
-                                                               onClick={column.id === 'name' || column.id === 'cover'  ? () => {
+                                                               onClick={column.id === 'name' || column.id === 'cover' ? () => {
                                                                    goToCardsHandler(row.pack_id)
                                                                } : () => {
                                                                }}>
@@ -215,8 +213,8 @@ export const TableForPacks = () => {
                                                             :
                                                             <div
                                                                 className={column.id !== 'cover'
-                                                                ? style.slot_for_value
-                                                                : style.display_no}>
+                                                                    ? style.slot_for_value
+                                                                    : style.display_no}>
                                                                 {value}
                                                             </div>}
 

@@ -4,8 +4,7 @@ import style from './Headers.module.css'
 import black_logo from '../../assets/webLogo/pink_punk_black.svg'
 import {Button} from '@mui/material';
 import {useSelector} from 'react-redux';
-import {AppRootStateType} from '../../Redux/Store';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {AppRootStateType, useAppDispatch, useAppSelector} from '../../Redux/Store';
 import {SingOutTC} from '../login/loginReducer/LoginReducer';
 import {useScrollPosition} from '../../hooks/useScrollPosition';
 

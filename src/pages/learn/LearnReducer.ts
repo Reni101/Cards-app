@@ -1,4 +1,4 @@
-import {AppThunk} from "../../Redux/Store";
+import {AppDispatch} from "../../Redux/Store";
 import {setStatusApp} from "../../AppReducer";
 import {AxiosError} from "axios";
 import {handleError} from "../../common/ErrorUtils/errorFunck";
@@ -53,13 +53,6 @@ const initialState: InitialLearnStateType = {
 }
 
 
-export type ActionsLearnType =
-    | ReturnType<typeof setCardsLearnAC>
-    | ReturnType<typeof generateRandomCardAC>
-    | ReturnType<typeof updateCardsAC>
-    | ReturnType<typeof clearLearnStateAC>
-
-
 const slice = createSlice({
     name: "learnReducer",
     initialState: initialState,
@@ -94,8 +87,8 @@ export const {
 
 //==============================TC============================
 
-export const setLearnCardsTC = (cardsPack_id: string): AppThunk =>
-    async (dispatch) => {
+export const setLearnCardsTC = (cardsPack_id: string) =>
+    async (dispatch: AppDispatch) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.getLearnCards(cardsPack_id)
@@ -109,8 +102,8 @@ export const setLearnCardsTC = (cardsPack_id: string): AppThunk =>
             handleError(err, dispatch)
         }
     }
-export const updateGradeTC = (grade: number, cardId: string): AppThunk =>
-    async (dispatch) => {
+export const updateGradeTC = (grade: number, cardId: string) =>
+    async (dispatch: AppDispatch) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.updateGrade(grade, cardId)

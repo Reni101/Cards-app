@@ -9,7 +9,6 @@ import {Headers} from './pages/headers/Headers';
 import {ForgotPasswordPage} from './pages/passwordRecoveryPage/forgotPasswordPage/ForgotPasswordPage';
 import {CheckEmailPage} from './pages/passwordRecoveryPage/checkEmailPage/checkEmailPage';
 import {NewPasswordPage} from './pages/passwordRecoveryPage/newPasswordPage/NewPasswordPage';
-import {useAppDispatch, useAppSelector} from './hooks/hooks';
 import {initializedAppTC} from './AppReducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
@@ -18,6 +17,7 @@ import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
 import Chat from "./pages/chatPage/Chat";
+import {useAppDispatch, useAppSelector} from "./Redux/Store";
 
 
 function App() {

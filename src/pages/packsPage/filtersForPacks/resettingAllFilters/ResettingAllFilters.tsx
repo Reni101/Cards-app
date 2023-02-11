@@ -1,14 +1,9 @@
 import React from 'react';
 import style from './ResettingAllFilters.module.css'
 import FilterListOffSharpIcon from '@mui/icons-material/FilterListOffSharp';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {
-    changeMaxAC,
-    changeMinAC,
-    changeShowMyPacksAC, changeSortPacksAC,
-    sortPacksNameAC
-} from "../../PacksReducer";
+import {changeMaxAC, changeMinAC, changeShowMyPacksAC, changeSortPacksAC, sortPacksNameAC} from "../../PacksReducer";
 import {useSearchParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
 
 export const ResettingAllFilters = () => {
     const dispatch = useAppDispatch()

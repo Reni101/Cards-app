@@ -1,18 +1,17 @@
-import React, {KeyboardEvent, ReactNode, useState, ChangeEvent } from 'react';
+import React, {ChangeEvent, KeyboardEvent, ReactNode, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from '../../../common/modal/BasicModal';
-import {Button, Checkbox} from '@mui/material';
+import {Button, Checkbox, IconButton} from '@mui/material';
 import style from '../addNewPack/AddNewPack.module.css';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {AddPackTC} from '../PacksReducer';
 import s from './AddPackModal.module.css'
 import {useSearchParams} from 'react-router-dom';
 import {setErrorApp} from '../../../AppReducer';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
-import { IconButton } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
+import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
 
 
 type AddPackModalType = {
@@ -21,22 +20,22 @@ type AddPackModalType = {
 }
 
 export const AddPackModal = ({children}: AddPackModalType) => {
-    const [searchParams] = useSearchParams()
-    const searchQueryUserId = searchParams.get('user_id') || '';
+    const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
 
+    const [searchParams] = useSearchParams()
+    const searchQueryUserId = searchParams.get('user_id') || '';
+
     const [valueInput, setValueInput] = useState('')
-    const dispatch = useAppDispatch()
+    const [newCover, setNewCover] = useState<string>('')
 
     const isLoading = status === 'loading'
-
-    const [newCover, setNewCover] = useState<string>('')
 
     const AddNewPack = async (handleClose: () => void) => {
         let trimValueInput = valueInput.trim();
         if (trimValueInput.toLowerCase() === 'хуй' || trimValueInput.toLowerCase() === 'fuck') {
             setValueInput('');
-            dispatch(setErrorApp({error:'foul language is prohibited'}))
+            dispatch(setErrorApp({error: 'foul language is prohibited'}))
             return;
         }
         handleClose()
@@ -60,7 +59,7 @@ export const AddPackModal = ({children}: AddPackModalType) => {
                     setNewCover(file64)
                 })
             } else {
-               dispatch(setErrorApp({error:'This file really large'}))
+                dispatch(setErrorApp({error: 'This file really large'}))
             }
         }
     };

@@ -1,4 +1,4 @@
-import {getAuthAC, initialStateType, LoginReducer, setLoginAC} from './LoginReducer';
+import {getAuthAC, initialStateType, loginReducer, setLoginAC} from './LoginReducer';
 import {LoginType} from '../loginAPI/LoginApi';
 
 let initialState: initialStateType;
@@ -22,7 +22,7 @@ test('correct work of the login action creator',()=>{
         email:'kotpavlik88@gmail.com'
     }
 
-    const FinishInitialState = LoginReducer(initialState,setLoginAC({data:loginData, id:'kotpavlikId',isAuth: true}))
+    const FinishInitialState = loginReducer(initialState,setLoginAC({data:loginData, id:'kotpavlikId',isAuth: true}))
 
     expect(FinishInitialState.id).toBe('kotpavlikId')
     expect(FinishInitialState.isAuth).toBe(true)
@@ -34,7 +34,7 @@ test('correct work of the login action creator',()=>{
 test('correct work of the getAuth action creator',()=>{
 
 
-    const FinishInitialState = LoginReducer(initialState,
+    const FinishInitialState = loginReducer(initialState,
         getAuthAC({id:'kotpavlikId', name:'Misha', email:'kotpavlik88@gmail.com', isAuth:true, token:'223454356'}))
 
     expect(FinishInitialState.id).toBe('kotpavlikId')

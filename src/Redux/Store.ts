@@ -1,27 +1,28 @@
 import {combineReducers} from "redux";
-import thunk, {ThunkAction} from "redux-thunk";
-import {ActionsProfileType, ProfilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
-import {ActionsRecoveryType, recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
-import {ActionsLoginType, LoginReducer} from '../pages/login/loginReducer/LoginReducer';
-import {AppReducer, appReducersType} from '../AppReducer';
-import {RegistrationActionType, RegistrationReducer} from "../pages/registrationPage/RegistrationReducer";
-import {ActionsPacksType, PacksReducer} from "../pages/packsPage/PacksReducer";
-import {ActionsCardsType, CardsReducer} from "../pages/cardsPage/CardsReducer";
+import thunk from "redux-thunk";
+import {profilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
+import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+import {loginReducer} from '../pages/login/loginReducer/LoginReducer';
+import {appReducer} from '../AppReducer';
+import {registrationReducer} from "../pages/registrationPage/RegistrationReducer";
+import {packsReducer} from "../pages/packsPage/PacksReducer";
+import {cardsReducer} from "../pages/cardsPage/CardsReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {ActionsLearnType, learnReducer} from "../pages/learn/LearnReducer";
-import {ChatActionType, ChatReducer} from "../pages/chatPage/ChatReducer";
+import {learnReducer} from "../pages/learn/LearnReducer";
+import {chatReducer} from "../pages/chatPage/ChatReducer";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 const rootReducer = combineReducers({
-    ProfilePage: ProfilePageReducer,
+    ProfilePage: profilePageReducer,
     ForgotPassword: recoveryPasswordReducer,
-    Login: LoginReducer,
-    App: AppReducer,
-    Registration: RegistrationReducer,
-    Packs: PacksReducer,
-    Cards: CardsReducer,
+    Login: loginReducer,
+    App: appReducer,
+    Registration: registrationReducer,
+    Packs: packsReducer,
+    Cards: cardsReducer,
     Learn: learnReducer,
-    Chat: ChatReducer,
+    Chat: chatReducer,
 
 })
 
@@ -34,20 +35,12 @@ export const store = configureStore({
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-export type AllAppActionsType =
-    | ActionsLoginType
-    | appReducersType
-    | RegistrationActionType
-    | ActionsPacksType
-    | ActionsProfileType
-    | ActionsRecoveryType
-    | ActionsCardsType
-    | ActionsLearnType
-    | ChatActionType
 
+
+export const useAppDispatch = () => <AppDispatch>useDispatch()
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export type AppDispatch = typeof store.dispatch
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AllAppActionsType>
 
 // @ts-ignore
 window.store = store

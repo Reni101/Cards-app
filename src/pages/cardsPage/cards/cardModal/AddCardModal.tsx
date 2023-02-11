@@ -1,12 +1,12 @@
-import React, {DetailedHTMLProps, FormHTMLAttributes, ReactNode} from 'react';
+import React, {ReactNode} from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import style from "../../cards/namePack/NamePack.module.css";
 import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useFormik} from "formik";
 import {AddCardTC} from "../../CardsReducer";
+import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
 
 type AddPackModalType = {
     children: ReactNode
@@ -17,7 +17,7 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
-    type formikType = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
+    // type formikType = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
     const formik = useFormik({
         initialValues: {
             question: '',

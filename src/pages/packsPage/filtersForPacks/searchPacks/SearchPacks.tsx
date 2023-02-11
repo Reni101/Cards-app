@@ -1,16 +1,16 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import style from './SearchPacks.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import useDebounce, {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {changeSortPacksAC, sortPacksNameAC} from '../../PacksReducer';
+import {sortPacksNameAC} from '../../PacksReducer';
 import {useSearchParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
+import useDebounce from "../../../../hooks/useDebounce";
 
 
 export const SearchPacks = () => {
     const dispatch = useAppDispatch()
-
     const packName = useAppSelector(state => state.Packs.packName)
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -18,6 +18,8 @@ export const SearchPacks = () => {
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
+
+
     const debouncedValue = useDebounce<string>(searchQueryName, 700)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,18 +27,18 @@ export const SearchPacks = () => {
         const form = event.target;
         const query = form.value
         const params = {
-            search:query,
-            user_id:searchQueryUserId,
-            min:searchQueryMin,
-            max:searchQueryMax
+            search: query,
+            user_id: searchQueryUserId,
+            min: searchQueryMin,
+            max: searchQueryMax
         }
         setSearchParams(params)
     }
 
 
     useEffect(() => {
-        if(packName === debouncedValue) return
-        dispatch(sortPacksNameAC({packName:debouncedValue}))
+        if (packName === debouncedValue) return
+        dispatch(sortPacksNameAC({packName: debouncedValue}))
     }, [debouncedValue])
 
     return (

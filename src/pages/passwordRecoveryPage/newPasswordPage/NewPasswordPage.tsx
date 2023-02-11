@@ -1,14 +1,22 @@
 import React from 'react';
 import {Navigate, useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useFormik} from "formik";
 import {setNewPasswordTC} from "../RecoveryPasswordReducer";
-import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,LinearProgress} from "@mui/material";
+import {
+    Button,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    LinearProgress
+} from "@mui/material";
 import style from './NewPasswordPage.module.css'
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Slide} from 'react-awesome-reveal';
 import * as Yup from "yup";
 import {requestStatusType} from "../../../AppReducer";
+import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
 
 export const NewPasswordPage = () => {
     let {token} = useParams();
@@ -24,7 +32,6 @@ export const NewPasswordPage = () => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
-
 
     const formik = useFormik({
         initialValues: {
@@ -46,8 +53,8 @@ export const NewPasswordPage = () => {
     }
     return (
         <Slide direction={'up'}>
-            <div className={style.wrapper_newPassword}>
-                {status ==="loading" && <div> <LinearProgress color="primary" /></div>}
+            <div className={style.wrapper_newPasswowrd}>
+                {status === "loading" && <div><LinearProgress color="primary"/></div>}
                 <h2 className={style.Title}>Create new password</h2>
                 <div className={style.FormStyle}>
                     <form onSubmit={formik.handleSubmit}>

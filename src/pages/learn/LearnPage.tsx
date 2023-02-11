@@ -10,10 +10,10 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
-import {Paths} from "../../common/paths/Paths";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+
 
 import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "./LearnReducer";
+import {useAppDispatch, useAppSelector} from "../../Redux/Store";
 
 
 export const LearnPage = () => {

@@ -17,13 +17,11 @@ import {
     TextField
 } from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {useSelector} from 'react-redux';
 import {Navigate, NavLink} from 'react-router-dom';
-import {AppDispatch, AppRootStateType} from '../../Redux/Store';
+import {useAppDispatch, useAppSelector} from '../../Redux/Store';
 import {SingInTC} from './loginReducer/LoginReducer';
 import {Slide} from 'react-awesome-reveal';
 import {requestStatusType} from '../../AppReducer';
-import {useAppDispatch} from "../../hooks/hooks";
 
 
 interface State {
@@ -42,9 +40,9 @@ interface InitialValuesType {
 
 export const LoginPage = () => {
 
-    const dispatch: AppDispatch = useAppDispatch()
-    const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
-    const status = useSelector<AppRootStateType, requestStatusType>(state => state.App.status)
+    const dispatch = useAppDispatch()
+    const isAuth = useAppSelector<boolean>(state => state.Login.isAuth)
+    const status = useAppSelector<requestStatusType>(state => state.App.status)
 
 
     const [values, setValues] = React.useState<State>({

@@ -2,22 +2,19 @@ import React from 'react';
 import style from "../RegistrationPage.module.css";
 import {useFormik} from "formik";
 import {registrationTC} from "../RegistrationReducer";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import InputForRegistration from "./InputForRegistration";
 import {Button} from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
 
 
-type FormForRegistrationProps = {}
 type FormikErrorType = {
     email?: string
     password?: string
     confirmPassword?: string
 }
 
-const FormForRegistration = (props: FormForRegistrationProps) => {
-
+const FormForRegistration = () => {
     const dispatch = useAppDispatch()
-
     const errorApi = useAppSelector(state => state.Registration.error)
 
     const formik = useFormik({

@@ -25,9 +25,8 @@ test('auth thunk work correct', async () => {
     loginApiMock.authUser.mockReturnValue(Promise.resolve(result))
     const thunk = getAuthTC()
     const dispatchMock = jest.fn()
-    const getStateMock = jest.fn()
 
-    await thunk(dispatchMock, getStateMock, "")
+    await thunk(dispatchMock)
 
     expect(dispatchMock).toBeCalledTimes(2)
 })

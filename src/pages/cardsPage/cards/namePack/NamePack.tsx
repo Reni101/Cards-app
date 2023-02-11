@@ -10,7 +10,6 @@ import MenuList from '@mui/material/MenuList';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
 import {setPacksIdAC} from '../../CardsReducer';
 import {DeletePackTC, UpdatePackTC} from '../../../packsPage/PacksReducer';
 import {RequestUpdatePackType} from '../../../packsPage/PacksAPI';
@@ -18,11 +17,11 @@ import {useNavigate} from 'react-router-dom';
 import {AddCardModal} from "../cardModal/AddCardModal";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {Paths} from "../../../../common/paths/Paths";
+import {useAppDispatch, useAppSelector} from "../../../../Redux/Store";
 
 export const NamePack = () => {
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const anchorRef = useRef<HTMLHeadingElement>(null);
     const packName = useAppSelector(state => state.Cards.packName)
     const cardsPack_id = useAppSelector(state => state.Cards.cardsPack_id)
@@ -31,6 +30,8 @@ export const NamePack = () => {
     const status = useAppSelector(state => state.App.status)
     const cardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
 
+    const [open, setOpen] = useState(false);
+    const prevOpen = useRef(open);
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen)
@@ -43,7 +44,7 @@ export const NamePack = () => {
         setOpen(false);
     };
 
-    function handleListKeyDown(event: React.KeyboardEvent) {
+    const handleListKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Tab') {
             event.preventDefault();
             setOpen(false);
@@ -52,7 +53,7 @@ export const NamePack = () => {
         }
     }
 
-    const prevOpen = useRef(open);
+
     useEffect(() => {
         if (prevOpen.current && !open) {
             anchorRef.current!.focus();

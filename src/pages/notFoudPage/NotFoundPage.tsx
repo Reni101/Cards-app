@@ -2,8 +2,7 @@ import React from 'react';
 import style from './NotFoundPage.module.css'
 import {NavLink} from 'react-router-dom';
 import {Animation404} from '../../common/lottieAnimation/LottieAnimationFor404';
-import {Zoom} from 'react-awesome-reveal';
-import {Fade} from 'react-awesome-reveal';
+import {Fade, Zoom} from 'react-awesome-reveal';
 import bgNight from '../../assets/backgroundImgs/noch.jpeg'
 
 export const NotFoundPage = () => {

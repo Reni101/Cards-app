@@ -1,12 +1,11 @@
-import {AppThunk} from './Redux/Store';
-import {Dispatch} from 'redux';
+import {AppDispatch} from './Redux/Store';
 import {getAuthTC} from './pages/login/loginReducer/LoginReducer';
 import {AxiosError} from 'axios';
 import {handleError} from './common/ErrorUtils/errorFunck';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-
 export type requestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
 export type appInitialStateType = {
     status: requestStatusType
     error: string | null
@@ -25,30 +24,25 @@ const slice = createSlice({
         setErrorApp(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
         },
-        setStatusApp(state,action:PayloadAction<{status:requestStatusType}>) {
+        setStatusApp(state, action: PayloadAction<{ status: requestStatusType }>) {
             state.status = action.payload.status
         },
-        initializedAppAC(status,action:PayloadAction){
+        initializedAppAC(status) {
             status.initialized = false
         }
     }
 })
-export const AppReducer = slice.reducer
-export const {setErrorApp,setStatusApp,initializedAppAC} = slice.actions
-
-export type appReducersType = setErrorType | setStatusType | initializedAppType
-type setErrorType = ReturnType<typeof setErrorApp>
-export type setStatusType = ReturnType<typeof setStatusApp>
-export type initializedAppType = ReturnType<typeof initializedAppAC>
+export const appReducer = slice.reducer
+export const {setErrorApp, setStatusApp, initializedAppAC} = slice.actions
 
 
-export const initializedAppTC = (): AppThunk =>
-    async (dispatch: Dispatch) => {
-        const promise = await dispatch(getAuthTC() as any)
+export const initializedAppTC = () =>
+    async (dispatch: AppDispatch) => {
+        const promise = await dispatch(getAuthTC())
         await Promise.all([promise])
         try {
             dispatch(initializedAppAC())
-            dispatch(setErrorApp({error:null}))
+            dispatch(setErrorApp({error: null}))
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

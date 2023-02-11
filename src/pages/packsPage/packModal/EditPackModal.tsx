@@ -4,7 +4,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from "../../../common/modal/BasicModal";
 import {Button, Checkbox, IconButton} from '@mui/material';
 import style from "../addNewPack/AddNewPack.module.css";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import s from './EditPackModal.module.css'
 import {RequestUpdatePackType} from "../PacksAPI";
 import {UpdatePackTC} from "../PacksReducer";
@@ -13,6 +12,7 @@ import {setErrorApp} from '../../../AppReducer';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import {useAppDispatch, useAppSelector} from "../../../Redux/Store";
 
 type EditPackModalType = {
     children: ReactNode
@@ -21,13 +21,15 @@ type EditPackModalType = {
 
 export const EditPackModal = ({children, id}: EditPackModalType) => {
 
-    const [newCover, setNewCover] = useState<string>('')
+    const dispatch = useAppDispatch()
+
     const [searchParams] = useSearchParams()
     const searchQueryUserId = searchParams.get('user_id') || '';
 
-    const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
     const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
+
+    const [newCover, setNewCover] = useState<string>('')
     const [valueInput, setValueInput] = useState(pack?.name)
 
 
@@ -36,7 +38,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
         if ((trimValueInput && trimValueInput.toLowerCase() === 'хуй') ||
             (trimValueInput && trimValueInput.toLowerCase() === 'fuck')) {
             setValueInput('');
-            dispatch(setErrorApp({error:'foul language is prohibited'}))
+            dispatch(setErrorApp({error: 'foul language is prohibited'}))
             return;
         }
         handleClose()
@@ -58,7 +60,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                     setNewCover(file64)
                 })
             } else {
-                dispatch(setErrorApp({error:'This file really large'}))
+                dispatch(setErrorApp({error: 'This file really large'}))
             }
         }
     };
