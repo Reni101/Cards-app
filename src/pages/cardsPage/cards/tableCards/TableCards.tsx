@@ -200,7 +200,9 @@ export const TableCards = () => {
                            cardPacksTotalCount={totalCardsCount}
                            currentPage={currentPage}
                            changePage={changePageHandler}
-                           changeRows={changeRowsPerPageHandler}/>
+                           changeRows={changeRowsPerPageHandler}
+                           pageCount={pageCount}
+                />
             </Paper>
         </div>
     );

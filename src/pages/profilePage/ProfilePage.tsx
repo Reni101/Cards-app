@@ -11,10 +11,11 @@ import Button from '@mui/material/Button';
 import {SingOutTC} from '../login/LoginReducer';
 import {Paths} from '../../common/paths/Paths';
 import {editProfileNameAvatarTC} from "./ProfilePagerReducer";
-import {setErrorApp} from "../../AppReducer";
+import {requestStatusType, setErrorApp} from "../../AppReducer";
 import defaultAvatar from '../../assets/default-avatar.png'
 import {convertFileToBase64} from "../../common/convertFileToBase64/ConvertFileToBase64";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
+import {LinearProgress} from "@mui/material";
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const ProfilePage = () => {
     const email = useAppSelector(state => state.ProfilePage.email)
     const avatar = useAppSelector(state => state.ProfilePage.avatar)
     const isAuth = useAppSelector(state => state.Login.isAuth)
+    const status = useAppSelector<requestStatusType>(state => state.App.status)
 
 
     const logOutHandler = async () => {
@@ -55,7 +57,6 @@ export const ProfilePage = () => {
         return <Navigate to={Paths.loginRoute}/>
     }
 
-
     return (
         <Slide direction={'up'}>
 
@@ -67,6 +68,7 @@ export const ProfilePage = () => {
                 </div>
 
                 <div className={styleProfile.wrapper_profile}>
+                    {status === 'loading' && <LinearProgress color="primary"/>}
                     <h2 className={styleProfile.title}>Personal Information</h2>
 
                     <img src={avatar ? avatar : defaultAvatar} alt="avatar"/>

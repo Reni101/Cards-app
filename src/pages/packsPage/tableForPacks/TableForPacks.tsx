@@ -281,6 +281,7 @@ export const TableForPacks = () => {
                            currentPage={currentPage!}
                            changePage={changePageHandler}
                            changeRows={changeRowsPerPageHandler}
+                           pageCount={pageCount}
                 />
             </Paper>
         </div>

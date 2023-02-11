@@ -14,6 +14,8 @@ import {useNavigate, useParams} from "react-router-dom";
 
 import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "./LearnReducer";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
+import {LinearProgress} from "@mui/material";
+import {requestStatusType} from "../../AppReducer";
 
 
 export const LearnPage = () => {
@@ -23,6 +25,7 @@ export const LearnPage = () => {
     const packName = useAppSelector(state => state.Learn.packName)
     const randomCard = useAppSelector(state => state.Learn.randomCard)
     const card_pack_id = useAppSelector(state => state.Cards.cardsPack_id)
+    const status = useAppSelector<requestStatusType>(state => state.App.status)
 
     const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false);
     const [answer, setAnswer] = useState('');
@@ -68,9 +71,10 @@ export const LearnPage = () => {
                 <ArrowBackIcon style={{height: '15px'}}/>
                 Back to Cards List
             </div>
+
             <h1 className={style.title}>Learn "{packName}"</h1>
             <div className={style.mainBlock}>
-
+                {status === 'loading' && <LinearProgress color="primary"/>}
                 <div className={style.question}><b>Question:</b> {randomCard!.question}</div>
                 <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
                 {!isShowAnswer &&

@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import TablePagination from "@mui/material/TablePagination";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -24,13 +24,14 @@ type PaginatorPropsType = {
     name: string
     cardPacksTotalCount: number
     currentPage: number
+    pageCount:number
     changePage: (page: number) => void
     changeRows: (rows: number) => void
 }
 
 export const Paginator = memo((props: PaginatorPropsType) => {
     const [page, setPage] = React.useState(props.currentPage - 1);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState<number>(props.pageCount);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
