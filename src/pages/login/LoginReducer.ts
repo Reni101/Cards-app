@@ -66,9 +66,9 @@ export const SingInTC = (data: LoginType) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         const res = await loginApi.login(data)
-        dispatch(setLoginAC({data, id: res.data._id, isAuth: true}))
+        dispatch(setLoginAC({data, id: res._id, isAuth: true}))
         dispatch(setStatusApp({status: 'succeeded'}))
-        dispatch(setProfileDataAC({data: res.data})) // добавляет в профаил имя, email, avatar, id
+        dispatch(setProfileDataAC({data: res})) // добавляет в профаил имя, email, avatar, id
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)

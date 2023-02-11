@@ -27,8 +27,8 @@ export const {setRegistrationAC, setErrorApiRegistration} = slice.actions
 export const registrationTC = (data: { email: string, password: string }) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
-        const response = await registrationApi.registration(data)
-        dispatch(setRegistrationAC(response.data.addedUser))
+        const res = await registrationApi.registration(data)
+        dispatch(setRegistrationAC(res.addedUser))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)

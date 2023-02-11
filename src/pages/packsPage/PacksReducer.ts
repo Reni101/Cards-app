@@ -110,7 +110,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType) =>
             if (user_id === '') user_id = null
 
             const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
-            dispatch(setPacksAC({resObj: res.data}))
+            dispatch(setPacksAC({resObj: res}))
             dispatch(setStatusApp({status: 'succeeded'}))
         } catch
             (e) {

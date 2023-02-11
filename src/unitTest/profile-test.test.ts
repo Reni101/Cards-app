@@ -6,7 +6,6 @@ import {
 
 let startState: sliceProfileType
 
-
 beforeEach(() => {
     startState = {
         user_id: "",

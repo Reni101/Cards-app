@@ -45,7 +45,6 @@ test('correct set response', () => {
                 shots: 0,
                 updated: "",
                 user_id: "",
-                more_id: ""
             }],
             packName: "New pack",
             packUserId: "",

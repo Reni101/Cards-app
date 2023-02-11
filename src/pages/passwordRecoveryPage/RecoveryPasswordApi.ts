@@ -10,7 +10,6 @@ export type ForgotResponseType = {
 
 
 export const RecoveryPasswordApi = {
-
     recoveryForgotPassword(email: string) {
         const payload = {
             email,
@@ -29,8 +28,10 @@ export const RecoveryPasswordApi = {
     setNewPassword(password: string, token: string) {
 
 
-        return axios.post("https://neko-back.herokuapp.com/2.0/auth/set-new-password", {password,
-            resetPasswordToken: token}
+        return axios.post("https://neko-back.herokuapp.com/2.0/auth/set-new-password", {
+                password,
+                resetPasswordToken: token
+            }
             , {
                 withCredentials: true
             })

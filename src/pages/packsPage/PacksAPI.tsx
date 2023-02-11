@@ -35,6 +35,7 @@ export type RequestUpdatePackType = {
 export const packsAPI = {
     getPacks(params?: queryModelType) {
         return instance.get<ResponsePacksType>("cards/pack", {params})
+            .then(res=>res.data)
     },
     addPack(cardsPack: RequestAddPackType) {
         return instance.post<{ name: string, deckCover: string }, AxiosResponse>('cards/pack', {cardsPack})

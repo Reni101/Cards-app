@@ -37,7 +37,7 @@ export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => asyn
     dispatch(setStatusApp({status: 'loading'}))
     try {
         const res = await profilePageAPI.editProfileName({name, avatar})
-        dispatch(editProfileNameAvatarAC({name: res.data.updatedUser.name, avatar: res.data.updatedUser.avatar}))
+        dispatch(editProfileNameAvatarAC({name: res.updatedUser.name, avatar: res.updatedUser.avatar}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError

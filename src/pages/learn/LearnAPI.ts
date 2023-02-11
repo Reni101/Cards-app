@@ -1,14 +1,14 @@
 import {instance} from "../../common/API/api";
-
+import {CardType} from "../cardsPage/CardsReducer";
 
 export const cardsLearnAPI = {
     getLearnCards(packId: string) {
         return instance.get<ResponseCardsType>(`cards/card?cardsPack_id=${packId}&pageCount=100`)
-
+            .then(res=>res.data)
     },
     updateGrade(grade: number, card_id: string) {
-        return instance.put<ResponseCardGrade>("cards/grade", {grade, card_id}
-        )
+        return instance.put<ResponseCardGrade>("cards/grade", {grade, card_id})
+            .then(res=>res.data)
     }
 
 }
@@ -16,37 +16,24 @@ export const cardsLearnAPI = {
 export type ResponseCardsType = {
     cards: CardType[];
     packUserId: string;
-    packName: string; // название колоды
-    pageCount: number; //количество карточек на странице
-}
-export type CardType = {
-    _id: string;
-    cardsPack_id: string;
-    user_id: string;
-    answer: string;
-    question: string;
-    rating: number
-    more_id: string
-    grade: number
-    shots: number // сколько раз обучались по карточке
-    created: string
-    updated: string
+    packName: string;
+    pageCount: number;
 }
 
-export type ResponseCardGrade= {
-	updatedGrade: UpdatedGradeType;
-	token: string;
-	tokenDeathTime: number;
+export type ResponseCardGrade = {
+    updatedGrade: UpdatedGradeType;
+    token: string;
+    tokenDeathTime: number;
 }
-export type UpdatedGradeType ={
-	_id: string;
-	cardsPack_id: string;
-	card_id: string;
-	user_id: string;
-	grade: number;
-	shots: number;
-	more_id: string;
-	created: string;
-	updated: string;
-	__v: number;
+export type UpdatedGradeType = {
+    _id: string;
+    cardsPack_id: string;
+    card_id: string;
+    user_id: string;
+    grade: number;
+    shots: number;
+    more_id: string;
+    created: string;
+    updated: string;
+    __v: number;
 }

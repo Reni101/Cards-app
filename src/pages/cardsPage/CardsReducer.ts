@@ -48,8 +48,6 @@ const initialState: InitialStateType = {
     cardQuestion: null,
     sortCards: "",
     cardsPack_id: "",
-
-
 }
 
 
@@ -111,7 +109,7 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
                 cardsPack_id, cardQuestion, sortCards, pageCount, page
             })
 
-            dispatch(setCardsAC({resObj: res.data}))
+            dispatch(setCardsAC({resObj: res}))
             dispatch(setPacksIdAC({packsId: cardsPack_id}))
             dispatch(setStatusApp({status: 'succeeded'}))
 

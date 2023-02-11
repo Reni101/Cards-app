@@ -92,8 +92,7 @@ export const setLearnCardsTC = (cardsPack_id: string) =>
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.getLearnCards(cardsPack_id)
-            dispatch(setCardsLearnAC({resObj: res.data}))
-
+            dispatch(setCardsLearnAC({resObj: res}))
             dispatch(generateRandomCardAC())
             dispatch(setStatusApp({status: 'succeeded'}))
 
@@ -107,7 +106,7 @@ export const updateGradeTC = (grade: number, cardId: string) =>
         dispatch(setStatusApp({status: 'loading'}))
         try {
             const res = await cardsLearnAPI.updateGrade(grade, cardId)
-            dispatch(updateCardsAC({newCard: res.data.updatedGrade}))
+            dispatch(updateCardsAC({newCard: res.updatedGrade}))
             dispatch(generateRandomCardAC())
             dispatch(setStatusApp({status: 'succeeded'}))
         } catch (e) {

@@ -6,8 +6,8 @@ import {
     packsReducer,
     PacksType,
     setPacksAC, sortPacksNameAC
-} from './PacksReducer';
-import {ResponsePacksType} from './PacksAPI';
+} from '../pages/packsPage/PacksReducer';
+import {ResponsePacksType} from '../pages/packsPage/PacksAPI';
 
 let InitialPacksState:InitialStateType;
 const MAX_COUNT_CARDS = 110
