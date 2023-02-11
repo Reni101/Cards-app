@@ -55,7 +55,7 @@ Or you can open the project on [Git hab pages](https://reni101.github.io/Cards-a
 - **react-test-renderer** and **@types/react-test-renderer**
 - **redux**
 - **redux-toolkit**
-- **Formik*
+- **Formik**
 - **redux-thunk**
 - **reselect**
 - **typescript**
