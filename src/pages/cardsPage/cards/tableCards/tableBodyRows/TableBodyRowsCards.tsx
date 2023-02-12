@@ -34,6 +34,7 @@ export const TableBodyRowsCards = memo((props: PropsType) => {
                             {column.id === "question" &&
                                 <QuestionCard str={props.row.question} img={props.row.questionImg}/>
                             }
+
                             {column.id === "answer" &&
                                 <AnswerCard str={props.row.answer} img={props.row.answerImg}/>
                             }

@@ -11,7 +11,7 @@ export const QuestionCard = (props: PropsType) => {
     if (props.str === "no question") {
         return (
             <div>
-                <img src={props.img} alt=""/>
+                <img style={{width: "70px"}} src={props.img} alt="no img"/>
             </div>
         )
     } else {
