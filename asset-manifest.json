@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Cards-app/static/css/main.c9f93c69.css",
-    "main.js": "/Cards-app/static/js/main.20629973.js",
+    "main.css": "/Cards-app/static/css/main.36bc07db.css",
+    "main.js": "/Cards-app/static/js/main.fed10131.js",
     "static/js/787.152b0af0.chunk.js": "/Cards-app/static/js/787.152b0af0.chunk.js",
     "static/media/pink_punk_black.svg": "/Cards-app/static/media/pink_punk_black.a60aacb90955418820356b949a638775.svg",
     "static/media/noch.jpeg": "/Cards-app/static/media/noch.faaf7675472f8b8544eb.jpeg",
@@ -9,12 +9,12 @@
     "static/media/chekEmail.svg": "/Cards-app/static/media/chekEmail.7cdd6836034f09a8bdfc50cf12dbd6d4.svg",
     "static/media/book-education-learning-school-science-study-svgrepo-com.svg": "/Cards-app/static/media/book-education-learning-school-science-study-svgrepo-com.1bd46dcb0e1272fe133edabda62b6660.svg",
     "index.html": "/Cards-app/index.html",
-    "main.c9f93c69.css.map": "/Cards-app/static/css/main.c9f93c69.css.map",
-    "main.20629973.js.map": "/Cards-app/static/js/main.20629973.js.map",
+    "main.36bc07db.css.map": "/Cards-app/static/css/main.36bc07db.css.map",
+    "main.fed10131.js.map": "/Cards-app/static/js/main.fed10131.js.map",
     "787.152b0af0.chunk.js.map": "/Cards-app/static/js/787.152b0af0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c9f93c69.css",
-    "static/js/main.20629973.js"
+    "static/css/main.36bc07db.css",
+    "static/js/main.fed10131.js"
   ]
 }
