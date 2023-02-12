@@ -1,15 +1,15 @@
 import {combineReducers} from "redux";
 import thunk from "redux-thunk";
-import {profilePageReducer} from "../pages/profilePage/ProfilePagerReducer";
+import {profilePageReducer} from "./Profile-reducer";
 import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
-import {loginReducer} from '../pages/login/LoginReducer';
-import {appReducer} from '../AppReducer';
-import {registrationReducer} from "../pages/registrationPage/RegistrationReducer";
-import {packsReducer} from "../pages/packsPage/PacksReducer";
-import {cardsReducer} from "../pages/cardsPage/CardsReducer";
+import {loginReducer} from './Login-reducer';
+import {appReducer} from './App-reducer';
+import {registrationReducer} from "./Registration-reducer";
+import {packsReducer} from "./Packs-reducer";
+import {cardsReducer} from "./Cards-reducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {learnReducer} from "../pages/learn/LearnReducer";
-import {chatReducer} from "../pages/chatPage/ChatReducer";
+import {learnReducer} from "./Learn-reducer";
+import {chatReducer} from "./Chat-reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
@@ -38,7 +38,6 @@ export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = () => <AppDispatch>useDispatch()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
-
 
 
 // @ts-ignore

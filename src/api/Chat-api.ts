@@ -1,10 +1,10 @@
 import {io, Socket} from "socket.io-client";
-import {messageType} from "./ChatReducer";
+import {messageType} from "../redux/Chat-reducer";
 
-export const chatAPI = {
+export const chatApi = {
     socket: null as null | Socket,
 
-    createConnection(_id: string, name: string, avatar: string | null) {
+    createConnection() {
         this.socket = io('https://neko-back.herokuapp.com/', {
             withCredentials: true
         });
@@ -26,5 +26,4 @@ export const chatAPI = {
         this.socket = null
 
     }
-
 }

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import style from './FilterRange.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import {changeMaxAC, changeMinAC} from '../../PacksReducer';
+import {changeMaxAC, changeMinAC} from '../../../../redux/Packs-reducer';
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 import useDebounce from "../../../../hooks/useDebounce";

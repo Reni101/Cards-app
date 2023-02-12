@@ -5,10 +5,10 @@ import {BasicModal} from "../../../common/modal/BasicModal";
 import {Button, Checkbox, IconButton} from '@mui/material';
 import style from "../addNewPack/AddNewPack.module.css";
 import s from './EditPackModal.module.css'
-import {RequestUpdatePackType} from "../PacksAPI";
-import {UpdatePackTC} from "../PacksReducer";
+import {RequestUpdatePackType} from "../../../api/Packs-api";
+import {UpdatePackTC} from "../../../redux/Packs-reducer";
 import {useSearchParams} from "react-router-dom";
-import {setErrorApp} from '../../../AppReducer';
+import {setErrorApp} from '../../../redux/App-reducer';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';

@@ -19,9 +19,9 @@ import {
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/Store';
-import {SingInTC} from './LoginReducer';
+import {SingInTC} from '../../redux/Login-reducer';
 import {Slide} from 'react-awesome-reveal';
-import {requestStatusType} from '../../AppReducer';
+import {requestStatusType} from '../../redux/App-reducer';
 
 
 interface State {

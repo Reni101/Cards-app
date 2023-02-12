@@ -1,9 +1,9 @@
-import {instance} from "../../common/API/api";
 import {AxiosResponse} from "axios";
-import {CardType} from "./CardsReducer";
+import {CardType} from "../redux/Cards-reducer";
+import {instance} from "./api";
 
 
-export const cardsAPI = {
+export const cardsApi = {
     getCards(params: queryCardsModelType) {
         return instance.get<ResponseCardsType>("cards/card", {params})
             .then(res=>res.data)

@@ -1,9 +1,9 @@
-import {AppDispatch} from '../../redux/Store';
-import {loginApi, LoginType} from './LoginApi';
+import {AppDispatch} from './Store';
+import {loginApi, LoginType} from '../api/Login-api';
 import {AxiosError} from 'axios';
-import {setStatusApp} from '../../AppReducer';
-import {setProfileDataAC} from "../profilePage/ProfilePagerReducer";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {setStatusApp} from './App-reducer';
+import {setProfileDataAC} from "./Profile-reducer";
+import {handleError} from "../common/errorUtils/errorFunction";
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 

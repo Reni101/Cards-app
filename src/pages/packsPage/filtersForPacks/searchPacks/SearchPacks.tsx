@@ -3,7 +3,7 @@ import style from './SearchPacks.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import {Toolbar} from '@mui/material';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
-import {sortPacksNameAC} from '../../PacksReducer';
+import {sortPacksNameAC} from '../../../../redux/Packs-reducer';
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 import useDebounce from "../../../../hooks/useDebounce";

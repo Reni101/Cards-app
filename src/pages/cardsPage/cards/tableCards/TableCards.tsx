@@ -12,8 +12,8 @@ import {Rating} from '@mui/material';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useParams, useSearchParams} from 'react-router-dom';
-import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../CardsReducer';
-import {Paginator} from "../../../../common/Paginator/paginator";
+import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../../../redux/Cards-reducer';
+import {Paginator} from "../../../../common/paginator/Paginator";
 import {DeleteCardModal} from '../cardModal/DeleteCardModal';
 import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
@@ -31,7 +31,7 @@ interface CardsColumn {
     format?: (value: string) => string;
 }
 
-interface RowsData {
+type RowsData = {
     id: string;
     packPackId: string;
     answer: string;

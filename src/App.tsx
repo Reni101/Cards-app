@@ -9,7 +9,7 @@ import {Headers} from './pages/headers/Headers';
 import {ForgotPasswordPage} from './pages/passwordRecoveryPage/forgotPasswordPage/ForgotPasswordPage';
 import {CheckEmailPage} from './pages/passwordRecoveryPage/checkEmailPage/CheckEmailPage';
 import {NewPasswordPage} from './pages/passwordRecoveryPage/newPasswordPage/NewPasswordPage';
-import {initializedAppTC} from './AppReducer';
+import {initializedAppTC} from './redux/App-reducer';
 import {ErrorSnackbar} from './common/errorSnackbar/ErrorSnackbar';
 import {ExampleAnimation} from './common/lottieAnimation/LottieAnimation';
 import {Paths} from './common/paths/Paths';

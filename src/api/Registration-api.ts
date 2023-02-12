@@ -1,5 +1,6 @@
 import {AxiosResponse} from "axios";
-import {instance} from "../../common/API/api";
+import {instance} from "./api";
+
 
 export const registrationApi = {
     registration(data: { email: string, password: string }) {

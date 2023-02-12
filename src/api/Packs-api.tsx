@@ -1,6 +1,7 @@
-import {instance} from "../../common/API/api";
+
 import {AxiosResponse} from "axios";
-import {PacksType} from "./PacksReducer";
+import {PacksType} from "../redux/Packs-reducer";
+import {instance} from "./api";
 
 export type ResponsePacksType = {
     cardPacks: PacksType[];
@@ -32,7 +33,7 @@ export type RequestUpdatePackType = {
     deckCover?: string
 }
 
-export const packsAPI = {
+export const packsApi = {
     getPacks(params?: queryModelType) {
         return instance.get<ResponsePacksType>("cards/pack", {params})
             .then(res=>res.data)

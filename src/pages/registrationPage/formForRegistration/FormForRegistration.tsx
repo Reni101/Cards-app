@@ -1,7 +1,7 @@
 import React from 'react';
 import style from "../RegistrationPage.module.css";
 import {useFormik} from "formik";
-import {registrationTC} from "../RegistrationReducer";
+import {registrationTC} from "../../../redux/Registration-reducer";
 import InputForRegistration from "./InputForRegistration";
 import {Button} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";

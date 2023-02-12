@@ -6,7 +6,7 @@ import {forgotPasswordTC} from "../RecoveryPasswordReducer";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {Slide} from 'react-awesome-reveal';
-import {requestStatusType} from "../../../AppReducer";
+import {requestStatusType} from "../../../redux/App-reducer";
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const ForgotPasswordPage = () => {

@@ -1,4 +1,4 @@
-import {instance} from "../../common/API/api";
+import {instance} from "./api";
 
 export type LoginType = {
     email: string

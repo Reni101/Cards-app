@@ -1,7 +1,7 @@
 import {
     editProfileNameAvatarAC,
     profilePageReducer, sliceProfileType
-} from "../pages/profilePage/ProfilePagerReducer";
+} from "../redux/Profile-reducer";
 
 
 let startState: sliceProfileType

@@ -1,8 +1,8 @@
-import {registrationApi} from "./RegistrationAPI";
-import {AppDispatch} from "../../redux/Store";
+import {registrationApi} from "../api/Registration-api";
+import {AppDispatch} from "./Store";
 import {AxiosError} from "axios";
-import {setStatusApp} from "../../AppReducer";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {setStatusApp} from "./App-reducer";
+import {handleError} from "../common/errorUtils/errorFunction";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const slice = createSlice({

@@ -1,12 +1,10 @@
-*{
-  box-sizing: border-box;
-}
-.flex_for_lottie{
+.flex_for_lottie {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.app_lottie_animation_wrapper{
+
+.app_lottie_animation_wrapper {
     text-align: center;
 }

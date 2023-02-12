@@ -4,7 +4,7 @@ import {Toolbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {Search, SearchIconWrapper, StyledInputBase} from '../../../../common/commonStyles/stylesForSearch'
 import useDebounce from '../../../../hooks/useDebounce';
-import {findCardsQuestionAC} from "../../CardsReducer";
+import {findCardsQuestionAC} from "../../../../redux/Cards-reducer";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 

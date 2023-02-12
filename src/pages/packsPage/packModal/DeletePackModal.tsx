@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {BasicModal} from "../../../common/modal/BasicModal";
 import {Button} from "@mui/material";
 import style from "../addNewPack/AddNewPack.module.css";
-import {DeletePackTC} from "../PacksReducer";
+import {DeletePackTC} from "../../../redux/Packs-reducer";
 import s from './DeletePackModal.module.css'
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";

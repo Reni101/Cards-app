@@ -1,7 +1,7 @@
-import {AppDispatch} from './redux/Store';
-import {getAuthTC} from './pages/login/LoginReducer';
+import {AppDispatch} from './Store';
+import {getAuthTC} from './Login-reducer';
 import {AxiosError} from 'axios';
-import {handleError} from './common/ErrorUtils/errorFunck';
+import {handleError} from '../common/errorUtils/errorFunction';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export type requestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

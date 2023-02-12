@@ -1,5 +1,6 @@
-import {instance} from "../../common/API/api";
-import {CardType} from "../cardsPage/CardsReducer";
+
+import {CardType} from "../redux/Cards-reducer";
+import {instance} from "./api";
 
 export const cardsLearnAPI = {
     getLearnCards(packId: string) {

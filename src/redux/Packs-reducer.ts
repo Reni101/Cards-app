@@ -1,9 +1,9 @@
-import {AppDispatch, AppRootStateType} from '../../redux/Store';
-import {setStatusApp} from '../../AppReducer';
+import {AppDispatch, AppRootStateType} from './Store';
+import {setStatusApp} from './App-reducer';
 import {AxiosError} from 'axios';
-import {packsAPI, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from './PacksAPI';
-import {handleError} from '../../common/ErrorUtils/errorFunck';
-import {setPackNameForCardAC, setPacksIdAC} from '../cardsPage/CardsReducer';
+import {packsApi, queryModelType, RequestAddPackType, RequestUpdatePackType, ResponsePacksType} from '../api/Packs-api';
+import {handleError} from '../common/errorUtils/errorFunction';
+import {setPackNameForCardAC, setPacksIdAC} from './Cards-reducer';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 
@@ -109,7 +109,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType) =>
             if (packName === '') packName = null
             if (user_id === '') user_id = null
 
-            const res = await packsAPI.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
+            const res = await packsApi.getPacks({min, max, page, pageCount, sortPacks, packName, user_id})
             dispatch(setPacksAC({resObj: res}))
             dispatch(setStatusApp({status: 'succeeded'}))
         } catch
@@ -122,7 +122,7 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType) =>
 export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
-        await packsAPI.addPack(cardsPack)
+        await packsApi.addPack(cardsPack)
         await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
@@ -137,7 +137,7 @@ export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
 export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
-        await packsAPI.updatePack(cardsPack)
+        await packsApi.updatePack(cardsPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPackNameForCardAC({newPackName: cardsPack.name!}))
         dispatch(setStatusApp({status: 'succeeded'}))
@@ -153,7 +153,7 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId
 export const DeletePackTC = (idPack: string, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
-        await packsAPI.deletePack(idPack)
+        await packsApi.deletePack(idPack)
         dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPacksIdAC({packsId: ''}))
         dispatch(setStatusApp({status: 'succeeded'}))

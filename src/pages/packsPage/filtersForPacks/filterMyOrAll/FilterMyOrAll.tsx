@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './FilterMyOrAll.module.css'
 import {Button} from '@mui/material';
-import {changeShowMyPacksAC} from "../../PacksReducer";
+import {changeShowMyPacksAC} from "../../../../redux/Packs-reducer";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 

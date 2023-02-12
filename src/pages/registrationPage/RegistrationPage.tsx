@@ -6,8 +6,8 @@ import {Slide} from "react-awesome-reveal";
 import {LinearProgress} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../redux/Store";
-import {requestStatusType} from "../../AppReducer";
-import {setRegistrationAC} from "./RegistrationReducer";
+import {requestStatusType} from "../../redux/App-reducer";
+import {setRegistrationAC} from "../../redux/Registration-reducer";
 
 export const RegistrationPage = () => {
     const dispatch = useDispatch()

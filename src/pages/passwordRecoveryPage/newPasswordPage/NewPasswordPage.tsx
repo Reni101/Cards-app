@@ -15,7 +15,7 @@ import style from './NewPasswordPage.module.css'
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Slide} from 'react-awesome-reveal';
 import * as Yup from "yup";
-import {requestStatusType} from "../../../AppReducer";
+import {requestStatusType} from "../../../redux/App-reducer";
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const NewPasswordPage = () => {

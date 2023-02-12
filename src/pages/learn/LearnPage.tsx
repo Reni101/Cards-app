@@ -12,10 +12,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
 
 
-import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "./LearnReducer";
+import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "../../redux/Learn-reducer";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 import {LinearProgress} from "@mui/material";
-import {requestStatusType} from "../../AppReducer";
+import {requestStatusType} from "../../redux/App-reducer";
 
 
 export const LearnPage = () => {

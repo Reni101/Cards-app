@@ -1,6 +1,6 @@
-import {chatAPI} from "./ChatAPI";
+import {chatApi} from "../api/Chat-api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch} from "../../redux/Store";
+import {AppDispatch} from "./Store";
 
 const initialState = {
     messages: [] as Array<messageType>
@@ -31,9 +31,9 @@ const slice = createSlice({
 export const chatReducer = slice.reducer
 export const {setMessagesAC, setNewMessageAC} = slice.actions
 
-export const createConnectionTC = (id: string, name: string, avatar: string | null) => (dispatch: AppDispatch) => {
-    chatAPI.createConnection(id, name, avatar)
-    chatAPI.subscribe((messages) => {
+export const createConnectionTC = () => (dispatch: AppDispatch) => {
+    chatApi.createConnection()
+    chatApi.subscribe((messages) => {
             dispatch(setMessagesAC({messages}))
         },
         (message) => {
@@ -43,10 +43,10 @@ export const createConnectionTC = (id: string, name: string, avatar: string | nu
 }
 
 export const destroyConnectionTC = () => (dispatch: AppDispatch) => {
-    chatAPI.destroyConnection()
+    chatApi.destroyConnection()
     dispatch(setMessagesAC({messages: []}))
 
 }
 export const sentMessageTC = (message: string) => (dispatch: AppDispatch) => {
-    chatAPI.sentMessage(message)
+    chatApi.sentMessage(message)
 }

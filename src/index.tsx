@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <Provider store={store}>
-    <HashRouter>
-        <App/>
-    </HashRouter>
+        <HashRouter>
+            <App/>
+        </HashRouter>
     </Provider>
 );
 reportWebVitals();

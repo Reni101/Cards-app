@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {Button} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './DeleteCardModal.module.css'
-import {DeleteCardTC} from "../../CardsReducer";
+import {DeleteCardTC} from "../../../../redux/Cards-reducer";
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 

@@ -1,9 +1,9 @@
-import {AppDispatch} from "../../redux/Store";
-import {setStatusApp} from "../../AppReducer";
+import {AppDispatch} from "./Store";
+import {setStatusApp} from "./App-reducer";
 import {AxiosError} from "axios";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
-import {cardsLearnAPI, ResponseCardsType, UpdatedGradeType} from "./LearnAPI";
-import {getRandomCard} from "./RandomCard";
+import {handleError} from "../common/errorUtils/errorFunction";
+import {cardsLearnAPI, ResponseCardsType, UpdatedGradeType} from "../api/Learn-api";
+import {getRandomCard} from "../pages/learn/RandomCard";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 

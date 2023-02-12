@@ -5,7 +5,7 @@ import style from "../../cards/namePack/NamePack.module.css";
 import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useFormik} from "formik";
-import {AddCardTC} from "../../CardsReducer";
+import {AddCardTC} from "../../../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type AddPackModalType = {

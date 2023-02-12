@@ -8,10 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PartyModeIcon from '@mui/icons-material/PartyMode';
 import Button from '@mui/material/Button';
-import {SingOutTC} from '../login/LoginReducer';
+import {SingOutTC} from '../../redux/Login-reducer';
 import {Paths} from '../../common/paths/Paths';
-import {editProfileNameAvatarTC} from "./ProfilePagerReducer";
-import {requestStatusType, setErrorApp} from "../../AppReducer";
+import {editProfileNameAvatarTC} from "../../redux/Profile-reducer";
+import {requestStatusType, setErrorApp} from "../../redux/App-reducer";
 import defaultAvatar from '../../assets/default-avatar.png'
 import {convertFileToBase64} from "../../common/convertFileToBase64/ConvertFileToBase64";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";

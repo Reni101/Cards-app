@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './ResettingAllFilters.module.css'
 import FilterListOffSharpIcon from '@mui/icons-material/FilterListOffSharp';
-import {changeMaxAC, changeMinAC, changeShowMyPacksAC, changeSortPacksAC, sortPacksNameAC} from "../../PacksReducer";
+import {changeMaxAC, changeMinAC, changeShowMyPacksAC, changeSortPacksAC, sortPacksNameAC} from "../../../../redux/Packs-reducer";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 

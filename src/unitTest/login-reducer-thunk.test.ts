@@ -1,5 +1,5 @@
-import {getAuthTC} from '../pages/login/LoginReducer';
-import {loginApi, ResponseDataLoginType} from '../pages/login/LoginApi';
+import {getAuthTC} from '../redux/Login-reducer';
+import {loginApi, ResponseDataLoginType} from '../api/Login-api';
 
 jest.mock('../loginAPI/LoginApi')
 const loginApiMock = loginApi as jest.Mocked<typeof loginApi>;

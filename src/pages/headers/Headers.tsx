@@ -5,7 +5,7 @@ import black_logo from '../../assets/webLogo/pink_punk_black.svg'
 import {Button} from '@mui/material';
 import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch, useAppSelector} from '../../redux/Store';
-import {SingOutTC} from '../login/LoginReducer';
+import {SingOutTC} from '../../redux/Login-reducer';
 import {useScrollPosition} from '../../hooks/useScrollPosition';
 
 

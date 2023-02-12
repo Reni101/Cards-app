@@ -14,13 +14,13 @@ import moment from 'moment';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from '../PacksReducer';
-import {setPacksIdAC} from '../../cardsPage/CardsReducer';
+import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from '../../../redux/Packs-reducer';
+import {setPacksIdAC} from '../../../redux/Cards-reducer';
 import IconButton from '@mui/material/IconButton';
-import {queryModelType} from '../PacksAPI';
+import {queryModelType} from '../../../api/Packs-api';
 import {EditPackModal} from '../packModal/EditPackModal';
 import {DeletePackModal} from '../packModal/DeletePackModal';
-import {Paginator} from '../../../common/Paginator/paginator';
+import {Paginator} from '../../../common/paginator/Paginator';
 import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {CoverForTable} from './coverForTable/CoverForTable';
@@ -52,7 +52,7 @@ const columns: readonly Column[] = [
     {id: 'actions', label: 'Actions', minWidth: 170, align: 'right'},
 ];
 
-interface RowsData {
+type RowsData = {
     cover: string;
     pack_id: string;
     user_id: string;

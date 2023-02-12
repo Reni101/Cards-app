@@ -5,8 +5,8 @@ import {Button, Checkbox} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './EditCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
-import {UpdateCardTC} from "../../CardsReducer";
-import {RequestUpdateCardType} from "../../CardsAPI";
+import {UpdateCardTC} from "../../../../redux/Cards-reducer";
+import {RequestUpdateCardType} from "../../../../api/Cards-api";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type EditPackModalType = {

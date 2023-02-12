@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
-import {createConnectionTC, destroyConnectionTC, sentMessageTC} from "./ChatReducer";
+import {createConnectionTC, destroyConnectionTC, sentMessageTC} from "../../redux/Chat-reducer";
 import style from './Chat.module.css'
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 
 const Chat = () => {
     const dispatch = useAppDispatch()
     const messages = useAppSelector(state => state.Chat.messages)
-    const userid = useAppSelector(state => state.ProfilePage.user_id)
-    const name = useAppSelector(state => state.ProfilePage.name)
+
 
     const messagesForRender = messages.map((el) => {
         return <div>name:{el.user.name} message:{el.message}</div>
@@ -18,7 +17,7 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        dispatch(createConnectionTC(userid, name!, null))
+        dispatch(createConnectionTC())
 
         return () => {
             dispatch(destroyConnectionTC())

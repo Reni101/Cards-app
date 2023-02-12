@@ -9,8 +9,6 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import {useAppSelector} from "../../redux/Store";
 
-
-
 type TablePaginationActionsProps = {
     count: number;
     page: number;
@@ -20,6 +18,7 @@ type TablePaginationActionsProps = {
         newPage: number,
     ) => void;
 }
+
 type PaginatorPropsType = {
     name: string
     cardPacksTotalCount: number

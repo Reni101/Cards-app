@@ -1,8 +1,8 @@
-import {AppDispatch, AppRootStateType} from "../../redux/Store";
-import {cardsAPI, RequestAddCardType, RequestUpdateCardType, ResponseCardsType} from "./CardsAPI";
-import {setStatusApp} from "../../AppReducer";
+import {AppDispatch, AppRootStateType} from "./Store";
+import {cardsApi, RequestAddCardType, RequestUpdateCardType, ResponseCardsType} from "../api/Cards-api";
+import {setStatusApp} from "./App-reducer";
 import {AxiosError} from "axios";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {handleError} from "../common/errorUtils/errorFunction";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type CardType = {
@@ -105,7 +105,7 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
             if (sortCards === "") sortCards = null
             if (cardQuestion === "") cardQuestion = null
             if (!!questionSearch) cardQuestion = questionSearch
-            const res = await cardsAPI.getCards({
+            const res = await cardsApi.getCards({
                 cardsPack_id, cardQuestion, sortCards, pageCount, page
             })
 
@@ -123,7 +123,7 @@ export const AddCardTC = (card: RequestAddCardType) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
-            await cardsAPI.addCard(card)
+            await cardsApi.addCard(card)
             const packsId = getState().Cards.cardsPack_id
             await dispatch(setCardsTC(packsId))
             dispatch(setStatusApp({status: 'succeeded'}))
@@ -139,7 +139,7 @@ export const UpdateCardTC = (card: RequestUpdateCardType) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
-            await cardsAPI.updateCard(card)
+            await cardsApi.updateCard(card)
             const packsId = getState().Cards.cardsPack_id
             dispatch(setCardsTC(packsId))
             dispatch(setStatusApp({status: 'succeeded'}))
@@ -156,7 +156,7 @@ export const DeleteCardTC = (idCard: string) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
-            await cardsAPI.deleteCard(idCard)
+            await cardsApi.deleteCard(idCard)
             const packsId = getState().Cards.cardsPack_id
             dispatch(setCardsTC(packsId))
             dispatch(setStatusApp({status: 'succeeded'}))

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useState} from 'react';
-import {editProfileNameAvatarTC} from "../ProfilePagerReducer";
+import {editProfileNameAvatarTC} from "../../../redux/Profile-reducer";
 import styleEditProfile from './EditProfileName.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, TextField} from "@mui/material";

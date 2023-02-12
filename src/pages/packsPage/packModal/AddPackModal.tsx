@@ -4,10 +4,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from '../../../common/modal/BasicModal';
 import {Button, Checkbox, IconButton} from '@mui/material';
 import style from '../addNewPack/AddNewPack.module.css';
-import {AddPackTC} from '../PacksReducer';
+import {AddPackTC} from '../../../redux/Packs-reducer';
 import s from './AddPackModal.module.css'
 import {useSearchParams} from 'react-router-dom';
-import {setErrorApp} from '../../../AppReducer';
+import {setErrorApp} from '../../../redux/App-reducer';
 import {CoverForTable} from '../tableForPacks/coverForTable/CoverForTable';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';

@@ -1,8 +1,8 @@
 import {AppDispatch} from "../../redux/Store";
-import {RecoveryPasswordApi} from "./RecoveryPasswordApi";
+import {RecoveryApi} from "../../api/Recovery-api";
 import {AxiosError} from "axios";
-import {setStatusApp} from "../../AppReducer";
-import {handleError} from "../../common/ErrorUtils/errorFunck";
+import {setStatusApp} from "../../redux/App-reducer";
+import {handleError} from "../../common/errorUtils/errorFunction";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const slice = createSlice({
@@ -31,7 +31,7 @@ export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 export const forgotPasswordTC = (email: string) => async (dispatch:AppDispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
-        await RecoveryPasswordApi.recoveryForgotPassword(email)
+        await RecoveryApi.recoveryForgotPassword(email)
         dispatch(setRecoverEmailAC({email}))
         dispatch(setStatusApp({status:'succeeded'}))
     } catch (e) {
@@ -43,7 +43,7 @@ export const forgotPasswordTC = (email: string) => async (dispatch:AppDispatch) 
 export const setNewPasswordTC = (password: string, token: string) => async (dispatch:AppDispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
-        await RecoveryPasswordApi.setNewPassword(password, token)
+        await RecoveryApi.setNewPassword(password, token)
         dispatch(setRedirectToLoginAC({value: true}))
         dispatch(setStatusApp({status:'succeeded'}))
 
