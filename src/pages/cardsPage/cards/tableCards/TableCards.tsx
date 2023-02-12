@@ -8,22 +8,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import moment from 'moment/moment';
-import {Rating} from '@mui/material';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../../../redux/Cards-reducer';
 import {Paginator} from "../../../../common/paginator/Paginator";
-import {DeleteCardModal} from '../cardModal/DeleteCardModal';
-import {EditCardModal} from "../cardModal/EditCardModal";
 import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimation';
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {useAppDispatch, useAppSelector} from '../../../../redux/Store';
+import {TableBodyRowsCards} from "./tableBodyRows/TableBodyRowsCards";
 
 
 type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
 
-interface CardsColumn {
+export type CardsColumn = {
     id: sortCardsType
     label: string;
     minWidth?: number;
@@ -31,7 +27,7 @@ interface CardsColumn {
     format?: (value: string) => string;
 }
 
-type RowsData = {
+export type RowDataTable = {
     id: string;
     packPackId: string;
     answer: string;
@@ -40,7 +36,7 @@ type RowsData = {
     grade?: number;
 }
 
-const columns: readonly CardsColumn[] = [
+const columns: CardsColumn[] = [
     {id: 'question', label: 'Question', minWidth: 170, align: 'left'},
     {id: 'answer', label: 'Answer', minWidth: 80, align: 'center'},
     {
@@ -61,7 +57,7 @@ function createData(
     question: string,
     updated: string,
     grade: number
-): RowsData {
+): RowDataTable {
     return {id, packPackId, answer, question, updated, grade};
 }
 
@@ -72,8 +68,6 @@ export const TableCards = () => {
     const status = useAppSelector(state => state.App.status)
     const cards = useAppSelector(state => state.Cards.cards)
     const sortCards = useAppSelector(state => state.Cards.sortCards)
-    const packsUserId = useAppSelector(state => state.Cards.packUserId)
-    const myId = useAppSelector(state => state.ProfilePage.user_id)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)
     const totalCardsCount = useAppSelector(state => state.Cards.cardsTotalCount)
     const currentPage = useAppSelector(state => state.Cards.page)
@@ -141,59 +135,15 @@ export const TableCards = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows
-                                .map((row) => {
-                                    console.log(row)
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <TableCell key={column.id}
-                                                               align={column.align}>
-                                                        {column.format &&
-                                                        typeof value === 'string'
-                                                            ? column.format(value)
-                                                            :
-                                                            <div className={column.id === 'grade'
-                                                                ? style.icon_display_none
-                                                                : style.value_box}>
-                                                                {value}
-                                                            </div>
-                                                        }
-                                                        {column.id === 'grade' &&
-                                                            <div className={style.flex_icons}>
-                                                                <Rating
-                                                                    name="simple-controlled"
-                                                                    value={row.grade}
-                                                                />
-                                                                <div className={packsUserId === myId
-                                                                    ? style.flex_icons
-                                                                    : style.icon_display_none}>
-                                                                    <div className={style.icons}>
-                                                                        <EditCardModal question={row.question}
-                                                                                       answer={row.answer}
-                                                                                       idCard={row.id}>
-                                                                            <DriveFileRenameOutlineOutlinedIcon
-                                                                                color={'primary'}/>
-                                                                        </EditCardModal>
-                                                                    </div>
-                                                                    <div className={style.icons}>
-                                                                        <DeleteCardModal id={row.id}
-                                                                                         name={row.question}>
-                                                                            <DeleteForeverOutlinedIcon
-                                                                                color={'primary'}/>
-                                                                        </DeleteCardModal>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
+                            {rows.map((row) => {
+                                return (
+                                    <TableBodyRowsCards
+                                        key={row.id}
+                                        row={row}
+                                        columns={columns}
+                                    />
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
