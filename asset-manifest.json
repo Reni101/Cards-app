@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Cards-app/static/css/main.ac8dbadf.css",
-    "main.js": "/Cards-app/static/js/main.7566f678.js",
+    "main.js": "/Cards-app/static/js/main.6434ba87.js",
     "static/js/787.152b0af0.chunk.js": "/Cards-app/static/js/787.152b0af0.chunk.js",
     "static/media/pink_punk_black.svg": "/Cards-app/static/media/pink_punk_black.a60aacb90955418820356b949a638775.svg",
     "static/media/noch.jpeg": "/Cards-app/static/media/noch.faaf7675472f8b8544eb.jpeg",
@@ -10,11 +10,11 @@
     "static/media/book-education-learning-school-science-study-svgrepo-com.svg": "/Cards-app/static/media/book-education-learning-school-science-study-svgrepo-com.1bd46dcb0e1272fe133edabda62b6660.svg",
     "index.html": "/Cards-app/index.html",
     "main.ac8dbadf.css.map": "/Cards-app/static/css/main.ac8dbadf.css.map",
-    "main.7566f678.js.map": "/Cards-app/static/js/main.7566f678.js.map",
+    "main.6434ba87.js.map": "/Cards-app/static/js/main.6434ba87.js.map",
     "787.152b0af0.chunk.js.map": "/Cards-app/static/js/787.152b0af0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ac8dbadf.css",
-    "static/js/main.7566f678.js"
+    "static/js/main.6434ba87.js"
   ]
 }
