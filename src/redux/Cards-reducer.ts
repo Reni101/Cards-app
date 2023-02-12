@@ -16,6 +16,8 @@ export type CardType = {
     shots: number
     created: string
     updated: string
+    questionImg:string
+    answerImg :string
 }
 
 
@@ -32,6 +34,7 @@ export type InitialStateType = {
     cardQuestion: string | null
     sortCards: string | null
     cardsPack_id: string
+
 }
 
 

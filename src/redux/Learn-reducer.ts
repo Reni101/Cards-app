@@ -5,25 +5,13 @@ import {handleError} from "../common/errorUtils/errorFunction";
 import {cardsLearnAPI, ResponseCardsType, UpdatedGradeType} from "../api/Learn-api";
 import {getRandomCard} from "../pages/learn/RandomCard";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {CardType} from "./Cards-reducer";
 
-
-export type CardLearnType = {
-    _id: string
-    cardsPack_id: string
-    user_id: string
-    answer: string
-    question: string
-    rating: number
-    grade: number
-    shots: number
-    created: string
-    updated: string
-}
 
 
 export type InitialLearnStateType = {
-    cards: CardLearnType[];
-    randomCard: CardLearnType | null
+    cards: CardType[];
+    randomCard: CardType | null
     packUserId: string | null
     packName: string | null
     packPrivate: boolean | null
@@ -44,7 +32,9 @@ const initialState: InitialLearnStateType = {
         rating: 0,
         shots: 0,
         updated: "",
-        user_id: ""
+        user_id: "",
+        questionImg:"",
+        answerImg:""
     },
     packUserId: null,
     packName: null,

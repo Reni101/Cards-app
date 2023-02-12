@@ -1,6 +1,6 @@
-import {CardLearnType} from "../../redux/Learn-reducer";
+import {CardType} from "../../redux/Cards-reducer";
 
-export const getRandomCard = (cards: CardLearnType[]): CardLearnType => {
+export const getRandomCard = (cards: CardType[]): CardType => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
     const rand = Math.random() * sum;
     const res = cards.reduce(

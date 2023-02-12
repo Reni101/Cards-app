@@ -1,4 +1,3 @@
-
 import {
     InitialLearnStateType,
     learnReducer,
@@ -22,7 +21,9 @@ beforeEach(() => {
             rating: 0,
             shots: 0,
             updated: "",
-            user_id: ""
+            user_id: "",
+            questionImg: "",
+            answerImg: ""
         },
         packUserId: null,
         packName: null,
@@ -45,11 +46,14 @@ test('correct set response', () => {
                 shots: 0,
                 updated: "",
                 user_id: "",
+                questionImg: "",
+                answerImg: ""
             }],
             packName: "New pack",
             packUserId: "",
             pageCount: 100
-        },}))
+        },
+    }))
     expect(endState.cards[0].question).toBe("1+4")
     expect(endState.cards[0].answer).toBe("5")
 })

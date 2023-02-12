@@ -143,6 +143,7 @@ export const TableCards = () => {
                         <TableBody>
                             {rows
                                 .map((row) => {
+                                    console.log(row)
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
