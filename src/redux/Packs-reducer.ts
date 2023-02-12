@@ -97,7 +97,7 @@ export const {
 
 //==============================TC============================
 
-export const SetCardsPackTC = (QuerySearchParams: queryModelType) =>
+export const setCardsPackTC = (QuerySearchParams: queryModelType) =>
     async (dispatch: AppDispatch, getState:()=>AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
@@ -119,11 +119,11 @@ export const SetCardsPackTC = (QuerySearchParams: queryModelType) =>
         }
     }
 
-export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
+export const addPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsApi.addPack(cardsPack)
-        await dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
+        await dispatch(setCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
@@ -134,11 +134,11 @@ export const AddPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
 }
 
 
-export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
+export const updatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsApi.updatePack(cardsPack)
-        dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
+        dispatch(setCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPackNameForCardAC({newPackName: cardsPack.name!}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
@@ -150,11 +150,11 @@ export const UpdatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId
 }
 
 
-export const DeletePackTC = (idPack: string, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
+export const deletePackTC = (idPack: string, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await packsApi.deletePack(idPack)
-        dispatch(SetCardsPackTC({user_id: searchQueryUserId}))
+        dispatch(setCardsPackTC({user_id: searchQueryUserId}))
         dispatch(setPacksIdAC({packsId: ''}))
         dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {

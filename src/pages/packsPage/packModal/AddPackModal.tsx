@@ -4,7 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import {BasicModal} from '../../../common/modal/BasicModal';
 import {Button, Checkbox, IconButton} from '@mui/material';
 import style from '../addNewPack/AddNewPack.module.css';
-import {AddPackTC} from '../../../redux/Packs-reducer';
+import {addPackTC} from '../../../redux/Packs-reducer';
 import s from './AddPackModal.module.css'
 import {useSearchParams} from 'react-router-dom';
 import {setErrorApp} from '../../../redux/App-reducer';
@@ -39,7 +39,7 @@ export const AddPackModal = ({children}: AddPackModalType) => {
             return;
         }
         handleClose()
-        await dispatch(AddPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
+        await dispatch(addPackTC({name: valueInput, deckCover: newCover}, searchQueryUserId))
         setNewCover('')
         setValueInput('')
     }

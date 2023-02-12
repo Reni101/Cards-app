@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {Button} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './DeleteCardModal.module.css'
-import {DeleteCardTC} from "../../../../redux/Cards-reducer";
+import {deleteCardTC} from "../../../../redux/Cards-reducer";
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
@@ -18,7 +18,7 @@ export const DeleteCardModal = ({children, id, name}: DeleteCardModalType) => {
     const status = useAppSelector(state => state.App.status)
 
     const deleteCardClick = async (pack_id: string, handleClose: () => void) => {
-        await dispatch(DeleteCardTC(pack_id))
+        await dispatch(deleteCardTC(pack_id))
         handleClose()
     }
 

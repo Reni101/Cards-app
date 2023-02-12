@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FormikHelpers, useFormik} from 'formik';
 import * as Yup from 'yup';
 import style from './Login.module.css'
@@ -11,26 +11,16 @@ import {
     InputLabel,
     LinearProgress,
     OutlinedInput,
-    styled,
-    Switch,
-    SwitchProps,
     TextField
 } from '@mui/material';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/Store';
-import {SingInTC} from '../../redux/Login-reducer';
+import {singInTC} from '../../redux/Login-reducer';
 import {Slide} from 'react-awesome-reveal';
 import {requestStatusType} from '../../redux/App-reducer';
+import {IOSSwitch} from "../../common/iosSwitch/IOSSwitch";
 
-
-interface State {
-    amount: string;
-    password: string;
-    weight: string;
-    weightRange: string;
-    showPassword: boolean;
-}
 
 interface InitialValuesType {
     email: string
@@ -44,27 +34,18 @@ export const LoginPage = () => {
     const isAuth = useAppSelector<boolean>(state => state.Login.isAuth)
     const status = useAppSelector<requestStatusType>(state => state.App.status)
 
-
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+        setShowPassword(!showPassword);
     };
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
-
+    const rememberMeHandler = () => {
+        formik.setFieldValue('rememberMe', !formik.values.rememberMe)
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -74,12 +55,12 @@ export const LoginPage = () => {
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email('invalid email address').required('required'),
-            // password: Yup.string().min(7, 'must be 7 characters long')
-            //     .matches(/[0-9]/, 'requires a number')
-            //     .required('required')
+            password: Yup.string()
+                .min(7, 'must be 7 characters long')
+                .required('required')
         }),
         onSubmit: (values: InitialValuesType, {setSubmitting, setStatus}: FormikHelpers<InitialValuesType>) => {
-            dispatch(SingInTC(values))
+            dispatch(singInTC(values))
         }
     })
 
@@ -98,12 +79,10 @@ export const LoginPage = () => {
                             <div className={style.item_box}>
                                 <TextField
                                     id="outlined-basic"
-                                    name="email"
                                     label="email"
                                     type="email"
                                     fullWidth={true}
-                                    onChange={formik.handleChange}
-                                    value={formik.values.email}
+                                    {...formik.getFieldProps("email")}
                                     color={formik.touched.email && formik.errors.email ? 'error' : 'success'}
                                     variant="outlined"/>
                                 {formik.touched.email && formik.errors.email ? (
@@ -118,10 +97,8 @@ export const LoginPage = () => {
                                     >Password</InputLabel>
                                     <OutlinedInput
                                         id="outlined-adornment-password"
-                                        type={values.showPassword ? 'text' : 'password'}
-                                        value={formik.values.password}
-                                        name="password"
-                                        onChange={formik.handleChange}
+                                        type={showPassword ? 'text' : 'password'}
+                                        {...formik.getFieldProps("password")}
                                         label="Password"
                                         color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
                                         endAdornment={
@@ -132,7 +109,7 @@ export const LoginPage = () => {
                                                     onMouseDown={handleMouseDownPassword}
                                                     edge="end"
                                                 >
-                                                    {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                    {showPassword ? <VisibilityOff/> : <Visibility/>}
                                                 </IconButton>
                                             </InputAdornment>
                                         }
@@ -146,9 +123,7 @@ export const LoginPage = () => {
                                 <FormControlLabel
                                     control={<IOSSwitch sx={{mx: 2}}/>}
                                     name="rememberMe"
-                                    onChange={() => {
-                                        formik.setFieldValue('rememberMe', !formik.values.rememberMe)
-                                    }}
+                                    onChange={rememberMeHandler}
                                     label="Remember me"
                                 />
                             </div>
@@ -176,53 +151,3 @@ export const LoginPage = () => {
 }
 
 
-const IOSSwitch = styled((props: SwitchProps) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({theme}) => ({
-    width: 42,
-    height: 26,
-    padding: 0,
-    '& .MuiSwitch-switchBase': {
-        padding: 0,
-        margin: 2,
-        transitionDuration: '300ms',
-        '&.Mui-checked': {
-            transform: 'translateX(16px)',
-            color: '#fff',
-            '& + .MuiSwitch-track': {
-                backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
-                opacity: 1,
-                border: 0,
-            },
-            '&.Mui-disabled + .MuiSwitch-track': {
-                opacity: 0.5,
-            },
-        },
-        '&.Mui-focusVisible .MuiSwitch-thumb': {
-            color: '#33cf4d',
-            border: '6px solid #fff',
-        },
-        '&.Mui-disabled .MuiSwitch-thumb': {
-            color:
-                theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[600],
-        },
-        '&.Mui-disabled + .MuiSwitch-track': {
-            opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
-        },
-    },
-    '& .MuiSwitch-thumb': {
-        boxSizing: 'border-box',
-        width: 22,
-        height: 22,
-    },
-    '& .MuiSwitch-track': {
-        borderRadius: 26 / 2,
-        backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
-        opacity: 1,
-        transition: theme.transitions.create(['background-color'], {
-            duration: 500,
-        }),
-    },
-}));

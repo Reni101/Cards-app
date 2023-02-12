@@ -1,8 +1,8 @@
 import {
     sliceRecoveryType,
-    recoveryPasswordReducer,
+    recoveryReducer,
     setRecoverEmailAC
-} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+} from "../redux/Recovery-reducer";
 
 
 let startState:sliceRecoveryType = {
@@ -19,7 +19,7 @@ beforeEach(() => {
 })
 
 test('correct set email ', () => {
-    const endState = recoveryPasswordReducer(startState, setRecoverEmailAC({email:"maximor-2008@tut.by"}))
+    const endState = recoveryReducer(startState, setRecoverEmailAC({email:"maximor-2008@tut.by"}))
 
     expect(endState.email).toBe("maximor-2008@tut.by")
     expect(endState.isRedirectToLogin).toBe(false)

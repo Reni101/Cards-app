@@ -4,8 +4,7 @@ import {useFormik} from "formik";
 import {registrationTC} from "../../../redux/Registration-reducer";
 import InputForRegistration from "./InputForRegistration";
 import {Button} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../../redux/Store";
-
+import {useAppDispatch} from "../../../redux/Store";
 
 type FormikErrorType = {
     email?: string
@@ -15,7 +14,6 @@ type FormikErrorType = {
 
 const FormForRegistration = () => {
     const dispatch = useAppDispatch()
-    const errorApi = useAppSelector(state => state.Registration.error)
 
     const formik = useFormik({
         initialValues: {
@@ -95,7 +93,7 @@ const FormForRegistration = () => {
                 <div style={{height: '30px'}}>
                     {formik.touched.confirmPassword &&
                         <span style={{color: 'red'}}>{formik.errors.confirmPassword}</span>}
-                    <span style={{color: 'red'}}>{errorApi}</span>
+
                 </div>
             </div>
             <div className={style.signUpBlockBtn}>

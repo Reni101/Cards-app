@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
-import {setNewPasswordTC} from "../RecoveryPasswordReducer";
+import {setNewPasswordTC} from "../../../redux/Recovery-reducer";
 import {
     Button,
     FormControl,

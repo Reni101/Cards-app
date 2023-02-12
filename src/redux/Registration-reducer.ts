@@ -7,21 +7,21 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const slice = createSlice({
     name: 'RegistrationReducer',
-    initialState: { isSuccessfulRegistration: false,
-        error: null as string | null},
+    initialState: {
+        isSuccessfulRegistration: false,
+        error: null as string | null
+    },
     reducers: {
         setRegistrationAC(state, action: PayloadAction<{ data: boolean }>) {
             state.isSuccessfulRegistration = action.payload.data
         },
-        setErrorApiRegistration(state, action: PayloadAction<{ error: string }>) {
-            state.error = action.payload.error
-        },
+
     }
 })
 
 
 export const registrationReducer = slice.reducer
-export const {setRegistrationAC, setErrorApiRegistration} = slice.actions
+export const {setRegistrationAC} = slice.actions
 
 
 export const registrationTC = (data: { email: string, password: string }) => async (dispatch: AppDispatch) => {
@@ -29,13 +29,10 @@ export const registrationTC = (data: { email: string, password: string }) => asy
     try {
         const res = await registrationApi.registration(data)
         dispatch(setRegistrationAC(res.addedUser))
+        dispatch(setStatusApp({status: 'succeeded'}))
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)
-    } finally {
-        dispatch(setStatusApp({status: 'idle'}))
     }
-
-
 }
 

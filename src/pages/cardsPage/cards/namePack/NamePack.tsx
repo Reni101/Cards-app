@@ -11,7 +11,7 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {setPacksIdAC} from '../../../../redux/Cards-reducer';
-import {DeletePackTC, UpdatePackTC} from '../../../../redux/Packs-reducer';
+import {deletePackTC, updatePackTC} from '../../../../redux/Packs-reducer';
 import {RequestUpdatePackType} from '../../../../api/Packs-api';
 import {useNavigate} from 'react-router-dom';
 import {AddCardModal} from "../cardModal/AddCardModal";
@@ -63,11 +63,11 @@ export const NamePack = () => {
 
 
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
-        dispatch(UpdatePackTC(cards_pack))
+        dispatch(updatePackTC(cards_pack))
     }
 
     const deletePackClick = async (pack_id: string) => {
-        await dispatch(DeletePackTC(pack_id))
+        await dispatch(deletePackTC(pack_id))
         navigate(Paths.packsRoute)
     }
 

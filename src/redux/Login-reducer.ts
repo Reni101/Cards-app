@@ -62,7 +62,7 @@ export const getAuthTC = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const SingInTC = (data: LoginType) => async (dispatch: AppDispatch) => {
+export const singInTC = (data: LoginType) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         const res = await loginApi.login(data)
@@ -75,7 +75,7 @@ export const SingInTC = (data: LoginType) => async (dispatch: AppDispatch) => {
     }
 }
 
-export const SingOutTC = () => async (dispatch: AppDispatch) => {
+export const singOutTC = () => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
         await loginApi.logout()

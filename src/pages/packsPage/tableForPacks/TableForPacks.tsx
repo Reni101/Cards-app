@@ -14,7 +14,7 @@ import moment from 'moment';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {changePageAC, changePageCountAC, changeSortPacksAC, SetCardsPackTC} from '../../../redux/Packs-reducer';
+import {changePageAC, changePageCountAC, changeSortPacksAC, setCardsPackTC} from '../../../redux/Packs-reducer';
 import {setPacksIdAC} from '../../../redux/Cards-reducer';
 import IconButton from '@mui/material/IconButton';
 import {queryModelType} from '../../../api/Packs-api';
@@ -115,7 +115,7 @@ export const TableForPacks = () => {
             user_id: searchQueryUserId
         }
 
-        dispatch(SetCardsPackTC(QuerySearchParams))
+        dispatch(setCardsPackTC(QuerySearchParams))
     }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
 
 

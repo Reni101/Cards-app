@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import thunk from "redux-thunk";
 import {profilePageReducer} from "./Profile-reducer";
-import {recoveryPasswordReducer} from "../pages/passwordRecoveryPage/RecoveryPasswordReducer";
+import {recoveryReducer} from "./Recovery-reducer";
 import {loginReducer} from './Login-reducer';
 import {appReducer} from './App-reducer';
 import {registrationReducer} from "./Registration-reducer";
@@ -15,7 +15,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const rootReducer = combineReducers({
     ProfilePage: profilePageReducer,
-    ForgotPassword: recoveryPasswordReducer,
+    ForgotPassword: recoveryReducer,
     Login: loginReducer,
     App: appReducer,
     Registration: registrationReducer,

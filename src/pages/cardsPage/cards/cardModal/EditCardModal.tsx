@@ -5,7 +5,7 @@ import {Button, Checkbox} from "@mui/material";
 import style from "../../../packsPage/addNewPack/AddNewPack.module.css";
 import s from './EditCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
-import {UpdateCardTC} from "../../../../redux/Cards-reducer";
+import {updateCardTC} from "../../../../redux/Cards-reducer";
 import {RequestUpdateCardType} from "../../../../api/Cards-api";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
@@ -24,7 +24,7 @@ export const EditCardModal = ({children, idCard, question, answer}: EditPackModa
     const [newAnswer, setNewAnswer] = useState(answer)
 
     const updateCardClick = (card: RequestUpdateCardType, handleClose: () => void) => {
-        dispatch(UpdateCardTC(card))
+        dispatch(updateCardTC(card))
         setNewQuestion('')
         handleClose()
     }

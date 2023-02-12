@@ -119,7 +119,7 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
             handleError(err, dispatch)
         }
     }
-export const AddCardTC = (card: RequestAddCardType) =>
+export const addCardTC = (card: RequestAddCardType) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
@@ -135,7 +135,7 @@ export const AddCardTC = (card: RequestAddCardType) =>
         }
     }
 
-export const UpdateCardTC = (card: RequestUpdateCardType) =>
+export const updateCardTC = (card: RequestUpdateCardType) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {
@@ -152,7 +152,7 @@ export const UpdateCardTC = (card: RequestUpdateCardType) =>
     }
 
 
-export const DeleteCardTC = (idCard: string) =>
+export const deleteCardTC = (idCard: string) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
         try {

@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import style from './CheckEmailPage.module.css'
 import CheckEmail from "../../../assets/chekEmail.svg"
 import {Slide} from 'react-awesome-reveal';
-import {setRecoverEmailAC} from "../RecoveryPasswordReducer";
+import {setRecoverEmailAC} from "../../../redux/Recovery-reducer";
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 
 export const CheckEmailPage = () => {

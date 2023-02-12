@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PartyModeIcon from '@mui/icons-material/PartyMode';
 import Button from '@mui/material/Button';
-import {SingOutTC} from '../../redux/Login-reducer';
+import {singOutTC} from '../../redux/Login-reducer';
 import {Paths} from '../../common/paths/Paths';
 import {editProfileNameAvatarTC} from "../../redux/Profile-reducer";
 import {requestStatusType, setErrorApp} from "../../redux/App-reducer";
@@ -28,7 +28,7 @@ export const ProfilePage = () => {
 
 
     const logOutHandler = async () => {
-        await dispatch(SingOutTC())
+        await dispatch(singOutTC())
         navigate(Paths.loginRoute)
     }
     const goToPacks = () => {

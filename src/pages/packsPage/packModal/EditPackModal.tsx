@@ -6,7 +6,7 @@ import {Button, Checkbox, IconButton} from '@mui/material';
 import style from "../addNewPack/AddNewPack.module.css";
 import s from './EditPackModal.module.css'
 import {RequestUpdatePackType} from "../../../api/Packs-api";
-import {UpdatePackTC} from "../../../redux/Packs-reducer";
+import {updatePackTC} from "../../../redux/Packs-reducer";
 import {useSearchParams} from "react-router-dom";
 import {setErrorApp} from '../../../redux/App-reducer';
 import {convertFileToBase64} from '../../../common/convertFileToBase64/ConvertFileToBase64';
@@ -42,7 +42,7 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
             return;
         }
         handleClose()
-        await dispatch(UpdatePackTC(cards_pack, searchQueryUserId))
+        await dispatch(updatePackTC(cards_pack, searchQueryUserId))
         setValueInput('')
     }
 

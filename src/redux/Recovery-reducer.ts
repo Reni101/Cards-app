@@ -1,8 +1,8 @@
-import {AppDispatch} from "../../redux/Store";
-import {RecoveryApi} from "../../api/Recovery-api";
+import {AppDispatch} from "./Store";
+import {RecoveryApi} from "../api/Recovery-api";
 import {AxiosError} from "axios";
-import {setStatusApp} from "../../redux/App-reducer";
-import {handleError} from "../../common/errorUtils/errorFunction";
+import {setStatusApp} from "./App-reducer";
+import {handleError} from "../common/errorUtils/errorFunction";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const slice = createSlice({
@@ -21,7 +21,7 @@ const slice = createSlice({
     }
 })
 
-export const recoveryPasswordReducer = slice.reducer
+export const recoveryReducer = slice.reducer
 export const {setRecoverEmailAC, setRedirectToLoginAC} = slice.actions
 export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 

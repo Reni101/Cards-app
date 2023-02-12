@@ -5,7 +5,7 @@ import style from "../../cards/namePack/NamePack.module.css";
 import s from './AddCardModal.module.css'
 import {BasicModal} from "../../../../common/modal/BasicModal";
 import {useFormik} from "formik";
-import {AddCardTC} from "../../../../redux/Cards-reducer";
+import {addCardTC} from "../../../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
 type AddPackModalType = {
@@ -26,7 +26,7 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
         onSubmit: (values, handleClose: any) => {
             {
                 cardsPack_id &&
-                dispatch(AddCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
+                dispatch(addCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
 
             }
             formik.resetForm()
