@@ -27,15 +27,6 @@ export type CardsColumn = {
     format?: (value: string) => string;
 }
 
-export type RowDataTable = {
-    id: string;
-    packPackId: string;
-    answer: string;
-    question: string;
-    updated: string;
-    grade?: number;
-}
-
 const columns: CardsColumn[] = [
     {id: 'question', label: 'Question', minWidth: 170, align: 'left'},
     {id: 'answer', label: 'Answer', minWidth: 80, align: 'center'},
@@ -50,15 +41,28 @@ const columns: CardsColumn[] = [
 ];
 
 
+export type RowDataTable = {
+    id: string;
+    packPackId: string;
+    answer: string;
+    question: string;
+    updated: string;
+    grade?: number;
+    questionImg: string
+    answerImg: string
+}
+
 function createData(
     id: string,
     packPackId: string,
     answer: string,
     question: string,
     updated: string,
-    grade: number
+    grade: number,
+    questionImg: string,
+    answerImg: string,
 ): RowDataTable {
-    return {id, packPackId, answer, question, updated, grade};
+    return {id, packPackId, answer, question, updated, grade, questionImg, answerImg};
 }
 
 
@@ -74,7 +78,8 @@ export const TableCards = () => {
     const pageCount = useAppSelector(state => state.Cards.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
 
-    const rows = cards.map((card) => createData(card._id, card.cardsPack_id, card.answer, card.question, card.updated, card.grade))
+    const rows = cards.map((card) => createData(card._id, card.cardsPack_id,
+        card.answer, card.question, card.updated, card.grade, card.questionImg, card.answerImg))
 
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('search') || '';
@@ -135,15 +140,13 @@ export const TableCards = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => {
-                                return (
-                                    <TableBodyRowsCards
-                                        key={row.id}
-                                        row={row}
-                                        columns={columns}
-                                    />
-                                );
-                            })}
+                            {rows.map(row =>
+                                <TableBodyRowsCards
+                                    key={row.id}
+                                    row={row}
+                                    columns={columns}
+                                />
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>

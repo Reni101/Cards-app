@@ -179,14 +179,12 @@ export const TableForPacks = () => {
                             {rows
                                 .filter((r) =>
                                     Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
-                                .map((row) => {
-                                    return (
-                                        <TableBodyRowsPacks row={row}
-                                                            columns={columns}
-                                                            key={row.pack_id}
-                                        />
-                                    );
-                                })}
+                                .map(row =>
+                                    <TableBodyRowsPacks row={row}
+                                                        columns={columns}
+                                                        key={row.pack_id}
+                                    />
+                                )}
                         </TableBody>
                     </Table>
                 </TableContainer>

@@ -10,8 +10,8 @@ import {useAppSelector} from "../../redux/Store";
 export const CardsPage = () => {
 
     const isAuth = useAppSelector(state => state.Login.isAuth)
-
     const navigate = useNavigate()
+
     const goToPacks = () => {
         navigate(Paths.packsRoute)
     }
