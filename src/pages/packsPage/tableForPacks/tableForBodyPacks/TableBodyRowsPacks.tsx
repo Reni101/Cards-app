@@ -31,7 +31,7 @@ export const TableBodyRowsPacks = (props:PropsType) => {
         dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/cards/${card_pack_id}`)
     }
-
+ 
     const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/learn/${card_pack_id}`)

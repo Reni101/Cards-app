@@ -122,7 +122,7 @@ export const TableForPacks = () => {
 
 
     const sortHandler = (columnID: sortType) => {
-        if (columnID === 'actions') return
+        if (columnID === 'actions'|| columnID === "cover" ) return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC({sortPacks: val ? `1${columnID}` : `0${columnID}`}))
     }
