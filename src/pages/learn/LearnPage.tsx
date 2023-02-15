@@ -16,6 +16,7 @@ import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "../../redux/Lea
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 import {LinearProgress} from "@mui/material";
 import {requestStatusType} from "../../redux/App-reducer";
+import {Slide} from "react-awesome-reveal";
 
 
 export const LearnPage = () => {
@@ -65,56 +66,57 @@ export const LearnPage = () => {
 
 
     return (
+        <Slide direction={'down'}>
+            <div className={style.wrapper}>
+                <div className={style.go_to_pack_list} onClick={goToCards}>
+                    <ArrowBackIcon style={{height: '15px'}}/>
+                    Back to Cards List
+                </div>
 
-        <div className={style.wrapper}>
-            <div className={style.go_to_pack_list} onClick={goToCards}>
-                <ArrowBackIcon style={{height: '15px'}}/>
-                Back to Cards List
-            </div>
-
-            <h1 className={style.title}>Learn "{packName}"</h1>
-            <div className={style.mainBlock}>
-                {status === 'loading' && <LinearProgress color="primary"/>}
-                <div className={style.question}><b>Question:</b> {randomCard!.question}</div>
-                <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
-                {!isShowAnswer &&
-                    <div>
-                        <Button onClick={() => setIsShowAnswer(true)}
-                                style={{marginBottom: '30px', width: "70%"}}
-                                variant="outlined"
-                        >
-                            Show answer
-                        </Button>
-                    </div>}
-
-
-                {isShowAnswer &&
-                    <form onSubmit={handleSubmit} className={style.formBlock}>
-                        <FormControl error={error} variant="standard">
-                            <FormLabel id="demo-error-radios">
-                                <div className={style.question}><b>Answer:</b>{randomCard!.answer}</div>
-                            </FormLabel>
-                            <RadioGroup className={style.answerBlock}
-                                        aria-labelledby="demo-error-radios"
-                                        name="quiz"
-                                        onChange={handleRadioChange}
-                            >
-                                <FormControlLabel value="1" control={<Radio/>} label="Did not know"/>
-                                <FormControlLabel value="2" control={<Radio/>} label="Forgot"/>
-                                <FormControlLabel value="3" control={<Radio/>} label="A lot of thought"/>
-                                <FormControlLabel value="4" control={<Radio/>} label="Confuse"/>
-                                <FormControlLabel value="5" control={<Radio/>} label="Knew the answer"/>
-                            </RadioGroup>
-                            <FormHelperText className={style.helpText}>{helperText}</FormHelperText>
-                            <Button type="submit"
+                <h1 className={style.title}>Learn "{packName}"</h1>
+                <div className={style.mainBlock}>
+                    {status === 'loading' && <LinearProgress color="primary"/>}
+                    <div className={style.question}><b>Question:</b> {randomCard!.question}</div>
+                    <div className={style.text}>Количество попыток ответов на вопрос: {randomCard!.shots}</div>
+                    {!isShowAnswer &&
+                        <div>
+                            <Button onClick={() => setIsShowAnswer(true)}
+                                    style={{marginBottom: '30px', width: "70%"}}
                                     variant="outlined"
-
                             >
-                                Next
+                                Show answer
                             </Button>
-                        </FormControl>
-                    </form>}
+                        </div>}
+
+
+                    {isShowAnswer &&
+                        <form onSubmit={handleSubmit} className={style.formBlock}>
+                            <FormControl error={error} variant="standard">
+                                <FormLabel id="demo-error-radios">
+                                    <div className={style.question}><b>Answer:</b>{randomCard!.answer}</div>
+                                </FormLabel>
+                                <RadioGroup className={style.answerBlock}
+                                            aria-labelledby="demo-error-radios"
+                                            name="quiz"
+                                            onChange={handleRadioChange}
+                                >
+                                    <FormControlLabel value="1" control={<Radio/>} label="Did not know"/>
+                                    <FormControlLabel value="2" control={<Radio/>} label="Forgot"/>
+                                    <FormControlLabel value="3" control={<Radio/>} label="A lot of thought"/>
+                                    <FormControlLabel value="4" control={<Radio/>} label="Confuse"/>
+                                    <FormControlLabel value="5" control={<Radio/>} label="Knew the answer"/>
+                                </RadioGroup>
+                                <FormHelperText className={style.helpText}>{helperText}</FormHelperText>
+                                <Button type="submit"
+                                        variant="outlined"
+
+                                >
+                                    Next
+                                </Button>
+                            </FormControl>
+                        </form>}
+                </div>
             </div>
-        </div>
+        </Slide>
     );
 }

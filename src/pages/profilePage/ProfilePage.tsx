@@ -58,7 +58,7 @@ export const ProfilePage = () => {
     }
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'down'}>
 
             <div className={styleProfile.all_wrapper_profile}>
 

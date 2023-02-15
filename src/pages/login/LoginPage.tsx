@@ -43,6 +43,7 @@ export const LoginPage = () => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+
     const rememberMeHandler = () => {
         formik.setFieldValue('rememberMe', !formik.values.rememberMe)
     }

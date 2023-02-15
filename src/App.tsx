@@ -18,6 +18,7 @@ import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
 import Chat from "./pages/chatPage/Chat";
 import {useAppDispatch, useAppSelector} from "./redux/Store";
+import {LoginPage2} from "./pages/login/LoginPage2";
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
             <ErrorSnackbar/>
             <Headers/>
             <Routes>
-                <Route path={Paths.loginRoute} element={<LoginPage/>}/>
+                <Route path={Paths.loginRoute} element={<LoginPage2/>}/>
                 <Route path={Paths.notFoundRoute} element={<NotFoundPage/>}/>
                 <Route path={Paths.profileRoute} element={<ProfilePage/>}/>
                 <Route path={Paths.registrationRoute} element={<RegistrationPage/>}/>
