@@ -15,7 +15,6 @@ import {CardsColumn, RowDataTableCards} from "../CardsTabelData";
 type PropsType = {
     row: RowDataTableCards,
     columns: CardsColumn[]
-
 }
 
 export const TableBodyRowsCards = memo((props: PropsType) => {

@@ -19,6 +19,7 @@ type PropsType = {
     row: RowsDataPacks
     columns: ColumnPacks[]
 }
+
 export const TableBodyRowsPacks = (props: PropsType) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -77,7 +78,6 @@ export const TableBodyRowsPacks = (props: PropsType) => {
                                     </IconButton>
                                 </div>
 
-
                                 <div className={user_idFromProfile === props.row.user_id
                                     ? style.icons
                                     : `${style.icons} ${style.display_no}`}>
@@ -89,7 +89,6 @@ export const TableBodyRowsPacks = (props: PropsType) => {
                                         </IconButton>
                                     </EditPackModal>
                                 </div>
-
 
                                 <div className={user_idFromProfile === props.row.user_id
                                     ? style.icons
