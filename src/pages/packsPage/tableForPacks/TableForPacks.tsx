@@ -46,22 +46,6 @@ export const TableForPacks = () => {
 
     const isLoading = status === 'loading'
 
-    useEffect(() => {
-        if (searchQueryName !== packName) return
-        const min_params = Number(searchQueryMin)
-        const max_params = Number(searchQueryMax)
-
-        let QuerySearchParams: queryModelType = {
-            min: min_params,
-            max: max_params,
-            packName: searchQueryName,
-            user_id: searchQueryUserId
-        }
-
-        dispatch(setCardsPackTC(QuerySearchParams))
-    }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
-
-
     const changePageHandler = useCallback((newPage: number) => {
         dispatch(changePageAC({page: newPage}))
     }, [dispatch])
@@ -76,6 +60,21 @@ export const TableForPacks = () => {
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC({sortPacks: val ? `1${columnID}` : `0${columnID}`}))
     }
+
+    useEffect(() => {
+        if (searchQueryName !== packName) return
+        const min_params = Number(searchQueryMin)
+        const max_params = Number(searchQueryMax)
+
+        let QuerySearchParams: queryModelType = {
+            min: min_params,
+            max: max_params,
+            packName: searchQueryName,
+            user_id: searchQueryUserId
+        }
+
+        dispatch(setCardsPackTC(QuerySearchParams))
+    }, [packName, min, max, pageCount, sortPacks, currentPage, packs_user_id, searchQueryUserId])
 
 
     if (isLoading) {
