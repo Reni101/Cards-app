@@ -7,14 +7,13 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import {DeleteCardModal} from "../../cardModal/DeleteCardModal";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import TableRow from "@mui/material/TableRow";
-import {CardsColumn, RowDataTable} from "../TableCards";
 import {useAppSelector} from "../../../../../redux/Store";
-
 import {AnswerCard} from "../StrOrImg/AnswerCard";
 import {QuestionCard} from "../StrOrImg/QuestionCard";
+import {CardsColumn, RowDataTableCards} from "../CardsTabelData";
 
 type PropsType = {
-    row: RowDataTable,
+    row: RowDataTableCards,
     columns: CardsColumn[]
 
 }

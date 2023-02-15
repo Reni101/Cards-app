@@ -7,7 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import moment from 'moment/moment';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {changePageCardsAC, changePageCardsCountAC, setCardsTC, sortCardsAC,} from '../../../../redux/Cards-reducer';
 import {Paginator} from "../../../../common/paginator/Paginator";
@@ -15,56 +14,7 @@ import {ExampleAnimation} from '../../../../common/lottieAnimation/LottieAnimati
 import {LottieNoSearch} from '../../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch';
 import {useAppDispatch, useAppSelector} from '../../../../redux/Store';
 import {TableBodyRowsCards} from "./tableBodyRows/TableBodyRowsCards";
-
-
-type sortCardsType = 'question' | 'answer' | 'updated' | "grade"
-
-export type CardsColumn = {
-    id: sortCardsType
-    label: string;
-    minWidth?: number;
-    align?: 'center' | 'left' | 'right';
-    format?: (value: string) => string;
-}
-
-const columns: CardsColumn[] = [
-    {id: 'question', label: 'Question', minWidth: 170, align: 'left'},
-    {id: 'answer', label: 'Answer', minWidth: 80, align: 'center'},
-    {
-        id: 'updated',
-        label: 'Last updated',
-        minWidth: 170,
-        format: (value: string) => moment(value).utc().format('DD.MM.YYYY'),
-        align: 'center'
-    },
-    {id: 'grade', label: 'Grade', minWidth: 170, align: 'left'},
-];
-
-
-export type RowDataTable = {
-    id: string;
-    packPackId: string;
-    answer: string;
-    question: string;
-    updated: string;
-    grade?: number;
-    questionImg: string
-    answerImg: string
-}
-
-function createData(
-    id: string,
-    packPackId: string,
-    answer: string,
-    question: string,
-    updated: string,
-    grade: number,
-    questionImg: string,
-    answerImg: string,
-): RowDataTable {
-    return {id, packPackId, answer, question, updated, grade, questionImg, answerImg};
-}
-
+import {columnsForCards, createDataForCards, sortCardsType} from "./CardsTabelData";
 
 export const TableCards = () => {
     const dispatch = useAppDispatch()
@@ -78,7 +28,7 @@ export const TableCards = () => {
     const pageCount = useAppSelector(state => state.Cards.pageCount)
     const findQuestion = useAppSelector(state => state.Cards.cardQuestion)
 
-    const rows = cards.map((card) => createData(card._id, card.cardsPack_id,
+    const rows = cards.map((card) => createDataForCards(card._id, card.cardsPack_id,
         card.answer, card.question, card.updated, card.grade, card.questionImg, card.answerImg))
 
     const [searchParams] = useSearchParams();
@@ -124,7 +74,7 @@ export const TableCards = () => {
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                {columns.map((column) => (
+                                {columnsForCards.map((column) => (
                                     <TableCell
                                         key={column.id}
                                         align={column.align}
@@ -144,7 +94,7 @@ export const TableCards = () => {
                                 <TableBodyRowsCards
                                     key={row.id}
                                     row={row}
-                                    columns={columns}
+                                    columns={columnsForCards}
                                 />
                             )}
                         </TableBody>

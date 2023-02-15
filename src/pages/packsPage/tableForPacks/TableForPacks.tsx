@@ -7,7 +7,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import moment from 'moment';
 import {useSearchParams} from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -18,60 +17,11 @@ import {LottieNoSearch} from '../../../common/lottieAnimation/LottieNoSearch/Lot
 import {ExampleAnimation} from '../../../common/lottieAnimation/LottieAnimation';
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 import {TableBodyRowsPacks} from "./tableForBodyPacks/TableBodyRowsPacks";
-
-
-type sortType = 'cover' | 'name' | 'cardsCount' | 'user_name' | 'updated' | 'actions'
-
-export type ColumnPacks = {
-    id: sortType
-    label: string
-    minWidth?: number
-    align?: 'center' | 'left' | 'right'
-    format?: (value: string) => string
-}
-
-const columns: ColumnPacks[] = [
-    {id: 'cover', label: 'Cover', minWidth: 100, align: 'left'},
-    {id: 'name', label: 'Name', minWidth: 170, align: 'center'},
-    {id: 'cardsCount', label: 'Cards', minWidth: 80, align: 'center'},
-    {id: 'user_name', label: 'Created by', minWidth: 170, align: 'center'},
-    {
-        id: 'updated',
-        label: 'Last updated',
-        minWidth: 170,
-        format: (value: string) => moment(value).utc().format('DD.MM.YYYY'),
-        align: 'center'
-    },
-    {id: 'actions', label: 'Actions', minWidth: 170, align: 'right'},
-];
-
-export type RowsDataPacks = {
-    cover: string;
-    pack_id: string;
-    user_id: string;
-    name: string;
-    cardsCount: number;
-    user_name: string;
-    updated: string;
-    actions?: any;
-}
-
-function createData(
-    cover: string,
-    pack_id: string,
-    user_id: string,
-    name: string,
-    cardsCount: number,
-    user_name: string,
-    updated: string,
-): RowsDataPacks {
-    return {cover, pack_id, user_id, name, cardsCount, user_name, updated};
-}
+import {columnsPacks, createDataPacks, RowsDataPacks, sortTypePacks} from "./PacksTabelData";
 
 
 export const TableForPacks = () => {
     const dispatch = useAppDispatch()
-
 
     const [searchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
@@ -92,7 +42,7 @@ export const TableForPacks = () => {
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
 
     const rows: RowsDataPacks[] = rowsArray.map((row) =>
-        createData(row.deckCover, row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
+        createDataPacks(row.deckCover, row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
 
     const isLoading = status === 'loading'
 
@@ -121,8 +71,8 @@ export const TableForPacks = () => {
     }, [dispatch])
 
 
-    const sortHandler = (columnID: sortType) => {
-        if (columnID === 'actions'|| columnID === "cover" ) return
+    const sortHandler = (columnID: sortTypePacks) => {
+        if (columnID === 'actions' || columnID === "cover") return
         const val = sortPacks === ('0' + columnID)
         dispatch(changeSortPacksAC({sortPacks: val ? `1${columnID}` : `0${columnID}`}))
     }
@@ -147,7 +97,7 @@ export const TableForPacks = () => {
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                {columns.map((column) => (
+                                {columnsPacks.map((column) => (
                                     <TableCell
                                         key={column.id}
                                         align={column.align}
@@ -181,7 +131,7 @@ export const TableForPacks = () => {
                                     Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map(row =>
                                     <TableBodyRowsPacks row={row}
-                                                        columns={columns}
+                                                        columns={columnsPacks}
                                                         key={row.pack_id}
                                     />
                                 )}

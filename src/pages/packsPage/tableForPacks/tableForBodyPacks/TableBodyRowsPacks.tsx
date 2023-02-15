@@ -9,17 +9,17 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import {DeletePackModal} from "../../packModal/DeletePackModal";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import TableRow from "@mui/material/TableRow";
-import {ColumnPacks, RowsDataPacks} from "../TableForPacks";
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 import {setPacksIdAC} from "../../../../redux/Cards-reducer";
 import {useNavigate} from "react-router-dom";
+import {ColumnPacks, RowsDataPacks} from "../PacksTabelData";
 
 
 type PropsType = {
-    row:RowsDataPacks
-    columns:ColumnPacks[]
+    row: RowsDataPacks
+    columns: ColumnPacks[]
 }
-export const TableBodyRowsPacks = (props:PropsType) => {
+export const TableBodyRowsPacks = (props: PropsType) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ export const TableBodyRowsPacks = (props:PropsType) => {
         dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/cards/${card_pack_id}`)
     }
- 
+
     const goToLearnHandler = (card_pack_id: string) => {
         dispatch(setPacksIdAC({packsId: card_pack_id}))
         navigate(`/learn/${card_pack_id}`)
