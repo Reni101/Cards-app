@@ -51,13 +51,18 @@ export const NewPasswordPage = () => {
     if (isRedirectToLogin) {
         return <Navigate to={"/"}/>
     }
+
     return (
         <Slide direction={'down'}>
             <div className={style.wrapper_newPassword}>
                 <div className={style.wrapper}>
+
                     {status === "loading" && <LinearProgress color="primary"/>}
-                    <h2 className={style.title}>Create new password</h2>
-                    <form onSubmit={formik.handleSubmit} className={style.FormStyle}>
+
+                    <h2>Create new password</h2>
+
+                    <form onSubmit={formik.handleSubmit} className={style.formContainer}>
+
                         <FormControl variant="outlined" className={style.formInput}>
                             <InputLabel
                                 error={!!(formik.touched.password && formik.errors.password)}>Password</InputLabel>
@@ -80,16 +85,19 @@ export const NewPasswordPage = () => {
                                 }
                                 label="Password"
                             />
-                            {formik.touched.password && formik.errors.password ? (
-                                <div className={style.validation}>{formik.errors.password}</div>
-                            ) : null}
+                            {formik.touched.password && formik.errors.password && (
+                                <div className={style.validation}>{formik.errors.password}</div>)}
                         </FormControl>
 
 
-                        <div className={style.text}>Create new password and we will send you further instructions to
-                            email
+                        <div className={style.text}>Create new password and
+                            we will send you further instructions to email
                         </div>
-                        <Button className={style.button} type={'submit'} variant={'outlined'} color={'primary'}>
+
+                        <Button className={style.button}
+                                type={'submit'}
+                                variant={'outlined'}
+                                color={'primary'}>
                             Create new password
                         </Button>
                     </form>
