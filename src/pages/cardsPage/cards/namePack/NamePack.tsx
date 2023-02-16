@@ -53,14 +53,12 @@ export const NamePack = () => {
         }
     }
 
-
     useEffect(() => {
         if (prevOpen.current && !open) {
             anchorRef.current!.focus();
         }
         prevOpen.current = open;
     }, [open]);
-
 
     const updatePackClick = (cards_pack: RequestUpdatePackType) => {
         dispatch(updatePackTC(cards_pack))
@@ -79,6 +77,7 @@ export const NamePack = () => {
     if (!cardsPack_id) {
         return <></>
     }
+
     return (
         <div className={style.name_pack_all_wrapper}>
             <h2

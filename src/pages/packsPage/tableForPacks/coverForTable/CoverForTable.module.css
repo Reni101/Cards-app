@@ -1,4 +1,4 @@
-.image_wrapper>img{
+.image_wrapper > img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 10px;
@@ -9,7 +9,8 @@
     -o-transition: all .5s;
     transition: all .5s;
 }
-.image_wrapper>img:hover{
+
+.image_wrapper > img:hover {
     box-shadow: -5px 5px 5px black;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;

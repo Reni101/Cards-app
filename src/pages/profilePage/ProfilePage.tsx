@@ -26,7 +26,6 @@ export const ProfilePage = () => {
     const isAuth = useAppSelector(state => state.Login.isAuth)
     const status = useAppSelector<requestStatusType>(state => state.App.status)
 
-
     const logOutHandler = async () => {
         await dispatch(singOutTC())
         navigate(Paths.loginRoute)
@@ -48,7 +47,6 @@ export const ProfilePage = () => {
         }
     }
 
-
     const errorHandler = () => {
         dispatch(setErrorApp({error: 'Incorrect photo'}))
     }
@@ -62,7 +60,7 @@ export const ProfilePage = () => {
 
             <div className={styleProfile.all_wrapper_profile}>
 
-                <div className={styleProfile.Link_block} onClick={goToPacks}>
+                <div className={styleProfile.link_block} onClick={goToPacks}>
                     <ArrowBackIcon style={{height: '15px'}}/>
                     Back to Packs List
                 </div>
@@ -80,17 +78,14 @@ export const ProfilePage = () => {
                                style={{display: 'none'}}
                                accept='image/*'/>
 
-
                         <IconButton component="span">
                             <PartyModeIcon/>
                         </IconButton>
-
 
                     </label>
 
                     <EditProfileName profileName={profileName}/>
                     <div className={styleProfile.email}>{email}</div>
-
 
                     <Button style={{marginBottom: '30px'}} variant="outlined" onClick={logOutHandler} type="submit">
                         <LogoutIcon/> Log out

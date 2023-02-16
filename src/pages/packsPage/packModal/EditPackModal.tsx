@@ -14,21 +14,19 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
 import {RequestUpdatePackType} from "../../../api/Packs-api";
 
-
 type EditPackModalType = {
     children: ReactNode
     id: string
 }
 
 export const EditPackModal = ({children, id}: EditPackModalType) => {
-
     const dispatch = useAppDispatch()
-
-    const [searchParams] = useSearchParams()
-    const searchQueryUserId = searchParams.get('user_id') || '';
 
     const status = useAppSelector(state => state.App.status)
     const pack = useAppSelector(state => state.Packs.cardPacks.find(pack => pack._id === id))
+
+    const [searchParams] = useSearchParams()
+    const searchQueryUserId = searchParams.get('user_id') || '';
 
     const [newCover, setNewCover] = useState<string>('')
     const [valueInput, setValueInput] = useState(pack?.name)
@@ -98,7 +96,9 @@ export const EditPackModal = ({children, id}: EditPackModalType) => {
                                 deckCover: newCover
                             }, handleClose)}
                             className={style.button} variant="outlined" type="submit"
-                            disabled={status === "loading"}>Save</Button>
+                            disabled={status === "loading"}>
+                        Save
+                    </Button>
                 </div>
             </>
             }

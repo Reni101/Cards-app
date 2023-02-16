@@ -1,4 +1,4 @@
-.Name {
+.name {
     display: flex;
     justify-content: center;
     margin: 36.5px auto 16.5px;
@@ -6,11 +6,11 @@
     font-weight: 600;
 }
 
-.EditNickName {
+.editNickName {
     position: relative;
 }
 
-.EditNickName button {
+.editNickName button {
     position: absolute;
     top: 50px;
     right: 50px;

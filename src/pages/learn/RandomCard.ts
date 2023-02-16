@@ -7,9 +7,9 @@ export const getRandomCard = (cards: CardType[]): CardType => {
         (acc: { sum: number; id: number }, card, i) => {
             const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
 
-            return { sum: newSum, id: newSum < rand ? i : acc.id };
+            return {sum: newSum, id: newSum < rand ? i : acc.id};
         },
-        { sum: 0, id: -1 },
+        {sum: 0, id: -1},
     );
 
     return cards[res.id + 1];

@@ -1,14 +1,14 @@
-import  {useLottie} from 'lottie-react';
+import {useLottie} from 'lottie-react';
 import groovyWalkAnimation from "./ton_duck_waiting.json";
 import {CSSProperties} from 'react';
 
 
-const style:CSSProperties = {
+const style: CSSProperties = {
     overflow: 'hidden',
     borderRadius: 100,
     width: 250,
     height: 280,
-    margin:'0 auto'
+    margin: '0 auto'
 };
 export const AnimationWaiting = () => {
     const options = {
@@ -17,7 +17,7 @@ export const AnimationWaiting = () => {
         autoplay: true,
     }
 
-    const { View } = useLottie(options, style);
+    const {View} = useLottie(options, style);
 
     return View;
 }

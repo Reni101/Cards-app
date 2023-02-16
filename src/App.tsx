@@ -16,7 +16,7 @@ import {Paths} from './common/paths/Paths';
 import {PacksPage} from './pages/packsPage/PacksPage';
 import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
-import Chat from "./pages/chatPage/Chat";
+import {Chat} from "./pages/chatPage/Chat";
 import {useAppDispatch, useAppSelector} from "./redux/Store";
 
 

@@ -10,7 +10,6 @@ import {useScrollPosition} from '../../hooks/useScrollPosition';
 
 
 export const Headers = () => {
-
     const dispatch = useAppDispatch()
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.Login.isAuth)
     const userLogo = useAppSelector(state => state.ProfilePage.avatar)
@@ -19,13 +18,6 @@ export const Headers = () => {
 
     const [nav, setNav] = useState(false)
     const scrollPosition = useScrollPosition();
-    useEffect(() => {
-        window.onwheel = (e) => {
-            let scrollDirection = e.deltaY < 0
-            scrollPosition > 10 && !scrollDirection ? setNav && setNav(true) : setNav && setNav(false)
-        }
-    }, [scrollPosition])
-
 
     const goSignUp = () => {
         navigate('/registration')
@@ -38,6 +30,13 @@ export const Headers = () => {
         await dispatch(singOutTC())
         navigate('/')
     }
+
+    useEffect(() => {
+        window.onwheel = (e) => {
+            let scrollDirection = e.deltaY < 0
+            scrollPosition > 10 && !scrollDirection ? setNav && setNav(true) : setNav && setNav(false)
+        }
+    }, [scrollPosition])
 
     return (
         <div className={nav ? `${style.header_box} ${style.scroll_active}` : style.header_box}>

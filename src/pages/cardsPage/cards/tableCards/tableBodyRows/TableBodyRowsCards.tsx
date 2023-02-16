@@ -30,12 +30,10 @@ export const TableBodyRowsCards = memo((props: PropsType) => {
                                    align={column.align}>
 
                             {column.id === "question" &&
-                                <QuestionCard str={props.row.question} img={props.row.questionImg}/>
-                            }
+                                <QuestionCard str={props.row.question} img={props.row.questionImg}/>}
 
                             {column.id === "answer" &&
-                                <AnswerCard str={props.row.answer} img={props.row.answerImg}/>
-                            }
+                                <AnswerCard str={props.row.answer} img={props.row.answerImg}/>}
 
                             {column.format && (typeof value === 'string') && column.format(value)}
 

@@ -6,9 +6,7 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import {Cards} from './cards/Cards';
 import {useAppSelector} from "../../redux/Store";
 
-
 export const CardsPage = () => {
-
     const navigate = useNavigate()
     const isAuth = useAppSelector(state => state.Login.isAuth)
 
@@ -19,6 +17,7 @@ export const CardsPage = () => {
     if (!isAuth) {
         return <Navigate to={Paths.loginRoute}/>
     }
+
     return (
         <div className={style.all_wrapper_cards}>
             <div className={style.go_to_pack_list} onClick={goToPacks}>

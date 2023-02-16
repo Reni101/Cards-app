@@ -14,7 +14,7 @@ export const AddNewPack = () => {
             <div className={style.item_box}>
                 <AddPackModal>
                     <Button className={style.button}
-                            disabled={status=== "loading"}
+                            disabled={status === "loading"}
                             variant="outlined"
                             type="submit">Add new pack</Button>
                 </AddPackModal>

@@ -10,16 +10,16 @@ export const profilePageAPI = {
         return instance.put<ResponseUpdateProfileType>("/auth/me", {
             name: profileData.name,
             avatar: profileData.avatar,
-        }).then(res=>res.data)
+        }).then(res => res.data)
     }
 }
-
 
 export type ResponseUpdateProfileType = {
     updatedUser: updatedUser;
     token: string;
     tokenDeathTime: number;
 }
+
 export type updatedUser = {
     _id: string;
     email: string;

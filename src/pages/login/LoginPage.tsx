@@ -21,7 +21,6 @@ import {singInTC} from "../../redux/Login-reducer";
 import {Slide} from 'react-awesome-reveal';
 import style from './Login.module.css'
 
-
 type InitialValuesType = {
     email: string
     password: string

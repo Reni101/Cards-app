@@ -36,10 +36,11 @@
     transition: all .5s;
 }
 
-.display_no{
+.display_no {
     display: none;
 }
-.img_wrapper{
+
+.img_wrapper {
     max-width: 70px;
     max-height: 70px;
     overflow: hidden;
@@ -51,7 +52,8 @@
     -o-transition: all .5s;
     transition: all .5s;
 }
-.img_wrapper:hover{
+
+.img_wrapper:hover {
     box-shadow: -5px 5px 5px black;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;

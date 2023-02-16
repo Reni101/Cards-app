@@ -18,7 +18,7 @@ const style = {
 };
 
 type BasicModalType = {
-    children: (handleClose: () => void) =>  ReactNode
+    children: (handleClose: () => void) => ReactNode
     childrenBtn: ReactNode
     name: string
 }
@@ -32,9 +32,9 @@ export const BasicModal = ({children, childrenBtn, name}: BasicModalType) => {
         setOpen(false)
     }
 
-    const handleOpen = () => {
-        setOpen(true)
-    }
+    // const handleOpen = () => {
+    //     setOpen(true)
+    // }
 
     return (
         <div>
@@ -49,10 +49,10 @@ export const BasicModal = ({children, childrenBtn, name}: BasicModalType) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                  <div className={s.headerModal}>
-                      {name}
-                      <CloseIcon style={{cursor: 'pointer'}} onClick={handleClose}/>
-                  </div>
+                    <div className={s.headerModal}>
+                        {name}
+                        <CloseIcon style={{cursor: 'pointer'}} onClick={handleClose}/>
+                    </div>
                     {children(handleClose)}
                 </Box>
             </Modal>

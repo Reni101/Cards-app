@@ -1,7 +1,13 @@
 import React from 'react';
 import style from './ResettingAllFilters.module.css'
 import FilterListOffSharpIcon from '@mui/icons-material/FilterListOffSharp';
-import {changeMaxAC, changeMinAC, changeShowMyPacksAC, changeSortPacksAC, sortPacksNameAC} from "../../../../redux/Packs-reducer";
+import {
+    changeMaxAC,
+    changeMinAC,
+    changeShowMyPacksAC,
+    changeSortPacksAC,
+    sortPacksNameAC
+} from "../../../../redux/Packs-reducer";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
@@ -20,11 +26,11 @@ export const ResettingAllFilters = () => {
             max: maxCardsCount.toString()
         }
         setSearchParams(params)
-        dispatch(changeMinAC({min:Number(params.min)}))
-        dispatch(changeMaxAC({max:Number(params.max)}))
-        dispatch(changeShowMyPacksAC({user_id:params.user_id}))
-        dispatch(sortPacksNameAC({packName:params.search}))
-        dispatch(changeSortPacksAC({sortPacks:''}))
+        dispatch(changeMinAC({min: Number(params.min)}))
+        dispatch(changeMaxAC({max: Number(params.max)}))
+        dispatch(changeShowMyPacksAC({user_id: params.user_id}))
+        dispatch(sortPacksNameAC({packName: params.search}))
+        dispatch(changeSortPacksAC({sortPacks: ''}))
         setSearchParams(undefined)
 
     }

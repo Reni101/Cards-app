@@ -1,5 +1,3 @@
-.all_wrapper_filter_range{
-}
 .count_value_wrapper {
     position: absolute;
     left: 0;
@@ -13,7 +11,8 @@
     font-size: 15px;
 
 }
-.count_value_wrapper_right{
+
+.count_value_wrapper_right {
     position: absolute;
     right: 0;
     height: 30px;
@@ -26,13 +25,14 @@
     font-size: 15px;
 }
 
-.title_filter_range{
+.title_filter_range {
     font-size: 20px;
     text-align: center;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-.slider_wrapper{
+
+.slider_wrapper {
     position: relative;
     min-width: 220px;
     align-items: center;

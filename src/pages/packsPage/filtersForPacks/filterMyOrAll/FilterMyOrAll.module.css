@@ -1,12 +1,14 @@
-.all_wrapper_filter_my_or_all{
+.all_wrapper_filter_my_or_all {
     width: 165px;
 }
-.title_show_packs_cards{
+
+.title_show_packs_cards {
     font-size: 20px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-.buttons_wrapper{
+
+.buttons_wrapper {
     display: flex;
     flex-direction: row;
     min-height: 64px;
@@ -14,5 +16,6 @@
     justify-content: space-around;
     width: 100%;
 }
-.item_box{
+
+.item_box {
 }

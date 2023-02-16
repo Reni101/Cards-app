@@ -22,23 +22,29 @@ export const DeletePackModal = ({children, id, name}: DeletePackModalType) => {
 
     const status = useAppSelector(state => state.App.status)
 
-    const deletePackClick = async (pack_id: string,handleClose: () => void) => {
-        await dispatch(deletePackTC(pack_id,searchQueryUserId))
+    const deletePackClick = async (pack_id: string, handleClose: () => void) => {
+        await dispatch(deletePackTC(pack_id, searchQueryUserId))
         handleClose()
     }
 
     return (
         <BasicModal childrenBtn={children} name={'Delete Pack'}>
-            {(handleClose) =>  <>
+            {(handleClose) => <>
                 <div className={s.textDelete}>
-                    Do you really want to remove <span style={{fontWeight: '600'}}>{name}</span>? All cards will be deleted.
+                    Do you really want to remove <span style={{fontWeight: '600'}}>{name}</span>? All cards will be
+                    deleted.
                 </div>
                 <div className={s.blockBtn}>
                     <Button onClick={handleClose} className={style.button} variant="outlined"
-                            type="submit">Cancel</Button>
-                    <Button style={{color: 'white', backgroundColor: 'red',}} onClick={() => deletePackClick(id, handleClose)}
+                            type="submit">
+                        Cancel
+                    </Button>
+                    <Button style={{color: 'white', backgroundColor: 'red',}}
+                            onClick={() => deletePackClick(id, handleClose)}
                             className={style.button} variant="outlined" type="submit"
-                            disabled={status === "loading"}>Delete</Button>
+                            disabled={status === "loading"}>
+                        Delete
+                    </Button>
                 </div>
             </>}
         </BasicModal>

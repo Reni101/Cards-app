@@ -14,10 +14,9 @@ type AddPackModalType = {
 }
 
 export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
-    // type formikType = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
+
     const formik = useFormik({
         initialValues: {
             question: '',
@@ -27,7 +26,6 @@ export const AddCardModal = ({children, cardsPack_id}: AddPackModalType) => {
             {
                 cardsPack_id &&
                 dispatch(addCardTC({cardsPack_id: cardsPack_id, question: values.question, answer: values.answer}))
-
             }
             formik.resetForm()
             handleClose()

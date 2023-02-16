@@ -16,25 +16,21 @@ export const FilterRange = () => {
     const dispatch = useAppDispatch()
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
 
-
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';
     const searchQueryMin = searchParams.get('min') || '';
     const searchQueryMax = searchParams.get('max') || '';
 
-
     const max_value = Number(searchQueryMax) ? Number(searchQueryMax) : maxCardsCount
     const [value, setValue] = React.useState<number[]>([Number(searchQueryMin), Number(searchQueryMax)]);
 
     const debounceValue = useDebounce<number[]>(value, 700);
 
-
     useEffect(() => {
-        dispatch(changeMinAC({min:debounceValue[0]}))
-        dispatch(changeMaxAC({max:debounceValue[1]}))
+        dispatch(changeMinAC({min: debounceValue[0]}))
+        dispatch(changeMaxAC({max: debounceValue[1]}))
     }, [debounceValue])
-
 
     const handleChange = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         let [min_val, max_val] = newValue as number[]
@@ -49,7 +45,6 @@ export const FilterRange = () => {
         setSearchParams(params)
         setValue(newValue as number[]);
     };
-
 
     return (
         <div className={style.all_wrapper_filter_range}>
@@ -71,7 +66,6 @@ export const FilterRange = () => {
                 </Box>
                 <div className={style.count_value_wrapper_right}>{max_value}</div>
             </div>
-
         </div>
     );
 };

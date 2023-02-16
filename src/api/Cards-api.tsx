@@ -6,13 +6,13 @@ import {instance} from "./api";
 export const cardsApi = {
     getCards(params: queryCardsModelType) {
         return instance.get<ResponseCardsType>("cards/card", {params})
-            .then(res=>res.data)
+            .then(res => res.data)
     },
     addCard(card: RequestAddCardType) {
         return instance.post<{ card: RequestAddCardType }, AxiosResponse>("cards/card", {card})
     },
     updateCard(card: RequestUpdateCardType) {
-        return instance.put("cards/card", {card: card}).then(res=>res.data)
+        return instance.put("cards/card", {card: card}).then(res => res.data)
     },
     deleteCard(idCard: string) {
         return instance.delete(`cards/card?id=${idCard}`)

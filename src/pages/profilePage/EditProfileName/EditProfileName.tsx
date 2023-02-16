@@ -27,10 +27,9 @@ export const EditProfileName: FC<PropsType> = React.memo((props: PropsType) => {
         setName(e.currentTarget.value.trim())
     }
 
-
     return (
         <div>
-            {editMode ? <div className={styleEditProfile.EditNickName}>
+            {editMode ? <div className={styleEditProfile.editNickName}>
                     <TextField label="Nickname"
                                style={{marginTop: "30.5px", width: "300px"}}
                                variant="standard"
@@ -38,18 +37,18 @@ export const EditProfileName: FC<PropsType> = React.memo((props: PropsType) => {
                                onChange={onChangeHandler}
                                onBlur={setEditModeHandler}
                                defaultValue={props.profileName}
-                               color={"success"}
+                               color={"success"}/>
 
-                    />
                     <Button size="small"
                             onMouseDown={changeNameHandler}
                             variant="contained"
-                            color={"success"}
-                    >SAVE</Button>
+                            color={"success"}>
+                        SAVE
+                    </Button>
                 </div>
 
-                : <div className={styleEditProfile.Name}>{props.profileName} <EditIcon onClick={setEditModeHandler}
-                                                                                       style={{cursor: "pointer"}}/>
+                : <div className={styleEditProfile.name}>{props.profileName}
+                    <EditIcon onClick={setEditModeHandler} style={{cursor: "pointer"}}/>
                 </div>}
         </div>
     );

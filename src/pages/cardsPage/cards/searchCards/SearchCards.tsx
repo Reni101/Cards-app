@@ -8,9 +8,7 @@ import {findCardsQuestionAC} from "../../../../redux/Cards-reducer";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../../redux/Store";
 
-
 export const SearchCards = () => {
-
     const dispatch = useAppDispatch()
     const question = useAppSelector(state => state.Cards.cardQuestion)
     const packId = useAppSelector(state => state.Cards.cardsPack_id)
@@ -19,6 +17,7 @@ export const SearchCards = () => {
     const searchQueryQuestName = searchParams.get('search_question') || '';
 
     const debouncedValue = useDebounce<string>(searchQueryQuestName, 700)
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const form = event.target;

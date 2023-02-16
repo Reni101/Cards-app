@@ -14,7 +14,6 @@ import {setPacksIdAC} from "../../../../redux/Cards-reducer";
 import {useNavigate} from "react-router-dom";
 import {ColumnPacks, RowsDataPacks} from "../PacksTabelData";
 
-
 type PropsType = {
     row: RowsDataPacks
     columns: ColumnPacks[]
@@ -102,8 +101,6 @@ export const TableBodyRowsPacks = (props: PropsType) => {
                                             />
                                         </IconButton>
                                     </DeletePackModal>
-
-
                                 </div>
                             </div>
                         }

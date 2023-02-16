@@ -40,11 +40,10 @@ export const TableForPacks = () => {
     const cardPacksTotalCount = useAppSelector(state => state.Packs.cardPacksTotalCount)
     const rowsArray = useAppSelector(state => state.Packs.cardPacks)
     const maxCardsCount = useAppSelector(state => state.Packs.maxCardsCount)
+    const isLoading = status === 'loading'
 
     const rows: RowsDataPacks[] = rowsArray.map((row) =>
         createDataPacks(row.deckCover, row._id, row.user_id, row.name, row.cardsCount, row.user_name, row.updated))
-
-    const isLoading = status === 'loading'
 
     const changePageHandler = useCallback((newPage: number) => {
         dispatch(changePageAC({page: newPage}))
@@ -53,7 +52,6 @@ export const TableForPacks = () => {
     const changeRowsPerPageHandler = useCallback((rows: number) => {
         dispatch(changePageCountAC({pageCount: rows}))
     }, [dispatch])
-
 
     const sortHandler = (columnID: sortTypePacks) => {
         if (columnID === 'actions' || columnID === "cover") return
@@ -102,21 +100,19 @@ export const TableForPacks = () => {
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
                                         className={style.table_title_cell}
-                                        onClick={() => sortHandler(column.id)}
-                                    >
+                                        onClick={() => sortHandler(column.id)}>
                                         {column.label}
-                                        {
-                                            sortPacks === ('0' + column.id)
-                                                ?
-                                                <span className={column.id === 'actions'
-                                                    ? style.actions_display_no
-                                                    : style.sort_icon}>
+                                        {sortPacks === ('0' + column.id)
+                                            ?
+                                            <span className={column.id === 'actions'
+                                                ? style.actions_display_no
+                                                : style.sort_icon}>
                                                     <ArrowDropDownIcon/>
                                                 </span>
-                                                :
-                                                <span className={column.id === 'actions'
-                                                    ? style.actions_display_no
-                                                    : style.sort_icon}>
+                                            :
+                                            <span className={column.id === 'actions'
+                                                ? style.actions_display_no
+                                                : style.sort_icon}>
                                                     <ArrowDropUpIcon/>
                                                 </span>
                                         }
@@ -125,14 +121,12 @@ export const TableForPacks = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows
-                                .filter((r) =>
-                                    Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
+                            {rows.filter((r) =>
+                                Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
                                 .map(row =>
                                     <TableBodyRowsPacks row={row}
                                                         columns={columnsPacks}
-                                                        key={row.pack_id}
-                                    />
+                                                        key={row.pack_id}/>
                                 )}
                         </TableBody>
                     </Table>

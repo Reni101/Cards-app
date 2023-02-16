@@ -9,7 +9,6 @@ export const FilterMyOrAll = () => {
     const dispatch = useAppDispatch()
     const user_idFromProfile = useAppSelector(state => state.ProfilePage.user_id)
 
-
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQueryName = searchParams.get('search') || '';
     const searchQueryUserId = searchParams.get('user_id') || '';

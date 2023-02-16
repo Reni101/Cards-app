@@ -3,10 +3,9 @@ import {createConnectionTC, destroyConnectionTC, sentMessageTC} from "../../redu
 import style from './Chat.module.css'
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 
-const Chat = () => {
+export const Chat = () => {
     const dispatch = useAppDispatch()
     const messages = useAppSelector(state => state.Chat.messages)
-
 
     const messagesForRender = messages.map((el) => {
         return <div>name:{el.user.name} message:{el.message}</div>
@@ -32,5 +31,3 @@ const Chat = () => {
         </div>
     );
 };
-
-export default Chat;

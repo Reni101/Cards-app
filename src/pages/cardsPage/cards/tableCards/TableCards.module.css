@@ -1,32 +1,36 @@
 
-.table_title_cell{
-    font-size: 15px!important;
+.table_title_cell {
+    font-size: 15px !important;
     font-weight: 800 !important;
     color: rgba(0, 0, 0, 0.7) !important;
     background-color: rgb(196, 220, 255) !important;
     cursor: pointer;
 }
-.flex_icons{
+
+.flex_icons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.icons>svg{
-    margin:0 5px;
+
+.icons > svg {
+    margin: 0 5px;
 }
-.icons{
+
+.icons {
     cursor: pointer;
 }
 
-.icons>svg:hover{
+.icons > svg:hover {
     transition: all .2s;
 }
-.icons>svg:active{
+
+.icons > svg:active {
     color: rgba(0, 0, 0, 0.2);
     transition: all .2s;
 }
 
-.empty_pack{
+.empty_pack {
     width: 100%;
     margin: 100px 0;
     cursor: default;
@@ -34,9 +38,11 @@
     font-size: 20px;
     color: rgb(30, 144, 255);
 }
-.empty_text{
+
+.empty_text {
     margin-bottom: 10px;
 }
-.icon_display_none{
-    display:none
+
+.icon_display_none {
+    display: none
 }

@@ -17,9 +17,9 @@ type EditPackModalType = {
 }
 
 export const EditCardModal = ({children, idCard, question, answer}: EditPackModalType) => {
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.App.status)
+
     const [newQuestion, setNewQuestion] = useState(question)
     const [newAnswer, setNewAnswer] = useState(answer)
 
@@ -28,7 +28,6 @@ export const EditCardModal = ({children, idCard, question, answer}: EditPackModa
         setNewQuestion('')
         handleClose()
     }
-
 
     return (
         <BasicModal childrenBtn={children} name={'Edit pack'}>

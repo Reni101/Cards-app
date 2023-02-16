@@ -10,8 +10,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
-
-
 import {clearLearnStateAC, setLearnCardsTC, updateGradeTC} from "../../redux/Learn-reducer";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 import {LinearProgress} from "@mui/material";
@@ -33,7 +31,6 @@ export const LearnPage = () => {
     const [error, setError] = useState(false);
     const [helperText, setHelperText] = useState('');
 
-
     useEffect(() => {
         dispatch(setLearnCardsTC(card_pack_id ? card_pack_id : cardId!))
         return () => {
@@ -43,7 +40,6 @@ export const LearnPage = () => {
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer((event.target as HTMLInputElement).value);
-
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +60,6 @@ export const LearnPage = () => {
         navigate(`/cards/${cardId}`)
     }
 
-
     return (
         <Slide direction={'down'}>
             <div className={style.wrapper}>
@@ -74,6 +69,7 @@ export const LearnPage = () => {
                 </div>
 
                 <h1 className={style.title}>Learn "{packName}"</h1>
+
                 <div className={style.mainBlock}>
                     {status === 'loading' && <LinearProgress color="primary"/>}
                     <div className={style.question}><b>Question:</b> {randomCard!.question}</div>
@@ -87,7 +83,6 @@ export const LearnPage = () => {
                                 Show answer
                             </Button>
                         </div>}
-
 
                     {isShowAnswer &&
                         <form onSubmit={handleSubmit} className={style.formBlock}>
@@ -108,9 +103,7 @@ export const LearnPage = () => {
                                 </RadioGroup>
                                 <FormHelperText className={style.helpText}>{helperText}</FormHelperText>
                                 <Button type="submit"
-                                        variant="outlined"
-
-                                >
+                                        variant="outlined">
                                     Next
                                 </Button>
                             </FormControl>

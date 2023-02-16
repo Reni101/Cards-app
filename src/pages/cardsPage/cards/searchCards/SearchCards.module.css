@@ -1,19 +1,23 @@
-.all_wrapper_search_cards{
+.all_wrapper_search_cards {
     margin: 30px 0 0 0;
 }
-.title_search_cards{
+
+.title_search_cards {
     font-size: 20px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-.toolbar{
+
+.toolbar {
     padding: 0 !important;
 }
-.search_input>input{
+
+.search_input > input {
     border: 1px solid rgba(30, 144, 255, 0.5);
     border-radius: 10px;
 }
-.search_input>input:focus{
+
+.search_input > input:focus {
     box-shadow: -2px 2px 10px rgba(30, 144, 255, 0.5) !important;
 }
 
