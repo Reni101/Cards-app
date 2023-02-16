@@ -1,19 +1,35 @@
-import React from 'react';
-import style from "../RegistrationPage.module.css";
+import React, {useState} from 'react';
 import {useFormik} from "formik";
 import {registrationTC} from "../../../redux/Registration-reducer";
-import InputForRegistration from "./InputForRegistration";
-import {Button} from "@mui/material";
+import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
 import {useAppDispatch} from "../../../redux/Store";
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import style from './FormForRegistration.module.css'
+import * as Yup from "yup";
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-    confirmPassword?: string
+type InitialValuesType = {
+    email: string
+    password: string
+    confirmPassword: string
 }
 
-const FormForRegistration = () => {
+export const FormForRegistration = () => {
     const dispatch = useAppDispatch()
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
+    const handleClickShowConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -21,86 +37,97 @@ const FormForRegistration = () => {
             password: '',
             confirmPassword: ''
         },
-        validate: (values) => {
-
-            const errors: FormikErrorType = {}
-            if (!values.email) {
-                errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
-            }
-            if (values.password.length < 7) {
-                errors.password = 'Password must be more than 7 characters...'
-            }
-            if (values.password !== values.confirmPassword) {
-                errors.confirmPassword = 'Password is not the same'
-            }
-            if (!values.password) {
-                errors.password = 'Required'
-            }
-
-            return errors
-        },
-        onSubmit: values => {
-            const data = {
-                email: values.email,
-                password: String(values.password)
-            }
-            dispatch(registrationTC(data))
+        validationSchema: Yup.object().shape({
+            email: Yup.string().email('invalid email address').required('required'),
+            password: Yup.string()
+                .min(8, 'must be 8 characters long')
+                .required('required'),
+            confirmPassword: Yup.string().required('required')
+                .oneOf([Yup.ref('password')], 'passwords must match')
+        }),
+        onSubmit: (values: InitialValuesType) => {
+            dispatch(registrationTC({email: values.email, password: values.password}))
         },
     });
 
     return (
-        <form onSubmit={formik.handleSubmit} className={style.RegistrationPageForm}>
-            <div className={style.emailBlock}>
-                <InputForRegistration
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    name={'email'}
-                    label={'Email'}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.email}
-                    touched={formik.touched}
-                />
-                <div style={{height: '30px'}}>
-                    {formik.touched.email && <span style={{color: 'red'}}>{formik.errors.email}</span>}
-                </div>
-            </div>
-            <div className={style.passwordBlock}>
-                <InputForRegistration
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    name={'password'}
-                    label={'Password'}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
-                    touched={formik.touched}
-                />
-                <div style={{height: '30px'}}>
-                    {formik.touched.password && <span style={{color: 'red'}}>{formik.errors.password}</span>}
-                </div>
-            </div>
-            <div className={style.confirmPasswordBlock}>
-                <InputForRegistration
-                    value={formik.values.confirmPassword}
-                    onChange={formik.handleChange}
-                    name={'confirmPassword'}
-                    label={'Confirm password'}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.confirmPassword}
-                    touched={formik.touched}
-                />
-                <div style={{height: '30px'}}>
-                    {formik.touched.confirmPassword &&
-                        <span style={{color: 'red'}}>{formik.errors.confirmPassword}</span>}
+        <form onSubmit={formik.handleSubmit} className={style.formContainer}>
 
-                </div>
+            <div className={style.input}>
+                <TextField
+                    fullWidth={true}
+                    name="email"
+                    onChange={formik.handleChange}
+                    label="Email"
+                    variant="outlined"
+                    error={!!(formik.touched.email && formik.errors.email)}/>
+
+                {formik.touched.email && formik.errors.email &&
+                    <div className={style.validation}>{formik.errors.email}</div>}
+
             </div>
-            <div className={style.signUpBlockBtn}>
-                <Button className={style.button} variant="outlined" type="submit">SIGN IN</Button>
-            </div>
+
+            <FormControl fullWidth={true} variant="outlined" className={style.input}>
+                <InputLabel htmlFor="outlined-adornment-password"
+                            error={!!(formik.touched.password && formik.errors.password)}>
+                    Password
+                </InputLabel>
+
+                <OutlinedInput
+                    name="password"
+                    onChange={formik.handleChange}
+                    type={showPassword ? 'text' : 'password'}
+                    error={!!(formik.touched.password && formik.errors.password)}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    label="Password"
+                />
+
+                {formik.touched.password && formik.errors.password &&
+                    <div className={style.validation}>{formik.errors.password}</div>}
+
+            </FormControl>
+
+            <FormControl fullWidth={true} variant="outlined" className={style.input}>
+                <InputLabel htmlFor="outlined-adornment-password"
+                            error={!!(formik.touched.password && formik.errors.password)}>
+                    Confirm password
+                </InputLabel>
+
+                <OutlinedInput
+                    name="confirmPassword"
+                    onChange={formik.handleChange}
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    error={!!(formik.touched.password && formik.errors.password)}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowConfirmPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    label="Confirm password"
+                />
+
+                {formik.touched.confirmPassword && formik.errors.confirmPassword &&
+                    <div className={style.validation}>{formik.errors.confirmPassword}</div>}
+
+            </FormControl>
+
+            <Button className={style.button} variant="outlined" type="submit">SIGN IN</Button>
         </form>
     )
-}
-
-export default FormForRegistration;
+};

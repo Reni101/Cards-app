@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import style from './RegistrationPage.module.css'
 import {Navigate, NavLink} from "react-router-dom";
-import FormForRegistration from "./formForRegistration/FormForRegistration";
+import {FormForRegistration} from "./formForRegistration/FormForRegistration";
 import {Slide} from "react-awesome-reveal";
 import {LinearProgress} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
@@ -27,22 +27,19 @@ export const RegistrationPage = () => {
     return (
         <Slide direction={'down'}>
             <div className={style.all_wrapper_reg}>
-                <div className={style.registrationPageBlock}>
-                    {status === 'loading' && <LinearProgress color="secondary"/>}
-                    <div className={style.registrationPageContent}>
+                <div className={style.wrapper}>
 
-                        <div className={style.registrationPageTitle}>
-                            Sign Up
-                        </div>
+                    {status === 'loading' && <LinearProgress color="primary"/>}
 
-                        <div className={style.signInBlock}>
-                            <FormForRegistration/>
-                            <div className={style.signInTitle}>Already have an account?</div>
-                            <NavLink to={'/'}>
-                                <div className={style.signInBtn}>Sign in</div>
-                            </NavLink>
-                        </div>
+                    <h2> Sign Up </h2>
+
+                    <FormForRegistration/>
+
+                    <div className={style.signInTitle}>
+                        <div>Already have an account?</div>
+                        <NavLink to={'/'}> Sign in </NavLink>
                     </div>
+
                 </div>
             </div>
         </Slide>
