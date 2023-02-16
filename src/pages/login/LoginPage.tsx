@@ -4,7 +4,8 @@ import {
     FormControl,
     FormControlLabel,
     InputAdornment,
-    InputLabel, LinearProgress,
+    InputLabel,
+    LinearProgress,
     OutlinedInput,
     TextField
 } from "@mui/material";
@@ -15,7 +16,7 @@ import {IOSSwitch} from "../../common/iosSwitch/IOSSwitch";
 import {Navigate, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../redux/Store";
 import {requestStatusType} from "../../redux/App-reducer";
-import {FormikHelpers, useFormik} from "formik";
+import {useFormik} from "formik";
 import {singInTC} from "../../redux/Login-reducer";
 import {Slide} from 'react-awesome-reveal';
 import style from './Login.module.css'
@@ -42,7 +43,6 @@ export const LoginPage = () => {
         event.preventDefault();
     };
 
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -52,10 +52,10 @@ export const LoginPage = () => {
         validationSchema: Yup.object().shape({
             email: Yup.string().email('invalid email address').required('required'),
             password: Yup.string()
-                .min(7, 'must be 7 characters long')
+                .min(8, 'must be 8 characters long')
                 .required('required')
         }),
-        onSubmit: (values: InitialValuesType, {setSubmitting, setStatus}: FormikHelpers<InitialValuesType>) => {
+        onSubmit: (values: InitialValuesType) => {
             dispatch(singInTC(values))
         }
     })
@@ -89,8 +89,8 @@ export const LoginPage = () => {
                             <InputLabel htmlFor="outlined-adornment-password"
                                         error={!!(formik.touched.password && formik.errors.password)}
                             >Password</InputLabel>
-                            <OutlinedInput
 
+                            <OutlinedInput
                                 name="password"
                                 onChange={formik.handleChange}
                                 type={showPassword ? 'text' : 'password'}
@@ -98,7 +98,6 @@ export const LoginPage = () => {
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
-                                            aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"

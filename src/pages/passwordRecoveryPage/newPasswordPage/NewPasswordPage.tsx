@@ -24,8 +24,8 @@ export const NewPasswordPage = () => {
     const isRedirectToLogin = useAppSelector(state => state.ForgotPassword.isRedirectToLogin)
     const status = useAppSelector<requestStatusType>(state => state.App.status)
 
-
     const [showPassword, setShowPassword] = React.useState(false);
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     };
@@ -36,10 +36,10 @@ export const NewPasswordPage = () => {
     const formik = useFormik({
         initialValues: {
             password: '',
-
         },
         validationSchema: Yup.object().shape({
-            password: Yup.string().min(8, 'must be 8 characters long'),
+            password: Yup.string().min(8, 'must be 8 characters long')
+                .required('required'),
         }),
         onSubmit: values => {
             dispatch(setNewPasswordTC(values.password, token ? token : "bad token"))
@@ -52,20 +52,20 @@ export const NewPasswordPage = () => {
         return <Navigate to={"/"}/>
     }
     return (
-        <Slide direction={'up'}>
-            <div className={style.wrapper_newPasswowrd}>
-                {status === "loading" && <div><LinearProgress color="primary"/></div>}
-                <h2 className={style.Title}>Create new password</h2>
-                <div className={style.FormStyle}>
-                    <form onSubmit={formik.handleSubmit}>
-                        <FormControl sx={{m: 1, width: '25ch'}} variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <Slide direction={'down'}>
+            <div className={style.wrapper_newPassword}>
+                <div className={style.wrapper}>
+                    {status === "loading" && <LinearProgress color="primary"/>}
+                    <h2 className={style.title}>Create new password</h2>
+                    <form onSubmit={formik.handleSubmit} className={style.FormStyle}>
+                        <FormControl variant="outlined" className={style.formInput}>
+                            <InputLabel
+                                error={!!(formik.touched.password && formik.errors.password)}>Password</InputLabel>
                             <OutlinedInput
                                 name='password'
                                 type={showPassword ? 'text' : 'password'}
-                                value={formik.values.password}
                                 onChange={formik.handleChange}
-                                color={formik.touched.password && formik.errors.password ? 'error' : 'success'}
+                                error={!!(formik.touched.password && formik.errors.password)}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -86,15 +86,15 @@ export const NewPasswordPage = () => {
                         </FormControl>
 
 
-                        <div className={style.Text}>Create new password and we will send you further instructions to
+                        <div className={style.text}>Create new password and we will send you further instructions to
                             email
                         </div>
                         <Button className={style.button} type={'submit'} variant={'outlined'} color={'primary'}>
                             Create new password
                         </Button>
                     </form>
-                </div>
 
+                </div>
             </div>
         </Slide>
     );

@@ -18,14 +18,13 @@ export const CheckEmailPage = () => {
 
 
     return (
-        <Slide direction={'up'}>
+        <Slide direction={'down'}>
             <div className={style.wrapper_checkEmail}>
                 <h2 className={style.Title}>Check Email</h2>
                 <img src={CheckEmail} alt=""/>
                 <div className={style.Text}>We’ve sent an Email with instructions to {email}</div>
                 <div className={style.Link}><NavLink to={"/"}> Back to login </NavLink></div>
             </div>
-
         </Slide>
     );
 };
