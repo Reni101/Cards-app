@@ -11,6 +11,7 @@ export type appInitialStateType = {
     error: string | null
     initialized: boolean
 }
+
 const InitialState: appInitialStateType = {
     status: 'idle',
     error: null,

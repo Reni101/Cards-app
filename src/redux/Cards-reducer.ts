@@ -16,10 +16,9 @@ export type CardType = {
     shots: number
     created: string
     updated: string
-    questionImg:string
-    answerImg :string
+    questionImg: string
+    answerImg: string
 }
-
 
 export type InitialStateType = {
     cards: CardType[];
@@ -34,7 +33,6 @@ export type InitialStateType = {
     cardQuestion: string | null
     sortCards: string | null
     cardsPack_id: string
-
 }
 
 
@@ -52,7 +50,6 @@ const initialState: InitialStateType = {
     sortCards: "",
     cardsPack_id: "",
 }
-
 
 const slice = createSlice({
     name: "CardsReducer",
@@ -98,8 +95,6 @@ export const {
 } = slice.actions
 
 
-//==============================TC============================
-
 export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
     async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
         dispatch(setStatusApp({status: 'loading'}))
@@ -111,11 +106,9 @@ export const setCardsTC = (cardsPack_id: string, questionSearch?: string) =>
             const res = await cardsApi.getCards({
                 cardsPack_id, cardQuestion, sortCards, pageCount, page
             })
-
             dispatch(setCardsAC({resObj: res}))
             dispatch(setPacksIdAC({packsId: cardsPack_id}))
             dispatch(setStatusApp({status: 'succeeded'}))
-
         } catch
             (e) {
             const err = e as Error | AxiosError

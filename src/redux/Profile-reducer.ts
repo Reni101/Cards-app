@@ -32,7 +32,6 @@ export const profilePageReducer = slice.reducer
 export const {editProfileNameAvatarAC, setProfileDataAC} = slice.actions
 
 
-//==============================TC============================
 export const editProfileNameAvatarTC = ({name, avatar}: profileEditType) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {

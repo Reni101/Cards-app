@@ -24,12 +24,12 @@ const slice = createSlice({
         setNewMessageAC(state, action: PayloadAction<{ message: messageType }>) {
             state.messages = [...state.messages, action.payload.message]
         },
-
     }
 })
 
 export const chatReducer = slice.reducer
 export const {setMessagesAC, setNewMessageAC} = slice.actions
+
 
 export const createConnectionTC = () => (dispatch: AppDispatch) => {
     chatApi.createConnection()
@@ -47,6 +47,7 @@ export const destroyConnectionTC = () => (dispatch: AppDispatch) => {
     dispatch(setMessagesAC({messages: []}))
 
 }
+
 export const sentMessageTC = (message: string) => (dispatch: AppDispatch) => {
     chatApi.sentMessage(message)
 }

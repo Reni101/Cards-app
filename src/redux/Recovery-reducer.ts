@@ -26,8 +26,6 @@ export const {setRecoverEmailAC, setRedirectToLoginAC} = slice.actions
 export type sliceRecoveryType = ReturnType<typeof slice.getInitialState>
 
 
-//==============================TC============================
-
 export const forgotPasswordTC = (email: string) => async (dispatch:AppDispatch) => {
     dispatch(setStatusApp({status:'loading'}))
     try {
@@ -46,7 +44,6 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
         await RecoveryApi.setNewPassword(password, token)
         dispatch(setRedirectToLoginAC({value: true}))
         dispatch(setStatusApp({status:'succeeded'}))
-
     } catch (e) {
         const err = e as Error | AxiosError
         handleError(err, dispatch)

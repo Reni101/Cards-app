@@ -85,7 +85,6 @@ export const slice = createSlice({
         changeShowMyPacksAC(state, action: PayloadAction<{ user_id: string }>) {
             state.user_id = action.payload.user_id
         }
-
     }
 })
 export const packsReducer = slice.reducer
@@ -94,8 +93,6 @@ export const {
     changePageCountAC, changeSortPacksAC, sortPacksNameAC, changeShowMyPacksAC
 } = slice.actions
 
-
-//==============================TC============================
 
 export const setCardsPackTC = (QuerySearchParams: queryModelType) =>
     async (dispatch: AppDispatch, getState:()=>AppRootStateType) => {
@@ -133,7 +130,6 @@ export const addPackTC = (cardsPack: RequestAddPackType, searchQueryUserId?: str
     }
 }
 
-
 export const updatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))
     try {
@@ -148,7 +144,6 @@ export const updatePackTC = (cardsPack: RequestUpdatePackType, searchQueryUserId
         dispatch(setStatusApp({status: 'idle'}))
     }
 }
-
 
 export const deletePackTC = (idPack: string, searchQueryUserId?: string) => async (dispatch: AppDispatch) => {
     dispatch(setStatusApp({status: 'loading'}))

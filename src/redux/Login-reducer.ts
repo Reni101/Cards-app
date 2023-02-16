@@ -50,6 +50,7 @@ const slice = createSlice(
 export const loginReducer = slice.reducer
 export const {setLoginAC, getAuthAC} = slice.actions
 
+
 export const getAuthTC = () => async (dispatch: AppDispatch) => {
     try {
         const res = await loginApi.authUser();

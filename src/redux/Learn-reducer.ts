@@ -7,8 +7,6 @@ import {getRandomCard} from "../pages/learn/RandomCard";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {CardType} from "./Cards-reducer";
 
-
-
 export type InitialLearnStateType = {
     cards: CardType[];
     randomCard: CardType | null
@@ -16,9 +14,7 @@ export type InitialLearnStateType = {
     packName: string | null
     packPrivate: boolean | null
     cardsTotalCount: number | null
-
 }
-
 
 const initialState: InitialLearnStateType = {
     cards: [],
@@ -41,7 +37,6 @@ const initialState: InitialLearnStateType = {
     packPrivate: null,
     cardsTotalCount: null
 }
-
 
 const slice = createSlice({
     name: "learnReducer",
@@ -75,7 +70,6 @@ export const {
     updateCardsAC, clearLearnStateAC
 } = slice.actions
 
-//==============================TC============================
 
 export const setLearnCardsTC = (cardsPack_id: string) =>
     async (dispatch: AppDispatch) => {
@@ -85,7 +79,6 @@ export const setLearnCardsTC = (cardsPack_id: string) =>
             dispatch(setCardsLearnAC({resObj: res}))
             dispatch(generateRandomCardAC())
             dispatch(setStatusApp({status: 'succeeded'}))
-
         } catch (e) {
             const err = e as Error | AxiosError
             handleError(err, dispatch)

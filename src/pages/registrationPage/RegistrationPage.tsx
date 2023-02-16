@@ -23,7 +23,6 @@ export const RegistrationPage = () => {
         return <Navigate to={'/'}/>
     }
 
-
     return (
         <Slide direction={'down'}>
             <div className={style.all_wrapper_reg}>
@@ -39,7 +38,6 @@ export const RegistrationPage = () => {
                         <div>Already have an account?</div>
                         <NavLink to={'/'}> Sign in </NavLink>
                     </div>
-
                 </div>
             </div>
         </Slide>
