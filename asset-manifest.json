@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Cards-app/static/css/main.5301a4b9.css",
-    "main.js": "/Cards-app/static/js/main.58bec42e.js",
-    "static/js/787.152b0af0.chunk.js": "/Cards-app/static/js/787.152b0af0.chunk.js",
-    "static/media/pink_punk_black.svg": "/Cards-app/static/media/pink_punk_black.a60aacb90955418820356b949a638775.svg",
-    "static/media/noch.jpeg": "/Cards-app/static/media/noch.faaf7675472f8b8544eb.jpeg",
-    "static/media/default-avatar.png": "/Cards-app/static/media/default-avatar.41c95564873266000d01.png",
-    "static/media/chekEmail.svg": "/Cards-app/static/media/chekEmail.7cdd6836034f09a8bdfc50cf12dbd6d4.svg",
-    "static/media/book-education-learning-school-science-study-svgrepo-com.svg": "/Cards-app/static/media/book-education-learning-school-science-study-svgrepo-com.1bd46dcb0e1272fe133edabda62b6660.svg",
-    "index.html": "/Cards-app/index.html",
-    "main.5301a4b9.css.map": "/Cards-app/static/css/main.5301a4b9.css.map",
-    "main.58bec42e.js.map": "/Cards-app/static/js/main.58bec42e.js.map",
-    "787.152b0af0.chunk.js.map": "/Cards-app/static/js/787.152b0af0.chunk.js.map"
+    "main.css": "/FridayProject/static/css/main.e99bad55.css",
+    "main.js": "/FridayProject/static/js/main.070e709e.js",
+    "static/js/787.d7ab4312.chunk.js": "/FridayProject/static/js/787.d7ab4312.chunk.js",
+    "static/media/pink_punk_black.svg": "/FridayProject/static/media/pink_punk_black.52a65dd17d157379900af348a624546f.svg",
+    "static/media/noch.jpeg": "/FridayProject/static/media/noch.faaf7675472f8b8544eb.jpeg",
+    "static/media/default-avatar.png": "/FridayProject/static/media/default-avatar.41c95564873266000d01.png",
+    "static/media/chekEmail.svg": "/FridayProject/static/media/chekEmail.94cba1d27e689497f35abb31ac4c9ecd.svg",
+    "static/media/book-education-learning-school-science-study-svgrepo-com.svg": "/FridayProject/static/media/book-education-learning-school-science-study-svgrepo-com.1bd46dcb0e1272fe133edabda62b6660.svg",
+    "index.html": "/FridayProject/index.html",
+    "main.e99bad55.css.map": "/FridayProject/static/css/main.e99bad55.css.map",
+    "main.070e709e.js.map": "/FridayProject/static/js/main.070e709e.js.map",
+    "787.d7ab4312.chunk.js.map": "/FridayProject/static/js/787.d7ab4312.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5301a4b9.css",
-    "static/js/main.58bec42e.js"
+    "static/css/main.e99bad55.css",
+    "static/js/main.070e709e.js"
   ]
 }
