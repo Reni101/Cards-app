@@ -44,7 +44,6 @@ Or you can open the project on [Git hab pages](https://reni101.github.io/Cards-a
 - **antd**
 - **axios**
 - **classnames**
-- **formik**
 - **gh-pages**
 - **jest**
 - **react** and **@types/react**
