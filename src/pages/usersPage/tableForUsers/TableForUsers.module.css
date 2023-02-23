@@ -1,0 +1,11 @@
+.wrapper{
+    margin-top: 90px;
+}
+
+.table_title_cell {
+    cursor: pointer;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    background-color: rgb(196, 220, 255) !important;
+}

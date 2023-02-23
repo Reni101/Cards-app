@@ -88,57 +88,55 @@ export const TableForPacks = () => {
     }
 
     return (
-        <div className={style.table_all_wrapper}>
-            <Paper sx={{width: '100%'}}>
-                <TableContainer>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columnsPacks.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{minWidth: column.minWidth}}
-                                        className={style.table_title_cell}
-                                        onClick={() => sortHandler(column.id)}>
-                                        {column.label}
-                                        {sortPacks === ('0' + column.id)
-                                            ?
-                                            <span className={column.id === 'actions'
-                                                ? style.actions_display_no
-                                                : style.sort_icon}>
+        <Paper sx={{width: '100%'}}>
+            <TableContainer>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                            {columnsPacks.map((column) => (
+                                <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{minWidth: column.minWidth}}
+                                    className={style.table_title_cell}
+                                    onClick={() => sortHandler(column.id)}>
+                                    {column.label}
+                                    {sortPacks === ('0' + column.id)
+                                        ?
+                                        <span className={column.id === 'actions'
+                                            ? style.actions_display_no
+                                            : style.sort_icon}>
                                                     <ArrowDropDownIcon/>
                                                 </span>
-                                            :
-                                            <span className={column.id === 'actions'
-                                                ? style.actions_display_no
-                                                : style.sort_icon}>
+                                        :
+                                        <span className={column.id === 'actions'
+                                            ? style.actions_display_no
+                                            : style.sort_icon}>
                                                     <ArrowDropUpIcon/>
                                                 </span>
-                                        }
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.filter((r) =>
-                                Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
-                                .map(row =>
-                                    <TableBodyRowsPacks row={row}
-                                                        columns={columnsPacks}
-                                                        key={row.pack_id}/>
-                                )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <Paginator name={'Количество карт'}
-                           cardPacksTotalCount={cardPacksTotalCount}
-                           currentPage={currentPage!}
-                           changePage={changePageHandler}
-                           changeRows={changeRowsPerPageHandler}
-                           pageCount={pageCount}
-                />
-            </Paper>
-        </div>
+                                    }
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.filter((r) =>
+                            Number(searchQueryMin) <= r.cardsCount && r.cardsCount <= maxCardsCount)
+                            .map(row =>
+                                <TableBodyRowsPacks row={row}
+                                                    columns={columnsPacks}
+                                                    key={row.pack_id}/>
+                            )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <Paginator name={'Количество колод'}
+                       cardPacksTotalCount={cardPacksTotalCount}
+                       currentPage={currentPage!}
+                       changePage={changePageHandler}
+                       changeRows={changeRowsPerPageHandler}
+                       pageCount={pageCount}
+            />
+        </Paper>
     );
 };

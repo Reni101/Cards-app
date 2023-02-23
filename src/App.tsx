@@ -18,6 +18,7 @@ import {CardsPage} from './pages/cardsPage/CardsPage';
 import {LearnPage} from "./pages/learn/LearnPage";
 import {Chat} from "./pages/chatPage/Chat";
 import {useAppDispatch, useAppSelector} from "./redux/Store";
+import {UsersPage} from "./pages/usersPage/UsersPage";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                 <Route path={Paths.packsRoute} element={<PacksPage/>}/>
                 <Route path={Paths.cardsRoute} element={<CardsPage/>}/>
                 <Route path={Paths.learnRoute} element={<LearnPage/>}/>
+                <Route path={Paths.usersRoute} element={<UsersPage/>}/>
 
                 <Route path={Paths.chatRoute} element={<Chat/>}/>
 

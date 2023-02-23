@@ -9,6 +9,7 @@ export const Paths = {
     packsRoute: '/packs',
     cardsRoute: '/cards/:packIdQuery',
     learnRoute: '/learn/:cardId',
-    chatRoute: '/chat'
+    chatRoute: '/chat',
+    usersRoute: '/users'
 }
 

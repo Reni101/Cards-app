@@ -13,6 +13,7 @@ const initialState = {
     usersTotalCount: 0 as number,
     minPublicCardPacksCount: 0 as number,
     maxPublicCardPacksCount: 0 as number,
+    sortUsers: "" as string
 }
 
 
@@ -21,7 +22,12 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setUsersAC(state, action: PayloadAction<ResponseUsersType>) {
-
+            state.users = action.payload.users
+            state.page = action.payload.page
+            state.pageCount = action.payload.pageCount
+            state.usersTotalCount = action.payload.usersTotalCount
+            state.minPublicCardPacksCount = action.payload.minPublicCardPacksCount
+            state.maxPublicCardPacksCount = action.payload.maxPublicCardPacksCount
         }
     }
 })
@@ -35,9 +41,17 @@ export const setUsersTC = () =>
         try {
             const {page, pageCount} = getState().Users
 
-            const res = await usersApi.getUsers()
-            dispatch(setUsersAC(res))
+            const res = await usersApi.getUsers({
+                page,
+                pageCount,
+                min: null,
+                max: null,
+                sortUsers: null,
+                userName: null
+            })
 
+
+            dispatch(setUsersAC(res))
             dispatch(setStatusApp({status: 'succeeded'}))
         } catch
             (e) {

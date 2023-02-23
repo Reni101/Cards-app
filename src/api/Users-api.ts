@@ -16,7 +16,7 @@ export type ResponseUsersType = {
 }
 
 export type User = {
-    avatar: string
+    avatar?: string
     created: string
     email: string
     isAdmin: boolean
