@@ -11,6 +11,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {learnReducer} from "./Learn-reducer";
 import {chatReducer} from "./Chat-reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {usersReducer} from "./Users-reducer";
 
 
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     Cards: cardsReducer,
     Learn: learnReducer,
     Chat: chatReducer,
+    Users: usersReducer,
 
 })
 
