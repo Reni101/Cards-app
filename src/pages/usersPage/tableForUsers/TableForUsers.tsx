@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../redux/Store";
-import {setUsersTC} from "../../../redux/Users-reducer";
+import {changeUsersPageAC, changeUsersPageCountAC, setUsersTC} from "../../../redux/Users-reducer";
 import {ExampleAnimation} from "../../../common/lottieAnimation/LottieAnimation";
 import {LottieNoSearch} from "../../../common/lottieAnimation/LottieNoSearch/LottieNoSearch";
 import {columnsUsers, createDataUsers, RowsDataUsers, sortTypeUsers} from "./UsersTabelData";
@@ -10,10 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import {columnsPacks} from "../../packsPage/tableForPacks/PacksTabelData";
 import TableCell from "@mui/material/TableCell";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import TableBody from "@mui/material/TableBody";
 import {Paginator} from "../../../common/paginator/Paginator";
 import {TableBodyRowsUsers} from "../tabelForBodyUsers/TableBodyRowsUsers";
@@ -26,6 +23,7 @@ export const TableForUsers = () => {
     const currentPage = useAppSelector(state => state.Users.page)
     const pageCount = useAppSelector(state => state.Users.pageCount)
     const sortUsers = useAppSelector(state => state.Users.sortUsers)
+    const searchName = useAppSelector(state => state.Users.searchName)
     const isLoading = status === 'loading'
     const rows: RowsDataUsers[] = users.map(user => createDataUsers(user.email, user._id, user.name
         , user.publicCardPacksCount, user.avatar))
@@ -36,9 +34,18 @@ export const TableForUsers = () => {
         // dispatch(changeSortPacksAC({sortPacks: val ? `1${columnID}` : `0${columnID}`}))
     }
 
+    const changePageHandler = useCallback((newPage: number) => {
+        dispatch(changeUsersPageAC(newPage))
+    }, [dispatch])
+
+    const changeRowsPerPageHandler = useCallback((rows: number) => {
+        dispatch(changeUsersPageCountAC(rows))
+    }, [dispatch])
+
+
     useEffect(() => {
         dispatch(setUsersTC())
-    }, [])
+    }, [currentPage, pageCount,searchName])
 
 
     if (isLoading) {
@@ -85,10 +92,8 @@ export const TableForUsers = () => {
             <Paginator name={'Количество пользовательей'}
                        cardPacksTotalCount={totalUsers}
                        currentPage={currentPage}
-                       changePage={() => {
-                       }}
-                       changeRows={() => {
-                       }}
+                       changePage={changePageHandler}
+                       changeRows={changeRowsPerPageHandler}
                        pageCount={pageCount}
             />
         </Paper>

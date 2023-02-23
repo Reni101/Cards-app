@@ -27,7 +27,7 @@ export const createDataUsers = (
 }
 
 export const columnsUsers: ColumnUsers[] = [
-    {id: 'avatar', label: 'Cover', minWidth: 100, align: 'left'},
+    {id: 'avatar', label: 'Avatar', minWidth: 100, align: 'left'},
     {id: 'name', label: 'Name', minWidth: 170, align: 'center'},
     {id: 'email', label: 'Email', minWidth: 80, align: 'center'},
     {id: 'publicCardPacksCount', label: 'Public Cards', minWidth: 170, align: 'center'},

@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
     Cards: cardsReducer,
     Learn: learnReducer,
     Chat: chatReducer,
-    Users: usersReducer,
+    Users:usersReducer
 
 })
 

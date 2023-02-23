@@ -4,4 +4,13 @@
     height: 100%;
     margin: 0 auto;
     padding-bottom: 50px;
+    padding-top: 140px;
+}
+
+.go_to_pack_list {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 50;
 }

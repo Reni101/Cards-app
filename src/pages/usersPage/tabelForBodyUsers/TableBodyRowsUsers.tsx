@@ -1,8 +1,10 @@
 import React from 'react';
+import style from "./TableBodyRowsUsers.module.css";
 import {ColumnUsers, RowsDataUsers} from "../tableForUsers/UsersTabelData";
 import {useAppDispatch} from "../../../redux/Store";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
+import defaultAvatar from "../../../assets/default-avatar.png";
 
 type PropsType = {
     row: RowsDataUsers
@@ -14,21 +16,29 @@ export const TableBodyRowsUsers = (props: PropsType) => {
 
     return (
 
-            <TableRow hover role="checkbox" tabIndex={-1}>
-                {props.columns.map((column) => {
-                    return (
-                        <TableCell key={column.id}
-                                   align={column.align}
-                                   onClick={() => {
-                                   }}>
+        <TableRow hover role="checkbox" tabIndex={-1}>
+            {props.columns.map((column) => {
+                return (
+                    <TableCell key={column.id}
+                               align={column.align}>
 
-                        </TableCell>
-                    );
-                })}
-            </TableRow>
+
+                        {column.id === "avatar" &&
+                            <img className={style.avatar}
+                                 src={props.row.avatar ? props.row.avatar : defaultAvatar}
+                                 alt="avatar"
+                            />}
+                        {column.id === "name" && props.row.name}
+                        {column.id === "email" && props.row.email}
+                        {column.id === "publicCardPacksCount" && props.row.publicCardPacksCount}
+                    </TableCell>
+                );
+            })}
+        </TableRow>
 
     );
-};
+}
+    ;
 
 
 // export const TableBodyRowsPacks = (props: PropsType) => {
