@@ -14,9 +14,11 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {Paginator} from "../../../common/paginator/Paginator";
 import {TableBodyRowsUsers} from "../tabelForBodyUsers/TableBodyRowsUsers";
+import {useSearchParams} from "react-router-dom";
 
 export const TableForUsers = () => {
     const dispatch = useAppDispatch()
+    const [searchParams, setSearchParams] = useSearchParams();
     const status = useAppSelector(state => state.App.status)
     const totalUsers = useAppSelector(state => state.Users.usersTotalCount)
     const users = useAppSelector(state => state.Users.users)
@@ -27,7 +29,7 @@ export const TableForUsers = () => {
     const isLoading = status === 'loading'
     const rows: RowsDataUsers[] = users.map(user => createDataUsers(user.email, user._id, user.name
         , user.publicCardPacksCount, user.avatar))
-
+    const searchNameQuery = searchParams.get('searchName') || ""
 
     const sortHandler = (columnID: sortTypeUsers) => {
         const val = sortUsers === ('0' + columnID)
@@ -44,8 +46,10 @@ export const TableForUsers = () => {
 
 
     useEffect(() => {
+        if (searchName !== searchNameQuery) return
+
         dispatch(setUsersTC())
-    }, [currentPage, pageCount,searchName])
+    }, [currentPage, pageCount, searchName])
 
 
     if (isLoading) {

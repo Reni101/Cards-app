@@ -13,7 +13,7 @@ const initialState = {
     minPublicCardPacksCount: 0 as number,
     maxPublicCardPacksCount: 0 as number,
     sortUsers: "" as string,
-    searchName: '' as string
+    searchName: "" as string
 }
 
 const slice = createSlice({

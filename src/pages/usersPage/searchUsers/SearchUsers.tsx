@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import style from './SearchUsers.module.css'
 import {useAppDispatch} from "../../../redux/Store";
 import useDebounce from "../../../hooks/useDebounce";
@@ -6,18 +6,17 @@ import {changeSearchNameAC} from "../../../redux/Users-reducer";
 import {Toolbar} from "@mui/material";
 import {Search, SearchIconWrapper, StyledInputBase} from "../../../common/commonStyles/stylesForSearch";
 import SearchIcon from "@mui/icons-material/Search";
+import {useSearchParams} from "react-router-dom";
 
 export const SearchUsers = () => {
-
     const dispatch = useAppDispatch()
-    const [name, setName] = useState("")
-    const debouncedValue = useDebounce<string>(name, 1000)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchNameQuery = searchParams.get('searchName') || ""
 
-
+    const debouncedValue = useDebounce<string>(searchNameQuery, 1000)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-
-        setName(event.currentTarget.value)
+        setSearchParams({searchName: event.currentTarget.value})
     }
 
 
@@ -40,6 +39,7 @@ export const SearchUsers = () => {
                         inputProps={{'aria-label': 'search'}}
                         onChange={handleChange}
                         className={style.search_input}
+                        value={searchNameQuery}
                     />
                 </Search>
             </Toolbar>
